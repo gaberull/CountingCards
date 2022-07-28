@@ -7,14 +7,12 @@
 
 #include "shoe.hpp"
 #include <vector>
-#include <unordered_map>
 
 class Shoe
 {
 private:
     int _numDecks = 1;
     int _cardsRemaining = 0;
-    std::unordered_map<int, uint8_t> deck;
     std::vector<uint8_t> fullShoe;
     Shoe();     // private default constructor prevents it from being called
     
@@ -25,6 +23,10 @@ public:
     
 };
 
+/**
+ @brief Constructor
+ @param numDecks - number of decks in the shoe
+ */
 Shoe::Shoe(int numDecks): _numDecks(numDecks)
 {
     _cardsRemaining = numDecks * 52;
@@ -97,11 +99,11 @@ Shoe::Shoe(int numDecks): _numDecks(numDecks)
                 break;
         };
         
-            /*
-        if(i%13 == 0) cardMask = 0x10;
-        decks[i] |= cardMask;
-        decks[i] |= suitMask;
-             */
+        // set card and suit
+        fullShoe[i] &= 0x00;
+        fullShoe[i] |= cardMask;
+        fullShoe[i] |= suitMask;
+            
     }
     
     
