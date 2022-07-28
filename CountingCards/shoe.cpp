@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <iostream>
+using namespace std;
 
 class Shoe
 {
@@ -22,7 +23,7 @@ private:
 public:
     Shoe(int numDecks, int cutPoint);
     void shuffle();
-    std::pair<uint8_t, bool> dispenseHand();
+    std::pair<uint8_t, bool> dispenseCard();
     
     
 };
@@ -137,14 +138,21 @@ void Shoe::shuffle()
  @brief returns a pair with the hand, and a flag of whether to end after this hand.
         True means this is the final hand
  */
-std::pair<uint8_t, bool> Shoe::dispenseHand()
+std::pair<uint8_t, bool> Shoe::dispenseCard()
 {
+    std::pair<uint8_t, bool> ret = std::make_pair(0x00, false);
+    
+    int i = rand() % _cardsRemaining;
+    ret.first = fullShoe[i];
+    swap(fullShoe[i], fullShoe[_cardsRemaining-1]);
+    _cardsRemaining--;
+    
+    
     if(_cardsRemaining <= _cutPoint)
     {
-        std::cout << "End of shoe. Time to start a new one! \n";
-        // TODO: set up new game
-        return std::make_pair(0x00, 1);
+        std::cout << "This will be the final hand. We have reached cut card \n";
+        ret.second = true;
     }
-    
+    return ret;
     
 }

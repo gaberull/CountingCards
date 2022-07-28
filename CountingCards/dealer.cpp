@@ -25,8 +25,12 @@ public:
 
 void Dealer::dealHands(Shoe shoe)
 {
+    handArray = std::vector<Hand>();
     for(int i=0; i<_numPlayers+1; i++)
     {
+        Hand currHand = Hand(dispenseCard(), dispenseCard())
+        
+        
         std::pair<uint8_t,bool> hand = std::make_pair(0xFF, 0);
         hand = shoe.dispenseHand();
         std::string handString = Card.getHand(hand.first);
