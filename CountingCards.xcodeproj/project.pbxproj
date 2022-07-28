@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2D558766288F6AA700498BC4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D558765288F6AA700498BC4 /* main.cpp */; };
-		2D55876E288F6AD800498BC4 /* deck.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D55876C288F6AD800498BC4 /* deck.cpp */; };
 		2D558771288F6C9D00498BC4 /* bank.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D55876F288F6C9D00498BC4 /* bank.cpp */; };
 		2D558774288F6EA000498BC4 /* dealer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D558772288F6EA000498BC4 /* dealer.cpp */; };
 		2D55877A288F72E500498BC4 /* shoe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D558778288F72E500498BC4 /* shoe.cpp */; };
@@ -30,8 +29,6 @@
 /* Begin PBXFileReference section */
 		2D558762288F6AA700498BC4 /* CountingCards */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CountingCards; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D558765288F6AA700498BC4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		2D55876C288F6AD800498BC4 /* deck.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = deck.cpp; sourceTree = "<group>"; };
-		2D55876D288F6AD800498BC4 /* deck.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = deck.hpp; sourceTree = "<group>"; };
 		2D55876F288F6C9D00498BC4 /* bank.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bank.cpp; sourceTree = "<group>"; };
 		2D558770288F6C9D00498BC4 /* bank.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = bank.hpp; sourceTree = "<group>"; };
 		2D558772288F6EA000498BC4 /* dealer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = dealer.cpp; sourceTree = "<group>"; };
@@ -73,8 +70,6 @@
 			isa = PBXGroup;
 			children = (
 				2D558765288F6AA700498BC4 /* main.cpp */,
-				2D55876C288F6AD800498BC4 /* deck.cpp */,
-				2D55876D288F6AD800498BC4 /* deck.hpp */,
 				2D55876F288F6C9D00498BC4 /* bank.cpp */,
 				2D558770288F6C9D00498BC4 /* bank.hpp */,
 				2D558772288F6EA000498BC4 /* dealer.cpp */,
@@ -146,7 +141,6 @@
 			files = (
 				2DD1D45A28930B9B008BB6E6 /* hand.cpp in Sources */,
 				2D558774288F6EA000498BC4 /* dealer.cpp in Sources */,
-				2D55876E288F6AD800498BC4 /* deck.cpp in Sources */,
 				2D55877A288F72E500498BC4 /* shoe.cpp in Sources */,
 				2D558766288F6AA700498BC4 /* main.cpp in Sources */,
 				2D558771288F6C9D00498BC4 /* bank.cpp in Sources */,
