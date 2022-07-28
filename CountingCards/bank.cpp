@@ -10,11 +10,13 @@ class Bank
 {
 private:
     unsigned int _balance;
-    
+    Bank();     // private default constructor - can't be called
 public:
+    Bank(int startBalance): _balance(startBalance) { }
     int getBalance() {return _balance; }
-    void setBalance(int value=10000) {_balance = value; }
+    void setBalance(int value) {_balance = value; }
     void addFunds( int value ) {_balance += value; }
+    void removeFunds(int value) {_balance -= value; }
 };
 
 

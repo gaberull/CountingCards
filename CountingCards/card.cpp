@@ -6,4 +6,7 @@
 //
 
 #include "card.hpp"
-
+class card
+{
+    
+}

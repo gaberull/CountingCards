@@ -9,9 +9,18 @@
 class Dealer
 {
 private:
+    int _numPlayers;
     Dealer();
 public:
+    Dealer(int numPlayers): _numPlayers(numPlayers) { }
+    void dealHands();
     
 };
 
-
+void Dealer::dealHands()
+{
+    for(int i=0; i<_numPlayers+1; i++)
+    {
+        
+    }
+}

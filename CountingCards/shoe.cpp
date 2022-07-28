@@ -7,18 +7,22 @@
 
 #include "shoe.hpp"
 #include <vector>
+#include <iostream>
 
 class Shoe
 {
 private:
     int _numDecks = 1;
     int _cardsRemaining = 0;
+    int _cutPoint;
+    int _count = 0;
     std::vector<uint8_t> fullShoe;
     Shoe();     // private default constructor prevents it from being called
     
 public:
-    Shoe(int numDecks);
+    Shoe(int numDecks, int cutPoint);
     void shuffle();
+    void dispenseHand();
     
     
 };
@@ -27,7 +31,7 @@ public:
  @brief Constructor
  @param numDecks - number of decks in the shoe
  */
-Shoe::Shoe(int numDecks): _numDecks(numDecks)
+Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
 {
     _cardsRemaining = numDecks * 52;
     fullShoe = std::vector<uint8_t>(_cardsRemaining, 0);
@@ -103,9 +107,22 @@ Shoe::Shoe(int numDecks): _numDecks(numDecks)
         fullShoe[i] &= 0x00;
         fullShoe[i] |= cardMask;
         fullShoe[i] |= suitMask;
-            
     }
-    
+    // set point at which shoe will be done with
+    switch (cutPoint) {
+        case 0:
+            _cutPoint = _cardsRemaining;
+            break;
+        case 1:
+            _cutPoint = _cardsRemaining * 9 / 10;
+            break;
+        case 2:
+            _cutPoint = _cardsRemaining * 3 / 4;
+            break;
+        case 3:
+            _cutPoint = _cardsRemaining / 2;
+            break;
+    }
     
 }
 /**
@@ -113,5 +130,17 @@ Shoe::Shoe(int numDecks): _numDecks(numDecks)
  */
 void Shoe::shuffle()
 {
+    
+}
+
+void Shoe::dispenseHand()
+{
+    if(_cardsRemaining <= _cutPoint)
+    {
+        std::cout << "End of shoe. Time to start a new one! \n";
+        // TODO: set up new game
+        return;
+    }
+    
     
 }
