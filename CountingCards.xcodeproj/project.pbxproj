@@ -11,8 +11,8 @@
 		2D55876E288F6AD800498BC4 /* deck.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D55876C288F6AD800498BC4 /* deck.cpp */; };
 		2D558771288F6C9D00498BC4 /* bank.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D55876F288F6C9D00498BC4 /* bank.cpp */; };
 		2D558774288F6EA000498BC4 /* dealer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D558772288F6EA000498BC4 /* dealer.cpp */; };
-		2D558777288F703C00498BC4 /* card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D558775288F703C00498BC4 /* card.cpp */; };
 		2D55877A288F72E500498BC4 /* shoe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D558778288F72E500498BC4 /* shoe.cpp */; };
+		2DD1D45A28930B9B008BB6E6 /* hand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1D45828930B9A008BB6E6 /* hand.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,10 +36,10 @@
 		2D558770288F6C9D00498BC4 /* bank.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = bank.hpp; sourceTree = "<group>"; };
 		2D558772288F6EA000498BC4 /* dealer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = dealer.cpp; sourceTree = "<group>"; };
 		2D558773288F6EA000498BC4 /* dealer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = dealer.hpp; sourceTree = "<group>"; };
-		2D558775288F703C00498BC4 /* card.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = card.cpp; sourceTree = "<group>"; };
-		2D558776288F703C00498BC4 /* card.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = card.hpp; sourceTree = "<group>"; };
 		2D558778288F72E500498BC4 /* shoe.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shoe.cpp; sourceTree = "<group>"; };
 		2D558779288F72E500498BC4 /* shoe.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = shoe.hpp; sourceTree = "<group>"; };
+		2DD1D45828930B9A008BB6E6 /* hand.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = hand.cpp; sourceTree = "<group>"; };
+		2DD1D45928930B9A008BB6E6 /* hand.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = hand.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,8 +79,8 @@
 				2D558770288F6C9D00498BC4 /* bank.hpp */,
 				2D558772288F6EA000498BC4 /* dealer.cpp */,
 				2D558773288F6EA000498BC4 /* dealer.hpp */,
-				2D558775288F703C00498BC4 /* card.cpp */,
-				2D558776288F703C00498BC4 /* card.hpp */,
+				2DD1D45828930B9A008BB6E6 /* hand.cpp */,
+				2DD1D45928930B9A008BB6E6 /* hand.hpp */,
 				2D558778288F72E500498BC4 /* shoe.cpp */,
 				2D558779288F72E500498BC4 /* shoe.hpp */,
 			);
@@ -144,11 +144,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DD1D45A28930B9B008BB6E6 /* hand.cpp in Sources */,
 				2D558774288F6EA000498BC4 /* dealer.cpp in Sources */,
 				2D55876E288F6AD800498BC4 /* deck.cpp in Sources */,
 				2D55877A288F72E500498BC4 /* shoe.cpp in Sources */,
 				2D558766288F6AA700498BC4 /* main.cpp in Sources */,
-				2D558777288F703C00498BC4 /* card.cpp in Sources */,
 				2D558771288F6C9D00498BC4 /* bank.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

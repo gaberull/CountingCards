@@ -15,5 +15,8 @@ private:
 public:
     Dealer(int numPlayers): _numPlayers(numPlayers) { }
     void dealHands(Shoe shoe);
+    int compareHands(Hand player, Hand dealer);
     
 };
+
+
