@@ -5,7 +5,7 @@
 //  Created by Gabe Scott on 7/25/22.
 //
 
-#include "shoe.hpp"
+
 #include <vector>
 #include <iostream>
 
@@ -22,7 +22,7 @@ private:
 public:
     Shoe(int numDecks, int cutPoint);
     void shuffle();
-    void dispenseHand();
+    std::pair<uint8_t, bool> dispenseHand();
     
     
 };
@@ -133,13 +133,17 @@ void Shoe::shuffle()
     
 }
 
-void Shoe::dispenseHand()
+/**
+ @brief returns a pair with the hand, and a flag of whether to end after this hand.
+        True means this is the final hand
+ */
+std::pair<uint8_t, bool> Shoe::dispenseHand()
 {
     if(_cardsRemaining <= _cutPoint)
     {
         std::cout << "End of shoe. Time to start a new one! \n";
         // TODO: set up new game
-        return;
+        return std::make_pair(0x00, 1);
     }
     
     

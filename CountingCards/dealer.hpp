@@ -5,9 +5,15 @@
 //  Created by Gabe Scott on 7/25/22.
 //
 
-#ifndef dealer_hpp
-#define dealer_hpp
+#pragma once
 
-#include <stdio.h>
-
-#endif /* dealer_hpp */
+class Dealer
+{
+private:
+    int _numPlayers;
+    Dealer();
+public:
+    Dealer(int numPlayers): _numPlayers(numPlayers) { }
+    void dealHands(Shoe shoe);
+    
+};
