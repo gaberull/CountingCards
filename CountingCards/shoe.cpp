@@ -12,4 +12,6 @@ private:
     int _numDecks = 1;
     // private default constructor prevents it from being called
     Shoe();
+public:
+    
 };
