@@ -26,6 +26,7 @@ public:
 Dealer::Dealer(int numPlayers)
 {
     _numPlayers = numPlayers;
+    handArray = std::vector<Hand>(numPlayers);
 }
 
 std::vector<Hand> Dealer::dealHands(Shoe shoe, Bank playerBank)
@@ -51,6 +52,10 @@ std::vector<Hand> Dealer::dealHands(Shoe shoe, Bank playerBank)
         {
             std::cout << "Dealer has " << currHand.getHand() << std::endl;
             lastRound = shoe.shoeFinished();
+            if(lastRound)
+            {
+                std::cout << "This will be the last hand on this shoe \n";
+            }
         }
                             
     }

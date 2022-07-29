@@ -37,8 +37,9 @@ int main(int argc, const char * argv[]) {
         cin >> cutPoint;
     }
     
-    cout << "number of decks is " << numDecks << endl;
-    cout << "shuffle mark is  " << cutPoint << endl;
+    // Debug info
+    //cout << "number of decks is " << numDecks << endl;
+    //cout << "shuffle mark is  " << cutPoint << endl;
     
     return 0;
 }

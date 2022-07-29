@@ -28,12 +28,21 @@ public:
     int getValue();
     bool isBlackjack();
 };
-
+/*
+ Default Constructor
+ */
 Hand::Hand()
 {
     cardArray = std::vector<char>('0', 2);
     suitArray = std::vector<char>('0', 2);
-}
+    int numCards = 0;
+    bool blackjack = false;
+    bool soft = false;
+    int _value = 0;
+};
+/**
+ Main constructor that will be used
+ */
 Hand::Hand(uint8_t card1, uint8_t card2)
 {
     cardArray = std::vector<char>('0', 2);
@@ -229,6 +238,9 @@ std::pair<int, int> Hand::hit()
     return std::make_pair(0, 0);
 };
 
+/**
+ @return bool | True ==blackjack, false==not blackjack
+ */
 bool Hand::isBlackjack()
 {
     if(numCards == 2)
@@ -245,7 +257,9 @@ bool Hand::isBlackjack()
     return false;
 }
 
-
+/**
+ @return current value of hand (max of 21)
+ */
 int Hand::getValue()
 {
     if(isBlackjack())
