@@ -71,13 +71,18 @@ int main(int argc, const char * argv[]) {
     {
         return 0;
     }
-    
+    cout << "Here we go!!!!! \n";
+    cout << "--------------- \n";
     Shoe shoe(numDecks, cutPoint);
     Bank bank(funds);
     //TODO: Get number of players from user and add functionality for multiple
     // just one player for now
     Dealer dealer(1);
     dealer.dealHands(shoe, funds);
+    cout << "What action would you like to take? \n";
+    cout << "'h' to HIT, 's' to split, 'd' to double, 'dd' to double down, 'q' to quit \n";
+    char action;
+    cin >> action;
     
     
     return 0;

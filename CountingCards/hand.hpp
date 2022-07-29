@@ -27,8 +27,8 @@ class Hand
     
 public:
     Hand();
-    Hand(Hand& diffHand); // Copy constructor
-    Hand(uint8_t& card1, uint8_t& card2);
+    Hand(const Hand& diffHand); // Copy constructor
+    Hand(uint8_t card1, uint8_t card2);
     std::string getHand();
     int hit(Shoe& shoe);
     std::vector<Hand> split(Shoe& shoe);
@@ -36,4 +36,5 @@ public:
     bool isBlackjack();
     // ~Hand() Destructor
     Hand operator= (Hand& diffHand);    // overload equals operator
+    
 };

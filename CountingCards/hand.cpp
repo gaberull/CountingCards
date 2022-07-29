@@ -31,8 +31,8 @@ class Hand
     
 public:
     Hand();
-    Hand(Hand& diffHand); // Copy constructor
-    Hand(uint8_t& card1, uint8_t& card2);
+    Hand(const Hand& diffHand); // Copy constructor
+    Hand(uint8_t card1, uint8_t card2);
     std::string getHand();
     int hit(Shoe& shoe);
     std::vector<Hand> split(Shoe& shoe);
@@ -63,7 +63,7 @@ Hand::Hand()
 /**
  Main constructor that will be used
  */
-Hand::Hand(uint8_t& card1, uint8_t& card2)
+Hand::Hand(uint8_t card1, uint8_t card2)
 {
     _card1 = card1;
     _card2 = card2;
@@ -240,11 +240,11 @@ Hand::Hand(uint8_t& card1, uint8_t& card2)
     {
         splittable = true;
     }
-    else if(cardArray[0] == 'A' && (cardArray[1] == 'T' || cardArray[1] == 'J' || cardArray[1] == 'Q' || cardArray[1] == 'K'))
+    if(cardArray[0] == 'A' && (cardArray[1] == 'T' || cardArray[1] == 'J' || cardArray[1] == 'Q' || cardArray[1] == 'K'))
     {
         blackjack = true;
     }
-    else if(cardArray[1] == 'A' && (cardArray[0] == 'T' || cardArray[0] == 'J' || cardArray[0] == 'Q' || cardArray[0] == 'K'))
+    if(cardArray[1] == 'A' && (cardArray[0] == 'T' || cardArray[0] == 'J' || cardArray[0] == 'Q' || cardArray[0] == 'K'))
     {
         blackjack = true;
     }
@@ -253,17 +253,17 @@ Hand::Hand(uint8_t& card1, uint8_t& card2)
 /**
  Copy constructor
  */
-Hand::Hand(Hand& diffHand)
+Hand::Hand(const Hand& diffHand)
 {
     
-    this->cardArray = diffHand.cardArray;
-    this->suitArray = diffHand.suitArray;
-    this->valueMap = diffHand.valueMap;
-    this->suitMap = diffHand.suitMap;
-    this->numCards = diffHand.numCards;
-    this->blackjack = diffHand.blackjack;
-    this->splittable = diffHand.splittable;
-    this->_value = diffHand._value;
+    cardArray = diffHand.cardArray;
+    suitArray = diffHand.suitArray;
+    valueMap = diffHand.valueMap;
+    suitMap = diffHand.suitMap;
+    numCards = diffHand.numCards;
+    blackjack = diffHand.blackjack;
+    splittable = diffHand.splittable;
+    _value = diffHand._value;
 }
 
 
@@ -346,7 +346,7 @@ std::vector<Hand> Hand::split(Shoe& shoe)
     (*this) = newHand1;
     
     ret[0] = newHand1;
-    ret.push_back(newHand2);
+    ret.emplace_back(newHand2);
     
     return ret;
     
@@ -355,7 +355,7 @@ std::vector<Hand> Hand::split(Shoe& shoe)
 
 Hand Hand::operator= (Hand& diffHand)
 {
-    Hand temp(diffHand);
+    Hand temp(diffHand._card1, diffHand._card2);
     return temp;
                                             /*
     this->cardArray = diffHand.cardArray;
