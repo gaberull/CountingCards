@@ -17,6 +17,8 @@ class Hand
     std::unordered_map<char, int> valueMap; // valueMap doesn't include Ace
     std::unordered_map<uint8_t, char> cardMap;
     std::unordered_map<uint8_t, char> suitMap;
+    uint8_t _card1;
+    uint8_t _card2;
     int numCards = 0;
     bool blackjack = false;
     bool splittable = false;
@@ -25,9 +27,13 @@ class Hand
     
 public:
     Hand();
-    Hand(uint8_t card1, uint8_t card2);
+    Hand(Hand& diffHand); // Copy constructor
+    Hand(uint8_t& card1, uint8_t& card2);
     std::string getHand();
-    int hit(Shoe shoe);
+    int hit(Shoe& shoe);
+    std::vector<Hand> split(Shoe& shoe);
     int getValue();
     bool isBlackjack();
+    // ~Hand() Destructor
+    Hand operator= (Hand& diffHand);    // overload equals operator
 };

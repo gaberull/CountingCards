@@ -5,12 +5,14 @@
 //  Created by Gabe Scott on 7/28/22.
 //
 
-#include "shoe.hpp""
+#include "shoe.hpp"
+#include <iostream>
 #include <cstdlib>
 #include <unordered_map>
 #include <utility>
 #include <string>
 #include <vector>
+using namespace std;
 
 class Hand
 {
@@ -19,6 +21,8 @@ class Hand
     std::unordered_map<char, int> valueMap; // valueMap doesn't include Ace
     std::unordered_map<uint8_t, char> cardMap;
     std::unordered_map<uint8_t, char> suitMap;
+    uint8_t _card1;
+    uint8_t _card2;
     int numCards = 0;
     bool blackjack = false;
     bool splittable = false;
@@ -27,17 +31,24 @@ class Hand
     
 public:
     Hand();
-    Hand(uint8_t card1, uint8_t card2);
+    Hand(Hand& diffHand); // Copy constructor
+    Hand(uint8_t& card1, uint8_t& card2);
     std::string getHand();
-    int hit(Shoe shoe);
+    int hit(Shoe& shoe);
+    std::vector<Hand> split(Shoe& shoe);
     int getValue();
     bool isBlackjack();
+    // ~Hand() Destructor
+    Hand operator= (Hand& diffHand);    // overload equals operator
+    
 };
 /*
  Default Constructor
  */
 Hand::Hand()
 {
+    _card1 = 0x00;
+    _card2 = 0x01;
     cardArray = std::vector<char>('0', 2);
     suitArray = std::vector<char>('0', 2);
     // valuemap doesn't include Ace
@@ -52,8 +63,11 @@ Hand::Hand()
 /**
  Main constructor that will be used
  */
-Hand::Hand(uint8_t card1, uint8_t card2)
+Hand::Hand(uint8_t& card1, uint8_t& card2)
 {
+    _card1 = card1;
+    _card2 = card2;
+    
     cardArray = std::vector<char>('0', 2);
     suitArray = std::vector<char>('0', 2);
     // valuemap doesn't include Ace
@@ -226,7 +240,32 @@ Hand::Hand(uint8_t card1, uint8_t card2)
     {
         splittable = true;
     }
+    else if(cardArray[0] == 'A' && (cardArray[1] == 'T' || cardArray[1] == 'J' || cardArray[1] == 'Q' || cardArray[1] == 'K'))
+    {
+        blackjack = true;
+    }
+    else if(cardArray[1] == 'A' && (cardArray[0] == 'T' || cardArray[0] == 'J' || cardArray[0] == 'Q' || cardArray[0] == 'K'))
+    {
+        blackjack = true;
+    }
 };
+
+/**
+ Copy constructor
+ */
+Hand::Hand(Hand& diffHand)
+{
+    
+    this->cardArray = diffHand.cardArray;
+    this->suitArray = diffHand.suitArray;
+    this->valueMap = diffHand.valueMap;
+    this->suitMap = diffHand.suitMap;
+    this->numCards = diffHand.numCards;
+    this->blackjack = diffHand.blackjack;
+    this->splittable = diffHand.splittable;
+    this->_value = diffHand._value;
+}
+
 
 /**
  @brief get the current makeup of all cards in the hand
@@ -245,11 +284,9 @@ std::string Hand::getHand()
     return ret;
 };
 /**
- @brief hit the handreturns -1 if busted, the hand's value otherwise
- @return possible scores counting aces high and low. if same, only possible one.
-        first in pair is score     |    second in pair is busted or not (1 - true, 2 - false)
+ @brief hit() returns -1 if busted.  The value of the hand otherwise
  */
-int Hand::hit(Shoe shoe)
+int Hand::hit(Shoe& shoe)
 {
     blackjack = false;  // hand is no longer a blackjack or splittable if we are hitting
     splittable = false;
@@ -280,6 +317,59 @@ int Hand::hit(Shoe shoe)
     return _value;
 };
 
+/**
+ @brief Splits a hand containing 2 cards, both of same symbol. Suit doesn't matter.
+ */
+std::vector<Hand> Hand::split(Shoe& shoe)
+{
+    //create new vector of hands containing this hand
+    std::vector<Hand> ret(1, *this);
+    // check size on return. If hand can't be split, the return vector will be only size 1
+    if(!splittable)
+    {
+        cout << "Hand can only have 2 of same card to split \n";
+        return ret;
+    }
+    if(numCards != 2)
+    {
+        cout << "Hand can only have 2 of same card to split \n";
+        return ret;
+    }
+    
+    // Create two whole new hands using constructor w/ 2 card arguments
+    uint8_t newCard1 = shoe.dealCard();
+    Hand newHand1(this->_card1, newCard1);
+    
+    uint8_t newCard2 = shoe.dealCard();
+    Hand newHand2(this->_card2, newCard2);
+    
+    (*this) = newHand1;
+    
+    ret[0] = newHand1;
+    ret.push_back(newHand2);
+    
+    return ret;
+    
+}
+                                                
+
+Hand Hand::operator= (Hand& diffHand)
+{
+    Hand temp(diffHand);
+    return temp;
+                                            /*
+    this->cardArray = diffHand.cardArray;
+    this->suitArray = diffHand.cardArray;
+    this->valueMap = diffHand.valueMap;
+    this->suitMap = diffHand.suitMap;
+    this->numCards = diffHand.numCards;
+    this->blackjack = diffHand.blackjack;
+    this->splittable = diffHand.splittable;
+    this->_value = diffHand._value;
+    return (*this);
+                                            */
+}
+                                                    
 /**
  @return bool | True ==blackjack, false==not blackjack
  */
