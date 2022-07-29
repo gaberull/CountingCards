@@ -218,14 +218,15 @@ Hand::Hand(uint8_t card1, uint8_t card2)
  */
 std::string Hand::getHand()
 {
-    std::string ret = "";
-    for(int i=0; i<cardArray.size(); i++)
+    std::string ret = "| ";
+    
+    for(int i=0; i<numCards; i++)
     {
         ret.push_back(cardArray[i]);
         ret.push_back(suitArray[i]);
-        if(i <cardArray.size()-1) ret.push_back(' ');
-        
+        ret.push_back(' ');
     }
+    ret.push_back('|');
     return ret;
 };
 /**

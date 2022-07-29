@@ -41,26 +41,43 @@ int main(int argc, const char * argv[]) {
     }
     
     // Starting player balance
-    int playerFunds = -1;
+    int funds = -1;
     cout << "Enter starting player funds from 100 to 1,000 \n";
-    cin >> playerFunds;
-    while(!cin || playerFunds < 0 || playerFunds > 3)
+    cin >> funds;
+    while(!cin || funds < 100 || funds > 1000)
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Wrong Input. Enter a number between 100 and 1,000 \n";
-        cin >> playerFunds;
+        cin >> funds;
     }
     // Debug info
     //cout << "number of decks is " << numDecks << endl;
     //cout << "shuffle mark is  " << cutPoint << endl;
     
     // Create shoe and player bank, and pass them to dealer in constructor
+    cout << "Ready to Play??? Hit 'y' to start or 'q' to quit \n";
+    char start = 'n';
+    cin >> start;
+    while(!cin || (start != 'y' && start != 'q' && start != 'Y' && start != 'Q'))
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Wrong Input. Enter 'y' to start or 'q' to quit \n";
+        cin >> start;
+    }
+    
+    if(start == 'q' || start == 'Q')
+    {
+        return 0;
+    }
+    
     Shoe shoe(numDecks, cutPoint);
-    Bank bank(playerFunds);
+    Bank bank(funds);
     //TODO: Get number of players from user and add functionality for multiple
     // just one player for now
-    Dealer(1);
+    Dealer dealer(1);
+    dealer.dealHands(shoe, funds);
     
     
     return 0;
