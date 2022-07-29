@@ -14,16 +14,26 @@ class Hand
 {
     std::vector<char> cardArray;
     std::vector<char> suitArray;
+    int numCards = 0;
     bool blackjack = false;
     bool soft = false;
     int _value = 0;
-    Hand();
+    
+    
 public:
+    Hand();
     Hand(uint8_t card1, uint8_t card2);
     std::string getHand();
     std::pair<int,int> hit();
+    int getValue();
+    bool isBlackjack();
 };
 
+Hand::Hand()
+{
+    cardArray = std::vector<char>('0', 2);
+    suitArray = std::vector<char>('0', 2);
+}
 Hand::Hand(uint8_t card1, uint8_t card2)
 {
     cardArray = std::vector<char>('0', 2);
@@ -190,6 +200,8 @@ Hand::Hand(uint8_t card1, uint8_t card2)
         default:
             break;
     }
+    
+    numCards = 2;
 };
 
 /**
@@ -210,9 +222,37 @@ std::string Hand::getHand()
 /**
  @brief hit the handreturns 1 if busted, false otherwise
  @return possible scores counting aces high and low. if same, only possible one.
+        first in pair is score     |    second in pair is busted or not (1 - true, 2 - false)
  */
 std::pair<int, int> Hand::hit()
 {
     return std::make_pair(0, 0);
 };
 
+bool Hand::isBlackjack()
+{
+    if(numCards == 2)
+    {
+        if(cardArray[0] == 'A' && (cardArray[1] == 'T' || cardArray[1] == 'J' || cardArray[1] == 'Q' || cardArray[1] == 'K'))
+        {
+            return true;
+        }
+        if(cardArray[1] == 'A' && (cardArray[0] == 'T' || cardArray[0] == 'J' || cardArray[0] == 'Q' || cardArray[0] == 'K'))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+int Hand::getValue()
+{
+    if(isBlackjack())
+    {
+        return 21;
+    }
+    
+    //TODO: finish this return value
+    return 0;
+}

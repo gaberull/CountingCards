@@ -20,17 +20,17 @@ private:
 public:
     Dealer(int numPlayers);
     std::vector<Hand> dealHands(Shoe shoe, Bank playerBank);
-    int compareHands(Hand player, Hand dealer);
+    //int compareHands(Hand player, Hand dealer);
     
 };
 Dealer::Dealer(int numPlayers)
 {
     _numPlayers = numPlayers;
-    handArray = std::vector<Hand>(_numPlayers+1);
 }
 
 std::vector<Hand> Dealer::dealHands(Shoe shoe, Bank playerBank)
 {
+    
     handArray = std::vector<Hand>(_numPlayers+1);
     bool lastRound = false;
     // vector of player hands. User will be zero, dealer will be _numPlayers
@@ -54,10 +54,16 @@ std::vector<Hand> Dealer::dealHands(Shoe shoe, Bank playerBank)
         }
                             
     }
+    
+    // TODO: add functionality for multiple computer players
+    //compareHands(handArray[0], handArray[_numPlayers]);
+    
     return handArray;
+    
 }
-
+                                                        /*
 int Dealer::compareHands(Hand player, Hand dealer)
 {
     
 }
+                                                        */

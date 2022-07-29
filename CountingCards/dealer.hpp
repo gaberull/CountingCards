@@ -16,7 +16,7 @@ private:
 public:
     Dealer(int numPlayers);
     std::vector<Hand> dealHands(Shoe shoe, Bank playerBank);
-    int compareHands(Hand player, Hand dealer);
+    //int compareHands(Hand player, Hand dealer);
     
 };
 

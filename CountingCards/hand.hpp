@@ -13,12 +13,17 @@ class Hand
 {
     std::vector<char> cardArray;
     std::vector<char> suitArray;
+    int numCards = 0;
     bool blackjack = false;
     bool soft = false;
     int _value = 0;
-    Hand();
+    
+    
 public:
+    Hand();
     Hand(uint8_t card1, uint8_t card2);
     std::string getHand();
     std::pair<int,int> hit();
+    int getValue();
+    bool isBlackjack();
 };
