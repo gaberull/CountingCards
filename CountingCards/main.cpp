@@ -56,22 +56,21 @@ int main(int argc, const char * argv[]) {
     //cout << "shuffle mark is  " << cutPoint << endl;
     
     // Create shoe and player bank, and pass them to dealer in constructor
-    cout << "Ready to Play??? Hit 'y' to start or 'q' to quit \n";
-    char start = 'n';
-    cin >> start;
-    while(!cin || (start != 'y' && start != 'q' && start != 'Y' && start != 'Q'))
+    char bet[10];
+    cout << "Ready to Play??? Input bet to play (\"100\") to start or 'q' to quit \n";
+    cin >> bet;
+    while(!cin || bet[0] < '0' || bet[0] > '9')
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Wrong Input. Enter 'y' to start or 'q' to quit \n";
-        cin >> start;
+        cout << "Wrong Input. Enter number to bet or 'q' to quit \n";
+        cin >> bet;
+        if(bet[0] == 'q' || bet[0] == 'Q') return 0;
     }
     
-    if(start == 'q' || start == 'Q')
-    {
-        return 0;
-    }
-    cout << "Here we go!!!!! \n";
+    cout << "Here we go!!!!!!!! Good Luck! \n";
+    cout << "--------------- \n";
+    cout << "PLAYER WAGERS "<< bet << endl;
     cout << "--------------- \n";
     Shoe shoe(numDecks, cutPoint);
     Bank bank(funds);
@@ -80,7 +79,8 @@ int main(int argc, const char * argv[]) {
     Dealer dealer(1);
     dealer.dealHands(shoe, funds);
     cout << "What action would you like to take? \n";
-    cout << "'h' to HIT, 's' to split, 'd' to double, 'dd' to double down, 'q' to quit \n";
+    cout << "'h' to HIT, 's' to split, 'd' to double, '2' to double down, 'q' to quit \n";
+    cout << "'m' for Strategy Hint, 'c' to get current value of yours/dealers hands \n";
     char action;
     cin >> action;
     
