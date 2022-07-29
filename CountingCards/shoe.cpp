@@ -17,13 +17,15 @@ private:
     int _cardsRemaining = 0;
     int _cutPoint;
     int _count = 0;
+    bool _endOfShoe = false;
     std::vector<uint8_t> fullShoe;
     Shoe();     // private default constructor prevents it from being called
     
 public:
     Shoe(int numDecks, int cutPoint);
     void shuffle();
-    std::pair<uint8_t, bool> dispenseCard();
+    uint8_t dealCard();
+    bool shoeFinished();
     
     
 };
@@ -138,21 +140,25 @@ void Shoe::shuffle()
  @brief returns a pair with the hand, and a flag of whether to end after this hand.
         True means this is the final hand
  */
-std::pair<uint8_t, bool> Shoe::dispenseCard()
+uint8_t Shoe::dealCard()
 {
-    std::pair<uint8_t, bool> ret = std::make_pair(0x00, false);
+    uint8_t ret = 0x00;
     
     int i = rand() % _cardsRemaining;
-    ret.first = fullShoe[i];
+    ret = fullShoe[i];
     swap(fullShoe[i], fullShoe[_cardsRemaining-1]);
     _cardsRemaining--;
     
     
     if(_cardsRemaining <= _cutPoint)
     {
-        std::cout << "This will be the final hand. We have reached cut card \n";
-        ret.second = true;
+        _endOfShoe = true;
     }
     return ret;
     
+}
+
+bool Shoe::shoeFinished()
+{
+    return _endOfShoe;
 }

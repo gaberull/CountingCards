@@ -21,5 +21,6 @@ private:
 public:
     Shoe(int numDecks, int cutPoint);
     void shuffle();
-    std::pair<uint8_t, bool> dispenseCard();
+    uint8_t dealCard();
+    bool shoeFinished();
 };

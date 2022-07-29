@@ -8,6 +8,7 @@
 
 #include "shoe.hpp"
 #include "hand.hpp"
+#include "bank.hpp"
 #include <iostream>
 
 class Dealer
@@ -17,36 +18,43 @@ private:
     std::vector<Hand> handArray;
     Dealer();
 public:
-    Dealer(int numPlayers): _numPlayers(numPlayers) { }
-    void dealHands(Shoe shoe);
+    Dealer(int numPlayers);
+    std::vector<Hand> dealHands(Shoe shoe, Bank playerBank);
     int compareHands(Hand player, Hand dealer);
     
 };
-
-void Dealer::dealHands(Shoe shoe)
+Dealer::Dealer(int numPlayers)
 {
-    handArray = std::vector<Hand>();
+    _numPlayers = numPlayers;
+    handArray = std::vector<Hand>(_numPlayers+1);
+}
+
+std::vector<Hand> Dealer::dealHands(Shoe shoe, Bank playerBank)
+{
+    handArray = std::vector<Hand>(_numPlayers+1);
+    bool lastRound = false;
+    // vector of player hands. User will be zero, dealer will be _numPlayers
+    
     for(int i=0; i<_numPlayers+1; i++)
     {
-        Hand currHand = Hand(dispenseCard(), dispenseCard())
-        
-        
-        std::pair<uint8_t,bool> hand = std::make_pair(0xFF, 0);
-        hand = shoe.dispenseHand();
-        std::string handString = Card.getHand(hand.first);
-        if(i == _numPlayers)
+        // deal two cards to every player and dealer
+        Hand currHand = Hand(shoe.dealCard(), shoe.dealCard());
+        handArray[i] = currHand;
+        // we are on the user
+        if(i == 0)
         {
-            std::cout << "Dealer has " << handString << std::endl;
+            std::cout << "You have " << currHand.getHand() << std::endl;
+            
         }
-        else if(i == 0)
+        // if we are on dealer
+        else if(i == _numPlayers)
         {
-            std::cout << "You have " << handString << std::endl;
+            std::cout << "Dealer has " << currHand.getHand() << std::endl;
+            lastRound = shoe.shoeFinished();
         }
-        else
-        {
-            std::cout << "Player " << i+1 << " has " << handString << std::endl;
-        }
+                            
     }
+    return handArray;
 }
 
 int Dealer::compareHands(Hand player, Hand dealer)

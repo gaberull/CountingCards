@@ -5,7 +5,6 @@
 //  Created by Gabe Scott on 7/28/22.
 //
 
-#include "hand.hpp"
 #include <cstdlib>
 #include <utility>
 #include <string>
@@ -214,6 +213,6 @@ std::string Hand::getHand()
  */
 std::pair<int, int> Hand::hit()
 {
-    
+    return std::make_pair(0, 0);
 };
 

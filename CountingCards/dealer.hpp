@@ -11,10 +11,11 @@ class Dealer
 {
 private:
     int _numPlayers;
+    std::vector<Hand> handArray;
     Dealer();
 public:
-    Dealer(int numPlayers): _numPlayers(numPlayers) { }
-    void dealHands(Shoe shoe);
+    Dealer(int numPlayers);
+    std::vector<Hand> dealHands(Shoe shoe, Bank playerBank);
     int compareHands(Hand player, Hand dealer);
     
 };
