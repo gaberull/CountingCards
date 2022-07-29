@@ -6,6 +6,7 @@
 //
 
 #include <cstdlib>
+#include <unordered_map>
 #include <utility>
 #include <string>
 #include <vector>
@@ -14,9 +15,9 @@ class Hand
 {
     std::vector<char> cardArray;
     std::vector<char> suitArray;
+    std::unordered_map<char, int> valueMap; // valueMap doesn't include Ace
     int numCards = 0;
     bool blackjack = false;
-    bool soft = false;
     int _value = 0;
     
     
@@ -35,9 +36,10 @@ Hand::Hand()
 {
     cardArray = std::vector<char>('0', 2);
     suitArray = std::vector<char>('0', 2);
+    // valuemap doesn't include Ace
+    valueMap = {{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'7',7},{'8',8},{'9',9},{'T',10},{'J',10},{'Q',10},{'K',10}};
     int numCards = 0;
     bool blackjack = false;
-    bool soft = false;
     int _value = 0;
 };
 /**
@@ -47,6 +49,8 @@ Hand::Hand(uint8_t card1, uint8_t card2)
 {
     cardArray = std::vector<char>('0', 2);
     suitArray = std::vector<char>('0', 2);
+    // valuemap doesn't include Ace
+    valueMap = {{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'7',7},{'8',8},{'9',9},{'T',10},{'J',10},{'Q',10},{'K',10}};
     
     uint8_t rank1 = card1 >> 4;
     uint8_t suit1 = card1 & 0x0F;
@@ -54,7 +58,6 @@ Hand::Hand(uint8_t card1, uint8_t card2)
         case 0x01:
             cardArray[0] = 'A';
             _value += 11;
-            soft = true;
             break;
         case 0x02:
             cardArray[0] = '2';
@@ -131,14 +134,13 @@ Hand::Hand(uint8_t card1, uint8_t card2)
     switch (rank2) {
         case 0x01:
             cardArray[1] = 'A';
-            if(soft)
+            if(_value <=10)
             {
-                _value +=1;
+                _value +=11;
             }
             else
             {
-                _value += 11;
-                soft = true;
+                _value += 1;
             }
             break;
         case 0x02:
@@ -268,6 +270,6 @@ int Hand::getValue()
         return 21;
     }
     
-    //TODO: finish this return value
-    return 0;
+    return _value;
+    
 }

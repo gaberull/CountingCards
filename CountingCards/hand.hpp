@@ -13,9 +13,9 @@ class Hand
 {
     std::vector<char> cardArray;
     std::vector<char> suitArray;
+    std::unordered_map<char, int> valueMap; // valueMap doesn't include Ace
     int numCards = 0;
     bool blackjack = false;
-    bool soft = false;
     int _value = 0;
     
     
