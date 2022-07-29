@@ -10,7 +10,7 @@ Who doesn't love a good game of blackjack? ***CountingCards*** helps the player 
 - Add funds to player bank as desired
 - Request optimal play at any point based on blackjack basic strategy
 - Check your own count of the shoe against the true count, kept by CountingCards
-- - TODO: *Finish these features (7/29/22)*
+- TODO: *Finish these features (7/29/22)*
 
 
 Source files are in ./CountingCards/
