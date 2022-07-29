@@ -16,7 +16,7 @@ public:
     int getBalance() {return _balance; }
     void setBalance(int value) {_balance = value; }
     void addFunds( int value ) {_balance += value; }
-    void removeFunds(int value) {_balance -= value; }
+    void removeFunds(int value) {(_balance-value<=0) ? _balance=0 : _balance-=value; }
 };
 
 

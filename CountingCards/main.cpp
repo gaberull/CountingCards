@@ -59,6 +59,7 @@ int main(int argc, const char * argv[]) {
     char bet[10];
     cout << "Ready to Play??? Input bet to play (\"100\") to start or 'q' to quit \n";
     cin >> bet;
+    if(bet[0] == 'q' || bet[0] == 'Q') return 0;
     while(!cin || bet[0] < '0' || bet[0] > '9')
     {
         cin.clear();
@@ -79,8 +80,8 @@ int main(int argc, const char * argv[]) {
     Dealer dealer(1);
     dealer.dealHands(shoe, funds);
     cout << "What action would you like to take? \n";
-    cout << "'h' to HIT, 's' to split, 'd' to double, '2' to double down, 'q' to quit \n";
-    cout << "'m' for Strategy Hint, 'c' to get current value of yours/dealers hands \n";
+    cout << "'h' to HIT, 's' to split, 'd' to double, '2' to double down, 'r' for rules \n";
+    cout << "'m' for Strategy Hint, 'c' to get current running count \n";
     char action;
     cin >> action;
     

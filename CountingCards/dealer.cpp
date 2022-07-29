@@ -6,10 +6,12 @@
 //
 
 
+#include <iostream>
 #include "shoe.hpp"
 #include "hand.hpp"
 #include "bank.hpp"
 #include <iostream>
+using namespace std;
 
 class Dealer
 {
@@ -20,7 +22,7 @@ private:
 public:
     Dealer(int numPlayers);
     std::vector<Hand> dealHands(Shoe shoe, Bank playerBank);
-    //int compareHands(Hand player, Hand dealer);
+    int hit(int bet, Hand playerHand, Shoe shoe, Bank playerBank);
 };
 
 Dealer::Dealer(int numPlayers)
@@ -66,9 +68,30 @@ std::vector<Hand> Dealer::dealHands(Shoe shoe, Bank playerBank)
     return handArray;
     
 }
-                                                        /*
-int Dealer::compareHands(Hand player, Hand dealer)
+  
+// TODO: FINISH this and change up function signature probably
+int Dealer::hit(int bet, Hand playerHand, Shoe shoe, Bank playerBank)
 {
+    cout << "Dealer::hit() - Hitting player's hand \n";
+    int newValue = playerHand.hit(shoe);
+    if(newValue < 0)
+    {
+        "Dealer:: Player busts. You have lost your bet \n";
+        playerBank.removeFunds(bet);
+        return 0;
+        
+    }
+    else if(playerHand.isBlackjack())
+    {
+        "Dealer:: BLACKJACK!! Blackjack pays 3:2 \n";
+        playerBank.addFunds(bet*3/2);
+        return 2;
+    }
+    
+    //TODO: finish
+    
+    return -1;
+    
     
 }
-                                                        */
+                                                        
