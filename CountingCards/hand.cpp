@@ -5,6 +5,7 @@
 //  Created by Gabe Scott on 7/28/22.
 //
 
+#include "shoe.hpp""
 #include <cstdlib>
 #include <unordered_map>
 #include <utility>
@@ -16,8 +17,11 @@ class Hand
     std::vector<char> cardArray;
     std::vector<char> suitArray;
     std::unordered_map<char, int> valueMap; // valueMap doesn't include Ace
+    std::unordered_map<uint8_t, char> cardMap;
+    std::unordered_map<uint8_t, char> suitMap;
     int numCards = 0;
     bool blackjack = false;
+    bool splittable = false;
     int _value = 0;
     
     
@@ -25,7 +29,7 @@ public:
     Hand();
     Hand(uint8_t card1, uint8_t card2);
     std::string getHand();
-    std::pair<int,int> hit();
+    int hit(Shoe shoe);
     int getValue();
     bool isBlackjack();
 };
@@ -38,9 +42,12 @@ Hand::Hand()
     suitArray = std::vector<char>('0', 2);
     // valuemap doesn't include Ace
     valueMap = {{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'7',7},{'8',8},{'9',9},{'T',10},{'J',10},{'Q',10},{'K',10}};
-    int numCards = 0;
-    bool blackjack = false;
-    int _value = 0;
+    cardMap = { {0x01,'A'}, {0x02,'2'},{0x03,'3'},{0x04,'4'},{0x05,'5'},{0x06,'6'},{0x07,'7'},{0x08,'8'},{0x09,'9'},{0x0A,'T'},{0x0B,'J'},{0x0C,'Q'},{0x0D,'K'} };
+    // Spades, Clubs, Hearts, Diamonds
+    suitMap = { {0x01,'S'},{0x02,'C'},{0x03,'H'},{0x04,'D'} };
+    numCards = 0;
+    blackjack = false;
+    _value = 0;
 };
 /**
  Main constructor that will be used
@@ -51,6 +58,9 @@ Hand::Hand(uint8_t card1, uint8_t card2)
     suitArray = std::vector<char>('0', 2);
     // valuemap doesn't include Ace
     valueMap = {{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'7',7},{'8',8},{'9',9},{'T',10},{'J',10},{'Q',10},{'K',10}};
+    cardMap = { {0x01, 'A'}, {0x02, '2'},{0x03, '3'},{0x04, '4'},{0x05, '5'},{0x06, '6'},{0x07, '7'},{0x08, '8'},{0x09, '9'},{0x0A, 'T'},{0x0B, 'J'},{0x0C, 'Q'},{0x0D, 'K'} };
+    // Spades, Clubs, Hearts, Diamonds
+    suitMap = { {0x01,'S'},{0x02,'C'},{0x03,'H'},{0x04,'D'} };
     
     uint8_t rank1 = card1 >> 4;
     uint8_t suit1 = card1 & 0x0F;
@@ -211,8 +221,11 @@ Hand::Hand(uint8_t card1, uint8_t card2)
         default:
             break;
     }
-    
     numCards = 2;
+    if(cardArray[0]==cardArray[1])
+    {
+        splittable = true;
+    }
 };
 
 /**
@@ -232,13 +245,39 @@ std::string Hand::getHand()
     return ret;
 };
 /**
- @brief hit the handreturns 1 if busted, false otherwise
+ @brief hit the handreturns -1 if busted, the hand's value otherwise
  @return possible scores counting aces high and low. if same, only possible one.
         first in pair is score     |    second in pair is busted or not (1 - true, 2 - false)
  */
-std::pair<int, int> Hand::hit()
+int Hand::hit(Shoe shoe)
 {
-    return std::make_pair(0, 0);
+    blackjack = false;  // hand is no longer a blackjack or splittable if we are hitting
+    splittable = false;
+    numCards++;
+    
+    uint8_t card = shoe.dealCard();
+    char cardSymbol = cardMap[card>>4];
+    cardArray.push_back(cardSymbol);
+    char suit = suitMap[card&0x0F];
+    suitArray.push_back(suit);
+    int value = 0;  // value of card received while hitting
+    
+    // if our card is not an Ace
+    if(valueMap.find(cardSymbol)!=valueMap.end())
+    {
+        value = valueMap[cardSymbol];
+    }
+    else    // our card is an Ace. Check current value of hand
+    {
+        (_value <= 10) ? value = 11 : value = 1;
+    }
+    
+    _value += value;
+    if(_value > 21)
+    {
+        return -1;
+    }
+    return _value;
 };
 
 /**
@@ -265,11 +304,5 @@ bool Hand::isBlackjack()
  */
 int Hand::getValue()
 {
-    if(isBlackjack())
-    {
-        return 21;
-    }
-    
     return _value;
-    
 }
