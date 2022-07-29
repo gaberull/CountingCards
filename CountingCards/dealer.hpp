@@ -6,6 +6,7 @@
 //
 
 #pragma once
+#include "hand.hpp"
 
 class Dealer
 {
