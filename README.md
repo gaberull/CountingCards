@@ -21,4 +21,6 @@ Who doesn't love a good game of blackjack? ***CountingCards*** helps the player 
 - Aces can be worth 11 or 1 at the player's discretion. (In CountingCards, the optimal of the two is automatically awarded)
 - Pairs can be split by matching the size of the original bet. They then become two hands.
 
+For more information about blackjack rules see [Bicycle's Blackjack Rules](https://bicyclecards.com/how-to-play/blackjack/).
+
 *Source files are in ./CountingCards/*
