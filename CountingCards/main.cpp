@@ -16,7 +16,7 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     cout << "Let's Play some Blackjack!! \n";
-    cout << "Enter number of decks between 1 and 8 to play! \n";
+    cout << "\nEnter number of decks between 1 and 8 to play! \n";
     int numDecks = 0;
     cin >> numDecks;
     while(!cin || numDecks < 1 || numDecks > 8)
@@ -28,7 +28,7 @@ int main(int argc, const char * argv[]) {
     }
     
     int cutPoint = -1;
-    cout << "Choose point where shoe is reshuffled (cut card location)\n";
+    cout << "\nChoose point where shoe is reshuffled (cut card location)\n";
     cout << "Enter 0 to play full shoe, 1 for 90%, 2 for 75%, 3 for 50% \n";
     cin >> cutPoint;
     while(!cin || cutPoint < 0 || cutPoint > 3)
@@ -42,7 +42,7 @@ int main(int argc, const char * argv[]) {
     
     // Starting player balance
     int funds = -1;
-    cout << "Enter starting player funds from 100 to 1,000 \n";
+    cout << "\nEnter starting player funds from 100 to 1,000 \n";
     cin >> funds;
     while(!cin || funds < 100 || funds > 1000)
     {
@@ -57,7 +57,7 @@ int main(int argc, const char * argv[]) {
     
     // Create shoe and player bank, and pass them to dealer in constructor
     char bet[10];
-    cout << "Ready to Play??? Input bet to play (\"100\") to start or 'q' to quit \n";
+    cout << "\nReady to Play??? Input bet to play (i.e. \"155\") to start or 'q' to quit \n";
     cin >> bet;
     if(bet[0] == 'q' || bet[0] == 'Q') return 0;
     while(!cin || bet[0] < '0' || bet[0] > '9')
@@ -72,20 +72,22 @@ int main(int argc, const char * argv[]) {
     
     bet_int = (int) stol(bet);
     //cout << "bet_int is " << bet_int << "\n";
-    
-    cout << "Here we go!!!!!!!! Good Luck! \n";
-    cout << "----------------------------- \n \n";
-    cout << "PLAYER BETS "<< bet << endl;
-    cout << "----------------------------- \n \n";
     Shoe shoe(numDecks, cutPoint);
     Bank bank(funds);
+    
+    cout << "\n Here we go!!!!!!!! Good Luck! \n";
+    cout << "_____________________________ \n \n";
+    cout << "| BANKROLL     : $"<< bank.getBalance() <<" \n";
+    cout << "| CURRENT BET  : $"<< bet << "  \n";
+    cout << "----------------------------- \n \n";
+    
     //TODO: Get number of players from user and add functionality for multiple
     // just one player for now
     Dealer dealer(1);
     dealer.dealHands(shoe, funds, bet_int);
-    cout << "What action would you like to take? \n";
-    cout << "'s' - stand pat | 'h' - hit | 's' - split | 'd' - double down  \n";
-    cout << "'m' - Strategy Hint | 'c' - get current running count | 'r' - list rules \n";
+    cout << "**  What action would you like to take?  **\n\n";
+    cout << "||  'h' - hit           |  'p' - stand pat                  |  's' - split       |  'd' - double down  ||\n";
+    cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n";
     char action;
     cin >> action;
     

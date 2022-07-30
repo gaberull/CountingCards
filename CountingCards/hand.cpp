@@ -294,7 +294,7 @@ std::string Hand::displayOne()
     std::string ret = "| ";
     ret.push_back(cardArray[0]);
     ret.push_back(suitArray[0]);
-    ret.append(" |");
+    ret.append("    |");
     return ret;
 }
 /**

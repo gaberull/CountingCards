@@ -49,14 +49,14 @@ std::vector<Hand> Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
         // we are on the user
         if(i == 0)
         {
-            std::cout << "You have:           " << currHand.getHand() << std::endl;
+            std::cout << "Your cards     :     " << currHand.getHand() << std::endl;
             blackjack = currHand.isBlackjack();
             
         }
         // if we are on dealer
         else if(i == _numPlayers)
         {
-            std::cout << "Dealer shows:       " << currHand.displayOne() << "\n \n";
+            std::cout << "Dealer shows   :     " << currHand.displayOne() << "\n \n";
             dealerBlackjack = currHand.isBlackjack();
             lastRound = shoe.shoeFinished();
             if(lastRound)
@@ -80,7 +80,7 @@ std::vector<Hand> Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
         }
         else
         {
-            cout << "CONGRATS!!!! You have a BLACKJACK!! This pays 3:2!! \n";
+            cout << "****   CONGRATS!!!! You have a BLACKJACK!! It pays 3:2!!   ****\n\n";
             //Pay out 3:2 to playerBank
             playerBank.payBlackjack(bet);
         }
