@@ -16,7 +16,7 @@ private:
     Dealer();
 public:
     Dealer(int numPlayers);
-    std::vector<Hand> dealHands(Shoe shoe, Bank playerBank, int bet);
+    int dealHands(Shoe shoe, Bank playerBank, int bet);
     int hit(int bet, Shoe shoe, Bank playerBank);
 };
                                         

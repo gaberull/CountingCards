@@ -21,7 +21,7 @@ private:
     Dealer();
 public:
     Dealer(int numPlayers);
-    std::vector<Hand> dealHands(Shoe shoe, Bank playerBank, int bet);
+    int dealHands(Shoe shoe, Bank playerBank, int bet);
     int hit(int bet, Shoe shoe, Bank playerBank);
 };
                                                      
@@ -32,20 +32,26 @@ Dealer::Dealer(int numPlayers)
     handArray = std::vector<Hand>(numPlayers);
 }
 
-std::vector<Hand> Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
+/**
+    @returns 1 if hand is incomplete
+             0 if hand is finished
+            - 1 if something has gone wrong
+ */
+int Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
 {
     
-    handArray = std::vector<Hand>(_numPlayers+1);
+    (*this).handArray = std::vector<Hand>();
     bool lastRound = false;
     bool blackjack = false;
     bool dealerBlackjack = false;
+    Hand* dealerHand;
     // vector of player hands. User will be zero, dealer will be _numPlayers
     
     for(int i=0; i<_numPlayers+1; i++)
     {
         // deal two cards to every player and dealer
         Hand currHand = Hand(shoe.dealCard(), shoe.dealCard());
-        handArray[i] = currHand;
+        handArray.push_back(currHand);
         // we are on the user
         if(i == 0)
         {
@@ -57,6 +63,8 @@ std::vector<Hand> Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
         else if(i == _numPlayers)
         {
             std::cout << "Dealer shows   :     " << currHand.displayOne() << "\n \n";
+            // TODO: overloaded operator= not working
+            dealerHand = new Hand(currHand);
             dealerBlackjack = currHand.isBlackjack();
             lastRound = shoe.shoeFinished();
             if(lastRound)
@@ -68,44 +76,77 @@ std::vector<Hand> Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
     }
     if(dealerBlackjack && !blackjack)
     {
-        cout << "Dealer Has:       " << handArray[_numPlayers].getHand() << "\n";
+        cout << "Dealer Has:       " << dealerHand->getHand() << "\n";
         cout << "That lucky buffoon has BLACKJACK.. Got us this time.. \n\n";
         playerBank.removeFunds(bet);
         cout << "_____________________________ \n \n";
         cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
         cout << "----------------------------- \n \n";
+        
+        cout << "\nInput 'c' to continue \n";
+        char temp;
+        cin >> temp;
+        while(!cin || (temp != 'c' && temp != 'C'))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
+            cin >> temp;
+        }
+        delete dealerHand;
+        return 0;
     }
     if(blackjack)
     {
-        if(handArray[_numPlayers].isBlackjack())
+        
+        if(dealerBlackjack)
         {
             cout << "OH NO!!!! You have BLACKJACK, BUT so does the dealer! :(  This round is a push! \n";
-        }
-        else
-        {
-            cout << "****   CONGRATS!!!! You have a BLACKJACK!! It pays 3:2!!   ****\n\n";
-            playerBank.payBlackjack(bet);
-            cout << "Input 'C' to continue \n";
-            char temp;
-            cin >> temp;
-            while(!cin || temp != 'c')
-            {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Wrong Input. Enter 'C' to continue \n";
-                cin >> temp;
-            }
-            
-            cout << "\n\n\n\n";
+            cout << "Dealer Has:       " << dealerHand->getHand() << "\n\n";
             cout << "_____________________________ \n \n";
             cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
             cout << "----------------------------- \n \n";
-            //Pay out 3:2 to playerBank
+            
+            
+            cout << "Input 'c' to continue \n";
+            char temp;
+            cin >> temp;
+            while(!cin || (temp != 'c' && temp != 'C'))
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
+                cin >> temp;
+            }
+            
+            delete dealerHand;
+            return 0;
+        }
+        else
+        {
+            cout << "****   CONGRATS!!!! You have a BLACKJACK!! It pays 3:2!!   ****\n\n\n";
+            playerBank.payBlackjack(bet);
+            cout << "Dealer Has:       " << dealerHand->getHand() << "\n\n";
+            cout << "_____________________________ \n \n";
+            cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
+            cout << "----------------------------- \n \n";
+            cout << "Input 'c' to continue \n";
+            char temp;
+            cin >> temp;
+            while(!cin || (temp != 'c' && temp != 'C'))
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
+                cin >> temp;
+            }
+            delete dealerHand;
+            return 0;
             
         }
     }
-    
-    return handArray;
+    delete dealerHand;
+    return 1;
     
 }
   
