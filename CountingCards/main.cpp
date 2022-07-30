@@ -84,12 +84,16 @@ int main(int argc, const char * argv[]) {
     //TODO: Get number of players from user and add functionality for multiple
     // just one player for now
     Dealer dealer(1);
-    dealer.dealHands(shoe, funds, bet_int);
-    cout << "**  What action would you like to take?  **\n\n";
-    cout << "||  'h' - hit           |  'p' - stand pat                  |  's' - split       |  'd' - double down  ||\n";
-    cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n\n";
-    char action;
-    cin >> action;
+    int dealt = dealer.dealHands(shoe, funds, bet_int);
+    if(dealt)
+    {
+        cout << "**  What action would you like to take?  **\n\n";
+        cout << "||  'h' - hit           |  'p' - stand pat                  |  's' - split       |  'd' - double down  ||\n";
+        cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n\n";
+        char action;
+        cin >> action;
+    }
+    
     
     
     return 0;
