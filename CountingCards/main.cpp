@@ -81,7 +81,7 @@ int main(int argc, const char * argv[]) {
     cout << "| CURRENT BET  : $"<< bet << "  \n";
     cout << "----------------------------- \n \n";
     
-    //TODO: Get number of players from user and add functionality for multiple
+    //TODO: move all of below actions to Dealer::action()
     // just one player for now
     Dealer dealer(1);
     // Hands are dealt

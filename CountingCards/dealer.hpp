@@ -17,6 +17,7 @@ private:
 public:
     Dealer(int numPlayers);
     int dealHands(Shoe shoe, Bank playerBank, int bet);
+    int action(Shoe shoe, Bank playerBank, int bet);
     int hitPlayer(Shoe shoe);
     int hitDealer(Shoe shoe, Bank playerBank);
 };

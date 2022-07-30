@@ -22,7 +22,7 @@ private:
 public:
     Dealer(int numPlayers);
     int dealHands(Shoe shoe, Bank playerBank, int bet);
-    int chooseAction();
+    int action(Shoe shoe, Bank playerBank, int bet);
     int hitPlayer(Shoe shoe);
     int hitDealer(Shoe shoe, Bank playerBank);
 };
@@ -150,12 +150,92 @@ int Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
     return 1;
     
 }
-                                /*
-
-char Dealer::chooseAction()
+                                
+/**
+ Dealer offers menu of option and then performs then
+ @returns 0 if hand is done, 1 if not done
+ */
+int Dealer::action(Shoe shoe, Bank playerBank, int bet)
 {
+    int handOngoing = 1;
+    char action = 'q';
+    // List menu of options for the player
+    cout << "**  What action would you like to take?  **\n\n";
+    cout << "||  'h' - hit           |  'p' - stand pat                  |  's' - split       |  'd' - double down  ||\n";
+    cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n\n";
+    cin >> action;
+    while(!cin || (action != 'h' && action != 'p' && action != 's' && action != 'd' && action != 'm' && action != 'c' && action != 'r' && action != 'x'))   //TODO: add handling capital letters
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Wrong Input. \n";
+        cout << "**  What action would you like to take?  **\n\n";
+        cout << "||  'h' - hit           |  'p' - stand pat                  |  's' - split       |  'd' - double down  ||\n";
+        cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n\n";
+        cin >> action;
+    }
     
-}                               */
+    switch (action) {
+        case 'h':   //hitPlayer(int bet, Shoe shoe, Bank playerBank)
+            cout << "\nPlayer Hits! \n";
+            handOngoing = hitPlayer(shoe);
+            if(!handOngoing)   // player busts
+            {
+                playerBank.removeFunds(bet);
+                cout << "_____________________________ \n \n";
+                cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
+                cout << "----------------------------- \n \n";
+                
+                cout << "\nInput 'c' to continue \n";
+                char temp;
+                cin >> temp;
+                while(!cin || (temp != 'c' && temp != 'C'))
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
+                    cin >> temp;
+                }
+                return 0;
+            }
+            else    // still alive after player hit
+            {
+                cout << "**  What action would you like to take?  **\n\n";
+                cout << "||  'h' - hit           |  'p' - stand pat    | \n";
+                //TODO: finish this
+            }
+            break;
+        case 'p':   //Stand pat
+            cout << "\nPlayer Stands Pat \n";
+            break;
+        case 's':   //Player splits a pair. Must double bet or add remainder of stack
+            cout << "\nPlayer Splits \n";
+            break;
+        case 'd':   // Double down
+            cout << "\nPlayer Doubles!!  \n";
+            break;
+        case 'm':   // Double down
+            cout << "\nPlayer Requests a strategy hint\n";
+            break;
+        case 'c':   // Double down
+            cout << "\nPlayer Requests the current count of the deck  \n";
+            break;
+        case 'r':   // Double down
+            cout << "\nPlayer Requests a list of the rules  \n";
+            break;
+        case 'x':   // Double down
+            cout << "\nPlayer Surrenders  :-(  \n";
+            
+            return 0;
+            break;
+            
+        default:
+            break;
+    }
+    
+    
+    return 1;   //TODO: 1== not done
+}
   
 // TODO: LEFT OFF HERE on 7/29 at 8:18 PM. FINISH this and fix this up
 // returns 0 if player busts. 1 if not
