@@ -27,3 +27,5 @@ public:
     uint8_t dealCard();
     bool shoeFinished();
 };
+
+                                                        

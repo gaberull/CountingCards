@@ -13,7 +13,7 @@
 #include <string>
 #include <vector>
 using namespace std;
-
+                                                    
 class Hand
 {
     std::vector<char> cardArray;
@@ -34,6 +34,7 @@ public:
     Hand(const Hand& diffHand); // Copy constructor
     Hand(uint8_t card1, uint8_t card2);
     std::string getHand();
+    std::string displayOne();
     int hit(Shoe& shoe);
     std::vector<Hand> split(Shoe& shoe);
     int getValue();
@@ -42,6 +43,7 @@ public:
     Hand operator= (Hand& diffHand);    // overload equals operator
     
 };
+                                                     
 /*
  Default Constructor
  */
@@ -283,6 +285,18 @@ std::string Hand::getHand()
     ret.push_back('|');
     return ret;
 };
+
+/**
+    This function is for the dealer to display only one card initially
+ */
+std::string Hand::displayOne()
+{
+    std::string ret = "| ";
+    ret.push_back(cardArray[0]);
+    ret.push_back(suitArray[0]);
+    ret.append(" |");
+    return ret;
+}
 /**
  @brief hit() returns -1 if busted.  The value of the hand otherwise
  */

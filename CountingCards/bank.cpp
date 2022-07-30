@@ -5,7 +5,8 @@
 //  Created by Gabe Scott on 7/25/22.
 //
 
-
+//#include "bank.hpp"
+                                            
 class Bank
 {
 private:
@@ -17,7 +18,10 @@ public:
     void setBalance(int value) {_balance = value; }
     void addFunds( int value ) {_balance += value; }
     void removeFunds(int value) {(_balance-value<=0) ? _balance=0 : _balance-=value; }
+    void payBlackjack(int bet) { _balance += (bet * 3 / 2); }
+    void payWin(int bet) { _balance += bet; }
 };
 
 
+                                             
 

@@ -7,7 +7,7 @@
 
 #pragma once
 #include "hand.hpp"
-
+#include "bank.hpp"
 class Dealer
 {
 private:
@@ -16,9 +16,10 @@ private:
     Dealer();
 public:
     Dealer(int numPlayers);
-    std::vector<Hand> dealHands(Shoe shoe, Bank playerBank);
-    int hit(int bet, Hand playerHand, Shoe shoe, Bank playerBank);
+    std::vector<Hand> dealHands(Shoe shoe, Bank playerBank, int bet);
+    int hit(int bet, Shoe shoe, Bank playerBank);
 };
+                                        
 
 
 

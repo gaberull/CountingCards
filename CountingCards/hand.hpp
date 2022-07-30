@@ -30,6 +30,7 @@ public:
     Hand(const Hand& diffHand); // Copy constructor
     Hand(uint8_t card1, uint8_t card2);
     std::string getHand();
+    std::string displayOne();
     int hit(Shoe& shoe);
     std::vector<Hand> split(Shoe& shoe);
     int getValue();
@@ -38,3 +39,5 @@ public:
     Hand operator= (Hand& diffHand);    // overload equals operator
     
 };
+
+                                                

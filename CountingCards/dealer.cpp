@@ -12,7 +12,7 @@
 #include "bank.hpp"
 #include <iostream>
 using namespace std;
-
+                                                    
 class Dealer
 {
 private:
@@ -21,9 +21,10 @@ private:
     Dealer();
 public:
     Dealer(int numPlayers);
-    std::vector<Hand> dealHands(Shoe shoe, Bank playerBank);
-    int hit(int bet, Hand playerHand, Shoe shoe, Bank playerBank);
+    std::vector<Hand> dealHands(Shoe shoe, Bank playerBank, int bet);
+    int hit(int bet, Shoe shoe, Bank playerBank);
 };
+                                                     
 
 Dealer::Dealer(int numPlayers)
 {
@@ -31,11 +32,13 @@ Dealer::Dealer(int numPlayers)
     handArray = std::vector<Hand>(numPlayers);
 }
 
-std::vector<Hand> Dealer::dealHands(Shoe shoe, Bank playerBank)
+std::vector<Hand> Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
 {
     
     handArray = std::vector<Hand>(_numPlayers+1);
     bool lastRound = false;
+    bool blackjack = false;
+    bool dealerBlackjack = false;
     // vector of player hands. User will be zero, dealer will be _numPlayers
     
     for(int i=0; i<_numPlayers+1; i++)
@@ -46,13 +49,15 @@ std::vector<Hand> Dealer::dealHands(Shoe shoe, Bank playerBank)
         // we are on the user
         if(i == 0)
         {
-            std::cout << "You have " << currHand.getHand() << std::endl;
+            std::cout << "You have:           " << currHand.getHand() << std::endl;
+            blackjack = currHand.isBlackjack();
             
         }
         // if we are on dealer
         else if(i == _numPlayers)
         {
-            std::cout << "Dealer has " << currHand.getHand() << std::endl;
+            std::cout << "Dealer shows:       " << currHand.displayOne() << "\n \n";
+            dealerBlackjack = currHand.isBlackjack();
             lastRound = shoe.shoeFinished();
             if(lastRound)
             {
@@ -61,34 +66,62 @@ std::vector<Hand> Dealer::dealHands(Shoe shoe, Bank playerBank)
         }
                             
     }
-    
-    // TODO: add functionality for multiple computer players
-    //compareHands(handArray[0], handArray[_numPlayers]);
+    if(dealerBlackjack && !blackjack)
+    {
+        cout << "Dealer Has:       " << handArray[_numPlayers].getHand() << "\n";
+        cout << "Unfortunately, they have BLACKJACK.. They win this round.. \n \n";
+        playerBank.removeFunds(bet);
+    }
+    if(blackjack)
+    {
+        if(handArray[_numPlayers].isBlackjack())
+        {
+            cout << "OH NO!!!! You have BLACKJACK, BUT so does the dealer! :(  This round is a push! \n";
+        }
+        else
+        {
+            cout << "CONGRATS!!!! You have a BLACKJACK!! This pays 3:2!! \n";
+            //Pay out 3:2 to playerBank
+            playerBank.payBlackjack(bet);
+        }
+    }
     
     return handArray;
     
 }
   
-// TODO: FINISH this and change up function signature probably
-int Dealer::hit(int bet, Hand playerHand, Shoe shoe, Bank playerBank)
+// TODO: LEFT OFF HERE on 7/29 at 8:18 PM. FINISH this and fix this up
+//
+//
+int Dealer::hit(int bet, Shoe shoe, Bank playerBank)
 {
+    Hand player = handArray[0];
+    Hand dealer = handArray[_numPlayers];
     cout << "Dealer::hit() - Hitting player's hand \n";
-    int newValue = playerHand.hit(shoe);
-    if(newValue < 0)
+    int newPlayerVal = player.hit(shoe);
+    if(newPlayerVal < 0)
     {
-        "Dealer:: Player busts. You have lost your bet \n";
+        cout << "Dealer:: Oh NO!! You busted.. You have lost your bet \n";
         playerBank.removeFunds(bet);
         return 0;
         
     }
-    else if(playerHand.isBlackjack())
+    
+    int newDealerVal = dealer.hit(shoe);
+    if(newDealerVal < 0)
     {
-        "Dealer:: BLACKJACK!! Blackjack pays 3:2 \n";
-        playerBank.addFunds(bet*3/2);
-        return 2;
+        cout << "Dealer:: Dealer busted!! You have won your bet \n";
+        playerBank.addFunds(bet);
+        return 0;
     }
     
-    //TODO: finish
+    if(newPlayerVal == newDealerVal)
+    {
+        cout << "We have a tie! This hand is a push!! \n";
+        
+    }
+    
+    //TODO: finish this
     
     return -1;
     

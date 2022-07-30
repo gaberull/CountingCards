@@ -5,11 +5,11 @@
 //  Created by Gabe Scott on 7/25/22.
 //
 
-
+//#include "shoe.hpp"
 #include <vector>
 #include <iostream>
 using namespace std;
-
+                                                            
 class Shoe
 {
 private:
@@ -28,6 +28,7 @@ public:
     uint8_t dealCard();
     bool shoeFinished();
 };
+                                                             
 
 Shoe::Shoe()
 {
@@ -122,13 +123,13 @@ Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
     // set point at which shoe will be done with
     switch (cutPoint) {
         case 0:
-            _cutPoint = _cardsRemaining;
+            _cutPoint = 0;
             break;
         case 1:
-            _cutPoint = _cardsRemaining * 9 / 10;
+            _cutPoint = _cardsRemaining / 10;
             break;
         case 2:
-            _cutPoint = _cardsRemaining * 3 / 4;
+            _cutPoint = _cardsRemaining / 4;
             break;
         case 3:
             _cutPoint = _cardsRemaining / 2;
@@ -138,10 +139,41 @@ Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
 }
 /**
  @brief shuffles the vector of cards in place using Fisher Yates algorithm in O(n) time with O(1) extra space
+        It really just resets the final card and resets the shoe, since the actual cards don't really get shuffled. They are pulled randomly
  */
 void Shoe::shuffle()
 {
-    
+    _cardsRemaining = 52 * _numDecks;
+    _count = 0;
+    _endOfShoe = false;
+    cout << "Where would you like to place the cut card? \n";
+    char c;
+    cout << "Input 0 to play all of the shoe, 1 to play 90%, 2 to play 75%, and 3 to play 50% \n";
+    cin >> c;
+    while(!cin || c < '0' || c > '3')
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Wrong Input. Enter 0 to play all of the shoe, 1 to play 90%, 2 to play 75%, and 3 to play 50% \n";
+        cin >> c;
+    }
+    switch (c) {
+        case 0:
+            _cutPoint = 0;
+            break;
+        case 1:
+            _cutPoint = _cardsRemaining / 10;
+            break;
+        case 2:
+            _cutPoint = _cardsRemaining / 4;
+            break;
+        case 3:
+            _cutPoint = _cardsRemaining / 2;
+            break;
+            
+        default:
+            break;
+    }
 }
 
 /**

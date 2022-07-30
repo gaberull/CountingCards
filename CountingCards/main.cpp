@@ -68,20 +68,24 @@ int main(int argc, const char * argv[]) {
         cin >> bet;
         if(bet[0] == 'q' || bet[0] == 'Q') return 0;
     }
+    int bet_int = 0;
+    
+    bet_int = (int) stol(bet);
+    //cout << "bet_int is " << bet_int << "\n";
     
     cout << "Here we go!!!!!!!! Good Luck! \n";
-    cout << "--------------- \n";
-    cout << "PLAYER WAGERS "<< bet << endl;
-    cout << "--------------- \n";
+    cout << "----------------------------- \n \n";
+    cout << "PLAYER BETS "<< bet << endl;
+    cout << "----------------------------- \n \n";
     Shoe shoe(numDecks, cutPoint);
     Bank bank(funds);
     //TODO: Get number of players from user and add functionality for multiple
     // just one player for now
     Dealer dealer(1);
-    dealer.dealHands(shoe, funds);
+    dealer.dealHands(shoe, funds, bet_int);
     cout << "What action would you like to take? \n";
-    cout << "'h' to HIT, 's' to split, 'd' to double, '2' to double down, 'r' for rules \n";
-    cout << "'m' for Strategy Hint, 'c' to get current running count \n";
+    cout << "'s' - stand pat | 'h' - hit | 's' - split | 'd' - double down  \n";
+    cout << "'m' - Strategy Hint | 'c' - get current running count | 'r' - list rules \n";
     char action;
     cin >> action;
     
