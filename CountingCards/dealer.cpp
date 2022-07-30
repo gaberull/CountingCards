@@ -18,20 +18,25 @@ class Dealer
 private:
     int _numPlayers;
     std::vector<Hand> handArray;
+    Hand* dealerHand;
     Dealer();
 public:
     Dealer(int numPlayers);
     int dealHands(Shoe shoe, Bank playerBank, int bet);
-    int action(Shoe shoe, Bank playerBank, int bet);
+    int action(Shoe shoe, Bank playerBank, int bet, char action='a');
     int hitPlayer(Shoe shoe);
     int hitDealer(Shoe shoe);
+    ~Dealer();
 };
                                                      
-
+/**
+ constructor to be used
+ */
 Dealer::Dealer(int numPlayers)
 {
     _numPlayers = numPlayers;
     handArray = std::vector<Hand>(numPlayers);
+    dealerHand = new Hand();
 }
 
 /**
@@ -45,7 +50,6 @@ int Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
     bool lastRound = false;
     bool blackjack = false;
     bool dealerBlackjack = false;
-    Hand* dealerHand = nullptr;
     // vector of player hands. User will be zero, dealer will be _numPlayers
     
     for(int i=0; i<_numPlayers+1; i++)
@@ -153,13 +157,14 @@ int Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
                                 
 /**
  Dealer offers menu of option and then performs then
- @returns 0 if hand is done, 1 if not done, -1 to quit program
+ can input an action character. if action parameter is the default 'a', will request action character, otherwise skips that
+ @returns 0 if hand is done, 1 if hand continues, -1 to quit program
  
     this function does the paying out to player and removing of lost bets
  */
-int Dealer::action(Shoe shoe, Bank playerBank, int bet)
+int Dealer::action(Shoe shoe, Bank playerBank, int bet, char action)    // TODO: maybe remove this action default value
 {
-    cout << "\n HERE WE GOOO!!!!  Good Luck! \n";
+    cout << "\n     Good Luck!!  \n\n";
     cout << "_____________________________ \n \n";
     cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
     cout << "| CURRENT BET  : $"<< bet << "  \n";
@@ -168,35 +173,39 @@ int Dealer::action(Shoe shoe, Bank playerBank, int bet)
     
     int player = handArray[0].getValue();
     int dealer = handArray[_numPlayers].getValue();
-    char action = 'a';
-    // List menu of options for the player
-    cout << "**  What action would you like to take?  **\n\n";
-    cout << "||  'h' - hit           |  'p' - stand pat                  |  's' - split       |  'd' - double down  ||\n";
-    cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n";
-    cout << "    'q' or 'Q' to quit\n\n";
-    cin >> action;
-    while(!cin || (action != 'h' && action != 'p' && action != 's' && action != 'd' && action != 'm' && action != 'c' && action != 'r' && action != 'x' && action != 'q'))   //TODO: add handling capital letters
+    if(action =='a')
     {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Wrong Input. \n";
+        // List menu of options for the player
         cout << "**  What action would you like to take?  **\n\n";
         cout << "||  'h' - hit           |  'p' - stand pat                  |  's' - split       |  'd' - double down  ||\n";
-        cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n\n";
+        cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n";
+        cout << "    'q' or 'Q' to quit\n\n";
         cin >> action;
+        while(!cin || (action != 'h' && action != 'p' && action != 's' && action != 'd' && action != 'm' && action != 'c' && action != 'r' && action != 'x' && action != 'q'))   //TODO: add handling capital letters
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Wrong Input. \n";
+            cout << "**  What action would you like to take?  **\n\n";
+            cout << "||  'h' - hit           |  'p' - stand pat                  |  's' - split       |  'd' - double down  ||\n";
+            cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n\n";
+            cin >> action;
+        }
     }
     
     switch (action) {
-        case 'Q':   // Double down
+        case 'Q':{   // Double down
             cout << "\nPlayer Requests to Quit. Thanks for Playing!!\n\n";
             return -1;
             break;
-        case 'q':   // Double down
+        }
+        case 'q': {  // Double down
             cout << "\nPlayer Requests to Quit. Thanks for Playing!!\n\n";
             return -1;
             break;
-        case 'h':   //hitPlayer(int bet, Shoe shoe, Bank playerBank)
-            cout << "\nPlayer Hits! \n";
+        }
+        case 'h': {  //hitPlayer(int bet, Shoe shoe, Bank playerBank)
+            cout << "\nPLAYER WILL HIT! \n";
             player = hitPlayer(shoe);
             if(player<0)   // player busts
             {
@@ -205,46 +214,49 @@ int Dealer::action(Shoe shoe, Bank playerBank, int bet)
                 cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
                 cout << "----------------------------- \n \n";
                 
-                cout << "\nInput 'c' to continue \n";
+                cout << "\nInput 'c' to continue or 'q' to quit \n";
                 char temp;
                 cin >> temp;
-                while(!cin || (temp != 'c' && temp != 'C'))
+                while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
                 {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
+                    cout << "Wrong Input. Enter 'C' or 'c' to continue. 'q' or 'Q' to quit\n";
                     cin >> temp;
                 }
-                return 0;
+                if(temp=='c' || temp=='C') return 0;
+                if(temp=='q' || temp=='Q') return -1;
             }
             else    // still alive after player hit
             {
-                return Dealer::action(shoe, playerBank, bet);
+                return Dealer::action(shoe, playerBank, bet);  // return 1; ??
             }
             break;
-        case 'p':   //Stand pat
+        }
+        case 'p': {  //Stand pat
             cout << "\nPlayer Chooses to Stand Pat with score of "<< player << " \n\n";
             dealer = hitDealer(shoe);
-            if(dealer < 0)
+            if(dealer < 0)  // dealer busts
             {
                 playerBank.addFunds(bet);
                 cout << "_____________________________ \n \n";
                 cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
                 cout << "----------------------------- \n \n";
                 
-                cout << "\nInput 'c' to continue \n";
+                cout << "\nInput 'c' to continue or 'q' to quit \n";
                 char temp;
                 cin >> temp;
-                while(!cin || (temp != 'c' && temp != 'C'))
+                while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
                 {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
+                    cout << "Wrong Input. Enter 'C' or 'c' to continue. 'q' or 'Q' to quit\n";
                     cin >> temp;
                 }
+                if(temp=='q' || temp=='Q') return -1;
                 
             }
-            else
+            else    // dealer did not bust
             {
                 cout << "\n Action is Done. \n";
                 cout << "\nPlayer has a score of "<< player << " \n\n";
@@ -271,44 +283,126 @@ int Dealer::action(Shoe shoe, Bank playerBank, int bet)
                 cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
                 cout << "----------------------------- \n \n";
                 
-                cout << "\nInput 'c' to continue \n";
+                cout << "\nInput 'c' to continue or 'q' to quit \n";
                 char temp;
                 cin >> temp;
-                while(!cin || (temp != 'c' && temp != 'C'))
+                while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
                 {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
+                    cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
                     cin >> temp;
                 }
-                
+                if(temp=='q' || temp=='Q') return -1;
+                return 0;
             }
-            return 0;
+               // this hand is finished
+            break;
+        }
+        case 's': {  //Player splits a pair. Must double bet or add remainder of stack
+            cout << "\nPlayer Splits \n";
+            Hand hand = handArray[0];
+            if(!hand.isSplittable())
+            {
+                cout << "\nThis hand cannot be split. Please choose another action \n";
+                cout << "\nInput 'c' to continue or 'q' to quit \n";
+                char temp;
+                cin >> temp;
+                while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
+                    cin >> temp;
+                }
+                if(temp=='q' || temp=='Q') return -1;
+                
+                return Dealer::action(shoe, playerBank, bet);  // ??
+            }
+            else    //TODO: Write code to split a hand
+            {
+                //
+            }
             
             break;
-        case 's':   //Player splits a pair. Must double bet or add remainder of stack
-            cout << "\nPlayer Splits \n";
+        }
+        case 'd': {// Double down
+            cout << "Player chooses to DOUBLE!! \n";
+            cout << "Player gets one additional card and doubles bet \n";
+            int remaining_funds = playerBank.getBalance()-bet;
+            if(remaining_funds < bet)
+            {
+                cout << "Player only has $" << remaining_funds << " to bet\n";
+                bet += remaining_funds;
+            }
+            else
+            {
+                bet *= 2;
+            }
+            player = hitPlayer(shoe);
+            if(player<0)   // player busts
+            {
+                playerBank.removeFunds(bet);
+                cout << "_____________________________ \n \n";
+                cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
+                cout << "----------------------------- \n \n";
+                
+                cout << "\nInput 'c' to continue or 'q' to quit \n";
+                char temp;
+                cin >> temp;
+                while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Wrong Input. Enter 'C' or 'c' to continue. 'q' or 'Q' to quit\n";
+                    cin >> temp;
+                }
+                if(temp=='c' || temp=='C') return 0;
+                if(temp=='q' || temp=='Q') return -1;
+            }
+            else    // still alive after player doubled
+            {
+                cout << "\nPlayer has a score of "<< player << " \n\n";
+                
+                cout << "\nInput 'c' to continue or 'q' to quit \n";
+                char temp;
+                cin >> temp;
+                while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Wrong Input. Enter 'C' or 'c' to continue. 'q' or 'Q' to quit\n";
+                    cin >> temp;
+                }
+                if(temp=='q' || temp=='Q') return -1;
+                
+                return 1;   // dealer has yet to act
+            }
             break;
-        case 'd':   // Double down
-            cout << "\nPlayer Doubles!!  \n";
+        }
+        case 'm': {  // Get basic strategy Hint
+            cout << "\nPlayer Requests a strategy hint \n";
+            cout << "\nYou have a score of "<< player << " \n\n";
+            cout << "\nAgainst the dealer's score of "<< dealer << " \n\n";
             break;
-        case 'm':   // Double down
-            cout << "\nPlayer Requests a strategy hint\n";
-            break;
-        case 'c':   // Double down
+        }
+        case 'c': {  // Current count of Deck
             cout << "\nPlayer Requests the current count of the deck  \n";
             break;
-        case 'r':   // Double down
+        }
+        case 'r': {  // List Rules
             cout << "\nPlayer Requests a list of the rules  \n";
             break;
-        case 'x':   // Double down
+        }
+        case 'x': {  // Surrender
             cout << "\nPlayer Surrenders  :-(  \n";
             
-            return 0;
             break;
+        }
             
-        default:
+        default: {
             break;
+        }
     }
     
     
@@ -405,7 +499,12 @@ int Dealer::hitDealer(Shoe shoe)
     }
     return dealerScore;
 }
-                                                        
+    
+Dealer::~Dealer()
+{
+    cout << "Dealer destructor being called \n";
+    delete dealerHand;
+}
 
 /**     display bankroll
  

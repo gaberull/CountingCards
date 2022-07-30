@@ -57,8 +57,8 @@ int main(int argc, const char * argv[]) {
     
     // Create shoe and player bank, and pass them to dealer in constructor
     char bet_str[10];
-    cout << "\nHERE WE GO!!! \n";
-    cout << "\nInput your bet to play (i.e. \"155\") 'q' to quit \n";
+    cout << "\nBLACKJACK TIME!!!!! \n";
+    cout << "\nPlace your bet! (enter a number i.e. \"155\") or 'q' to quit \n";
     cin >> bet_str;
     if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;
     while(!cin || bet_str[0] < '0' || bet_str[0] > '9')
@@ -115,6 +115,7 @@ int main(int argc, const char * argv[]) {
     return 0;
     
 }
+
 
 
 /*

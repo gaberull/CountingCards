@@ -38,6 +38,7 @@ public:
     std::vector<Hand> split(Shoe& shoe);
     int getValue();
     bool isBlackjack();
+    bool isSplittable();
     int getNumCards();
     // ~Hand() Destructor
     Hand operator= (Hand& diffHand);    // overload equals operator
@@ -392,6 +393,14 @@ bool Hand::isBlackjack()
         }
     }
     return false;
+}
+
+/**
+    Returns whether or not the hand can be split
+ */
+bool Hand::isSplittable()
+{
+    return splittable;
 }
 
 /**
