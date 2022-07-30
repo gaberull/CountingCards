@@ -56,108 +56,70 @@ int main(int argc, const char * argv[]) {
     //cout << "shuffle mark is  " << cutPoint << endl;
     
     // Create shoe and player bank, and pass them to dealer in constructor
-    char bet[10];
-    cout << "\nReady to Play??? Input bet to play (i.e. \"155\") to start or 'q' to quit \n";
-    cin >> bet;
-    if(bet[0] == 'q' || bet[0] == 'Q') return 0;
-    while(!cin || bet[0] < '0' || bet[0] > '9')
+    char bet_str[10];
+    cout << "\nHERE WE GO!!! \n";
+    cout << "\nInput your bet to play (i.e. \"155\") 'q' to quit \n";
+    cin >> bet_str;
+    if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;
+    while(!cin || bet_str[0] < '0' || bet_str[0] > '9')
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Wrong Input. Enter number to bet or 'q' to quit \n";
-        cin >> bet;
-        if(bet[0] == 'q' || bet[0] == 'Q') return 0;
+        cin >> bet_str;
+        if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;
     }
-    int bet_int = 0;
+    int bet = 0;
     
-    bet_int = (int) stol(bet);
+    bet = (int) stol(bet_str);
     //cout << "bet_int is " << bet_int << "\n";
     Shoe shoe(numDecks, cutPoint);
     Bank bank(funds);
-    
-    cout << "\n HERE WE GOOO!!!!  Good Luck! \n";
-    cout << "_____________________________ \n \n";
-    cout << "| BANKROLL     : $"<< bank.getBalance() <<" \n";
-    cout << "| CURRENT BET  : $"<< bet << "  \n";
-    cout << "----------------------------- \n \n";
-    
-    //TODO: move all of below actions to Dealer::action()
     // just one player for now
     Dealer dealer(1);
+    
     // Hands are dealt
-    int handOngoing = 0;
-    handOngoing = dealer.dealHands(shoe, funds, bet_int); // returns 1 if hand still going, 0 if over (dealer BJ)
-    char action = 'q';
-    if(handOngoing) // hand is not done yet (dealer didn't bust)
+    int handContinues = 1;
+    // while handOngoing >=0
+    while(handContinues>=0) // while quit hasn't been requested
     {
-        cout << "**  What action would you like to take?  **\n\n";
-        cout << "||  'h' - hit           |  'p' - stand pat                  |  's' - split       |  'd' - double down  ||\n";
-        cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n\n";
-        cin >> action;
-        while(!cin || (action != 'h' && action != 'p' && action != 's' && action != 'd' && action != 'm' && action != 'c' && action != 'r' && action != 'x'))   //TODO: add handling capital letters
+        // double check this bit. may never be 1 returned from Dealer::action()
+        if(handContinues==1)    // hand is ongoing, call action
         {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Wrong Input. \n";
-            cout << "**  What action would you like to take?  **\n\n";
-            cout << "||  'h' - hit           |  'p' - stand pat                  |  's' - split       |  'd' - double down  ||\n";
-            cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n\n";
-            cin >> action;
+            dealer.action(shoe, bank, bet);
         }
-        
-    }
-    
-    switch (action) {
-        case 'h':   //hitPlayer(int bet, Shoe shoe, Bank playerBank)
-            cout << "\nPlayer Hits! \n";
-            handOngoing = dealer.hitPlayer(shoe);
-            if(!handOngoing)   // player busts
+        else   //handContinues==0, start new hand
+        {
+            cout << "\nNEW HAND \n";
+            cout << "\nWhat is your wager friend? 'q' to quit \n";
+            cin >> bet_str;
+            if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;
+            while(!cin || bet_str[0] < '0' || bet_str[0] > '9')
             {
-                bank.removeFunds(bet_int);
-                cout << "_____________________________ \n \n";
-                cout << "| BANKROLL     : $"<< bank.getBalance() <<" \n";
-                cout << "----------------------------- \n \n";
-                
-                cout << "\nInput 'c' to continue \n";
-                char temp;
-                cin >> temp;
-                while(!cin || (temp != 'c' && temp != 'C'))
-                {
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
-                    cin >> temp;
-                }
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Wrong Input. Enter number to bet or 'q' to quit \n";
+                cin >> bet_str;
+                if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;
             }
-            break;
-        case 'p':   //Stand pat
-            cout << "\nPlayer Stands Pat \n";
-            break;
-        case 's':   //Player splits a pair. Must double bet or add remainder of stack
-            cout << "\nPlayer Splits \n";
-            break;
-        case 'd':   // Double down
-            cout << "\nPlayer Doubles!!  \n";
-            break;
-        case 'm':   // Double down
-            cout << "\nPlayer Requests a strategy hint\n";
-            break;
-        case 'c':   // Double down
-            cout << "\nPlayer Requests the current count of the deck  \n";
-            break;
-        case 'r':   // Double down
-            cout << "\nPlayer Requests a list of the rules  \n";
-            break;
-        case 'x':   // Double down
-            cout << "\nPlayer Surrenders  :-(  \n";
-            break;
-            
-        default:
-            break;
+            bet = (int) stol(bet_str);
+            dealer.action(shoe, bank, bet);
+        }
     }
     
-    
-    
+    cout << "\nThanks for Playing!! \n";
+    cout << "_____________________________ \n \n";
+    cout << "| BANKROLL     : $"<< bank.getBalance() <<" \n";
+    cout << "----------------------------- \n \n";
     
     return 0;
+    
 }
+
+
+/*
+cout << "\n HERE WE GOOO!!!!  Good Luck! \n";
+cout << "_____________________________ \n \n";
+cout << "| BANKROLL     : $"<< bank.getBalance() <<" \n";
+cout << "| CURRENT BET  : $"<< bet << "  \n";
+cout << "----------------------------- \n \n";                  */
