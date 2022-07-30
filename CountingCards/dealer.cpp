@@ -69,8 +69,11 @@ std::vector<Hand> Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
     if(dealerBlackjack && !blackjack)
     {
         cout << "Dealer Has:       " << handArray[_numPlayers].getHand() << "\n";
-        cout << "Unfortunately, they have BLACKJACK.. They win this round.. \n \n";
+        cout << "That lucky buffoon has BLACKJACK.. Got us this time.. \n\n";
         playerBank.removeFunds(bet);
+        cout << "_____________________________ \n \n";
+        cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
+        cout << "----------------------------- \n \n";
     }
     if(blackjack)
     {
@@ -81,8 +84,24 @@ std::vector<Hand> Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
         else
         {
             cout << "****   CONGRATS!!!! You have a BLACKJACK!! It pays 3:2!!   ****\n\n";
-            //Pay out 3:2 to playerBank
             playerBank.payBlackjack(bet);
+            cout << "Input 'C' to continue \n";
+            char temp;
+            cin >> temp;
+            while(!cin || temp != 'c')
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Wrong Input. Enter 'C' to continue \n";
+                cin >> temp;
+            }
+            
+            cout << "\n\n\n\n";
+            cout << "_____________________________ \n \n";
+            cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
+            cout << "----------------------------- \n \n";
+            //Pay out 3:2 to playerBank
+            
         }
     }
     

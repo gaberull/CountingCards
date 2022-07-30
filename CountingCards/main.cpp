@@ -75,7 +75,7 @@ int main(int argc, const char * argv[]) {
     Shoe shoe(numDecks, cutPoint);
     Bank bank(funds);
     
-    cout << "\n Here we go!!!!!!!! Good Luck! \n";
+    cout << "\n HERE WE GOOO!!!!  Good Luck! \n";
     cout << "_____________________________ \n \n";
     cout << "| BANKROLL     : $"<< bank.getBalance() <<" \n";
     cout << "| CURRENT BET  : $"<< bet << "  \n";
@@ -87,7 +87,7 @@ int main(int argc, const char * argv[]) {
     dealer.dealHands(shoe, funds, bet_int);
     cout << "**  What action would you like to take?  **\n\n";
     cout << "||  'h' - hit           |  'p' - stand pat                  |  's' - split       |  'd' - double down  ||\n";
-    cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n";
+    cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n\n";
     char action;
     cin >> action;
     
