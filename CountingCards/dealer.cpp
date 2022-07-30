@@ -5,12 +5,12 @@
 //  Created by Gabe Scott on 7/25/22.
 //
 
-
 #include <iostream>
 #include "shoe.hpp"
 #include "hand.hpp"
 #include "bank.hpp"
 #include <iostream>
+
 using namespace std;
                                                     
 class Dealer
@@ -22,7 +22,9 @@ private:
 public:
     Dealer(int numPlayers);
     int dealHands(Shoe shoe, Bank playerBank, int bet);
-    int hit(int bet, Shoe shoe, Bank playerBank);
+    int chooseAction();
+    int hitPlayer(Shoe shoe);
+    int hitDealer(Shoe shoe, Bank playerBank);
 };
                                                      
 
@@ -33,18 +35,17 @@ Dealer::Dealer(int numPlayers)
 }
 
 /**
-    @returns 1 if hand is incomplete
+    @returns 1 if hand is ongoing
              0 if hand is finished
             - 1 if something has gone wrong
  */
 int Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
 {
-    
     (*this).handArray = std::vector<Hand>();
     bool lastRound = false;
     bool blackjack = false;
     bool dealerBlackjack = false;
-    Hand* dealerHand;
+    Hand* dealerHand = nullptr;
     // vector of player hands. User will be zero, dealer will be _numPlayers
     
     for(int i=0; i<_numPlayers+1; i++)
@@ -149,11 +150,19 @@ int Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
     return 1;
     
 }
+                                /*
+
+char Dealer::chooseAction()
+{
+    
+}                               */
   
 // TODO: LEFT OFF HERE on 7/29 at 8:18 PM. FINISH this and fix this up
+// returns 0 if player busts. 1 if not
 //
+// hit() is for player only
 //
-int Dealer::hit(int bet, Shoe shoe, Bank playerBank)
+int Dealer::hitPlayer(Shoe shoe)
 {
     Hand player = handArray[0];
     Hand dealer = handArray[_numPlayers];
@@ -161,30 +170,48 @@ int Dealer::hit(int bet, Shoe shoe, Bank playerBank)
     int newPlayerVal = player.hit(shoe);
     if(newPlayerVal < 0)
     {
-        cout << "Dealer:: Oh NO!! You busted.. You have lost your bet \n";
-        playerBank.removeFunds(bet);
-        return 0;
+        cout << "\nOh NO!! You busted.. You have lost your bet \n";
+        //playerBank.removeFunds(bet);  // wrong spot
+        // Dealer shows hand but it is over
+        // TODO: change this when I add in more computer players. Hand won't be displayed yet
+        cout << "Dealer Had:       " << dealer.getHand() << "\n\n"; // TODO: check that Hand dealer works (persists)
         
-    }
-    
-    int newDealerVal = dealer.hit(shoe);
-    if(newDealerVal < 0)
-    {
-        cout << "Dealer:: Dealer busted!! You have won your bet \n";
-        playerBank.addFunds(bet);
+        cout << "Input 'c' to continue \n";
+        char temp;
+        cin >> temp;
+        while(!cin || (temp != 'c' && temp != 'C'))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
+            cin >> temp;
+        }
+        
         return 0;
     }
-    
-    if(newPlayerVal == newDealerVal)
+    else
     {
-        cout << "We have a tie! This hand is a push!! \n";
-        
+        cout << "Player has "<< player.getHand() << " for a value of " << newPlayerVal <<" \n";
+        cout << "Input 'c' to continue \n";
+        char temp;
+        cin >> temp;
+        while(!cin || (temp != 'c' && temp != 'C'))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
+            cin >> temp;
+        }
+        return 1;
     }
-    
-    //TODO: finish this
-    
-    return -1;
-    
-    
+    return 1;
 }
                                                         
+
+/**     display bankroll
+ 
+ cout << "_____________________________ \n \n";
+ cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
+ cout << "----------------------------- \n \n";
+ 
+ */

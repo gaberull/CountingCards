@@ -35,9 +35,9 @@ public:
     std::vector<Hand> split(Shoe& shoe);
     int getValue();
     bool isBlackjack();
+    int getNumCards();
     // ~Hand() Destructor
     Hand operator= (Hand& diffHand);    // overload equals operator
-    
 };
 
                                                 

@@ -84,15 +84,78 @@ int main(int argc, const char * argv[]) {
     //TODO: Get number of players from user and add functionality for multiple
     // just one player for now
     Dealer dealer(1);
-    int dealt = dealer.dealHands(shoe, funds, bet_int);
-    if(dealt)
+    // Hands are dealt
+    int handOngoing = 0;
+    handOngoing = dealer.dealHands(shoe, funds, bet_int); // returns 1 if hand still going, 0 if over (dealer BJ)
+    char action = 'q';
+    if(handOngoing) // hand is not done yet (dealer didn't bust)
     {
         cout << "**  What action would you like to take?  **\n\n";
         cout << "||  'h' - hit           |  'p' - stand pat                  |  's' - split       |  'd' - double down  ||\n";
         cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n\n";
-        char action;
         cin >> action;
+        while(!cin || (action != 'h' && action != 'p' && action != 's' && action != 'd' && action != 'm' && action != 'c' && action != 'r' && action != 'x'))   //TODO: add handling capital letters
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Wrong Input. \n";
+            cout << "**  What action would you like to take?  **\n\n";
+            cout << "||  'h' - hit           |  'p' - stand pat                  |  's' - split       |  'd' - double down  ||\n";
+            cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n\n";
+            cin >> action;
+        }
+        
     }
+    
+    switch (action) {
+        case 'h':   //hitPlayer(int bet, Shoe shoe, Bank playerBank)
+            cout << "\nPlayer Hits! \n";
+            handOngoing = dealer.hitPlayer(shoe);
+            if(!handOngoing)   // player busts
+            {
+                bank.removeFunds(bet_int);
+                cout << "_____________________________ \n \n";
+                cout << "| BANKROLL     : $"<< bank.getBalance() <<" \n";
+                cout << "----------------------------- \n \n";
+                
+                cout << "\nInput 'c' to continue \n";
+                char temp;
+                cin >> temp;
+                while(!cin || (temp != 'c' && temp != 'C'))
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
+                    cin >> temp;
+                }
+            }
+            break;
+        case 'p':   //Stand pat
+            cout << "\nPlayer Stands Pat \n";
+            break;
+        case 's':   //Player splits a pair. Must double bet or add remainder of stack
+            cout << "\nPlayer Splits \n";
+            break;
+        case 'd':   // Double down
+            cout << "\nPlayer Doubles!!  \n";
+            break;
+        case 'm':   // Double down
+            cout << "\nPlayer Requests a strategy hint\n";
+            break;
+        case 'c':   // Double down
+            cout << "\nPlayer Requests the current count of the deck  \n";
+            break;
+        case 'r':   // Double down
+            cout << "\nPlayer Requests a list of the rules  \n";
+            break;
+        case 'x':   // Double down
+            cout << "\nPlayer Surrenders  :-(  \n";
+            break;
+            
+        default:
+            break;
+    }
+    
     
     
     

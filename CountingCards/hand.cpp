@@ -28,7 +28,6 @@ class Hand
     bool splittable = false;
     int _value = 0;
     
-    
 public:
     Hand();
     Hand(const Hand& diffHand); // Copy constructor
@@ -39,9 +38,9 @@ public:
     std::vector<Hand> split(Shoe& shoe);
     int getValue();
     bool isBlackjack();
+    int getNumCards();
     // ~Hand() Destructor
     Hand operator= (Hand& diffHand);    // overload equals operator
-    
 };
                                                      
 /*
@@ -393,6 +392,14 @@ bool Hand::isBlackjack()
         }
     }
     return false;
+}
+
+/**
+ @returns the number of cards in the hand
+ */
+int Hand::getNumCards()
+{
+    return numCards;
 }
 
 /**
