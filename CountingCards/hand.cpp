@@ -29,21 +29,24 @@ class Hand
     int _value = 0;
     
 public:
-    Hand();
-    Hand(const Hand& diffHand); // Copy constructor
-    Hand(uint8_t card1, uint8_t card2);
-    std::string getHand();
-    std::string displayOne();
-    int hit(Shoe& shoe);
-    std::vector<Hand> split(Shoe& shoe);
-    int getValue();
-    bool isBlackjack();
-    bool isSplittable();
-    int getNumCards();
-    // ~Hand() Destructor
-    Hand operator= (Hand& diffHand);    // overload equals operator
+    Hand();                                 // Default constructor
+    Hand(const Hand& diffHand);             // Copy constructor
+    Hand(uint8_t card1, uint8_t card2);     // 2 parameter constructor
+    std::string getHand();                  // get str of hand
+    std::string displayOne();               // Function to display one card for Dealer
+    int hit(Shoe& shoe);                    // hit hand - get one card
+    std::vector<Hand> split(Shoe& shoe);    // split a pair (only have 2 cards)
+    int getValue();                         // get integer value of hand
+    bool isBlackjack();                     // Blackjack - i.e. AsJs
+    bool isSplittable();                    // Two cards are a pair - splittable
+    int getNumCards();                      // get number of cards
+    
+    Hand& operator= (Hand& diffHand);       // overload = operator. returns *this for chaining purposes
+    ~Hand();                                //Destructor
+    
+    friend ostream& operator<<(ostream& s, const Hand& hand);   // overload << operator
 };
-                                                     
+      
 /*
  Default Constructor
  */
@@ -61,7 +64,25 @@ Hand::Hand()
     numCards = 2;
     blackjack = false;
     _value = 0;
-};
+    splittable = false;
+}
+
+/**
+ Copy constructor
+ */
+Hand::Hand(const Hand& diffHand)
+{
+    
+    cardArray = diffHand.cardArray;
+    suitArray = diffHand.suitArray;
+    valueMap = diffHand.valueMap;
+    suitMap = diffHand.suitMap;
+    numCards = diffHand.numCards;
+    blackjack = diffHand.blackjack;
+    splittable = diffHand.splittable;
+    _value = diffHand._value;
+}
+
 /**
  Main constructor that will be used
  */
@@ -243,39 +264,22 @@ Hand::Hand(uint8_t card1, uint8_t card2)
     {
         splittable = true;
     }
-    if(cardArray[0] == 'A' && (cardArray[1] == 'T' || cardArray[1] == 'J' || cardArray[1] == 'Q' || cardArray[1] == 'K'))
+    else if(cardArray[0] == 'A' && (cardArray[1] == 'T' || cardArray[1] == 'J' || cardArray[1] == 'Q' || cardArray[1] == 'K'))
     {
         blackjack = true;
     }
-    if(cardArray[1] == 'A' && (cardArray[0] == 'T' || cardArray[0] == 'J' || cardArray[0] == 'Q' || cardArray[0] == 'K'))
+    else if(cardArray[1] == 'A' && (cardArray[0] == 'T' || cardArray[0] == 'J' || cardArray[0] == 'Q' || cardArray[0] == 'K'))
     {
         blackjack = true;
     }
-};
-
-/**
- Copy constructor
- */
-Hand::Hand(const Hand& diffHand)
-{
-    
-    cardArray = diffHand.cardArray;
-    suitArray = diffHand.suitArray;
-    valueMap = diffHand.valueMap;
-    suitMap = diffHand.suitMap;
-    numCards = diffHand.numCards;
-    blackjack = diffHand.blackjack;
-    splittable = diffHand.splittable;
-    _value = diffHand._value;
 }
-
 
 /**
  @brief get the current makeup of all cards in the hand
  */
-std::string Hand::getHand()
+string Hand::getHand()
 {
-    std::string ret = "| ";
+    string ret = "| ";
     
     for(int i=0; i<numCards; i++)
     {
@@ -290,7 +294,7 @@ std::string Hand::getHand()
 /**
     This function is for the dealer to display only one card initially
  */
-std::string Hand::displayOne()
+string Hand::displayOne()
 {
     std::string ret = "| ";
     ret.push_back(cardArray[0]);
@@ -330,12 +334,12 @@ int Hand::hit(Shoe& shoe)
         return -1;
     }
     return _value;
-};
+}
 
 /**
  @brief Splits a hand containing 2 cards, both of same symbol. Suit doesn't matter.
  */
-std::vector<Hand> Hand::split(Shoe& shoe)
+vector<Hand> Hand::split(Shoe& shoe)        //TODO: should I return pointer? reference? (prolly not reference)
 {
     //create new vector of hands containing this hand
     std::vector<Hand> ret(1, *this);
@@ -352,11 +356,10 @@ std::vector<Hand> Hand::split(Shoe& shoe)
     }
     
     // Create two whole new hands using constructor w/ 2 card arguments
-    uint8_t newCard1 = shoe.dealCard();
-    Hand newHand1(this->_card1, newCard1);
-    
-    uint8_t newCard2 = shoe.dealCard();
-    Hand newHand2(this->_card2, newCard2);
+    //uint8_t newCard1 = shoe.dealCard();
+    Hand newHand1(this->_card1, shoe.dealCard());
+    //uint8_t newCard2 = shoe.dealCard();
+    Hand newHand2(this->_card2, shoe.dealCard());
     
     (*this) = newHand1;
     
@@ -367,12 +370,18 @@ std::vector<Hand> Hand::split(Shoe& shoe)
     
 }
                                                 
-//TODO: THIS FUNCTION DOESN'T WORK
-//
-Hand Hand::operator= (Hand& diffHand)
+/**
+ Overloaded = operator
+ Just calls Hand copy constructor
+ */
+Hand& Hand::operator= (Hand& diffHand)      //TODO: check that his works fine
 {
-    Hand temp(diffHand._card1, diffHand._card2);
-    return temp;
+    if(this != &diffHand)
+    {
+        Hand temp(diffHand._card1, diffHand._card2);
+        *this = temp;
+    }
+    return *this;
                                             
 }
                                                     
@@ -393,6 +402,8 @@ bool Hand::isBlackjack()
         }
     }
     return false;
+    
+    // could just use *this.isBlackjack()
 }
 
 /**
@@ -418,3 +429,21 @@ int Hand::getValue()
 {
     return _value;
 }
+
+/**
+ Destructor. Doesn't do anything of substance.
+ */
+Hand:: ~Hand()
+{
+    cout << "Hand destructor called \n";
+}
+
+ /**
+  friend function - overloaded ostream '= 'operator
+  */
+ostream& operator<<(ostream& s, Hand& hand)
+{
+    s << hand.getHand();
+    return s;
+}
+                                                         

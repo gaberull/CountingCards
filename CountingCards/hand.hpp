@@ -25,19 +25,23 @@ class Hand
     int _value = 0;
     
 public:
-    Hand();
-    Hand(const Hand& diffHand); // Copy constructor
-    Hand(uint8_t card1, uint8_t card2);
-    std::string getHand();
-    std::string displayOne();
-    int hit(Shoe& shoe);
-    std::vector<Hand> split(Shoe& shoe);
-    int getValue();
-    bool isBlackjack();
-    bool isSplittable();
-    int getNumCards();
-    // ~Hand() Destructor
-    Hand operator= (Hand& diffHand);    // overload equals operator
+    Hand();                                 // Default constructor
+    Hand(const Hand& diffHand);             // Copy constructor
+    Hand(uint8_t card1, uint8_t card2);     // 2 parameter constructor
+    std::string getHand();                  // get str of hand
+    std::string displayOne();               // Function to display one card for Dealer
+    int hit(Shoe& shoe);                    // hit hand - get one card
+    std::vector<Hand> split(Shoe& shoe);    // split a pair (only have 2 cards)
+    int getValue();                         // get integer value of hand
+    bool isBlackjack();                     // Blackjack - i.e. AsJs
+    bool isSplittable();                    // Two cards are a pair - splittable
+    int getNumCards();                      // get number of cards
+    
+    Hand& operator= (Hand& diffHand);       // overload = operator. returns *this for chaining purposes
+    ~Hand();                                //Destructor
+    
+    friend ostream& operator<<(ostream& s, const Hand& hand);   // overload << operator
 };
 
                                                 
+// friend ostream& operator<<(ostream& s, const Hand& hand);

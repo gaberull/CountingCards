@@ -18,15 +18,20 @@ class Dealer
 private:
     int _numPlayers;
     std::vector<Hand> handArray;
+    std::vector<Hand> otherPlayers;
     Hand* dealerHand;
     Dealer();
 public:
-    Dealer(int numPlayers);
+    // to deny implicit conversion (cahr to int) using "explicit"
+    explicit Dealer(int numPlayers);
     int dealHands(Shoe shoe, Bank playerBank, int bet);
-    int action(Shoe shoe, Bank playerBank, int bet, char action='a');
+    int action(Shoe shoe, Bank playerBank, int bet, Hand playerHand);
     int hitPlayer(Shoe shoe);
     int hitDealer(Shoe shoe);
+    Hand splitHand(Hand hand, Shoe shoe);
     ~Dealer();
+    
+    friend ostream& operator<<(ostream& s, const Dealer& dealer);
 };
                                                      
 /**
@@ -35,7 +40,8 @@ public:
 Dealer::Dealer(int numPlayers)
 {
     _numPlayers = numPlayers;
-    handArray = std::vector<Hand>(numPlayers);
+    otherPlayers = std::vector<Hand>(numPlayers-1);
+    handArray = std::vector<Hand>();
     dealerHand = new Hand();
 }
 
@@ -46,20 +52,21 @@ Dealer::Dealer(int numPlayers)
  */
 int Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
 {
-    (*this).handArray = std::vector<Hand>();
+    handArray = std::vector<Hand>();
     bool lastRound = false;
     bool blackjack = false;
     bool dealerBlackjack = false;
+    //dealerHand = new Hand();
     // vector of player hands. User will be zero, dealer will be _numPlayers
     
     for(int i=0; i<_numPlayers+1; i++)
     {
         // deal two cards to every player and dealer
         Hand currHand = Hand(shoe.dealCard(), shoe.dealCard());
-        handArray.push_back(currHand);
         // we are on the user
         if(i == 0)
         {
+            handArray.push_back(currHand);
             std::cout << "Your cards     :     " << currHand.getHand() << std::endl;
             blackjack = currHand.isBlackjack();
             
@@ -67,9 +74,10 @@ int Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
         // if we are on dealer
         else if(i == _numPlayers)
         {
+            dealerHand = new Hand(currHand);
             std::cout << "Dealer shows   :     " << currHand.displayOne() << "\n \n";
             // TODO: overloaded operator= not working
-            dealerHand = new Hand(currHand);
+            
             dealerBlackjack = currHand.isBlackjack();
             lastRound = shoe.shoeFinished();
             if(lastRound)
@@ -98,12 +106,10 @@ int Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
             cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
             cin >> temp;
         }
-        delete dealerHand;
         return 0;
     }
     if(blackjack)
     {
-        
         if(dealerBlackjack)
         {
             cout << "OH NO!!!! You have BLACKJACK, BUT so does the dealer! :(  This round is a push! \n";
@@ -123,8 +129,6 @@ int Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
                 cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
                 cin >> temp;
             }
-            
-            delete dealerHand;
             return 0;
         }
         else
@@ -145,12 +149,10 @@ int Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
                 cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
                 cin >> temp;
             }
-            delete dealerHand;
             return 0;
             
         }
     }
-    delete dealerHand;
     return 1;
     
 }
@@ -162,17 +164,20 @@ int Dealer::dealHands(Shoe shoe, Bank playerBank, int bet)
  
     this function does the paying out to player and removing of lost bets
  */
-int Dealer::action(Shoe shoe, Bank playerBank, int bet, char action)    // TODO: maybe remove this action default value
+int Dealer::action(Shoe shoe, Bank playerBank, int bet, Hand playerHand, char action)    // TODO: maybe remove this action default value
 {
     cout << "\n     Good Luck!!  \n\n";
     cout << "_____________________________ \n \n";
     cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
     cout << "| CURRENT BET  : $"<< bet << "  \n";
     cout << "----------------------------- \n \n";
+ 
+    // taking bet out at start in case it gets called again. will add back 2*bet
+    playerBank.removeFunds(bet);
     
-    
-    int player = handArray[0].getValue();
-    int dealer = handArray[_numPlayers].getValue();
+    int player = playerHand.getValue();
+    // handArray.pop_back(); Pop off back one at end
+    int dealer = dealerHand->getValue();
     if(action =='a')
     {
         // List menu of options for the player
@@ -209,7 +214,6 @@ int Dealer::action(Shoe shoe, Bank playerBank, int bet, char action)    // TODO:
             player = hitPlayer(shoe);
             if(player<0)   // player busts
             {
-                playerBank.removeFunds(bet);
                 cout << "_____________________________ \n \n";
                 cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
                 cout << "----------------------------- \n \n";
@@ -229,7 +233,8 @@ int Dealer::action(Shoe shoe, Bank playerBank, int bet, char action)    // TODO:
             }
             else    // still alive after player hit
             {
-                return Dealer::action(shoe, playerBank, bet);  // return 1; ??
+                playerBank.addFunds(bet);
+                return Dealer::action(shoe, playerBank, bet, playerHand);  // return 1; ??
             }
             break;
         }
@@ -238,7 +243,7 @@ int Dealer::action(Shoe shoe, Bank playerBank, int bet, char action)    // TODO:
             dealer = hitDealer(shoe);
             if(dealer < 0)  // dealer busts
             {
-                playerBank.addFunds(bet);
+                playerBank.addFunds(bet*2);
                 cout << "_____________________________ \n \n";
                 cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
                 cout << "----------------------------- \n \n";
@@ -265,18 +270,18 @@ int Dealer::action(Shoe shoe, Bank playerBank, int bet, char action)    // TODO:
                 {
                     cout << "\nDealer wins :-( \n";
                     cout << "\nYou lost your bet of  $"<< bet << "\n\n";
-                    playerBank.removeFunds(bet);
                 }
                 else if(player > dealer)
                 {
                     cout << "\nYOU WIN!!! :)  \n";
                     cout << "\nYou won  $"<< bet << "\n\n";
-                    playerBank.addFunds(bet);
+                    playerBank.addFunds(bet*2);
                 }
                 else // draw
                 {
                     cout << "\nHAND IS A DRAW \n";
                     cout << "\nGood luck on the next one\n\n";
+                    playerBank.addFunds(bet);
                 }
                 
                 cout << "_____________________________ \n \n";
@@ -294,6 +299,7 @@ int Dealer::action(Shoe shoe, Bank playerBank, int bet, char action)    // TODO:
                     cin >> temp;
                 }
                 if(temp=='q' || temp=='Q') return -1;
+                handArray.pop_back();
                 return 0;
             }
                // this hand is finished
@@ -301,8 +307,7 @@ int Dealer::action(Shoe shoe, Bank playerBank, int bet, char action)    // TODO:
         }
         case 's': {  //Player splits a pair. Must double bet or add remainder of stack
             cout << "\nPlayer Splits \n";
-            Hand hand = handArray[0];
-            if(!hand.isSplittable())
+            if(!playerHand.isSplittable())
             {
                 cout << "\nThis hand cannot be split. Please choose another action \n";
                 cout << "\nInput 'c' to continue or 'q' to quit \n";
@@ -317,11 +322,44 @@ int Dealer::action(Shoe shoe, Bank playerBank, int bet, char action)    // TODO:
                 }
                 if(temp=='q' || temp=='Q') return -1;
                 
-                return Dealer::action(shoe, playerBank, bet);  // ??
+                playerBank.addFunds(bet);
+                return Dealer::action(shoe, playerBank, bet, playerHand);  // ??
             }
             else    //TODO: Write code to split a hand
             {
-                //
+                // subtract bet again from bank. Betting 2x original bank now
+                playerBank.removeFunds(bet);
+                //TODO: fix this. All new hands need to play against same dealer action
+                // I think maybe call action twice. With new hands
+                                                                        /*
+                int a = Dealer::action(shoe, playerBank, bet);
+                int b = Dealer::action(shoe, playerBank, bet);
+                                                                        */
+                playerBank.addFunds(bet);
+                std::vector<Hand> newHands;
+                newHands = playerHand.split(shoe);
+                int a = Dealer::action(shoe, playerBank, bet, newHands[0]);
+                int b = Dealer::action(shoe, playerBank, bet, newHands[1]);
+                
+                dealer = hitDealer(shoe);
+                if(dealer < 0)  // dealer busts
+                {
+                    playerBank.addFunds(bet*4);
+                    cout << "_____________________________ \n \n";
+                    cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
+                    cout << "----------------------------- \n \n";
+                    
+                    cout << "\nInput 'c' to continue or 'q' to quit \n";
+                    char temp;
+                    cin >> temp;
+                    while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
+                    {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        cout << "Wrong Input. Enter 'C' or 'c' to continue. 'q' or 'Q' to quit\n";
+                        cin >> temp;
+                    }
+                    if(temp=='q' || temp=='Q') return -1;
             }
             
             break;
@@ -417,7 +455,7 @@ int Dealer::action(Shoe shoe, Bank playerBank, int bet, char action)    // TODO:
 int Dealer::hitPlayer(Shoe shoe)
 {
     Hand player = handArray[0];
-    Hand dealer = handArray[_numPlayers];
+    Hand dealer = *(dealerHand);
     cout << "Dealer::hit() - Hitting player's hand \n";
     int newPlayerVal = player.hit(shoe);
     if(newPlayerVal < 0)
@@ -465,7 +503,7 @@ int Dealer::hitPlayer(Shoe shoe)
  */
 int Dealer::hitDealer(Shoe shoe)
 {
-    Hand dealer = handArray[_numPlayers];
+    Hand dealer = (*dealerHand);
     int dealerScore = dealer.getValue();
     cout << "Dealer Has   " << dealer.getHand() << "   initially \n\n";
     cout << "Dealer's hand has a value of " << dealerScore <<" \n\n";
@@ -500,6 +538,23 @@ int Dealer::hitDealer(Shoe shoe)
     return dealerScore;
 }
     
+/**
+ TODO: take a look at this. May need editing
+ 
+ Pops back of handArray off, splits it in 2, puts both new news back in handArray
+ @returns Hand for no reason really
+ */
+Hand Dealer::splitHand(Hand hand, Shoe shoe)
+{
+    vector<Hand> arr = hand.split(shoe);
+    handArray.pop_back();
+    handArray.push_back(arr[0]);
+    handArray.push_back(arr[1]);
+    
+    return arr[1];
+    
+}
+    
 Dealer::~Dealer()
 {
     cout << "Dealer destructor being called \n";
@@ -513,3 +568,23 @@ Dealer::~Dealer()
  cout << "----------------------------- \n \n";
  
  */
+
+/**
+ Overloaded ostream operator<< to easily print off a dealer's info
+ */
+friend ostream& operator<<(ostream& s, const Dealer& dealer)
+{
+    s << "_numPlayers == " << _numPlayers << "\n";
+    s << "handArray: \n";
+    for(int i=0; i<handArray.size(); i++)
+    {
+        s << "i == " << i << " " << handArray[i] <<"\n";
+    }
+    s << "otherPlayers: \n";
+    for(int i=0; i<otherPlayers.size(); i++)
+    {
+        s << "i == " << i << " " << otherPlayers[i] <<"\n";
+    }
+    s << "dealerHand: " << *dealerHand << "\n";
+    
+}
