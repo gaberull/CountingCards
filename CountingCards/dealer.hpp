@@ -17,7 +17,10 @@ class Dealer
 private:
     int _numPlayers;
     std::vector<Hand> handArray;
+    std::vector<Hand> patHands;
+    
     std::vector<Hand> otherPlayers;
+    std::vector<Hand> otherPats;
     Hand* dealerHand;
     Dealer();
 public:

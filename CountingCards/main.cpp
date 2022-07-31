@@ -113,14 +113,14 @@ int main(int argc, const char * argv[]) {
     
     
     // Hands are dealt
-    int handContinues = 1;
+    int handContinues = dealer.dealHands(shoe, bank, bet);  // -1 quit, 0 hand done, 1 hand ongoing
     // while handOngoing >=0
     while(handContinues>=0) // while quit hasn't been requested
     {
         // double check this bit. may never be 1 returned from Dealer::action()
         if(handContinues==1)    // hand is ongoing, call action
         {
-            dealer.action(shoe, bank, bet);
+            dealer.action(shoe, bank);
         }
         else   //handContinues==0, start new hand
         {
