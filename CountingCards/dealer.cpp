@@ -308,6 +308,7 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, int bet, char action) // TODO: 
             cout << "\nPlayer Chooses to Stand Pat with score of "<< player << " \n\n";
             playerHand.setPat(true);
             handArray.pop_back();
+            handsToPlay--;
             patHands.push_back(playerHand);
             
             cout << "\nInput 'c' to continue or 'q' to quit \n";
@@ -323,20 +324,11 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, int bet, char action) // TODO: 
             if(temp=='q' || temp=='Q') return -1;
             
             // if we still have some hands from splitting:
-            if(handArray.size()>0)
+            if(handsToPlay>0)
             {
                 return Dealer::action(shoe, playerBank, bet);
             }
-            
-            //TODO: add dealer action here or
-            return 0;
-            
-                    /// ALL THIS DEALER ACTION IN WRONG SPOT
-                                                                            
-            
-                
-            }
-               // this hand is finished
+            return 0; // this hand is finished
             break;
         }
             /// Split the hand - must be a pair
