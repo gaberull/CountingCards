@@ -34,8 +34,8 @@ public:
     Hand(uint8_t card1, uint8_t card2);     // 2 parameter constructor
     std::string getHand();                  // get str of hand
     std::string displayOne();               // Function to display one card for Dealer
-    int hit(Shoe& shoe);                    // hit hand - get one card
-    std::vector<Hand> split(Shoe& shoe);    // split a pair (only have 2 cards)
+    int hit(Shoe* shoe);                    // hit hand - get one card
+    std::vector<Hand> split(Shoe* shoe);    // split a pair (only have 2 cards)
     int getValue();                         // get integer value of hand
     bool isBlackjack();                     // Blackjack - i.e. AsJs
     bool isSplittable();                    // Two cards are a pair - splittable
@@ -305,13 +305,13 @@ string Hand::displayOne()
 /**
  @brief hit() returns -1 if busted.  The value of the hand otherwise
  */
-int Hand::hit(Shoe& shoe)
+int Hand::hit(Shoe* shoe)
 {
     blackjack = false;  // hand is no longer a blackjack or splittable if we are hitting
     splittable = false;
     numCards++;
     
-    uint8_t card = shoe.dealCard();
+    uint8_t card = shoe->dealCard();
     char cardSymbol = cardMap[card>>4];
     cardArray.push_back(cardSymbol);
     char suit = suitMap[card&0x0F];
@@ -339,7 +339,7 @@ int Hand::hit(Shoe& shoe)
 /**
  @brief Splits a hand containing 2 cards, both of same symbol. Suit doesn't matter.
  */
-vector<Hand> Hand::split(Shoe& shoe)        //TODO: should I return pointer? reference? (prolly not reference)
+vector<Hand> Hand::split(Shoe* shoe)        //TODO: should I return pointer? reference? (prolly not reference)
 {
     //create new vector of hands containing this hand
     std::vector<Hand> ret(1, *this);
@@ -357,9 +357,9 @@ vector<Hand> Hand::split(Shoe& shoe)        //TODO: should I return pointer? ref
     
     // Create two whole new hands using constructor w/ 2 card arguments
     //uint8_t newCard1 = shoe.dealCard();
-    Hand newHand1(this->_card1, shoe.dealCard());
+    Hand newHand1(this->_card1, shoe->dealCard());
     //uint8_t newCard2 = shoe.dealCard();
-    Hand newHand2(this->_card2, shoe.dealCard());
+    Hand newHand2(this->_card2, shoe->dealCard());
     
     (*this) = newHand1;
     

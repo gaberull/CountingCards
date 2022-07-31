@@ -30,8 +30,8 @@ public:
     Hand(uint8_t card1, uint8_t card2);     // 2 parameter constructor
     std::string getHand();                  // get str of hand
     std::string displayOne();               // Function to display one card for Dealer
-    int hit(Shoe& shoe);                    // hit hand - get one card
-    std::vector<Hand> split(Shoe& shoe);    // split a pair (only have 2 cards)
+    int hit(Shoe* shoe);                    // hit hand - get one card
+    std::vector<Hand> split(Shoe* shoe);    // split a pair (only have 2 cards)
     int getValue();                         // get integer value of hand
     bool isBlackjack();                     // Blackjack - i.e. AsJs
     bool isSplittable();                    // Two cards are a pair - splittable

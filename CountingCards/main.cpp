@@ -73,10 +73,44 @@ int main(int argc, const char * argv[]) {
     
     bet = (int) stol(bet_str);
     //cout << "bet_int is " << bet_int << "\n";
-    Shoe shoe(numDecks, cutPoint);
+    
+                                                            /*
+    // allocate new shoe, bank, and dealer on heap
+    Shoe* shoe = nullptr;
+    try {
+        shoe = new Shoe(numDecks, cutPoint);
+    } catch (bad_alloc& ba) {
+        cout << "Error: new shoe allocation failed\n";
+        return 1;
+    }
+    Bank* bank = nullptr;
+    try {
+        bank = new Bank(funds);
+    } catch (bad_alloc& ba) {
+        cout << "Error: new bank allocation failed\n";
+        return 1;
+    }
+    Dealer* dealer = nullptr;
+    try {
+        dealer = new Dealer(1);
+    } catch (bad_alloc& ba) {
+        cout << "Error: new dealer allocation failed\n";
+        return 1;
+    }
+                                                             */
+    
+    Shoe* shoe = new (std::nothrow) Shoe(numDecks, cutPoint);
+    if(shoe==nullptr)
+    {
+        cout << "shoe ptr did not allocate correctly \n";
+        return 1;
+    }
     Bank bank(funds);
-    // just one player for now
     Dealer dealer(1);
+    
+    
+    // just one player for now
+    
     
     // Hands are dealt
     int handContinues = 1;
@@ -112,6 +146,15 @@ int main(int argc, const char * argv[]) {
     cout << "| BANKROLL     : $"<< bank.getBalance() <<" \n";
     cout << "----------------------------- \n \n";
     
+    
+    // USE DELETE if decide to use pointers
+                    /*
+    delete shoe;
+    delete bank;
+    delete dealer;
+                     */
+    
+    delete shoe;
     return 0;
     
 }

@@ -9,6 +9,8 @@
 #include <vector>
 #include <cstdlib>
 
+using namespace std;
+
 class Shoe
 {
     int _numDecks = 1;
