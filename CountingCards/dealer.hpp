@@ -8,7 +8,9 @@
 #pragma once
 #include "hand.hpp"
 #include "bank.hpp"
-using namespace std;
+
+#include "shoe.hpp"
+//using namespace std;
 
 class Dealer
 {
@@ -28,7 +30,7 @@ public:
     Hand splitHand(Hand& hand, Shoe* shoe);
     ~Dealer();
     
-    friend ostream& operator<<(ostream& s, const Dealer& dealer);
+    friend std::ostream& operator<<(std::ostream& s, const Dealer& dealer);
 };
                                         
 

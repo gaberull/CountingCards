@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <vector>
 #include <unordered_map>
+#include "shoe.hpp"
 
 class Hand
 {
@@ -40,7 +41,7 @@ public:
     Hand& operator= (Hand& diffHand);       // overload = operator. returns *this for chaining purposes
     ~Hand();                                //Destructor
     
-    friend ostream& operator<<(ostream& s, const Hand& hand);   // overload << operator
+    friend std::ostream& operator<<(std::ostream& s, const Hand& hand);   // overload << operator
 };
 
                                                 

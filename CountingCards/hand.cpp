@@ -6,6 +6,7 @@
 //
 
 #include "shoe.hpp"
+#include "hand.hpp"
 #include <iostream>
 #include <cstdlib>
 #include <unordered_map>
@@ -13,7 +14,7 @@
 #include <string>
 #include <vector>
 using namespace std;
-                                                    
+                                                                                /*
 class Hand
 {
     std::vector<char> cardArray;
@@ -46,6 +47,7 @@ public:
     
     friend ostream& operator<<(ostream& s, const Hand& hand);   // overload << operator
 };
+                                                                                 */
       
 /*
  Default Constructor

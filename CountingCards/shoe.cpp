@@ -5,11 +5,11 @@
 //  Created by Gabe Scott on 7/25/22.
 //
 
-//#include "shoe.hpp"
+#include "shoe.hpp"
 #include <vector>
 #include <iostream>
 using namespace std;
-                                                            
+                                                                        /*
 class Shoe
 {
     int _numDecks = 1;
@@ -28,6 +28,7 @@ public:
     bool shoeFinished();
     ~Shoe();
 };
+                                                                         */
                                                              
 
 Shoe::Shoe()

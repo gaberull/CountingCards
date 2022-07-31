@@ -6,13 +6,14 @@
 //
 
 #include <iostream>
+#include "dealer.hpp"
 #include "shoe.hpp"
 #include "hand.hpp"
 #include "bank.hpp"
 #include <iostream>
 
 using namespace std;
-                                                    
+                                                                        /*
 class Dealer
 {
 private:
@@ -31,8 +32,9 @@ public:
     Hand splitHand(Hand& hand, Shoe* shoe);
     ~Dealer();
     
-    friend ostream& operator<<(ostream& s, const Dealer& dealer);
+    friend std::ostream& operator<<(std::ostream& s, const Dealer& dealer);
 };
+                                                                         */
                                                      
 /**
  constructor to be used
@@ -46,6 +48,7 @@ Dealer::Dealer(int numPlayers)
 }
 
 /**
+ 
     @returns 1 if hand is ongoing
              0 if hand is finished
             - 1 to quit game
@@ -85,7 +88,6 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
                 std::cout << "This will be the last hand on this shoe \n";
             }
         }
-                            
     }
     if(dealerBlackjack && !blackjack)
     {
@@ -156,13 +158,19 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
     return 1;
     
 }
-                                
 /**
- Dealer offers menu of option and then performs then
- can input an action character. if action parameter is the default 'a', will request action character, otherwise skips that
- @returns 0 if hand is done, 1 if hand continues, -1 to quit program
- 
-    this function does the paying out to player and removing of lost bets
+ @brief     Dealer offers menu of option and then performs it. The user
+            can input an action character. if action parameter is the default 'a',
+            will request action character, otherwise skips that
+ @param     shoe - the shoe containing all the decks that the game is being played with
+ @param     playerBank - the user's current balance of funds, and functions to update that balance
+ @param     bet - the player's bet is input when this function is called
+ @param     action - this char is set to a default value in the function declaration, and may not end up being used
+        TODO: check this line of documentation above for action char
+ @returns   0 if hand is done, 1 if hand continues, -1 to quit program
+ @note      this function does the paying out to player and removing of lost bets
+ @discussion    action() adds the main functionality of the gameplay. It covers all actions that the player can take.
+                actions include: hit, stand, split, double, get strategy hint, get current running count, list rules, surrender
  */
 int Dealer::action(Shoe* shoe, Bank& playerBank, int bet, char action) // TODO: maybe remove this action default value
 {

@@ -9,7 +9,6 @@
 #include <vector>
 #include <cstdlib>
 
-using namespace std;
 
 class Shoe
 {
@@ -18,7 +17,7 @@ class Shoe
     int _cutPoint = 52;
     int _count = 0;
     bool _endOfShoe = false;
-    vector<uint8_t> fullShoe;
+    std::vector<uint8_t> fullShoe;
          // private default constructor prevents it from being called
     
 public:
