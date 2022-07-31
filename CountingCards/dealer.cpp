@@ -56,8 +56,16 @@ Dealer::Dealer(int numPlayers)
 int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
 {
     handArray = std::vector<Hand>();
+    otherPlayers = std::vector<Hand>();
+    
+    if(playerBank.getBalance() < bet)
+    {
+        cout <<" You have bet more than you have. Try again \n\n";
+        return 0;
+    }
+    playerBank.removeFunds(bet);
     bool lastRound = false;
-    bool blackjack = false;
+    bool blackjack = false; // TODO: add this to hand, remove from here
     bool dealerBlackjack = false;
     //dealerHand = new Hand();
     // vector of player hands. User will be zero, dealer will be _numPlayers
@@ -65,10 +73,11 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
     for(int i=0; i<_numPlayers+1; i++)
     {
         // deal two cards to every player and dealer
-        Hand currHand = Hand(shoe->dealCard(), shoe->dealCard());
+        //Hand currHand = Hand(shoe->dealCard(), shoe->dealCard(), bet);
         // we are on the user
         if(i == 0)
         {
+            Hand currHand = Hand(shoe->dealCard(), shoe->dealCard(), bet);
             handArray.push_back(currHand);
             std::cout << "Your cards     :     " << currHand.getHand() << std::endl;
             blackjack = currHand.isBlackjack();
@@ -77,23 +86,29 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
         // if we are on dealer
         else if(i == _numPlayers)
         {
-            dealerHand = new Hand(currHand);
-            std::cout << "Dealer shows   :     " << currHand.displayOne() << "\n \n";
+            dealerHand = new Hand(shoe->dealCard(), shoe->dealCard());
+            std::cout << "Dealer shows   :     " << dealerHand->displayOne() << "\n \n";
             // TODO: overloaded operator= not working
             
-            dealerBlackjack = currHand.isBlackjack();
+            dealerBlackjack = dealerHand->isBlackjack();
             lastRound = shoe->shoeFinished();
             if(lastRound)
             {
                 std::cout << "This will be the last hand on this shoe \n";
             }
         }
+        else
+        {
+            // putting bet=0 on AI hands
+            Hand AIHand = Hand(shoe->dealCard(), shoe->dealCard());
+            otherPlayers.push_back(AIHand);
+            
+        }
     }
     if(dealerBlackjack && !blackjack)
     {
         cout << "Dealer Has:       " << dealerHand->getHand() << "\n";
         cout << "That lucky buffoon has BLACKJACK.. Got us this time.. \n\n";
-        playerBank.removeFunds(bet);
         cout << "_____________________________ \n \n";
         cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
         cout << "----------------------------- \n \n";
@@ -114,6 +129,7 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
     {
         if(dealerBlackjack)
         {
+            playerBank.addFunds(bet);
             cout << "OH NO!!!! You have BLACKJACK, BUT so does the dealer! :(  This round is a push! \n";
             cout << "Dealer Has:       " << dealerHand->getHand() << "\n\n";
             cout << "_____________________________ \n \n";
@@ -136,6 +152,7 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
         else
         {
             cout << "****   CONGRATS!!!! You have a BLACKJACK!! It pays 3:2!!   ****\n\n\n";
+            playerBank.addFunds(bet);   // add bet back in first. then payout
             playerBank.payBlackjack(bet);
             cout << "Dealer Has:       " << dealerHand->getHand() << "\n\n";
             cout << "_____________________________ \n \n";
@@ -165,7 +182,7 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
  @param     shoe - the shoe containing all the decks that the game is being played with
  @param     playerBank - the user's current balance of funds, and functions to update that balance
  @param     bet - the player's bet is input when this function is called
- @param     action - this char is set to a default value in the function declaration, and may not end up being used
+ @param     action - this char is set to default value='a'   in the function declaration, and may not end up being used
         TODO: check this line of documentation above for action char
  @returns   0 if hand is done, 1 if hand continues, -1 to quit program
  @note      this function does the paying out to player and removing of lost bets
@@ -181,13 +198,15 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, int bet, char action) // TODO: 
     cout << "----------------------------- \n \n";
  
     // taking bet out at start in case it gets called again. will add back 2*bet
-    playerBank.removeFunds(bet);
+    playerBank.removeFunds(bet);    // TODO: change this. bet=0 default, and can pull bet from hands.
     
     //TODO: somehow need to call action() for each hand in handArray to handle split hands
     // ideas: pop current hand off back of array, then iterate through array from back to start
     
     // get last hand
     Hand playerHand = handArray.back();
+    playerBank.removeFunds(playerHand.getBet());
+    
     handArray.pop_back();
     //  Pop off back one at end
     int player = playerHand.getValue();
@@ -195,10 +214,12 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, int bet, char action) // TODO: 
     if(action =='a')
     {
         // List menu of options for the player
-        cout << "**  What action would you like to take?  **\n\n";
+        cout << "***  Please choose the action you would like to take  ***\n";
+        cout << "---------------------------------------------------------\n\n";
         cout << "||  'h' - hit           |  'p' - stand pat                  |  's' - split       |  'd' - double down  ||\n";
         cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n";
         cout << "    'q' or 'Q' to quit\n\n";
+        cout << "---------------------------------------------------------\n\n";
         cin >> action;
         while(!cin || (action != 'h' && action != 'p' && action != 's' && action != 'd' && action != 'm' && action != 'c' && action != 'r' && action != 'x' && action != 'q'))   //TODO: add handling capital letters
         {
@@ -223,6 +244,7 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, int bet, char action) // TODO: 
             return -1;
             break;
         }
+            /// Hit the Hand
         case 'h': {  //hitPlayer(int bet, Shoe shoe, Bank playerBank)
             cout << "\nPLAYER WILL HIT! \n";
             player = hitPlayer(shoe);
@@ -247,14 +269,16 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, int bet, char action) // TODO: 
             }
             else    // still alive after player hit
             {
-                playerBank.addFunds(2*bet);
+                playerBank.addFunds(bet);
                 return Dealer::action(shoe, playerBank, bet);  // return 1; ??
             }
             break;
         }
-        case 'p': {  //Stand pat
+        
+            /// Stand Pat - 'p'
+        case 'p': {
             cout << "\nPlayer Chooses to Stand Pat with score of "<< player << " \n\n";
-            dealer = hitDealer(shoe);
+            dealer = dealerAction(shoe);
             if(dealer < 0)  // dealer busts
             {
                 playerBank.addFunds(bet*2);
@@ -324,6 +348,7 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, int bet, char action) // TODO: 
                // this hand is finished
             break;
         }
+            /// Split the hand - must be a pair
         case 's': {  //Player splits a pair. Must double bet or add remainder of stack
             cout << "\nPlayer Splits \n";
             if(!playerHand.isSplittable())
@@ -377,7 +402,7 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, int bet, char action) // TODO: 
                 
                 
                 
-                dealer = hitDealer(shoe);
+                dealer = dealerAction(shoe);
                 if(dealer < 0)  // dealer busts
                 {
                     playerBank.addFunds(bet*4);
@@ -534,12 +559,23 @@ int Dealer::hitPlayer(Shoe* shoe)
     }
     return newPlayerVal;
 }
+   
+//TODO: write this function
+                                    /*
+int Dealer::playAIHands(Shoe shoe, int numHands)
+{
+    if(numHands == 0)
+    {
+        numHands = numPlayers-1;
+    }
+}
+                                     */
 
 /**
  This function will hit the Dealer until they bust or have a good enough score to stand pat.
  @returns -1 if dealer busts   ||     else score of the dealer's hand
  */
-int Dealer::hitDealer(Shoe* shoe)
+int Dealer::dealerAction(Shoe* shoe)
 {
     Hand dealer = (*dealerHand);
     int dealerScore = dealer.getValue();

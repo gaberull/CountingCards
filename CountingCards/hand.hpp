@@ -23,12 +23,14 @@ class Hand
     int numCards = 0;
     bool blackjack = false;
     bool splittable = false;
+    bool isPat = false;
     int _value = 0;
+    int handBet = 0;
     
 public:
     Hand();                                 // Default constructor
     Hand(const Hand& diffHand);             // Copy constructor
-    Hand(uint8_t card1, uint8_t card2);     // 2 parameter constructor
+    Hand(uint8_t card1, uint8_t card2, int bet=0);     // 3 parameter constructor
     std::string getHand();                  // get str of hand
     std::string displayOne();               // Function to display one card for Dealer
     int hit(Shoe* shoe);                    // hit hand - get one card
@@ -37,6 +39,10 @@ public:
     bool isBlackjack();                     // Blackjack - i.e. AsJs
     bool isSplittable();                    // Two cards are a pair - splittable
     int getNumCards();                      // get number of cards
+    void setPat(bool pat);                  // set whether or not hand can receive more cards
+    bool getPat();                          // get whether or not hand can receive more cards
+    int doubleHand(Shoe* shoe, int bet=0);
+    int getBet();                           // get bet on this hand
     
     Hand& operator= (Hand& diffHand);       // overload = operator. returns *this for chaining purposes
     ~Hand();                                //Destructor

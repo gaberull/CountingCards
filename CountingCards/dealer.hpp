@@ -24,10 +24,11 @@ public:
     // to deny implicit conversion (cahr to int) using "explicit"
     explicit Dealer(int numPlayers);
     int dealHands(Shoe* shoe, Bank& playerBank, int bet);
-    int action(Shoe* shoe, Bank& playerBank, int bet, char action ='a');
+    int action(Shoe* shoe, Bank& playerBank, int bet=0, char action ='a');
     int hitPlayer(Shoe* shoe);
-    int hitDealer(Shoe* shoe);
+    int dealerAction(Shoe* shoe);
     Hand splitHand(Hand& hand, Shoe* shoe);
+    int playAIHands(Shoe* shoe, int numHands=0);
     ~Dealer();
     
     friend std::ostream& operator<<(std::ostream& s, const Dealer& dealer);

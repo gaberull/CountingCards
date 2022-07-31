@@ -67,6 +67,8 @@ Hand::Hand()
     blackjack = false;
     _value = 0;
     splittable = false;
+    isPat = false;
+    handBet = 0;
 }
 
 /**
@@ -83,13 +85,17 @@ Hand::Hand(const Hand& diffHand)
     blackjack = diffHand.blackjack;
     splittable = diffHand.splittable;
     _value = diffHand._value;
+    isPat = diffHand.isPat;
+    handBet = diffHand.handBet;
 }
 
 /**
  Main constructor that will be used
  */
-Hand::Hand(uint8_t card1, uint8_t card2)
+Hand::Hand(uint8_t card1, uint8_t card2, int bet)
 {
+    handBet = bet;
+    isPat = false;
     _card1 = card1;
     _card2 = card2;
     numCards=2;
@@ -315,6 +321,7 @@ int Hand::hit(Shoe* shoe)
     
     uint8_t card = shoe->dealCard();
     char cardSymbol = cardMap[card>>4];
+    numCards++;
     cardArray.push_back(cardSymbol);
     char suit = suitMap[card&0x0F];
     suitArray.push_back(suit);
@@ -338,6 +345,33 @@ int Hand::hit(Shoe* shoe)
     return _value;
 }
 
+/**
+ @brief doubles hand's bet and then calls hit()
+        player can enter a bet to double for less. if bet==0 (default val), the bet will be doubled
+ */
+int Hand::doubleHand(Shoe* shoe, int bet)
+{
+    if(bet != 0 )
+    {
+        handBet += bet;
+    }
+    else
+    {
+        handBet *= 2;
+    }
+    
+    int ret = (*this).hit(shoe);
+    isPat = true;
+    return ret;
+}
+
+/**
+ @brief get bet currently place on this hand
+ */
+int Hand::getBet()
+{
+    return handBet;
+}
 /**
  @brief Splits a hand containing 2 cards, both of same symbol. Suit doesn't matter.
  */
@@ -430,6 +464,19 @@ int Hand::getNumCards()
 int Hand::getValue()
 {
     return _value;
+}
+
+/**
+ @brief set whether the hand can receive more cards or is "standing pat"
+ */
+void Hand::setPat(bool pat)
+{
+    isPat = pat;
+}
+
+bool Hand::getPat()
+{
+    return isPat;
 }
 
 /**
