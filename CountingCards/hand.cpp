@@ -372,6 +372,11 @@ int Hand::getBet()
 {
     return handBet;
 }
+
+void Hand::setBet(int bet)
+{
+    handBet = bet;
+}
 /**
  @brief Splits a hand containing 2 cards, both of same symbol. Suit doesn't matter.
  */

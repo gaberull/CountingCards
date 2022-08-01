@@ -43,6 +43,7 @@ public:
     bool getPat();                          // get whether or not hand can receive more cards
     int doubleHand(Shoe* shoe, int bet=0);
     int getBet();                           // get bet on this hand
+    void setBet(int bet);                   // set new bet on this hand
     
     Hand& operator= (Hand& diffHand);       // overload = operator. returns *this for chaining purposes
     ~Hand();                                //Destructor
