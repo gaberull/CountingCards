@@ -52,6 +52,8 @@ Dealer::Dealer(int numPlayers)
     @returns 1 if hand is ongoing
              0 if hand is finished
             - 1 to quit game
+ 
+@discussion removes bet from playerBank at start of hand. Adds it back for push.
  */
 int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
 {
@@ -77,10 +79,10 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
         // we are on the user
         if(i == 0)
         {
-            Hand currHand = Hand(shoe->dealCard(), shoe->dealCard(), bet);
-            handArray.push_back(currHand);
-            std::cout << "Your cards     :     " << currHand.getHand() << "\n\n\n";
-            blackjack = currHand.isBlackjack();
+            Hand playerHand = Hand(shoe->dealCard(), shoe->dealCard(), bet);
+            handArray.push_back(playerHand);
+            std::cout << "Your cards     :     " << playerHand.getHand() << "\n\n\n";
+            blackjack = playerHand.isBlackjack();
             
         }
         // if we are on dealer
@@ -119,22 +121,26 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
     }
     if(dealerBlackjack && !blackjack)
     {
+        handArray.pop_back();
         cout << "Dealer Has:       " << dealerHand->getHand() << "\n";
         cout << "That lucky buffoon has BLACKJACK.. Got us this time.. \n\n";
         cout << "_____________________________ \n \n";
         cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
         cout << "----------------------------- \n \n";
         
-        cout << "\nInput 'c' to continue \n";
+        //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
+        cout << "\nInput 'c' to continue or 'q' to quit \n";
         char temp;
         cin >> temp;
-        while(!cin || (temp != 'c' && temp != 'C'))
+        while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
         {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
+            cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
             cin >> temp;
         }
+        if(temp=='q' || temp=='Q') return -1;
+        //////////////////////////////               End of  Continue sequence             ////////////////////////////////////////////
         return 0;
     }
     if(blackjack)
@@ -142,8 +148,7 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
         if(dealerBlackjack)
         {
             /// HAND IS A PUSH
-            
-            //playerBank.addFunds(handArray.back().getBet());
+            handArray.pop_back();
             playerBank.addFunds(bet);   // put funds back in that we took out at start for bet
             //playerBank.addFunds(bet);
             cout << "OH NO!!!! You have BLACKJACK, BUT so does the dealer! :(  This round is a push! \n";
@@ -153,44 +158,65 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
             cout << "----------------------------- \n \n";
             
             
-            cout << "Input 'c' to continue \n";
+            //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
+            cout << "\nInput 'c' to continue or 'q' to quit \n";
             char temp;
             cin >> temp;
-            while(!cin || (temp != 'c' && temp != 'C'))
+            while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
             {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
+                cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
                 cin >> temp;
             }
+            if(temp=='q' || temp=='Q') return -1;
+            //////////////////////////////               End of  Continue sequence             ////////////////////////////////////////////
+            
             return 0;
         }
         else    // Player beats dealer with a blackjack
         {
             cout << "****   CONGRATS!!!! You have a BLACKJACK!! It pays 3:2!!   ****\n\n\n";
-                                    // bet
-            //playerBank.addFunds(handArray.back().getBet());   // add bet back in first. then payout
+            // add bet back in first. then payout blackjack
             playerBank.addFunds(bet);
             playerBank.payBlackjack(bet);   // TODO: check that these two statements add correctly for BJ
+            handArray.pop_back();
             cout << "Dealer Has:       " << dealerHand->getHand() << "\n\n";
             cout << "_____________________________ \n \n";
             cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
             cout << "----------------------------- \n \n";
             
-            cout << "Input 'c' to continue \n";
+            //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
+            cout << "\nInput 'c' to continue or 'q' to quit \n";
             char temp;
             cin >> temp;
-            while(!cin || (temp != 'c' && temp != 'C'))
+            while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
             {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
+                cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
                 cin >> temp;
             }
+            if(temp=='q' || temp=='Q') return -1;
+            //////////////////////////////               End of  Continue sequence             ////////////////////////////////////////////
             return 0;
             
         }
     }
+    
+    //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
+    cout << "\nInput 'c' to continue or 'q' to quit \n";
+    char temp;
+    cin >> temp;
+    while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
+        cin >> temp;
+    }
+    if(temp=='q' || temp=='Q') return -1;
+    //////////////////////////////               End of  Continue sequence             ////////////////////////////////////////////
     return 1;   // 1 means hand is not over. funds have already been removed from playerBank
     
 }
@@ -446,6 +472,7 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
             player = hitPlayer(playerHand, shoe);
             if(player<0)   // player busts
             {
+                
                 cout << "_____________________________ \n \n";
                 cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
                 cout << "----------------------------- \n \n";
@@ -460,8 +487,15 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
                     cout << "Wrong Input. Enter 'C' or 'c' to continue. 'q' or 'Q' to quit\n";
                     cin >> temp;
                 }
-                if(temp=='c' || temp=='C') return 0;
                 if(temp=='q' || temp=='Q') return -1;
+                
+                handArray.pop_back();
+                handsToPlay--;
+                if(handArray.size() > 0)
+                {
+                    return Dealer::action(shoe, playerBank);
+                }
+                return 0;
             }
             else    // still alive after player doubled
             {
@@ -517,10 +551,9 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
     return 1;   //TODO: 1== not done
 }
   
-// TODO: LEFT OFF HERE on 7/29 at 8:18 PM. FINISH this and fix this up
-// returns -1 if player busts. player's hands value otherwise
-//
-//
+/**
+ @returns -1 if player busts, player's hand value otherwise
+ */
 int Dealer::hitPlayer(Hand& player, Shoe* shoe)
 {
     //Hand dealer = *(dealerHand);
@@ -532,8 +565,10 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)
         //playerBank.removeFunds(bet);  // wrong spot
         // Dealer shows hand but it is over
         // TODO: change this when I add in more computer players. Hand won't be displayed yet
-        cout << "Dealer Had:       " << dealer->getHand() << "\n\n"; // TODO: check that Hand dealer works (persists)
+        //cout << "Dealer Had:       " << dealerHand->getHand() << "\n\n"; // TODO: check that Hand dealer works (persists)
         
+        // TODO: REmove this continue sequence. Already have it where it's being called I think
+                                                                    /*
         cout << "Input 'c' to continue \n";
         char temp;
         cin >> temp;
@@ -544,10 +579,12 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)
             cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
             cin >> temp;
         }
+                                                                     */
     }
     else
     {
         cout << "Player has "<< player.getHand() << " for a value of " << newPlayerVal <<" \n";
+                                                                    /*
         cout << "Input 'c' to continue \n";
         char temp;
         cin >> temp;
@@ -558,6 +595,7 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)
             cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
             cin >> temp;
         }
+                                                                     */
     }
     return newPlayerVal;
 }
