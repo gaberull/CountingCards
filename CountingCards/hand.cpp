@@ -94,7 +94,7 @@ Hand::Hand(const Hand& diffHand)
  */
 Hand::Hand(uint8_t card1, uint8_t card2, int bet)
 {
-    handBet = bet;
+    handBet = bet;  // bet has default value of 0
     isPat = false;
     _card1 = card1;
     _card2 = card2;
@@ -392,10 +392,10 @@ Hand Hand::split(Shoe* shoe)        //TODO: should I return pointer? reference? 
     }
     
     // Create two whole new hands using constructor w/ 2 card arguments
-    //uint8_t newCard1 = shoe.dealCard();
-    Hand newHand1(this->_card1, shoe->dealCard());
+    int bet = this->getBet();
+    Hand newHand1(this->_card1, shoe->dealCard(), bet);
     //uint8_t newCard2 = shoe.dealCard();
-    Hand newHand2(this->_card2, shoe->dealCard());
+    Hand newHand2(this->_card2, shoe->dealCard(), bet);
     
     (*this) = newHand1;
     
