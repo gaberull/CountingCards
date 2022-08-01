@@ -33,7 +33,6 @@ public:
     
     int hitPlayer(Hand& player, Shoe* shoe);
     int dealerAction(Shoe* shoe);
-    Hand splitHand(Hand& hand, Shoe* shoe);
 
     ~Dealer();
     

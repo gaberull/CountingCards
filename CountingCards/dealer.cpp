@@ -547,6 +547,9 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
   
 /**
  @returns -1 if player busts, player's hand value otherwise
+ @brief this function calls Hand::hit() and adds some dealer talking text
+ 
+ TODO: Check and see if I even need this function
  */
 int Dealer::hitPlayer(Hand& player, Shoe* shoe)
 {
@@ -606,79 +609,34 @@ int Dealer::playAIHands(Shoe shoe, int numHands)
                                      */
 
 /**
- This function will hit the Dealer until they bust or have a good enough score to stand pat.
- @returns -1 if dealer busts   ||     else score of the dealer's hand
+ @brief This function will hit the Dealer until they bust or have a good enough score to stand pat.
+ 
+ @returns -1 if dealer busts , otherwise the score of the dealer's hand
+ 
  */
 int Dealer::dealerAction(Shoe* shoe)
 {
-    /*
-dealer = dealerAction(shoe);
-if(dealer < 0)  // dealer busts
-{
-playerBank.addFunds(bet*2);
-cout << "_____________________________ \n \n";
-cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
-cout << "----------------------------- \n \n";
-
-cout << "\nInput 'c' to continue or 'q' to quit \n";
-char temp;
-cin >> temp;
-while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
-{
-cin.clear();
-cin.ignore(numeric_limits<streamsize>::max(), '\n');
-cout << "Wrong Input. Enter 'C' or 'c' to continue. 'q' or 'Q' to quit\n";
-cin >> temp;
-}
-if(temp=='q' || temp=='Q') return -1;
-
-}
-else    // dealer did not bust
-{
-cout << "\n Action is Done. \n";
-cout << "\nPlayer has a score of "<< player << " \n\n";
-cout << "\nDealer has a score of "<< dealer << " \n\n";
-if(player < dealer)
-{
-cout << "\nDealer wins :-( \n";
-cout << "\nYou lost your bet of  $"<< bet << "\n\n";
-}
-else if(player > dealer)
-{
-cout << "\nYOU WIN!!! :)  \n";
-cout << "\nYou won  $"<< bet << "\n\n";
-playerBank.addFunds(bet*2);
-}
-else // draw
-{
-cout << "\nHAND IS A DRAW \n";
-cout << "\nGood luck on the next one\n\n";
-playerBank.addFunds(bet);
-}
-     
-
-cout << "_____________________________ \n \n";
-cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
-cout << "----------------------------- \n \n";
-    */
-    
-    
-    Hand* dealer = dealerHand;
-    int dealerScore = dealer->getValue();
-    cout << "Dealer Has   " << dealer->getHand() << "   initially \n\n";
+                                                                        /*
+    cout << "_____________________________ \n \n";
+    cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
+    cout << "----------------------------- \n \n";
+                                                                         */
+    int dealerScore = dealerHand->getValue();
+    cout << "Dealer Has   " << dealerHand->getHand() << "   initially \n\n";
     cout << "Dealer's hand has a value of " << dealerScore <<" \n\n";
     int numHits = 0;
     
     while(dealerScore < 17 && dealerScore>0)
     {
-        dealerScore = dealer->hit(shoe);
+        dealerScore = dealerHand->hit(shoe);
         numHits++;
-        cout << "Dealer Has   " << dealer->getHand() << "    after hitting "<< numHits <<" time(s) \n\n";
+        cout << "Dealer Has   " << dealerHand->getHand() << "    after hitting "<< numHits <<" time(s) \n\n";
     }
     
     if(dealerScore > 0)
     {
-        cout << "Dealer's hand has a score of " << dealer->getValue() << "  \n\n";
+        cout << "Delaer action is finished \n";
+        cout << "Dealer's hand has a score of " << dealerHand->getValue() << "  \n\n";
     }
     else
     {
@@ -698,23 +656,6 @@ cout << "----------------------------- \n \n";
     }
     
     return dealerScore;
-}
-    
-/**
- TODO: take a look at this. May need editing
- 
- Pops back of handArray off, splits it in 2, puts both new news back in handArray
- @returns Hand for no reason really
- */
-Hand Dealer::splitHand(Hand& hand, Shoe* shoe)
-{
-    vector<Hand> arr = hand.split(shoe);
-    handArray.pop_back();
-    handArray.push_back(arr[0]);
-    handArray.push_back(arr[1]);
-    
-    return arr[1];
-    
 }
     
 Dealer::~Dealer()
