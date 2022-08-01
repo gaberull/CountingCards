@@ -375,17 +375,17 @@ int Hand::getBet()
 /**
  @brief Splits a hand containing 2 cards, both of same symbol. Suit doesn't matter.
  */
-vector<Hand> Hand::split(Shoe* shoe)        //TODO: should I return pointer? reference? (prolly not reference)
+Hand Hand::split(Shoe* shoe)        //TODO: should I return pointer? reference? (prolly not reference)
 {
     //create new vector of hands containing this hand
-    std::vector<Hand> ret(1, *this);
+    //std::vector<Hand> ret(1, *this);
     // check size on return. If hand can't be split, the return vector will be only size 1
     if(!splittable)
     {
         cout << "Hand can only have 2 of same card to split \n";
         return ret;
     }
-    if(numCards != 2)
+    if(numCards != 2)   // FIXME: should be redundant. check where splittable is set to be sure
     {
         cout << "Hand can only have 2 of same card to split \n";
         return ret;
@@ -399,10 +399,7 @@ vector<Hand> Hand::split(Shoe* shoe)        //TODO: should I return pointer? ref
     
     (*this) = newHand1;
     
-    ret[0] = newHand1;
-    ret.emplace_back(newHand2);
-    
-    return ret;
+    return newHand2;
     
 }
                                                 

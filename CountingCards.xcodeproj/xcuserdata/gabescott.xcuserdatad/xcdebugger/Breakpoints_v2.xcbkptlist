@@ -46,8 +46,8 @@
             filePath = "CountingCards/dealer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
             landmarkName = "Dealer::dealHands(shoe, playerBank, bet)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "CountingCards/dealer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "Dealer::dealHands(shoe, playerBank, bet)"
             landmarkType = "7">
          </BreakpointContent>
