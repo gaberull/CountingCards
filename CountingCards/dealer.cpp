@@ -227,7 +227,7 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
  @param     shoe - the shoe containing all the decks that the game is being played with
  @param     playerBank - the user's current balance of funds, and functions to update that balance
  @param     action - this char is set to default value='a'   in the function declaration, and may not end up being used
-        TODO: check this line of documentation above for action char
+        TODO: check this line of documentation above for 'action' parameter
  
  @returns   0 if hand is done, 1 if hand continues, -1 to quit program
  
@@ -238,8 +238,6 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
  */
 int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe remove this action default value
 {
-    int handsToPlay = (int)handArray.size();
-    handsToPlay--;
     Hand playerHand = handArray.back();
     
     cout << "\n     Good Luck!!  \n\n";
@@ -332,7 +330,6 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
             cout << "\nPlayer Chooses to Stand Pat with score of "<< player << " \n\n";
             playerHand.setPat(true);
             handArray.pop_back();
-            handsToPlay--;  //TODO: remove this?
             patHands.push_back(playerHand);
             
             cout << "\nInput 'c' to continue or 'q' to quit \n";
@@ -403,7 +400,6 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
                 playerBank.removeFunds(bet);
                 Hand newHand = playerHand.split(shoe);    // this will change playerHand and create newHand
                 handArray.pop_back();
-                //handsToPlay +=2;    //TODO: may not need handsToPlay at all
                 handArray.push_back(playerHand);
                 handArray.push_back(newHand);
                 
@@ -490,7 +486,6 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
                 if(temp=='q' || temp=='Q') return -1;
                 
                 handArray.pop_back();
-                handsToPlay--;
                 if(handArray.size() > 0)
                 {
                     return Dealer::action(shoe, playerBank);
@@ -501,7 +496,6 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
             {
                 playerHand.setPat(true);
                 handArray.pop_back();
-                handsToPlay--;
                 patHands.push_back(playerHand);
                 
                 cout << "\nPlayer has a score of "<< player << " \n\n";
