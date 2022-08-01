@@ -379,33 +379,19 @@ void Hand::setBet(int bet)
 }
 /**
  @brief Splits a hand containing 2 cards, both of same symbol. Suit doesn't matter.
+ @returns a new hand, BUT also sets the original hand to be a new hand!!!
  */
 Hand Hand::split(Shoe* shoe)        //TODO: should I return pointer? reference? (prolly not reference)
 {
-    //create new vector of hands containing this hand
-    //std::vector<Hand> ret(1, *this);
-    // check size on return. If hand can't be split, the return vector will be only size 1
-    if(!splittable)
-    {
-        cout << "Hand can only have 2 of same card to split \n";
-        return ret;
-    }
-    if(numCards != 2)   // FIXME: should be redundant. check where splittable is set to be sure
-    {
-        cout << "Hand can only have 2 of same card to split \n";
-        return ret;
-    }
-    
+    // checked that it is splittable before it is called in action()
+
     // Create two whole new hands using constructor w/ 2 card arguments
     int bet = this->getBet();
     Hand newHand1(this->_card1, shoe->dealCard(), bet);
-    //uint8_t newCard2 = shoe.dealCard();
     Hand newHand2(this->_card2, shoe->dealCard(), bet);
-    
     (*this) = newHand1;
     
     return newHand2;
-    
 }
                                                 
 /**

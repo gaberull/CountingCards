@@ -203,3 +203,11 @@ bool Shoe::shoeFinished()
 {
     return _endOfShoe;
 }
+
+/**
+    Destructor
+ */
+Shoe::~Shoe()
+{
+    cout << "Calling Shoe Destructor \n";
+}
