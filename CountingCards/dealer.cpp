@@ -200,13 +200,15 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
             will request action character, otherwise skips that
  @param     shoe - the shoe containing all the decks that the game is being played with
  @param     playerBank - the user's current balance of funds, and functions to update that balance
- @param     bet - the player's bet is input when this function is called
  @param     action - this char is set to default value='a'   in the function declaration, and may not end up being used
         TODO: check this line of documentation above for action char
+ 
  @returns   0 if hand is done, 1 if hand continues, -1 to quit program
- @note      this function does the paying out to player and removing of lost bets
- @discussion    action() adds the main functionality of the gameplay. It covers all actions that the player can take.
+ 
+ @discussion    adds the main functionality of the gameplay. It covers all actions that the player can take.
                 actions include: hit, stand, split, double, get strategy hint, get current running count, list rules, surrender
+                Hands are popped off the back of handArray at end of action. Specifically before a 0 is returned
+                bet is removed from bank in dealHands(), and then again in 'd' - double and 's' - split (double can add less than bet, split can't)
  */
 int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe remove this action default value
 {
@@ -266,6 +268,7 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
             player = hitPlayer(playerHand, shoe);
             if(player<0)   // player busts. money removed from bank and added to hand in dealHands()
             {
+                handArray.pop_back();
                 cout << "_____________________________ \n \n";
                 cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
                 cout << "----------------------------- \n \n";
@@ -282,10 +285,9 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
                 }
                 if(temp=='q' || temp=='Q') return -1;
                 
-                if(handsToPlay>0)
+                if(handArray.size()>0)
                 {
                     cout << "Playing your next hand (from splitting)!! \n\n";
-                    handArray.pop_back();
                     return Dealer::action(shoe, playerBank);
                 }
                 return 0;
@@ -322,12 +324,12 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
             // if we still have some hands from splitting:
             if(handArray.size() > 0)
             {
-                return Dealer::action(shoe, playerBank, bet);
+                return Dealer::action(shoe, playerBank);
             }
             return 0; // this hand is finished
             break;
         }
-            /// Split the hand - must be a pair
+            /// Split the hand - must be a pair. We don't end on split, so it won't return a 0 or 1. Only calls action again.
         case 's': {  //Player splits a pair. Must double bet or add remainder of stack
             cout << "\nPlayer Splits \n";
             if(!playerHand.isSplittable())
@@ -348,7 +350,7 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
                 
                 return Dealer::action(shoe, playerBank);  // ??
             }
-            else    // split a hand
+            else    // split the  hand
             {
                 int bet = playerHand.getBet();
                 if(playerBank.getBalance() < bet)
@@ -376,8 +378,8 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
                 Hand newHand = playerHand.split(shoe);    // this will change playerHand and create newHand
                 handArray.pop_back();
                 //handsToPlay +=2;    //TODO: may not need handsToPlay at all
-                handArray.push_back(newHand);
                 handArray.push_back(playerHand);
+                handArray.push_back(newHand);
                 
                 // play the new (split) hands
                 cout << "\nWe will now play the two new split hands \n";
@@ -398,8 +400,9 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
                 ///
                 return Dealer::action(shoe, playerBank);
                 
+                // ALL THIS BELOW MAYBE GOES IN DEALERACTION() or hitDEALER() or playAIHANDS()
                                                                                             /*
-                                // ALL THIS MAYBE GOES IN DEALERACTION() or hitDEALER() or playAIHANDS()
+                                
                 dealer = dealerAction(shoe);
                 if(dealer < 0)  // dealer busts
                 {
