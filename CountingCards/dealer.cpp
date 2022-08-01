@@ -210,21 +210,15 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
  */
 int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe remove this action default value
 {
-    cout << "\n     Good Luck!!  \n\n";
-    cout << "_____________________________ \n \n";
-    cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
-    cout << "| CURRENT BET  : $"<< bet << "  \n";
-    cout << "----------------------------- \n \n";
-    
-    
-    //while(handArray.size()>0)
-    //{
-        
-    //}
-    
     int handsToPlay = (int)handArray.size();
     handsToPlay--;
     Hand playerHand = handArray.back();
+    
+    cout << "\n     Good Luck!!  \n\n";
+    cout << "_____________________________ \n \n";
+    cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
+    cout << "| CURRENT BET  : $"<< playerHand.getBet() << "  \n";
+    cout << "----------------------------- \n \n";
     
     //handArray.pop_back(); // do this later. when hand done
  
@@ -310,7 +304,7 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
             cout << "\nPlayer Chooses to Stand Pat with score of "<< player << " \n\n";
             playerHand.setPat(true);
             handArray.pop_back();
-            handsToPlay--;
+            handsToPlay--;  //TODO: remove this?
             patHands.push_back(playerHand);
             
             cout << "\nInput 'c' to continue or 'q' to quit \n";
@@ -326,7 +320,7 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
             if(temp=='q' || temp=='Q') return -1;
             
             // if we still have some hands from splitting:
-            if(handsToPlay>0)
+            if(handArray.size() > 0)
             {
                 return Dealer::action(shoe, playerBank, bet);
             }
@@ -435,20 +429,20 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
         case 'd': {// Double down
             cout << "Player chooses to DOUBLE!! \n";
             cout << "Player gets one additional card and doubles bet \n";
-            int remaining_funds = playerBank.getBalance()-bet;
-            if(remaining_funds < bet)
+            int newBet = playerHand.getBet();// = playerHand.getBet();
+            if(playerBank.getBalance() < newBet)
             {
-                cout << "Player only has $" << remaining_funds << " to bet\n";
-                bet += remaining_funds;
+                cout << "Player doesn't have enough to double bet. Player adds their roll to bet of $"<< playerBank.getBalance() <<" to hand. \n";
+                newBet = playerBank.getBalance();
             }
-            else
-            {
-                bet *= 2;
-            }
+            playerBank.removeFunds(newBet);
+            int oldbet = playerHand.getBet();
+            playerHand.setBet(oldbet + newBet);
+            
+            // add one and only one card to player's hand. Then it is pat. or bust.
             player = hitPlayer(playerHand, shoe);
             if(player<0)   // player busts
             {
-                playerBank.removeFunds(bet);
                 cout << "_____________________________ \n \n";
                 cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
                 cout << "----------------------------- \n \n";
@@ -468,6 +462,11 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
             }
             else    // still alive after player doubled
             {
+                playerHand.setPat(true);
+                handArray.pop_back();
+                handsToPlay--;
+                patHands.push_back(playerHand);
+                
                 cout << "\nPlayer has a score of "<< player << " \n\n";
                 
                 cout << "\nInput 'c' to continue or 'q' to quit \n";
@@ -482,7 +481,7 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
                 }
                 if(temp=='q' || temp=='Q') return -1;
                 
-                return 1;   // dealer has yet to act
+                return 1;   // dealer has yet to act. 1==hand not done
             }
             break;
         }
