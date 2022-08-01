@@ -36,7 +36,7 @@ public:
 
     ~Dealer();
     
-    friend std::ostream& operator<<(std::ostream& s, const Dealer& dealer);
+    //friend std::ostream& operator<<(std::ostream& s, const Dealer& dealer);
 };
                                         
 
