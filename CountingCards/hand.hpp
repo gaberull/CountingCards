@@ -34,7 +34,7 @@ public:
     std::string getHand();                  // get str of hand
     std::string displayOne();               // Function to display one card for Dealer
     int hit(Shoe* shoe);                    // hit hand - get one card
-    std::vector<Hand> split(Shoe* shoe);    // split a pair (only have 2 cards)
+    Hand split(Shoe* shoe);                 // split a pair (only have 2 cards) TODO: need & for reference (Hand&) ?
     int getValue();                         // get integer value of hand
     bool isBlackjack();                     // Blackjack - i.e. AsJs
     bool isSplittable();                    // Two cards are a pair - splittable

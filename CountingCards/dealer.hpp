@@ -28,10 +28,10 @@ public:
     explicit Dealer(int numPlayers);
     
     int dealHands(Shoe* shoe, Bank& playerBank, int bet);
-    int action(Shoe* shoe, Bank& playerBank, int bet=0, char action ='a');
+    int action(Shoe* shoe, Bank& playerBank, char action ='a'); // int bet=0,  was in there.
     int playAIHands(Shoe* shoe, int numHands=0);
     
-    int hitPlayer(Shoe* shoe);
+    int hitPlayer(Hand& player, Shoe* shoe);
     int dealerAction(Shoe* shoe);
     Hand splitHand(Hand& hand, Shoe* shoe);
 

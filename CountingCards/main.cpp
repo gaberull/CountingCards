@@ -106,6 +106,8 @@ int main(int argc, const char * argv[]) {
         return 1;
     }
     Bank bank(funds);
+    
+    // TODO: get number of players from user, put it in Dealer constructor
     Dealer dealer(1);
     
     
@@ -113,10 +115,12 @@ int main(int argc, const char * argv[]) {
     
     
     // Hands are dealt
-    int handContinues = dealer.dealHands(shoe, bank, bet);  // -1 quit, 0 hand done, 1 hand ongoing
+    int handContinues = 1;      // -1 = quit, 0 = hand done, 1 = hand ongoing
+    
     // while handOngoing >=0
-    while(handContinues>=0) // while quit hasn't been requested
+    while(handContinues>-1) // while quit hasn't been requested
     {
+        handContinues = dealer.dealHands(shoe, bank, bet);
         // double check this bit. may never be 1 returned from Dealer::action()
         if(handContinues==1)    // hand is ongoing, call action
         {
@@ -127,7 +131,7 @@ int main(int argc, const char * argv[]) {
             cout << "\nNEW HAND \n";
             cout << "\nWhat is your wager friend? 'q' to quit \n";
             cin >> bet_str;
-            if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;
+            if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;    //FIXME: fix this while condition
             while(!cin || bet_str[0] < '0' || bet_str[0] > '9')
             {
                 cin.clear();
