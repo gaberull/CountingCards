@@ -143,7 +143,8 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
         {
             /// HAND IS A PUSH
             
-            playerBank.addFunds(handArray[0].getBet());
+            //playerBank.addFunds(handArray.back().getBet());
+            playerBank.addFunds(bet);   // put funds back in that we took out at start for bet
             //playerBank.addFunds(bet);
             cout << "OH NO!!!! You have BLACKJACK, BUT so does the dealer! :(  This round is a push! \n";
             cout << "Dealer Has:       " << dealerHand->getHand() << "\n\n";
@@ -167,7 +168,9 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
         else    // Player beats dealer with a blackjack
         {
             cout << "****   CONGRATS!!!! You have a BLACKJACK!! It pays 3:2!!   ****\n\n\n";
-            playerBank.addFunds(bet);   // add bet back in first. then payout
+                                    // bet
+            //playerBank.addFunds(handArray.back().getBet());   // add bet back in first. then payout
+            playerBank.addFunds(bet);
             playerBank.payBlackjack(bet);   // TODO: check that these two statements add correctly for BJ
             cout << "Dealer Has:       " << dealerHand->getHand() << "\n\n";
             cout << "_____________________________ \n \n";
@@ -205,7 +208,7 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
  @discussion    action() adds the main functionality of the gameplay. It covers all actions that the player can take.
                 actions include: hit, stand, split, double, get strategy hint, get current running count, list rules, surrender
  */
-int Dealer::action(Shoe* shoe, Bank& playerBank, int bet, char action) // TODO: maybe remove this action default value
+int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe remove this action default value
 {
     cout << "\n     Good Luck!!  \n\n";
     cout << "_____________________________ \n \n";
@@ -264,10 +267,10 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, int bet, char action) // TODO: 
             break;
         }
             /// Hit the Hand
-        case 'h': {  //hitPlayer(int bet, Shoe shoe, Bank playerBank)
-            cout << "\nPLAYER WILL HIT! \n";
-            player = hitPlayer(shoe);
-            if(player<0)   // player busts
+        case 'h': {
+            cout << "\nYOU CHOSE TO HIT YOUR HAND! \n";
+            player = hitPlayer(playerHand, shoe);
+            if(player<0)   // player busts. money removed from bank and added to hand in dealHands()
             {
                 cout << "_____________________________ \n \n";
                 cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
@@ -283,22 +286,21 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, int bet, char action) // TODO: 
                     cout << "Wrong Input. Enter 'C' or 'c' to continue. 'q' or 'Q' to quit\n";
                     cin >> temp;
                 }
-                if(temp=='c' || temp=='C')
-                {
-                    if(handsToPlay>0)
-                    {
-                        cout << "Playing your next hand (from splitting)!! \n\n";
-                        handArray.pop_back();
-                        return Dealer::action(shoe, playerBank);
-                    }
-                    return 0;
-                }
                 if(temp=='q' || temp=='Q') return -1;
+                
+                if(handsToPlay>0)
+                {
+                    cout << "Playing your next hand (from splitting)!! \n\n";
+                    handArray.pop_back();
+                    return Dealer::action(shoe, playerBank);
+                }
+                return 0;
+                
             }
             else    // still alive after player hit
             {
                 //
-                return Dealer::action(shoe, playerBank, bet);  // return 1; ??
+                return Dealer::action(shoe, playerBank);  // return 1; ??
             }
             break;
         }
@@ -349,14 +351,33 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, int bet, char action) // TODO: 
                 }
                 if(temp=='q' || temp=='Q') return -1;
                 
-                // this hand will not be played. put funds for bet back
-                playerBank.addFunds(bet);
-                return Dealer::action(shoe, playerBank, bet);  // ??
+                
+                return Dealer::action(shoe, playerBank);  // ??
             }
             else    //TODO: Write code to split a hand
             {
+                int bet = playerHand.getBet();
+                if(playerBank.getBalance() < bet)
+                {
+                    cout << "Not enough funds to split. Choose another action \n";
+                    
+                    cout << "\nInput 'c' to continue or 'q' to quit \n";
+                    char temp;
+                    cin >> temp;
+                    while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
+                    {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
+                        cin >> temp;
+                    }
+                    if(temp=='q' || temp=='Q') return -1;
+                    
+                    return Dealer::action(shoe, playerBank);
+                }
                 // subtract bet again from bank. Betting 2x original bank now
-                playerBank.addFunds(bet);
+                playerBank.removeFunds(bet);
+                
                 //TODO: fix this. All new hands need to play against same dealer action
                 // I think maybe call action twice. With new hands
                                                                         /*
@@ -364,6 +385,8 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, int bet, char action) // TODO: 
                 int b = Dealer::action(shoe, playerBank, bet);
                                                                         */
     
+                //Hand newHand;
+                //newHand = playerHand.split(shoe);    // make this work
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// LEFT OFF HERE     START
                 std::vector<Hand> newHands;
                 newHands = playerHand.split(shoe);
@@ -423,7 +446,7 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, int bet, char action) // TODO: 
             {
                 bet *= 2;
             }
-            player = hitPlayer(shoe);
+            player = hitPlayer(playerHand, shoe);
             if(player<0)   // player busts
             {
                 playerBank.removeFunds(bet);
@@ -496,13 +519,11 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, int bet, char action) // TODO: 
 // TODO: LEFT OFF HERE on 7/29 at 8:18 PM. FINISH this and fix this up
 // returns -1 if player busts. player's hands value otherwise
 //
-// hit() is for player only
 //
-int Dealer::hitPlayer(Shoe* shoe)
+int Dealer::hitPlayer(Hand& player, Shoe* shoe)
 {
-    Hand player = handArray[0];
-    Hand dealer = *(dealerHand);
-    cout << "Dealer::hit() - Hitting player's hand \n";
+    //Hand dealer = *(dealerHand);
+    cout << "Dealer says \"Hitting player's hand\" \n";
     int newPlayerVal = player.hit(shoe);
     if(newPlayerVal < 0)
     {
@@ -510,7 +531,7 @@ int Dealer::hitPlayer(Shoe* shoe)
         //playerBank.removeFunds(bet);  // wrong spot
         // Dealer shows hand but it is over
         // TODO: change this when I add in more computer players. Hand won't be displayed yet
-        cout << "Dealer Had:       " << dealer.getHand() << "\n\n"; // TODO: check that Hand dealer works (persists)
+        cout << "Dealer Had:       " << dealer->getHand() << "\n\n"; // TODO: check that Hand dealer works (persists)
         
         cout << "Input 'c' to continue \n";
         char temp;
@@ -522,8 +543,6 @@ int Dealer::hitPlayer(Shoe* shoe)
             cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
             cin >> temp;
         }
-        
-        return newPlayerVal;
     }
     else
     {
@@ -538,7 +557,6 @@ int Dealer::hitPlayer(Shoe* shoe)
             cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
             cin >> temp;
         }
-        return newPlayerVal;
     }
     return newPlayerVal;
 }
