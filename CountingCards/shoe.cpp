@@ -33,12 +33,14 @@ public:
 
 Shoe::Shoe()
 {
+                                        /*
     int _numDecks = 1;
     int _cardsRemaining = 0;
     int _cutPoint = 52;
     int _count = 0;
     bool _endOfShoe = false;
     fullShoe = std::vector<uint8_t>(52, 0x00);
+                                         */
 }
 /**
  @brief Constructor
@@ -47,14 +49,10 @@ Shoe::Shoe()
 Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
 {
     _cardsRemaining = numDecks * 52;
-    fullShoe = std::vector<uint8_t>(_cardsRemaining, 0);
-    // build a deck in map suit by suit
-    for(int i=0; i<52; i++)
-    {
-        
-    }
-    uint8_t cardMask = 0x10;
-    uint8_t suitMask = 0x01;
+    fullShoe = std::vector<uint8_t>(_cardsRemaining);
+    
+    uint8_t cardMask = 0x00;
+    uint8_t suitMask = 0x00;
     for(int i=0; i<_cardsRemaining; i++)
     {
         // Card switch statement
@@ -117,7 +115,7 @@ Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
         };
         
         // set card and suit
-        fullShoe[i] &= 0x00;
+        fullShoe[i] = 0x00;
         fullShoe[i] |= cardMask;
         fullShoe[i] |= suitMask;
     }
@@ -183,10 +181,9 @@ void Shoe::shuffle()
  */
 uint8_t Shoe::dealCard()
 {
-    uint8_t ret = 0x00;
     
-    int i = rand() % _cardsRemaining;
-    ret = fullShoe[i];
+    int i = rand() % _cardsRemaining;   // c4 in 167, 415 is d4
+    uint8_t ret = fullShoe[i];
     swap(fullShoe[i], fullShoe[_cardsRemaining-1]);
     _cardsRemaining--;
     

@@ -74,11 +74,12 @@ Hand::Hand()
 /**
  Copy constructor
  */
-Hand::Hand(const Hand& diffHand)
+Hand::Hand(const Hand& diffHand)    //FIXME: probably broken
 {
     
-    cardArray = diffHand.cardArray;
-    suitArray = diffHand.suitArray;
+    //cardArray = diffHand.cardArray; //FIXME: this can't copy arrays of diff sizes;
+    cardArray = std::vector<char>(diffHand.cardArray);
+    suitArray = std::vector<char>(diffHand.suitArray);
     valueMap = diffHand.valueMap;
     suitMap = diffHand.suitMap;
     numCards = diffHand.numCards;
@@ -319,9 +320,8 @@ int Hand::hit(Shoe* shoe)
     splittable = false;
     numCards++;
     
-    uint8_t card = shoe->dealCard();
-    char cardSymbol = cardMap[card>>4];
-    numCards++;
+    uint8_t card = shoe->dealCard();    // FIXME: I think this is dealing out 0x00 for some reason
+    char cardSymbol = cardMap[card>>4]; //FIXME: this maybe is not working
     cardArray.push_back(cardSymbol);
     char suit = suitMap[card&0x0F];
     suitArray.push_back(suit);

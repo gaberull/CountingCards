@@ -549,7 +549,7 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
  @returns -1 if player busts, player's hand value otherwise
  @brief this function calls Hand::hit() and adds some dealer talking text
  
- TODO: Check and see if I even need this function
+ TODO: Check and see if I even need this function. Currently only outputs text.
  */
 int Dealer::hitPlayer(Hand& player, Shoe* shoe)
 {

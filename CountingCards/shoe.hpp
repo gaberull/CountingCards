@@ -19,9 +19,9 @@ class Shoe
     bool _endOfShoe = false;
     std::vector<uint8_t> fullShoe;
          // private default constructor prevents it from being called
+    Shoe();
     
 public:
-    Shoe();
     Shoe(int numDecks, int cutPoint);
     void shuffle();
     uint8_t dealCard();

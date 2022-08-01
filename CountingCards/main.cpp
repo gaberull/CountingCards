@@ -115,21 +115,20 @@ int main(int argc, const char * argv[]) {
     
     
     // Hands are dealt
-    int handContinues = 1;      // -1 = quit, 0 = hand done, 1 = hand ongoing
+    int handContinues = 0;      // -1 = quit, 0 = hand done, 1 = hand ongoing
+    handContinues = dealer.dealHands(shoe, bank, bet);
     
     // while handOngoing >=0
     while(handContinues>-1) // while quit hasn't been requested
     {
-        handContinues = dealer.dealHands(shoe, bank, bet);
-        // double check this bit. may never be 1 returned from Dealer::action()
         if(handContinues==1)    // hand is ongoing, call action
         {
-            dealer.action(shoe, bank);
+            handContinues = dealer.action(shoe, bank);
         }
         else   //handContinues==0, start new hand
         {
             cout << "\nNEW HAND \n";
-            cout << "\nWhat is your wager friend? 'q' to quit \n";
+            cout << "\nWhat is your wager, my friend? Enter 'q' to quit. \n";
             cin >> bet_str;
             if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;    //FIXME: fix this while condition
             while(!cin || bet_str[0] < '0' || bet_str[0] > '9')
@@ -141,7 +140,7 @@ int main(int argc, const char * argv[]) {
                 if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;
             }
             bet = (int) stol(bet_str);
-            dealer.action(shoe, bank, bet);
+            handContinues = dealer.dealHands(shoe, bank, bet);
         }
     }
     
