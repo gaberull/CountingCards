@@ -127,8 +127,10 @@ int main(int argc, const char * argv[]) {
             //TODO: call dealerAction()?
             //TODO: should dealerAction check if hand is done already?
         }
-        else   //handContinues==0, start new hand
+        else   //handContinues==0, Do dealer action, then start new hand
         {
+            handContinues = dealer->dealerAction(shoe, bank);
+            if(handContinues<0) break;
             cout << "\nNEW HAND \n";
             cout << "\nWhat is your wager, my friend? Enter 'q' to quit. \n";
             cin >> bet_str;

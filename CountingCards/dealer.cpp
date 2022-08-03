@@ -322,7 +322,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
             }
             else    // still alive after player hit
             {
-                //
+                //TODO: set hand to persist somehow
                 return Dealer::action(shoe, playerBank);  // return 1; ??
             }
             break;
@@ -558,9 +558,12 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)
 {
     //Hand dealer = *(dealerHand);
     cout << "Dealer says \"Hitting player's hand\" \n";
-    int newPlayerVal = player.hit(shoe);
+    int newPlayerVal = player.hit(shoe);    // TODO: handArray not getting updated hand yet
+    handArray.pop_back();           //TODO: double check this works
+    handArray.push_back(player);
     if(newPlayerVal < 0)
     {
+        cout << "Player has " << player.getHand() << " after hitting \n";
         cout << "\nOh NO!! You busted.. You have lost your bet \n";
         //playerBank.removeFunds(bet);  // wrong spot
         // Dealer shows hand but it is over
@@ -583,7 +586,8 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)
     }
     else
     {
-        cout << "Player has "<< player.getHand() << " for a value of " << newPlayerVal <<" \n";
+        cout << "Player has " << player.getHand() << " after hitting \n";
+        cout << "Player hand has a value of " << newPlayerVal <<" \n";
                                                                     /*
         cout << "Input 'c' to continue \n";
         char temp;
@@ -624,6 +628,29 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
     cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
     cout << "----------------------------- \n \n";
                                                                          */
+    
+    // if there are none of this player's hands to play, or AI hands to play
+    if(patHands.size()==0 && otherPats.size()==0)
+    {
+        cout << "Everybody is Complete. Dealer Had   " << dealerHand->getHand() << "\n\n";
+        
+        cout << "\nInput 'c' to continue or 'q' to quit \n";
+        char temp;
+        cin >> temp;
+        while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
+            cin >> temp;
+        }
+        if(temp=='q' || temp=='Q') return -1;
+        
+        return 0;
+    }
+    
+    //TODO: play AI hands
+    
     int dealerScore = dealerHand->getValue();
     cout << "Dealer Has   " << dealerHand->getHand() << "   initially \n\n";
     cout << "Dealer's hand has a value of " << dealerScore <<" \n\n";
@@ -660,7 +687,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
         }
         else if(playerHand.getValue() == dealerHand->getValue())    // player ties
         {
-            cout << "Push. You win and lose nothing " << playerHand.getBet() << "\n";
+            cout << "Hand is a Push. You win and lose nothing \n";
             playerBank->addFunds(playerHand.getBet());
         }
         else // player wins (not with blackjack)
@@ -672,9 +699,9 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
         cout << "_____________________________ \n \n";
         cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
         cout << "----------------------------- \n \n";
-        
-        
     }
+    
+    //TODO: do AI pat hands against dealer
     
     cout << "\nInput 'c' to continue or 'q' to quit \n";
     char temp;
