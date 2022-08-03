@@ -124,6 +124,8 @@ int main(int argc, const char * argv[]) {
         if(handContinues==1)    // hand is ongoing, call action
         {
             handContinues = dealer->action(shoe, bank);
+            //TODO: call dealerAction()?
+            //TODO: should dealerAction check if hand is done already?
         }
         else   //handContinues==0, start new hand
         {
