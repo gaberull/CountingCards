@@ -8,6 +8,7 @@
 #include "shoe.hpp"
 #include <vector>
 #include <iostream>
+#include <time.h>
 using namespace std;
                                                                         /*
 class Shoe
@@ -48,6 +49,8 @@ Shoe::Shoe()
  */
 Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
 {
+    
+    
     _cardsRemaining = numDecks * 52;
     fullShoe = std::vector<uint8_t>(_cardsRemaining);
     
@@ -181,7 +184,7 @@ void Shoe::shuffle()
  */
 uint8_t Shoe::dealCard()
 {
-    
+    srand((unsigned int)std::time(0));
     int i = rand() % _cardsRemaining;   // c4 in 167, 415 is d4
     uint8_t ret = fullShoe[i];
     swap(fullShoe[i], fullShoe[_cardsRemaining-1]);
