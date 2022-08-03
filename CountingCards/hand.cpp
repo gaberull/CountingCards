@@ -54,15 +54,16 @@ public:
  */
 Hand::Hand()
 {
+    
+    cardMap = { {0x01, 'A'}, {0x02, '2'},{0x03, '3'},{0x04, '4'},{0x05, '5'},{0x06, '6'},{0x07, '7'},{0x08, '8'},{0x09, '9'},{0x0A, 'T'},{0x0B, 'J'},{0x0C, 'Q'},{0x0D, 'K'} };
+    valueMap = {{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'7',7},{'8',8},{'9',9},{'T',10},{'J',10},{'Q',10},{'K',10}};
+    // Spades, Clubs, Hearts, Diamonds
+    suitMap = { {0x01,'S'},{0x02,'C'},{0x03,'H'},{0x04,'D'} };
+    
     _card1 = 0x00;
     _card2 = 0x01;
     cardArray = std::vector<char>(2, '0');
     suitArray = std::vector<char>(2, '0');
-    // valuemap doesn't include Ace
-    valueMap = {{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'7',7},{'8',8},{'9',9},{'T',10},{'J',10},{'Q',10},{'K',10}};
-    cardMap = { {0x01,'A'}, {0x02,'2'},{0x03,'3'},{0x04,'4'},{0x05,'5'},{0x06,'6'},{0x07,'7'},{0x08,'8'},{0x09,'9'},{0x0A,'T'},{0x0B,'J'},{0x0C,'Q'},{0x0D,'K'} };
-    // Spades, Clubs, Hearts, Diamonds
-    suitMap = { {0x01,'S'},{0x02,'C'},{0x03,'H'},{0x04,'D'} };
     numCards = 2;
     blackjack = false;
     _value = 0;
@@ -77,17 +78,39 @@ Hand::Hand()
 Hand::Hand(const Hand& diffHand)    //FIXME: probably broken
 {
     
+    cardMap = { {0x01, 'A'}, {0x02, '2'},{0x03, '3'},{0x04, '4'},{0x05, '5'},{0x06, '6'},{0x07, '7'},{0x08, '8'},{0x09, '9'},{0x0A, 'T'},{0x0B, 'J'},{0x0C, 'Q'},{0x0D, 'K'} };
+    valueMap = {{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'7',7},{'8',8},{'9',9},{'T',10},{'J',10},{'Q',10},{'K',10}};
+    // Spades, Clubs, Hearts, Diamonds
+    suitMap = { {0x01,'S'},{0x02,'C'},{0x03,'H'},{0x04,'D'} };
+    
+    this->_card1 = diffHand._card1;
+    this->_card2 = diffHand._card2;
+    
     //cardArray = diffHand.cardArray; //FIXME: this can't copy arrays of diff sizes;
-    cardArray = std::vector<char>(diffHand.cardArray);
+    this->cardArray = vector<char>(diffHand.cardArray.size());
+    for(int i=0; i<diffHand.cardArray.size(); i++)
+    {
+        this->cardArray[i] = diffHand.cardArray[i];
+    }
+    
+    //cardArray = std::vector<char>(diffHand.cardArray);
     suitArray = std::vector<char>(diffHand.suitArray);
-    valueMap = diffHand.valueMap;
-    suitMap = diffHand.suitMap;
-    numCards = diffHand.numCards;
-    blackjack = diffHand.blackjack;
-    splittable = diffHand.splittable;
-    _value = diffHand._value;
-    isPat = diffHand.isPat;
-    handBet = diffHand.handBet;
+    
+    this->suitArray = vector<char>(diffHand.suitArray.size());
+    for(int i=0; i<diffHand.suitArray.size(); i++)
+    {
+        this->suitArray[i] = diffHand.suitArray[i];
+    }
+    
+    
+    //this->valueMap = diffHand.valueMap;
+    //this->suitMap = diffHand.suitMap;
+    this->numCards = diffHand.numCards;
+    this->blackjack = diffHand.blackjack;
+    this->splittable = diffHand.splittable;
+    this->_value = diffHand._value;
+    this->isPat = diffHand.isPat;
+    this->handBet = diffHand.handBet;
 }
 
 /**
@@ -99,18 +122,24 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
     isPat = false;
     _card1 = card1;
     _card2 = card2;
-    numCards=2;
+    numCards=2;     // will have two cards by end of constructor
     
     cardArray = std::vector<char>(2, '0');
     suitArray = std::vector<char>(2,'0');
     // valuemap doesn't include Ace
-    valueMap = {{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'7',7},{'8',8},{'9',9},{'T',10},{'J',10},{'Q',10},{'K',10}};
+    
     cardMap = { {0x01, 'A'}, {0x02, '2'},{0x03, '3'},{0x04, '4'},{0x05, '5'},{0x06, '6'},{0x07, '7'},{0x08, '8'},{0x09, '9'},{0x0A, 'T'},{0x0B, 'J'},{0x0C, 'Q'},{0x0D, 'K'} };
+    valueMap = {{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'7',7},{'8',8},{'9',9},{'T',10},{'J',10},{'Q',10},{'K',10}};
     // Spades, Clubs, Hearts, Diamonds
     suitMap = { {0x01,'S'},{0x02,'C'},{0x03,'H'},{0x04,'D'} };
+                                                                         
     
     uint8_t rank1 = card1 >> 4;
+    //cardArray[0] = cardMap[rank1];
+    
     uint8_t suit1 = card1 & 0x0F;
+    //suitArray[0] = suitMap[suit1];
+                                    
     switch (rank1) {
         case 0x01:
             cardArray[0] = 'A';
@@ -167,6 +196,9 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
         default:
             break;
     }
+    suitArray[0] = suitMap[suit1];
+    //TODO: remove below switch stmt - after checking it's fine. Now Using suitMap
+                                        /*
     switch (suit1) {
         case 0x01:
             suitArray[0] = 'S';
@@ -184,6 +216,7 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
         default:
             break;
     }
+                                         */
     
     // get 2nd card
     uint8_t rank2 = card2 >> 4;
@@ -251,6 +284,10 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
         default:
             break;
     }
+    
+    suitArray[1] = suitMap[suit2];
+    //TODO: remove below switch - after checking it's fine
+                                        /*
     switch (suit2) {
         case 0x01:
             suitArray[1] = 'S';
@@ -268,6 +305,7 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
         default:
             break;
     }
+                                         */
     
     if(cardArray[0]==cardArray[1])
     {
@@ -320,10 +358,14 @@ int Hand::hit(Shoe* shoe)
     splittable = false;
     numCards++;
     
-    uint8_t card = shoe->dealCard();    // FIXME: I think this is dealing out 0x00 for some reason
-    char cardSymbol = cardMap[card>>4]; //FIXME: this maybe is not working
+    // broken!!!!!!!!!!!!!
+    uint8_t card = shoe->dealCard();    // FIXME: I think this is dealing out 0x00 for some reason ?
+    uint8_t character = card>>4;
+    uint8_t cardsuit = card&0x0F;
+    
+    char cardSymbol = cardMap[character]; //FIXME: this maybe is not working
     cardArray.push_back(cardSymbol);
-    char suit = suitMap[card&0x0F];
+    char suit = suitMap[cardsuit];
     suitArray.push_back(suit);
     int value = 0;  // value of card received while hitting
     

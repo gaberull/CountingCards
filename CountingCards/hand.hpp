@@ -15,9 +15,11 @@ class Hand
 {
     std::vector<char> cardArray;
     std::vector<char> suitArray;
-    std::unordered_map<char, int> valueMap; // valueMap doesn't include Ace
+    
     std::unordered_map<uint8_t, char> cardMap;
+    std::unordered_map<char, int> valueMap;
     std::unordered_map<uint8_t, char> suitMap;
+    
     uint8_t _card1;
     uint8_t _card2;
     int numCards = 0;
@@ -26,8 +28,13 @@ class Hand
     bool isPat = false;
     int _value = 0;
     int handBet = 0;
+                                                                                    
+    
     
 public:
+    
+    
+    
     Hand();                                 // Default constructor
     Hand(const Hand& diffHand);             // Copy constructor
     Hand(uint8_t card1, uint8_t card2, int bet=0);     // 3 parameter constructor
