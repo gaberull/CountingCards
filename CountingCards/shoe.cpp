@@ -143,7 +143,7 @@ Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
  @brief shuffles the vector of cards in place using Fisher Yates algorithm in O(n) time with O(1) extra space
         It really just resets the final card and resets the shoe, since the actual cards don't really get shuffled. They are pulled randomly
  */
-void Shoe::shuffle()
+void Shoe::shuffle()    //TODO: possibly remove this. Not using it.
 {
     _cardsRemaining = 52 * _numDecks;
     _count = 0;
@@ -209,5 +209,5 @@ bool Shoe::shoeFinished()
  */
 Shoe::~Shoe()
 {
-    cout << "Calling Shoe Destructor \n";
+    cout << "Shoe Destructor called\n";
 }

@@ -108,15 +108,18 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             otherPlayers.push_back(AIHand);
             
         }
-        cout << "\nInput 'c' to continue \n";
-        char temp;
-        cin >> temp;
-        while(!cin || (temp != 'c' && temp != 'C'))
+        if(_numPlayers > 1)     // pause if we have dealt out more than just the one player
         {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
+            cout << "\nInput 'c' to continue \n";
+            char temp;
             cin >> temp;
+            while(!cin || (temp != 'c' && temp != 'C'))
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
+                cin >> temp;
+            }
         }
     }
     if(dealerBlackjack && !blackjack)
