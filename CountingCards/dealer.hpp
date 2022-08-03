@@ -32,7 +32,7 @@ public:
     int playAIHands(Shoe* shoe, int numHands=0);
     
     int hitPlayer(Hand& player, Shoe* shoe);
-    int dealerAction(Shoe* shoe);
+    int dealerAction(Shoe* shoe, Bank* playerBank);
 
     ~Dealer();
     

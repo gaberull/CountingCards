@@ -614,10 +614,10 @@ int Dealer::playAIHands(Shoe shoe, int numHands)
 /**
  @brief This function will hit the Dealer until they bust or have a good enough score to stand pat.
  
- @returns -1 if dealer busts , otherwise the score of the dealer's hand
+ @returns 0 if hand done, -1 to quit
  
  */
-int Dealer::dealerAction(Shoe* shoe)
+int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to return anything.
 {
                                                                         /*
     cout << "_____________________________ \n \n";
@@ -646,19 +646,49 @@ int Dealer::dealerAction(Shoe* shoe)
         cout << "Dealer BUSTS!!!! WOOOOOOT! Enjoy that money \n";
     }
     
-    cout << "Input 'c' to continue \n";
+    int numYourHands = (int)patHands.size();
+    // TODO: maybe move from indexing to back() and pop_back() from patHands array
+    for(int i=1; i<=numYourHands; i++)  // 1-indexed for purposes of printing
+    {
+        Hand playerHand = patHands.back();  // TODO: check this operator= works fine
+        patHands.pop_back();
+        cout << "Your hand number " << i << " has " << playerHand.getValue() << "\n";
+        cout << "Against Dealer's " << dealerScore << "\n";
+        if(playerHand.getValue() < dealerScore)  // player loses
+        {
+            cout << "You have lost your bet of $" << playerHand.getBet() << "\n";
+        }
+        else if(playerHand.getValue() == dealerHand->getValue())    // player ties
+        {
+            cout << "Push. You win and lose nothing " << playerHand.getBet() << "\n";
+            playerBank->addFunds(playerHand.getBet());
+        }
+        else // player wins (not with blackjack)
+        {
+            cout << "You win $" << playerHand.getBet() << "!!!\n";
+            playerBank->addFunds(playerHand.getBet());
+            
+        }
+        cout << "_____________________________ \n \n";
+        cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
+        cout << "----------------------------- \n \n";
+        
+        
+    }
     
+    cout << "\nInput 'c' to continue or 'q' to quit \n";
     char temp;
     cin >> temp;
-    while(!cin || (temp != 'c' && temp != 'C'))
+    while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
+        cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
         cin >> temp;
     }
+    if(temp=='q' || temp=='Q') return -1;
     
-    return dealerScore;
+    return 0;
 }
     
 Dealer::~Dealer()
