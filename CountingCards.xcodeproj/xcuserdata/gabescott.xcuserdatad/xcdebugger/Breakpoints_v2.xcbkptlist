@@ -152,7 +152,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "861B6091-80E3-4B54-BD70-D98831F24296"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CountingCards/dealer.cpp"
@@ -174,8 +174,8 @@
             filePath = "CountingCards/dealer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "472"
-            endingLineNumber = "472"
+            startingLineNumber = "474"
+            endingLineNumber = "474"
             landmarkName = "Dealer::action(shoe, playerBank, action)"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,8 +206,8 @@
             filePath = "CountingCards/dealer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "561"
-            endingLineNumber = "561"
+            startingLineNumber = "563"
+            endingLineNumber = "563"
             landmarkName = "Dealer::hitPlayer(player, shoe)"
             landmarkType = "7">
          </BreakpointContent>

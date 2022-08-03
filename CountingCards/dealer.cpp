@@ -469,6 +469,8 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
             
             // add one and only one card to player's hand. Then it is pat. or bust.
             player = hitPlayer(playerHand, shoe);
+            handArray.pop_back();   //TODO: check if necessary
+            handArray.push_back(playerHand);
             if(player<0)   // player busts
             {
                 
@@ -630,7 +632,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
                                                                          */
     
     // if there are none of this player's hands to play, or AI hands to play
-    if(patHands.size()==0 && otherPats.size()==0)
+    if(patHands.size()==0 && otherPats.size()==0 && !dealerHand->isBlackjack())
     {
         cout << "Everybody is Complete. Dealer Had   " << dealerHand->getHand() << "\n\n";
         
