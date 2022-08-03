@@ -112,7 +112,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "362"
             endingLineNumber = "362"
-            landmarkName = "Hand::Hand(card1, card2, bet)"
+            landmarkName = "Hand::hit(shoe)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -224,7 +224,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "367"
             endingLineNumber = "367"
-            landmarkName = "Hand::Hand(card1, card2, bet)"
+            landmarkName = "Hand::hit(shoe)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -240,7 +240,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "366"
             endingLineNumber = "366"
-            landmarkName = "Hand::Hand(card1, card2, bet)"
+            landmarkName = "Hand::hit(shoe)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

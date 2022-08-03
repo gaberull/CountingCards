@@ -8,6 +8,7 @@
 #include "shoe.hpp"
 #include "bank.hpp"
 #include "dealer.hpp"
+//#include "hand.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -105,10 +106,9 @@ int main(int argc, const char * argv[]) {
         cout << "shoe ptr did not allocate correctly \n";
         return 1;
     }
-    Bank bank(funds);
-    
+    Bank* bank = new Bank(funds);
     // TODO: get number of players from user, put it in Dealer constructor
-    Dealer dealer(1);
+    Dealer* dealer = new Dealer(1);
     
     
     // just one player for now
@@ -116,14 +116,14 @@ int main(int argc, const char * argv[]) {
     
     // Hands are dealt
     int handContinues = 0;      // -1 = quit, 0 = hand done, 1 = hand ongoing
-    handContinues = dealer.dealHands(shoe, bank, bet);
+    handContinues = dealer->dealHands(shoe, bank, bet);
     
     // while handOngoing >=0
     while(handContinues>-1) // while quit hasn't been requested
     {
         if(handContinues==1)    // hand is ongoing, call action
         {
-            handContinues = dealer.action(shoe, bank);
+            handContinues = dealer->action(shoe, bank);
         }
         else   //handContinues==0, start new hand
         {
@@ -140,13 +140,13 @@ int main(int argc, const char * argv[]) {
                 if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;
             }
             bet = (int) stol(bet_str);
-            handContinues = dealer.dealHands(shoe, bank, bet);
+            handContinues = dealer->dealHands(shoe, bank, bet);
         }
     }
     
     cout << "\nThanks for Playing!! \n";
     cout << "_____________________________ \n \n";
-    cout << "| BANKROLL     : $"<< bank.getBalance() <<" \n";
+    cout << "| BANKROLL     : $"<< bank->getBalance() <<" \n";
     cout << "----------------------------- \n \n";
     
     
@@ -158,6 +158,8 @@ int main(int argc, const char * argv[]) {
                      */
     
     delete shoe;
+    delete dealer;
+    delete bank;
     return 0;
     
 }
