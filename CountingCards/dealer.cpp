@@ -55,17 +55,17 @@ Dealer::Dealer(int numPlayers)
  
 @discussion removes bet from playerBank at start of hand. Adds it back for push.
  */
-int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
+int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
 {
     handArray = std::vector<Hand>();
     otherPlayers = std::vector<Hand>();
     
-    if(playerBank.getBalance() < bet)
+    if(playerBank->getBalance() < bet)
     {
         cout <<" You have bet more than you have. Try again \n\n";
         return 0;
     }
-    playerBank.removeFunds(bet);
+    playerBank->removeFunds(bet);
     bool lastRound = false;
     bool blackjack = false; // TODO: add this to hand, remove from here
     bool dealerBlackjack = false;
@@ -125,7 +125,7 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
         cout << "Dealer Has:       " << dealerHand->getHand() << "\n";
         cout << "That lucky buffoon has BLACKJACK.. Got us this time.. \n\n";
         cout << "_____________________________ \n \n";
-        cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
+        cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
         cout << "----------------------------- \n \n";
         
         //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
@@ -149,12 +149,12 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
         {
             /// HAND IS A PUSH
             handArray.pop_back();
-            playerBank.addFunds(bet);   // put funds back in that we took out at start for bet
+            playerBank->addFunds(bet);   // put funds back in that we took out at start for bet
             //playerBank.addFunds(bet);
             cout << "OH NO!!!! You have BLACKJACK, BUT so does the dealer! :(  This round is a push! \n";
             cout << "Dealer Has:       " << dealerHand->getHand() << "\n\n";
             cout << "_____________________________ \n \n";
-            cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
+            cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
             cout << "----------------------------- \n \n";
             
             
@@ -178,12 +178,12 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
         {
             cout << "****   CONGRATS!!!! You have a BLACKJACK!! It pays 3:2!!   ****\n\n\n";
             // add bet back in first. then payout blackjack
-            playerBank.addFunds(bet);
-            playerBank.payBlackjack(bet);   // TODO: check that these two statements add correctly for BJ
+            playerBank->addFunds(bet);
+            playerBank->payBlackjack(bet);   // TODO: check that these two statements add correctly for BJ
             handArray.pop_back();
             cout << "Dealer Has:       " << dealerHand->getHand() << "\n\n";
             cout << "_____________________________ \n \n";
-            cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
+            cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
             cout << "----------------------------- \n \n";
             
             //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
@@ -236,13 +236,13 @@ int Dealer::dealHands(Shoe* shoe, Bank& playerBank, int bet)
                 Hands are popped off the back of handArray at end of action. Specifically before a 0 is returned
                 bet is removed from bank in dealHands(), and then again in 'd' - double and 's' - split (double can add less than bet, split can't)
  */
-int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe remove this action default value
+int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe remove this action default value
 {
     Hand playerHand = handArray.back();
     
     cout << "\n     Good Luck!!  \n\n";
     cout << "_____________________________ \n \n";
-    cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
+    cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
     cout << "| CURRENT BET  : $"<< playerHand.getBet() << "  \n";
     cout << "----------------------------- \n \n";
     
@@ -294,7 +294,7 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
             {
                 handArray.pop_back();
                 cout << "_____________________________ \n \n";
-                cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
+                cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
                 cout << "----------------------------- \n \n";
                 
                 cout << "\nInput 'c' to continue or 'q' to quit \n";
@@ -376,7 +376,7 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
             else    // split the  hand
             {
                 int bet = playerHand.getBet();
-                if(playerBank.getBalance() < bet)
+                if(playerBank->getBalance() < bet)
                 {
                     cout << "Not enough funds to split. Choose another action \n";
                     
@@ -397,7 +397,7 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
                 //FIXME: All new hands need to play against same dealer action
                 
                 // subtract bet again from bank. Betting 2x original bank now
-                playerBank.removeFunds(bet);
+                playerBank->removeFunds(bet);
                 Hand newHand = playerHand.split(shoe);    // this will change playerHand and create newHand
                 handArray.pop_back();
                 handArray.push_back(playerHand);
@@ -455,12 +455,12 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
             cout << "Player chooses to DOUBLE!! \n";
             cout << "Player gets one additional card and doubles bet \n";
             int newBet = playerHand.getBet();// = playerHand.getBet();
-            if(playerBank.getBalance() < newBet)
+            if(playerBank->getBalance() < newBet)
             {
-                cout << "Player doesn't have enough to double bet. Player adds their roll to bet of $"<< playerBank.getBalance() <<" to hand. \n";
-                newBet = playerBank.getBalance();
+                cout << "Player doesn't have enough to double bet. Player adds their roll to bet of $"<< playerBank->getBalance() <<" to hand. \n";
+                newBet = playerBank->getBalance();
             }
-            playerBank.removeFunds(newBet);
+            playerBank->removeFunds(newBet);
             int oldbet = playerHand.getBet();
             playerHand.setBet(oldbet + newBet);
             
@@ -470,7 +470,7 @@ int Dealer::action(Shoe* shoe, Bank& playerBank, char action) // TODO: maybe rem
             {
                 
                 cout << "_____________________________ \n \n";
-                cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
+                cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
                 cout << "----------------------------- \n \n";
                 
                 cout << "\nInput 'c' to continue or 'q' to quit \n";

@@ -27,8 +27,8 @@ public:
     // to deny implicit conversion (cahr to int) using "explicit"
     explicit Dealer(int numPlayers);
     
-    int dealHands(Shoe* shoe, Bank& playerBank, int bet);
-    int action(Shoe* shoe, Bank& playerBank, char action ='a'); // int bet=0,  was in there.
+    int dealHands(Shoe* shoe, Bank* playerBank, int bet);
+    int action(Shoe* shoe, Bank* playerBank, char action ='a'); // int bet=0,  was in there.
     int playAIHands(Shoe* shoe, int numHands=0);
     
     int hitPlayer(Hand& player, Shoe* shoe);
