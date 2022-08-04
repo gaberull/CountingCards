@@ -32,8 +32,6 @@ Shoe::Shoe()
  */
 Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
 {
-    
-    
     _cardsRemaining = numDecks * 52;
     fullShoe = std::vector<uint8_t>(_cardsRemaining);
     
@@ -189,6 +187,22 @@ bool Shoe::shoeFinished()
     return _endOfShoe;
 }
 
+/**
+    Get count of the deck
+ */
+int Shoe::getCount()
+{
+    return _count;
+}
+
+/**
+@brief Get the count of aces we have seen
+@return int - number of aces that have been dealt
+ */
+int Shoe::getAceCount()
+{
+    return _aceCount;
+}
 /**
     Destructor
  */
