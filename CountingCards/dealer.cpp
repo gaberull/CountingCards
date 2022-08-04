@@ -579,21 +579,27 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even
 }
    
 //TODO: write this function - give AI players good basic strategy
-                                    /*
-int Dealer::playAIHands(Shoe shoe, int numHands)
+/**
+ @brief Plays the AI hands (hitting, standing, splitting)
+ */
+void Dealer::playAIHands(Shoe* shoe)    //TODO: finish this
 {
-    if(numHands == 0)
+    int numAIHands = (int)otherPats.size();
+    if(numAIHands == 0)
     {
-        numHands = numPlayers-1;
+        return;
+    }
+    cout << "Performing AI hand actions \n";
+    for(int i=1; i<=numAIHands; i++)
+    {
+        cout << "AI Player has " << this->otherPats.back().getHand() << "\n";
     }
 }
-                                     */
+                                     
 
 /**
  @brief This function will hit the Dealer until they bust or have a good enough score to stand pat.
- 
  @returns 0 if hand done, -1 to quit
- 
  */
 int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to return anything.
 {
@@ -718,7 +724,167 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
     
     return 0;
 }
+
+/**
+ @brief returns the basic strategy for any hand vs dealer's hand with currently shown card
+ 
+ @returns char for action
+          'h'  -  hit
+          's'  -  split
+          'p'  -  stand pat
+          'd'  -  double
+          'x'  -  surrender
+ */
+char Dealer::correctAction(Hand& player, Hand* dealer, int count)   //TODO: add print staements for strats
+{
+    // TODO: for now, just assuming dealer has 10 not showing and acting accordingly
+    char upCard = dealer->getFirstCard();
+    char first = player.getFirstCard();
+    char second = player.getSecondCard();
+    int playerValue = player.getValue();
     
+    //TODO: implement surrenders later
+    /// Surrenders
+    
+    /// Splits
+    if(first == second)
+    {
+        if(first == 'A') return 's';
+        if(first == 'T' || first == 'J' || first == 'Q' || first == 'K') return 'p';
+        if(first == '9')
+        {
+            if(upCard >= '2' && upCard <= '6') return 's';
+            else if(upCard == '7') return 'p';
+            else if(upCard == '8' || upCard == '9') return 's';
+            else return 'p';
+        }
+        if(first == '8') return 's';
+        if(first == '7')
+        {
+            if(upCard >= '2' && upCard <= '7') return 's';
+            else return 'h';
+        }
+        if(first == '6')
+        {
+            if(upCard >= '2' && upCard <= '6') return 's';
+            else return 'h';
+        }
+        if(first == '5')
+        {
+            if(upCard >= '2' && upCard <= '9') return 'd';
+            else return 'h';
+        }
+        if(first == '4')
+        {
+            cout << "Split a pair of 4's against dealer 5 and 6, otherwise hit \n";
+            if(upCard == '5' || upCard == '6') return 's';
+            else return 'h';
+        }
+        // A pair of 3’s splits against dealer 2 through 7, otherwise hit.
+        if(first == '3')
+        {
+            cout << "Split a pair of 3's against dealer 2 through 7, otherwise hit \n";
+            if(upCard >= '2' || upCard <= '7') return 's';
+            else return 'h';
+        }
+        // pair of 2’s
+        if(first == '2')
+        {
+            cout << "Split a pair of 2's against dealer 2 through 7, otherwise hit\n";
+            if(upCard >= '2' || upCard <= '7') return 's';
+            else return 'h';
+        }
+    }
+    /// Soft Hands
+    else if(player.isSoft())
+    {
+        if(playerValue == 20) return 'p';
+        if(playerValue == 19)
+        {
+            if(upCard == '6') return 'd';
+            else return 'p';
+        }
+        if(playerValue == 18)
+        {
+            if(upCard >= '2' || upCard <= '6') return 'd';
+            if(upCard == '9' || upCard == 'T' || upCard == 'J' || upCard =='Q' || upCard =='K' || upCard =='A') return 'h';
+            else return 'p';
+        }
+        if(playerValue == 17)
+        {
+            if(upCard >= '3' || upCard <= '6') return 'd';
+            else return 'h';
+        }
+        if(playerValue == 16)
+        {
+            if(upCard >= '4' || upCard <= '6') return 'd';
+            else return 'h';
+        }
+        if(playerValue == 15)
+        {
+            if(upCard >= '4' || upCard <= '6') return 'd';
+            else return 'h';
+        }
+        if(playerValue == 14)
+        {
+            if(upCard >= '5' || upCard <= '6') return 'd';
+            else return 'h';
+        }
+        if(playerValue == 13)
+        {
+            if(upCard >= '5' || upCard <= '6') return 'd';
+            else return 'h';
+        }
+    }
+    /// Hard Hands
+    else if(!player.isSoft())
+    {
+        if(playerValue >= 17) return 'p';
+        if(playerValue == 16)
+        {
+            if(upCard >= '2' || upCard <= '6') return 'p';
+            else return 'h';
+        }
+        if(playerValue == 15)
+        {
+            if(upCard >= '2' || upCard <= '6') return 'p';
+            else return 'h';
+        }
+        if(playerValue == 14)
+        {
+            if(upCard >= '2' || upCard <= '6') return 'p';
+            else return 'h';
+        }
+        if(playerValue == 13)
+        {
+            if(upCard >= '2' || upCard <= '6') return 'p';
+            else return 'h';
+        }
+        if(playerValue == 12)
+        {
+            if(upCard >= '4' || upCard <= '6') return 'p';
+            else return 'h';
+        }
+        if(playerValue == 11) return 'd';
+        if(playerValue == 10)
+        {
+            if(upCard >= '2' || upCard <= '9') return 'd';
+            else return 'h';
+        }
+        if(playerValue == 9)
+        {
+            if(upCard >= '3' || upCard <= '6') return 'd';
+            else return 'h';
+        }
+        if(playerValue <= 8) return 'h';
+    }
+    
+
+    return 'h';
+}
+/**
+    Destructor for Dealer
+ */
 Dealer::~Dealer()
 {
     //cout << "Dealer destructor being called \n";

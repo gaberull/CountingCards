@@ -37,6 +37,8 @@ public:
     Hand(uint8_t card1, uint8_t card2, int bet=0);     // 3 parameter constructor
     std::string getHand();                  // get str of hand
     std::string displayOne();               // Function to display one card for Dealer
+    char getFirstCard();                    // Returns hand's first card (dealer's shown card)
+    char getSecondCard();                   // Returns hand's second card
     int hit(Shoe* shoe);                    // hit hand - get one card
     Hand split(Shoe* shoe);                 // split a pair (only have 2 cards) TODO: need & for reference (Hand&) ?
     int getValue();                         // get integer value of hand

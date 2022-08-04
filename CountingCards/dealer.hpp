@@ -29,10 +29,11 @@ public:
     
     int dealHands(Shoe* shoe, Bank* playerBank, int bet);
     int action(Shoe* shoe, Bank* playerBank, char action ='a'); // int bet=0,  was in there.
-    int playAIHands(Shoe* shoe, int numHands=0);
-    
     int hitPlayer(Hand& player, Shoe* shoe);
+    
+    void playAIHands(Shoe* shoe);
     int dealerAction(Shoe* shoe, Bank* playerBank);
+    char correctAction(Hand& player, Hand* dealer, int count=0);      // returns correct action for any hands vs dealer hand
 
     ~Dealer();
     

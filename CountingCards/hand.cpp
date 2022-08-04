@@ -336,6 +336,22 @@ string Hand::displayOne()
     ret.append("    |");
     return ret;
 }
+
+/**
+ @returns char for first card AKA char of upward facing card (for dealer only)
+ */
+char Hand::getFirstCard()
+{
+    return cardArray[0];
+}
+
+/**
+ @returns char for second card
+ */
+char Hand::getSecondCard()
+{
+    return cardArray[1];
+}
 /**
  @brief hit a hand
  @returns -1 if hand busts | value of hand otherwise

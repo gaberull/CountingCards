@@ -74,11 +74,10 @@ int main(int argc, const char * argv[]) {
     int bet = 0;
     
     bet = (int) stol(bet_str);
-    //cout << "bet_int is " << bet_int << "\n";
     
     // Try-Catch statements I probably won't use
     
-                                                            /*
+                                                            /* Try,Catch
     // allocate new shoe, bank, and dealer on heap
     Shoe* shoe = nullptr;
     try {
@@ -101,7 +100,7 @@ int main(int argc, const char * argv[]) {
         cout << "Error: new dealer allocation failed\n";
         return 1;
     }
-                                                             */
+                                        End Try,Catch        */
     
     Shoe* shoe = new (std::nothrow) Shoe(numDecks, cutPoint);
     if(shoe==nullptr)
@@ -114,7 +113,7 @@ int main(int argc, const char * argv[]) {
     Dealer* dealer = new Dealer(1);
     
     
-    // just one player for now
+    // just one player for now TODO: implement more
     
     
     // Hands are dealt
@@ -130,6 +129,7 @@ int main(int argc, const char * argv[]) {
         }
         else   //handContinues==0, Do dealer action, then start new hand
         {
+            dealer->playAIHands(shoe);
             handContinues = dealer->dealerAction(shoe, bank);
             if(handContinues<0) break;
             cout << "\nNEW HAND \n";
@@ -140,7 +140,7 @@ int main(int argc, const char * argv[]) {
                 cout << "\nEnter amount to reload (up to $1,000) | 'q' to quit! \n";
                 char reload_str[10];
                 if(reload_str[0] == 'q' || reload_str[0]=='Q') break;
-                while(!cin || reload_str[0] < '0' || reload_str[0] > '9')
+                while(!cin || reload_str[0] < '0' || reload_str[0] > '9' )
                 {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
