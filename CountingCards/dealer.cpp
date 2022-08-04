@@ -575,7 +575,7 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even
 {
     //Hand dealer = *(dealerHand);
     cout << "Dealer says \"Hitting player's hand\" \n";
-    //cout << "Dealer has         : " << player.getHand() <<  "      Initially\n";
+    cout << "Player has      :   " << player.getHand() <<  "      Initially\n";
     std::chrono::seconds duration(3);
     std::this_thread::sleep_for(duration);
     int newPlayerVal = player.hit(shoe);    // TODO: handArray not getting updated hand yet
@@ -584,12 +584,14 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even
     if(newPlayerVal < 0)
     {
         cout << "Player has      :   " << player.getHand() << "      after hitting \n";
+        std::this_thread::sleep_for(duration);
         cout << "\nOh NO!! You busted.. You have lost your bet \n";
     }
     else
     {
         cout << "Player has      :   " << player.getHand() << "      after hitting \n";
-        cout << "for a value of  :   " << newPlayerVal <<" \n";
+        std::this_thread::sleep_for(duration);
+        cout << "for a value of  " << newPlayerVal <<" \n";
     }
     return newPlayerVal;
 }
