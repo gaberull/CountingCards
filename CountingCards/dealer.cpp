@@ -397,7 +397,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
                     
                     return Dealer::action(shoe, playerBank);
                 }
-                //FIXME: All new hands need to play against same dealer action
+                //TODO: All new hands need to play against same dealer action
                 
                 // subtract bet again from bank. Betting 2x original bank now
                 playerBank->removeFunds(bet);

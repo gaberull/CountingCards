@@ -31,7 +31,9 @@ public:
 };
                                                                          */
                                                              
-
+/**
+    Default constructor
+ */
 Shoe::Shoe()
 {
                                         /*
@@ -179,8 +181,7 @@ void Shoe::shuffle()    //TODO: possibly remove this. Not using it.
 }
 
 /**
- @brief returns a pair with the hand, and a flag of whether to end after this hand.
-        True means this is the final hand
+ @brief pulls one card from shoe using shuffle algorithm
  */
 uint8_t Shoe::dealCard()
 {
@@ -199,6 +200,9 @@ uint8_t Shoe::dealCard()
     
 }
 
+/**
+ @returns bool - if the shoe needs to be restarted or not
+ */
 bool Shoe::shoeFinished()
 {
     return _endOfShoe;

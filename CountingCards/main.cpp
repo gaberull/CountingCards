@@ -132,9 +132,9 @@ int main(int argc, const char * argv[]) {
             handContinues = dealer->dealerAction(shoe, bank);
             if(handContinues<0) break;
             cout << "\nNEW HAND \n";
-            cout << "\nWhat is your wager, my friend? Enter 'q' to quit. \n";
+            cout << "\nENTER NEW BET     |     Enter 'q' to quit. \n";
             cin >> bet_str;
-            if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;    //FIXME: fix this while condition
+            if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;    //TODO: check this while condition works
             while(!cin || bet_str[0] < '0' || bet_str[0] > '9')
             {
                 cin.clear();

@@ -74,9 +74,9 @@ Hand::Hand()
 }
 
 /**
- Copy constructor
+    Copy constructor
  */
-Hand::Hand(const Hand& diffHand)    //FIXME: probably broken
+Hand::Hand(const Hand& diffHand)
 {
     
     cardMap = { {0x01, 'A'}, {0x02, '2'},{0x03, '3'},{0x04, '4'},{0x05, '5'},{0x06, '6'},{0x07, '7'},{0x08, '8'},{0x09, '9'},{0x0A, 'T'},{0x0B, 'J'},{0x0C, 'Q'},{0x0D, 'K'} };
@@ -86,8 +86,6 @@ Hand::Hand(const Hand& diffHand)    //FIXME: probably broken
     
     this->_card1 = diffHand._card1;
     this->_card2 = diffHand._card2;
-    
-    //cardArray = diffHand.cardArray; //FIXME: this can't copy arrays of diff sizes;
     
     //this->cardArray = vector<char>(diffHand.cardArray.size());
     //for(int i=0; i<diffHand.cardArray.size(); i++)
@@ -373,7 +371,8 @@ string Hand::displayOne()
     return ret;
 }
 /**
- @brief hit() returns -1 if busted.  The value of the hand otherwise
+ @brief hit a hand
+ @returns -1 if hand busts | value of hand otherwise
  */
 int Hand::hit(Shoe* shoe)
 {
@@ -382,12 +381,11 @@ int Hand::hit(Shoe* shoe)
     splittable = false;
     numCards++;
     
-    // broken!!!!!!!!!!!!!
-    uint8_t card = shoe->dealCard();    // FIXME: I think this is dealing out 0x00 for some reason ?
+    uint8_t card = shoe->dealCard();
     uint8_t character = card>>4;
     uint8_t cardsuit = card&0x0F;
     
-    char cardSymbol = cardMap[character]; //FIXME: this maybe is not working
+    char cardSymbol = cardMap[character];
     cardArray.push_back(cardSymbol);
     char suit = suitMap[cardsuit];
     suitArray.push_back(suit);
@@ -406,7 +404,7 @@ int Hand::hit(Shoe* shoe)
     _value += value;
     if(_value > 21)
     {
-        if(soft)
+        if(soft)    // handle if hand is soft
         {
             _value -= 10;
             soft = false;
@@ -424,7 +422,7 @@ int Hand::hit(Shoe* shoe)
  @brief doubles hand's bet and then calls hit()
         player can enter a bet to double for less. if bet==0 (default val), the bet will be doubled
  */
-int Hand::doubleHand(Shoe* shoe, int bet)
+int Hand::doubleHand(Shoe* shoe, int bet)   // TODO: see if I used this. check about removing bet from bank and calling this from 'd' in action
 {
     if(bet != 0 )
     {
