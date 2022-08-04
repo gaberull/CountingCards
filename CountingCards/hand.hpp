@@ -28,12 +28,9 @@ class Hand
     bool isPat = false;
     int _value = 0;
     int handBet = 0;
-                                                                                    
-    
+    bool soft = false;
     
 public:
-    
-    
     
     Hand();                                 // Default constructor
     Hand(const Hand& diffHand);             // Copy constructor
@@ -51,6 +48,7 @@ public:
     int doubleHand(Shoe* shoe, int bet=0);
     int getBet();                           // get bet on this hand
     void setBet(int bet);                   // set new bet on this hand
+    bool isSoft();                          // returns whether or not the hand is soft
     
     Hand& operator= (Hand& diffHand);       // overload = operator. returns *this for chaining purposes
     ~Hand();                                //Destructor

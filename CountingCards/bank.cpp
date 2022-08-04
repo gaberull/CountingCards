@@ -21,5 +21,7 @@ public:
     void removeFunds(int value) {(_balance-value<=0) ? _balance=0 : _balance-=value; }
     void payBlackjack(int bet) { _balance += (bet * 3 / 2); }
     void payWin(int bet) { _balance += bet; }
-    ~Bank() {std::cout << "Bank destructor called\n";}
+    ~Bank() { // std::cout << "Bank destructor called\n";
+        
+    }
 };

@@ -209,5 +209,5 @@ bool Shoe::shoeFinished()
  */
 Shoe::~Shoe()
 {
-    cout << "Shoe Destructor called\n";
+    //cout << "Shoe Destructor called\n";
 }

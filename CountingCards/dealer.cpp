@@ -464,13 +464,15 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
                 newBet = playerBank->getBalance();
             }
             playerBank->removeFunds(newBet);
+            
             int oldbet = playerHand.getBet();
             playerHand.setBet(oldbet + newBet);
             
             // add one and only one card to player's hand. Then it is pat. or bust.
+            playerHand.setPat(true);
             player = hitPlayer(playerHand, shoe);
             handArray.pop_back();   //TODO: check if necessary
-            handArray.push_back(playerHand);
+            
             if(player<0)   // player busts
             {
                 
@@ -499,10 +501,8 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
             }
             else    // still alive after player doubled
             {
-                playerHand.setPat(true);
-                handArray.pop_back();
-                patHands.push_back(playerHand);
                 
+                patHands.push_back(playerHand);
                 cout << "\nPlayer has a score of "<< player << " \n\n";
                 
                 cout << "\nInput 'c' to continue or 'q' to quit \n";
@@ -517,7 +517,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
                 }
                 if(temp=='q' || temp=='Q') return -1;
                 
-                return 1;   // dealer has yet to act. 1==hand not done
+                return 0;   // hand finished
             }
             break;
         }
@@ -681,8 +681,8 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
     {
         Hand playerHand = patHands.back();  // TODO: check this operator= works fine
         patHands.pop_back();
-        cout << "Your hand number " << i << " has " << playerHand.getValue() << "\n";
-        cout << "Against Dealer's " << dealerScore << "\n";
+        (numYourHands>1) ? cout << "Your hand has " << playerHand.getValue() << "\n" : cout << "Your hand number " << i << " has " << playerHand.getValue() << "\n";
+        (dealerScore<0) ? cout << "Against Dealer's Busted Hand \n" : cout << "Against Dealer's " << dealerScore << "\n";
         if(playerHand.getValue() < dealerScore)  // player loses
         {
             cout << "You have lost your bet of $" << playerHand.getBet() << "\n";
@@ -695,7 +695,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
         else // player wins (not with blackjack)
         {
             cout << "You win $" << playerHand.getBet() << "!!!\n";
-            playerBank->addFunds(playerHand.getBet());
+            playerBank->addFunds(playerHand.getBet()*2);
             
         }
         cout << "_____________________________ \n \n";

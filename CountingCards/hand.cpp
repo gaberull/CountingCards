@@ -70,6 +70,7 @@ Hand::Hand()
     splittable = false;
     isPat = false;
     handBet = 0;
+    soft = false;
 }
 
 /**
@@ -87,30 +88,46 @@ Hand::Hand(const Hand& diffHand)    //FIXME: probably broken
     this->_card2 = diffHand._card2;
     
     //cardArray = diffHand.cardArray; //FIXME: this can't copy arrays of diff sizes;
-    this->cardArray = vector<char>(diffHand.cardArray.size());
-    for(int i=0; i<diffHand.cardArray.size(); i++)
+    
+    //this->cardArray = vector<char>(diffHand.cardArray.size());
+    //for(int i=0; i<diffHand.cardArray.size(); i++)
+    //{
+    //    this->cardArray[i] = diffHand.cardArray[i];
+    //}
+    
+    //this->cardArray = vector<char>(diffHand.cardArray.size());
+    //for(int i=0; i<diffHand.cardArray.size(); i++)
+    //{
+    //    this->cardArray.push_back(diffHand.cardArray[i]);
+    //}
+    this->numCards = diffHand.numCards;
+    
+    this->cardArray = vector<char>(numCards);
+    for(int i=0; i<numCards; i++)
     {
         this->cardArray[i] = diffHand.cardArray[i];
     }
     
     //cardArray = std::vector<char>(diffHand.cardArray);
-    suitArray = std::vector<char>(diffHand.suitArray);
-    
-    this->suitArray = vector<char>(diffHand.suitArray.size());
-    for(int i=0; i<diffHand.suitArray.size(); i++)
+    this->suitArray = std::vector<char>(numCards);
+    for(int i=0; i<numCards; i++)
     {
         this->suitArray[i] = diffHand.suitArray[i];
     }
     
+    //this->suitArray = vector<char>(diffHand.suitArray.size());
+    //for(int i=0; i<diffHand.suitArray.size(); i++)
+    //{
+    //    this->suitArray[i] = diffHand.suitArray[i];
+    //}
     
-    //this->valueMap = diffHand.valueMap;
-    //this->suitMap = diffHand.suitMap;
-    this->numCards = diffHand.numCards;
+    
     this->blackjack = diffHand.blackjack;
     this->splittable = diffHand.splittable;
     this->_value = diffHand._value;
     this->isPat = diffHand.isPat;
     this->handBet = diffHand.handBet;
+    this->soft = diffHand.soft;
 }
 
 /**
@@ -143,6 +160,7 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
     switch (rank1) {
         case 0x01:
             cardArray[0] = 'A';
+            soft = true;
             _value += 11;
             break;
         case 0x02:
@@ -311,13 +329,18 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
     {
         splittable = true;
     }
-    else if(cardArray[0] == 'A' && (cardArray[1] == 'T' || cardArray[1] == 'J' || cardArray[1] == 'Q' || cardArray[1] == 'K'))
+    
+    if(cardArray[0] == 'A' && (cardArray[1] == 'T' || cardArray[1] == 'J' || cardArray[1] == 'Q' || cardArray[1] == 'K'))
     {
         blackjack = true;
     }
     else if(cardArray[1] == 'A' && (cardArray[0] == 'T' || cardArray[0] == 'J' || cardArray[0] == 'Q' || cardArray[0] == 'K'))
     {
         blackjack = true;
+    }
+    else if(cardArray[0] == 'A' || cardArray[1]=='A')
+    {
+        soft = true;
     }
 }
 
@@ -354,6 +377,7 @@ string Hand::displayOne()
  */
 int Hand::hit(Shoe* shoe)
 {
+
     blackjack = false;  // hand is no longer a blackjack or splittable if we are hitting
     splittable = false;
     numCards++;
@@ -380,6 +404,15 @@ int Hand::hit(Shoe* shoe)
     }
     
     _value += value;
+    if(_value > 21)
+    {
+        if(soft)
+        {
+            _value -= 10;
+            soft = false;
+        }
+    }
+    
     if(_value > 21)
     {
         return -1;
@@ -431,7 +464,20 @@ Hand Hand::split(Shoe* shoe)        //TODO: should I return pointer? reference? 
     int bet = this->getBet();
     Hand newHand1(this->_card1, shoe->dealCard(), bet);
     Hand newHand2(this->_card2, shoe->dealCard(), bet);
-    (*this) = newHand1;
+    this->_card1 = newHand1._card1;
+    this->_card2 = newHand2._card2;
+    this->soft = newHand1.soft;
+    this->splittable = newHand1.splittable;
+    this->_value = newHand1._value;
+    this->blackjack = newHand1.blackjack;
+    this->handBet = newHand1.handBet;
+    this->isPat = newHand1.isPat;
+    this->numCards = newHand1.numCards;
+    
+    for(int i=0; i<newHand1.numCards; i++)
+    {
+        this->cardArray[i] = newHand1.cardArray[i];
+    }
     
     return newHand2;
 }
@@ -510,11 +556,19 @@ bool Hand::getPat()
 }
 
 /**
+ @returns whether or not hand is soft (has a soft ace and can drop by 10)
+ */
+bool Hand::isSoft()
+{
+    return soft;
+}
+
+/**
  Destructor. Doesn't do anything of substance.
  */
 Hand:: ~Hand()
 {
-    cout << "Hand destructor called \n";
+    //cout << "Hand destructor called \n";
 }
 
  /**
