@@ -10,29 +10,10 @@
 #include <iostream>
 #include <time.h>
 using namespace std;
-                                                                        /*
-class Shoe
-{
-    int _numDecks = 1;
-    int _cardsRemaining = 0;
-    int _cutPoint = 52;
-    int _count = 0;
-    bool _endOfShoe = false;
-    vector<uint8_t> fullShoe;
-         // private default constructor prevents it from being called
-    
-public:
-    Shoe();
-    Shoe(int numDecks, int cutPoint);
-    void shuffle();
-    uint8_t dealCard();
-    bool shoeFinished();
-    ~Shoe();
-};
-                                                                         */
                                                              
 /**
-    Default constructor
+    Default constructor.
+    Should be private and unable to be called, hence commented out.
  */
 Shoe::Shoe()
 {

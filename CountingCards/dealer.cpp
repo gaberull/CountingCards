@@ -15,28 +15,8 @@
 #include <iostream>
 
 using namespace std;
-                                                                        /*
-class Dealer
-{
-private:
-    int _numPlayers;
-    std::vector<Hand> handArray;
-    std::vector<Hand> otherPlayers;
-    Hand* dealerHand;
-    Dealer();
-public:
-    // to deny implicit conversion (cahr to int) using "explicit"
-    explicit Dealer(int numPlayers);
-    int dealHands(Shoe* shoe, Bank& playerBank, int bet);
-    int action(Shoe* shoe, Bank& playerBank, int bet, char action ='a');
-    int hitPlayer(Shoe* shoe);
-    int hitDealer(Shoe* shoe);
-    Hand splitHand(Hand& hand, Shoe* shoe);
-    ~Dealer();
-    
-    friend std::ostream& operator<<(std::ostream& s, const Dealer& dealer);
-};
-                                                                         */
+
+//TODO: handle quitting in middle of hand, and updating final balance. If hand is quit midway, that bet is lost
                                                      
 /**
  constructor to be used
@@ -185,7 +165,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             cout << "****   CONGRATS!!!! You have a BLACKJACK!! It pays 3:2!!   ****\n\n\n";
             // add bet back in first. then payout blackjack
             playerBank->addFunds(bet);
-            playerBank->payBlackjack(bet);   // TODO: check that these two statements add correctly for BJ
+            playerBank->payBlackjack(bet);
             handArray.pop_back();
             cout << "Dealer Has:       " << dealerHand->getHand() << "\n\n";
             cout << "_____________________________ \n \n";
@@ -507,7 +487,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
                     cout << "Wrong Input. Enter 'C' or 'c' to continue. 'q' or 'Q' to quit\n";
                     cin >> temp;
                 }
-                if(temp=='q' || temp=='Q') return -1;   //FIXME: temporary test
+                if(temp=='q' || temp=='Q') return -1;
                 
                 if(handArray.size() > 0)
                 {
@@ -567,7 +547,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
 }
   
 /**
- @brief this function calls Hand::hit() and adds some dealer talking text
+ @brief this function calls Hand::hit() and adds some dealer talking text. Time delays added for player to count
  
  @returns -1 if player busts, player's hand value otherwise
  */
@@ -644,7 +624,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
     //TODO: play AI hands
     
     int dealerScore = dealerHand->getValue();
-    cout << "Dealer Has      " << dealerHand->getHand() << "   initially \n";
+    cout << "\nDealer Has      " << dealerHand->getHand() << "   initially \n";
     //cout << "for a value of  " << dealerScore <<" \n\n";
     int numHits = 0;
     std::chrono::seconds duration(3);
@@ -661,7 +641,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
     
     if(dealerScore > 0)
     {
-        cout << "Delaer action is finished \n";
+        cout << "Dealer action is finished \n\n";
         //cout << "Dealer Has      " << dealerHand->getValue() << "  \n\n";
     }
     else
@@ -675,8 +655,8 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
     {
         Hand playerHand = patHands.back();  // TODO: check this operator= works fine
         patHands.pop_back();
-        (numYourHands<=1) ? cout << "Your hand has     " << playerHand.getValue() << "\n" : cout << "Your hand number " << i << " has " << playerHand.getValue() << "\n";
-        (dealerScore<0) ? cout << "Against Dealer's Busted Hand \n" : cout << "Against Dealer's  " << dealerScore << "\n";
+        (numYourHands<=1) ? cout << "Your hand has    :  " << playerHand.getValue() << "\n" : cout << "Your hand number " << i << " has " << playerHand.getValue() << "\n";
+        (dealerScore<0) ? cout << "Against Dealer's Busted Hand \n" : cout << "Against Dealer's :  " << dealerScore << "\n";
         if(playerHand.getValue() < dealerScore)  // player loses
         {
             cout << "You have lost your bet of $" << playerHand.getBet() << "\n";
@@ -716,7 +696,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
     
 Dealer::~Dealer()
 {
-    cout << "Dealer destructor being called \n";
+    //cout << "Dealer destructor being called \n";
     delete dealerHand;
 }
 
