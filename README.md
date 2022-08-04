@@ -24,3 +24,6 @@ Who doesn't love a good game of blackjack? ***CountingCards*** helps the player 
 For more information about blackjack rules see [Bicycle's Blackjack Rules](https://bicyclecards.com/how-to-play/blackjack/).
 
 *Source files are in ./CountingCards/*
+
+#### References:
+- https://www.blackjackapprenticeship.com/blackjack-strategy-charts/ (for basic strategy)
