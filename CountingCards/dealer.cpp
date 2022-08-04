@@ -247,11 +247,13 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
 {
     Hand playerHand = handArray.back();
     
-    cout << "\n     Good Luck!!  \n\n";
+    //cout << "\n     Good Luck!!  \n\n";
+                                                                                /*
     cout << "_____________________________ \n \n";
     cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
     cout << "| CURRENT BET  : $"<< playerHand.getBet() << "  \n";
     cout << "----------------------------- \n \n";
+                                                                                 */
     
     //handArray.pop_back(); // do this later. when hand done
  
@@ -263,7 +265,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
     if(action =='a')
     {
         // List menu of options for the player
-        cout << "***  Please choose the action you would like to take  ***\n";
+        cout << "\n***  Please choose the action you would like to take  ***\n";
         cout << "------------------------------------------------------------------------------\n\n";
         cout << "||  'h' - hit           |  'p' - stand pat                  |  's' - split       |  'd' - double down  ||\n";
         cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n";
@@ -304,6 +306,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
                 cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
                 cout << "----------------------------- \n \n";
                 
+                                                                                                /*  //TODO: check if i need this exit sequence or need to get rid of it
                 cout << "\nInput 'c' to continue or 'q' to quit \n";
                 char temp;
                 cin >> temp;
@@ -315,6 +318,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
                     cin >> temp;
                 }
                 if(temp=='q' || temp=='Q') return -1;
+                                                                                                 */
                 
                 if(handArray.size()>0)
                 {
@@ -515,7 +519,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
             {
                 
                 patHands.push_back(playerHand);
-                cout << "\nPlayer has a score of "<< player << " \n\n";
+                //cout << "\nPlayer has a score of "<< player << " \n\n";
                 
                 cout << "\nInput 'c' to continue or 'q' to quit \n";
                 char temp;
@@ -571,18 +575,21 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even
 {
     //Hand dealer = *(dealerHand);
     cout << "Dealer says \"Hitting player's hand\" \n";
+    //cout << "Dealer has         : " << player.getHand() <<  "      Initially\n";
+    std::chrono::seconds duration(3);
+    std::this_thread::sleep_for(duration);
     int newPlayerVal = player.hit(shoe);    // TODO: handArray not getting updated hand yet
     handArray.pop_back();           //TODO: double check this works
     handArray.push_back(player);
     if(newPlayerVal < 0)
     {
-        cout << "Player has " << player.getHand() << " after hitting \n";
+        cout << "Player has      :   " << player.getHand() << "      after hitting \n";
         cout << "\nOh NO!! You busted.. You have lost your bet \n";
     }
     else
     {
-        cout << "Player has " << player.getHand() << " after hitting \n";
-        cout << "Player hand has a value of " << newPlayerVal <<" \n";
+        cout << "Player has      :   " << player.getHand() << "      after hitting \n";
+        cout << "for a value of  :   " << newPlayerVal <<" \n";
     }
     return newPlayerVal;
 }
@@ -666,8 +673,8 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
     {
         Hand playerHand = patHands.back();  // TODO: check this operator= works fine
         patHands.pop_back();
-        (numYourHands<=1) ? cout << "Your hand has " << playerHand.getValue() << "\n" : cout << "Your hand number " << i << " has " << playerHand.getValue() << "\n";
-        (dealerScore<0) ? cout << "Against Dealer's Busted Hand \n" : cout << "Against Dealer's " << dealerScore << "\n";
+        (numYourHands<=1) ? cout << "Your hand has     " << playerHand.getValue() << "\n" : cout << "Your hand number " << i << " has " << playerHand.getValue() << "\n";
+        (dealerScore<0) ? cout << "Against Dealer's Busted Hand \n" : cout << "Against Dealer's  " << dealerScore << "\n";
         if(playerHand.getValue() < dealerScore)  // player loses
         {
             cout << "You have lost your bet of $" << playerHand.getBet() << "\n";
