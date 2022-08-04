@@ -13,6 +13,8 @@
 #include <string>
 #include <vector>
 
+#define MAX_RELOAD 1000
+
 using namespace std;
 
 int main(int argc, const char * argv[]) {
@@ -41,8 +43,9 @@ int main(int argc, const char * argv[]) {
         cin >> cutPoint;
     }
     
+    int totalFunds = 0;    //track all funds added for end profit/loss
     // Starting player balance
-    int funds = -1;
+    int funds = 0;
     cout << "\nEnter starting player funds from 100 to 1,000 \n";
     cin >> funds;
     while(!cin || funds < 100 || funds > 1000)
@@ -52,9 +55,7 @@ int main(int argc, const char * argv[]) {
         cout << "Wrong Input. Enter a number between 100 and 1,000 \n";
         cin >> funds;
     }
-    // Debug info
-    //cout << "number of decks is " << numDecks << endl;
-    //cout << "shuffle mark is  " << cutPoint << endl;
+    totalFunds += funds;
     
     // Create shoe and player bank, and pass them to dealer in constructor
     char bet_str[10];
@@ -132,9 +133,30 @@ int main(int argc, const char * argv[]) {
             handContinues = dealer->dealerAction(shoe, bank);
             if(handContinues<0) break;
             cout << "\nNEW HAND \n";
+            // check if player has funds
+            if(bank->getBalance() == 0)
+            {
+                cout << "\nYOU ARE OUT OF FUNDS! \n";
+                cout << "\nEnter amount to reload (up to $1,000) | 'q' to quit! \n";
+                char reload_str[10];
+                if(reload_str[0] == 'q' || reload_str[0]=='Q') break;
+                while(!cin || reload_str[0] < '0' || reload_str[0] > '9')
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Wrong Input. Enter number to reload or 'q' to quit \n";
+                    cin >> reload_str;
+                }
+                
+                int reload = (int) stol(reload_str);
+                if (reload > MAX_RELOAD) reload = MAX_RELOAD;
+                bank->addFunds(reload);
+                totalFunds += reload;
+                
+            }
             cout << "\nENTER NEW BET     |     Enter 'q' to quit. \n";
             cin >> bet_str;
-            if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;    //TODO: check this while condition works
+            if(bet_str[0] == 'q' || bet_str[0] == 'Q') break;    //TODO: check this while condition works
             while(!cin || bet_str[0] < '0' || bet_str[0] > '9')
             {
                 cin.clear();
@@ -147,11 +169,15 @@ int main(int argc, const char * argv[]) {
             handContinues = dealer->dealHands(shoe, bank, bet);
         }
     }
-    
+    int net = bank->getBalance() - totalFunds;
     cout << "\nThanks for Playing!! \n";
     cout << "_____________________________ \n \n";
-    cout << "| BANKROLL     : $"<< bank->getBalance() <<" \n";
-    cout << "----------------------------- \n \n";
+    cout << "| TOTAL FUNDS ADDED    : $"<< totalFunds <<" \n";
+    cout << "| BANKROLL             : $"<< bank->getBalance() <<" \n";
+    cout << "----------------------------- \n";
+    (net >= 0) ?
+    cout << "| NET WIN/LOSS         : $"<< net <<" \n\n":
+    cout << "| NET WIN/LOSS         : -$"<< net*-1 <<" \n\n"; // TODO: check this net*-1
     
     
     // USE DELETE if decide to use pointers
