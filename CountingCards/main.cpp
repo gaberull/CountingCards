@@ -76,6 +76,8 @@ int main(int argc, const char * argv[]) {
     bet = (int) stol(bet_str);
     //cout << "bet_int is " << bet_int << "\n";
     
+    // Try-Catch statements I probably won't use
+    
                                                             /*
     // allocate new shoe, bank, and dealer on heap
     Shoe* shoe = nullptr;
@@ -154,14 +156,14 @@ int main(int argc, const char * argv[]) {
             }
             cout << "\nENTER NEW BET     |     Enter 'q' to quit. \n";
             cin >> bet_str;
-            if(bet_str[0] == 'q' || bet_str[0] == 'Q') break;    //TODO: check this while condition works
+            if(bet_str[0] == 'q' || bet_str[0] == 'Q') break;
             while(!cin || bet_str[0] < '0' || bet_str[0] > '9')
             {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Wrong Input. Enter number to bet or 'q' to quit \n";
                 cin >> bet_str;
-                if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;
+                if(bet_str[0] == 'q' || bet_str[0] == 'Q') break;
             }
             bet = (int) stol(bet_str);
             handContinues = dealer->dealHands(shoe, bank, bet);
