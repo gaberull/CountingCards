@@ -26,4 +26,4 @@ For more information about blackjack rules see [Bicycle's Blackjack Rules](https
 *Source files are in ./CountingCards/*
 
 #### References:
-- https://www.blackjackapprenticeship.com/blackjack-strategy-charts/ (for basic strategy)
+- [blackjackapprenticeship.com](https://www.blackjackapprenticeship.com/blackjack-strategy-charts/) for Blackjack basic strategy charts
