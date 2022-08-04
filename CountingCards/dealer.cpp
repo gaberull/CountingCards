@@ -418,7 +418,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
                 
                 // ALL THIS BELOW MAYBE GOES IN DEALERACTION() or hitDEALER() or playAIHANDS()
                                                                                             /*
-                                
+                                //TODO: figure out if I need these comments in playAIHands() or dealerAction()
                 dealer = dealerAction(shoe);
                 if(dealer < 0)  // dealer busts
                 {
@@ -517,10 +517,12 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
             }
             break;
         }
-        case 'm': {  // Get basic strategy Hint
-            cout << "\nPlayer Requests a strategy hint \n";
-            cout << "\nYou have a score of "<< player << " \n\n";
-            cout << "\nAgainst the dealer's score of "<< dealer << " \n\n";
+        case 'm': {  // Get strategy Hint: 1)basic strategy 2)count adjusted strategy
+            cout << "\nPlayer Requests a strategy hint \n\n";
+            cout << "Your hand is       :   " << playerHand.getHand() << "\n";
+            cout << "Against Dealer's   :   " << dealerHand->getHand() << "\n";
+            cout << "Your hand value   " << playerHand.getValue() << "\n";
+            cout << "Against Dealer's  " << dealerHand->getValue() << "\n";
             break;
         }
         case 'c': {  // Current count of Deck
@@ -547,7 +549,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
 }
   
 /**
- @brief this function calls Hand::hit() and adds some dealer talking text. Time delays added for player to count
+ @brief calls Hand::hit() and adds some dealer talking text. Time delays added for player to count, suspense
  
  @returns -1 if player busts, player's hand value otherwise
  */
@@ -576,7 +578,7 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even
     return newPlayerVal;
 }
    
-//TODO: write this function
+//TODO: write this function - give AI players good basic strategy
                                     /*
 int Dealer::playAIHands(Shoe shoe, int numHands)
 {
@@ -677,8 +679,30 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
         cout << "----------------------------- \n \n";
     }
     
-    //TODO: do AI pat hands against dealer
+    //TODO: check this -  AI pat hands against dealer
     
+    int numAIHands = (int)otherPats.size();
+    for(int i=1; i<=numAIHands; i++)  // 1-indexed for purposes of printing
+    {
+        Hand AI = otherPats.back();  // TODO: check this operator= works fine
+        otherPats.pop_back();
+        cout << "AI Player " << i << " has " << AI.getHand() << "\n";
+        (dealerScore<0) ? cout << "Against Dealer's Busted Hand \n" : cout << "Against Dealer's :  " << dealerHand->getHand() << "\n";
+        if(AI.getValue() < dealerScore)  // player loses
+        {
+            cout << "AI Player " << i << " Loses \n";
+        }
+        else if(AI.getValue() == dealerHand->getValue())    // player ties
+        {
+            cout << "AI Player " << i << " Pushes \n";
+        }
+        else // player wins (not with blackjack)
+        {
+            cout << "AI Player " << i << " Wins \n";
+            
+        }
+    }
+    //cout << "\nDealer will now complete AI players' hands\n\n";
     cout << "\nInput 'c' to continue or 'q' to quit \n";
     char temp;
     cin >> temp;
@@ -690,6 +714,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
         cin >> temp;
     }
     if(temp=='q' || temp=='Q') return -1;
+    
     
     return 0;
 }
