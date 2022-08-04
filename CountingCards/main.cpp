@@ -125,8 +125,6 @@ int main(int argc, const char * argv[]) {
         if(handContinues==1)    // hand is ongoing, call action
         {
             handContinues = dealer->action(shoe, bank);
-            //TODO: call dealerAction()?
-            //TODO: should dealerAction check if hand is done already?
         }
         else   //handContinues==0, Do dealer action, then start new hand
         {
@@ -170,6 +168,7 @@ int main(int argc, const char * argv[]) {
         }
     }
     int net = bank->getBalance() - totalFunds;
+    /// EXIT SEQUENCE
     cout << "\nThanks for Playing!! \n";
     cout << "_____________________________ \n \n";
     cout << "| TOTAL FUNDS ADDED    : $"<< totalFunds <<" \n";
@@ -177,7 +176,7 @@ int main(int argc, const char * argv[]) {
     cout << "----------------------------- \n";
     (net >= 0) ?
     cout << "| NET WIN/LOSS         : $"<< net <<" \n\n":
-    cout << "| NET WIN/LOSS         : -$"<< net*-1 <<" \n\n"; // TODO: check this net*-1
+    cout << "| NET WIN/LOSS         : -$"<< net*-1 <<" \n\n";
     
     
     // USE DELETE if decide to use pointers

@@ -5,6 +5,8 @@
 //  Created by Gabe Scott on 7/25/22.
 //
 
+#include <thread>   // for sleep_for
+#include <chrono>   // for sleep_for
 #include <iostream>
 #include "dealer.hpp"
 #include "shoe.hpp"
@@ -63,6 +65,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
     if(playerBank->getBalance() < bet)
     {
         cout <<" You have bet more than you have. Try again \n\n";
+        //TODO: get new bet here and call action() again. Don't return 0 or dealerAction() will get called in main()
         return 0;
     }
     playerBank->removeFunds(bet);
@@ -81,7 +84,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
         {
             Hand playerHand = Hand(shoe->dealCard(), shoe->dealCard(), bet);
             handArray.push_back(playerHand);
-            std::cout << "Your cards     :     " << playerHand.getHand() << "\n\n\n";
+            std::cout << "\nYour cards     :     " << playerHand.getHand() << "\n\n\n";
             blackjack = playerHand.isBlackjack();
             
         }
@@ -261,11 +264,11 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
     {
         // List menu of options for the player
         cout << "***  Please choose the action you would like to take  ***\n";
-        cout << "---------------------------------------------------------\n\n";
+        cout << "------------------------------------------------------------------------------\n\n";
         cout << "||  'h' - hit           |  'p' - stand pat                  |  's' - split       |  'd' - double down  ||\n";
         cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n";
-        cout << "    'q' or 'Q' to quit\n\n";
-        cout << "---------------------------------------------------------\n\n";
+        cout << "||  'q' or 'Q' to quit                                                                                 ||\n";
+        cout << "------------------------------------------------------------------------------\n\n";
         cin >> action;
         while(!cin || (action != 'h' && action != 'p' && action != 's' && action != 'd' && action != 'm' && action != 'c' && action != 'r' && action != 'x' && action != 'q'))   //TODO: add handling capital letters
         {
@@ -331,7 +334,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
         
             /// Stand Pat - 'p'
         case 'p': {
-            cout << "\nPlayer Chooses to Stand Pat with score of "<< player << " \n\n";
+            cout << "\nPlayer Chooses to Stand with         "<< playerHand.getHand() << " \n\n";
             playerHand.setPat(true);
             handArray.pop_back();
             patHands.push_back(playerHand);
@@ -406,9 +409,12 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
                 handArray.pop_back();
                 handArray.push_back(playerHand);
                 handArray.push_back(newHand);
+                cout << "\nNew Hand 1        : "<< handArray[handArray.size()-1].getHand() <<"\n";
+                cout << "\nNew Hand 2        : "<< handArray[handArray.size()-2].getHand() <<"\n";
+                
                 
                 // play the new (split) hands
-                cout << "\nWe will now play the two new split hands \n";
+                cout << "\nWe will now play the two new hands \n";
                 
                 //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
                 cout << "\nInput 'c' to continue or 'q' to quit \n";
@@ -475,8 +481,9 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
             cout << "----------------------------- \n \n";
             
             // add one and only one card to player's hand. Then it is pat. or bust.
-            playerHand.setPat(true);
+            
             player = hitPlayer(playerHand, shoe);
+            playerHand.setPat(true);
             handArray.pop_back();   //TODO: check if necessary
             
             if(player<0)   // player busts
@@ -498,7 +505,6 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
                 }
                 if(temp=='q' || temp=='Q') return -1;   //FIXME: temporary test
                 
-                handArray.pop_back();
                 if(handArray.size() > 0)
                 {
                     return Dealer::action(shoe, playerBank);
@@ -609,7 +615,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
     // if there are none of this player's hands to play, or AI hands to play
     if(patHands.size()==0 && otherPats.size()==0 && !dealerHand->isBlackjack())
     {
-        cout << "Everybody is Complete. Dealer Had   " << dealerHand->getHand() << "\n\n";
+        cout << "Action is Complete. Dealer Had   " << dealerHand->getHand() << "\n\n";
         
         cout << "\nInput 'c' to continue or 'q' to quit \n";
         char temp;
@@ -629,21 +635,25 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
     //TODO: play AI hands
     
     int dealerScore = dealerHand->getValue();
-    cout << "Dealer Has   " << dealerHand->getHand() << "   initially \n\n";
-    cout << "Dealer's hand has a value of " << dealerScore <<" \n\n";
+    cout << "Dealer Has      " << dealerHand->getHand() << "   initially \n";
+    //cout << "for a value of  " << dealerScore <<" \n\n";
     int numHits = 0;
+    std::chrono::seconds duration(3);
+    std::this_thread::sleep_for(duration);
     
     while(dealerScore < 17 && dealerScore>0)
     {
         dealerScore = dealerHand->hit(shoe);
         numHits++;
-        cout << "Dealer Has   " << dealerHand->getHand() << "    after hitting "<< numHits <<" time(s) \n\n";
+        cout << "Dealer Has      " << dealerHand->getHand() << "    after hitting "<< numHits <<" time(s) \n\n";
+        std::chrono::seconds duration(3);
+        std::this_thread::sleep_for(duration);
     }
     
     if(dealerScore > 0)
     {
         cout << "Delaer action is finished \n";
-        cout << "Dealer's hand has a score of " << dealerHand->getValue() << "  \n\n";
+        //cout << "Dealer Has      " << dealerHand->getValue() << "  \n\n";
     }
     else
     {
