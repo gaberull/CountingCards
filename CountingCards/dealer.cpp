@@ -239,6 +239,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
                 Hands are popped off the back of handArray at end of action. Specifically before a 0 is returned
                 bet is removed from bank in dealHands(), and then again in 'd' - double and 's' - split (double can add less than bet, split can't)
  */
+//TODO: check some action
 int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe remove this action default value
 {
     Hand playerHand = handArray.back();
@@ -291,7 +292,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
         }
             /// Hit the Hand
         case 'h': {
-            cout << "\nYOU CHOSE TO HIT YOUR HAND! \n";
+            cout << "\nYOU CHOSE TO HIT! \n";
             player = hitPlayer(playerHand, shoe);
             if(player<0)   // player busts. money removed from bank and added to hand in dealHands()
             {
@@ -457,6 +458,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
         case 'd': {// Double down
             cout << "Player chooses to DOUBLE!! \n";
             cout << "Player gets one additional card and doubles bet \n";
+            
             int newBet = playerHand.getBet();// = playerHand.getBet();
             if(playerBank->getBalance() < newBet)
             {
@@ -467,6 +469,10 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
             
             int oldbet = playerHand.getBet();
             playerHand.setBet(oldbet + newBet);
+            cout << "_____________________________ \n \n";
+            cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
+            cout << "| CURRENT BET  : $"<< playerHand.getBet() << "  \n";
+            cout << "----------------------------- \n \n";
             
             // add one and only one card to player's hand. Then it is pat. or bust.
             playerHand.setPat(true);
@@ -490,7 +496,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
                     cout << "Wrong Input. Enter 'C' or 'c' to continue. 'q' or 'Q' to quit\n";
                     cin >> temp;
                 }
-                if(temp=='q' || temp=='Q') return -1;
+                if(temp=='q' || temp=='Q') return -1;   //FIXME: temporary test
                 
                 handArray.pop_back();
                 if(handArray.size() > 0)
@@ -551,12 +557,11 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
 }
   
 /**
- @returns -1 if player busts, player's hand value otherwise
  @brief this function calls Hand::hit() and adds some dealer talking text
  
- TODO: Check and see if I even need this function. Currently only outputs text.
+ @returns -1 if player busts, player's hand value otherwise
  */
-int Dealer::hitPlayer(Hand& player, Shoe* shoe)
+int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even need this function - only outputs text.
 {
     //Hand dealer = *(dealerHand);
     cout << "Dealer says \"Hitting player's hand\" \n";
@@ -567,41 +572,11 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)
     {
         cout << "Player has " << player.getHand() << " after hitting \n";
         cout << "\nOh NO!! You busted.. You have lost your bet \n";
-        //playerBank.removeFunds(bet);  // wrong spot
-        // Dealer shows hand but it is over
-        // TODO: change this when I add in more computer players. Hand won't be displayed yet
-        //cout << "Dealer Had:       " << dealerHand->getHand() << "\n\n"; // TODO: check that Hand dealer works (persists)
-        
-        // TODO: REmove this continue sequence. Already have it where it's being called I think
-                                                                    /*
-        cout << "Input 'c' to continue \n";
-        char temp;
-        cin >> temp;
-        while(!cin || (temp != 'c' && temp != 'C'))
-        {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
-            cin >> temp;
-        }
-                                                                     */
     }
     else
     {
         cout << "Player has " << player.getHand() << " after hitting \n";
         cout << "Player hand has a value of " << newPlayerVal <<" \n";
-                                                                    /*
-        cout << "Input 'c' to continue \n";
-        char temp;
-        cin >> temp;
-        while(!cin || (temp != 'c' && temp != 'C'))
-        {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Wrong Input. Enter 'C' or 'c' to continue \n";
-            cin >> temp;
-        }
-                                                                     */
     }
     return newPlayerVal;
 }
@@ -681,7 +656,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
     {
         Hand playerHand = patHands.back();  // TODO: check this operator= works fine
         patHands.pop_back();
-        (numYourHands>1) ? cout << "Your hand has " << playerHand.getValue() << "\n" : cout << "Your hand number " << i << " has " << playerHand.getValue() << "\n";
+        (numYourHands<=1) ? cout << "Your hand has " << playerHand.getValue() << "\n" : cout << "Your hand number " << i << " has " << playerHand.getValue() << "\n";
         (dealerScore<0) ? cout << "Against Dealer's Busted Hand \n" : cout << "Against Dealer's " << dealerScore << "\n";
         if(playerHand.getValue() < dealerScore)  // player loses
         {

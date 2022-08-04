@@ -213,7 +213,7 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
             break;
     }
     suitArray[0] = suitMap[suit1];
-    //TODO: remove below switch stmt - after checking it's fine. Now Using suitMap
+    //TODO: remove below switch stmt - after checking that suitMap works and I won't need it. Do this after I figure out if the vectors for cards will be const static
                                         /*
     switch (suit1) {
         case 0x01:
@@ -302,7 +302,7 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
     }
     
     suitArray[1] = suitMap[suit2];
-    //TODO: remove below switch - after checking it's fine
+    //TODO: remove below switch stmt - after checking that suitMap works and I won't need it. Do this after I figure out if the vectors for cards will be const static
                                         /*
     switch (suit2) {
         case 0x01:
