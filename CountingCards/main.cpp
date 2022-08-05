@@ -76,7 +76,6 @@ int main(int argc, const char * argv[]) {
     bet = (int) stol(bet_str);
     
     // Try-Catch statements I probably won't use
-    
                                                             /* Try,Catch
     // allocate new shoe, bank, and dealer on heap
     Shoe* shoe = nullptr;
@@ -112,14 +111,9 @@ int main(int argc, const char * argv[]) {
     // TODO: get number of players from user, put it in Dealer constructor
     Dealer* dealer = new Dealer(1);
     
-    
-    // just one player for now TODO: implement more
-    
-    
     // Hands are dealt
     int handContinues = 0;      // -1 = quit, 0 = hand done, 1 = hand ongoing
     handContinues = dealer->dealHands(shoe, bank, bet);
-    
     // while handOngoing >=0
     while(handContinues>-1) // while quit hasn't been requested
     {
@@ -127,11 +121,11 @@ int main(int argc, const char * argv[]) {
         {
             handContinues = dealer->action(shoe, bank);
         }
-        else   //handContinues==0, Do dealer action, then start new hand
+        else   //handContinues==0, Do comuterAction, then Do dealer action, then start new hand
         {
             dealer->computerAction(shoe);
             handContinues = dealer->dealerAction(shoe, bank);
-            if(handContinues<0) break;
+            if(handContinues<0) break;      // 'Q' has been input to quit. Jump to end and final print stmt
             cout << "\nNEW HAND \n";
             // check if player has funds
             if(bank->getBalance() == 0)
@@ -147,12 +141,10 @@ int main(int argc, const char * argv[]) {
                     cout << "Wrong Input. Enter number to reload or 'q' to quit \n";
                     cin >> reload_str;
                 }
-                
                 int reload = (int) stol(reload_str);
                 if (reload > MAX_RELOAD) reload = MAX_RELOAD;
                 bank->addFunds(reload);
                 totalFunds += reload;
-                
             }
             cout << "\nENTER NEW BET     |     Enter 'q' to quit. \n";
             cin >> bet_str;
@@ -180,25 +172,17 @@ int main(int argc, const char * argv[]) {
     cout << "| NET WIN/LOSS         : $"<< net <<" \n\n":
     cout << "| NET WIN/LOSS         : -$"<< net*-1 <<" \n\n";
     
-    
-    // USE DELETE if decide to use pointers
-                    /*
-    delete shoe;
-    delete bank;
-    delete dealer;
-                     */
-    
+    // Unallocate heap memory
     delete shoe;
     delete dealer;
     delete bank;
+    
     return 0;
-    
 }
 
 
 
 /*
-cout << "\n HERE WE GOOO!!!!  Good Luck! \n";
 cout << "_____________________________ \n \n";
 cout << "| BANKROLL     : $"<< bank.getBalance() <<" \n";
 cout << "| CURRENT BET  : $"<< bet << "  \n";

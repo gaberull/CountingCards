@@ -41,12 +41,25 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
     handArray = std::vector<Hand>();    // TODO: these should reset arrays at each hand deal. Check if necessary
     otherPlayers = std::vector<Hand>();
     
-    if(playerBank->getBalance() < bet)
+    if(playerBank->getBalance() < bet)      // Check that bet amount is in playerBank
     {
-        cout <<" You have bet more than you have. Try again \n\n";
-        //TODO: get new bet here and call action() again. Don't return 0 or dealerAction() will get called in main()
-        return 0;
+        cout <<" You have bet more than you have. Input new Bet \n\n";
+        char bet_str[10];
+        cout << "\nENTER NEW BET     |     Enter 'q' to quit. \n";
+        cin >> bet_str;
+        if(bet_str[0] == 'q' || bet_str[0] == 'Q') return -1;
+        while(!cin || bet_str[0] < '0' || bet_str[0] > '9')
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Wrong Input. Enter number to bet or 'q' to quit \n";
+            cin >> bet_str;
+            if(bet_str[0] == 'q' || bet_str[0] == 'Q') return -1;
+        }
+        int bet = (int) stol(bet_str);
+        return dealHands(shoe, playerBank, bet);
     }
+    
     playerBank->removeFunds(bet);
     bool lastRound = false;
     bool blackjack = false; // TODO: add this to hand, remove from here
