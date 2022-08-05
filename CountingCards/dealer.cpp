@@ -500,7 +500,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
             cout << "\nPlayer Requests a list of the rules  \n";
             break;
         }
-        case 'x': {  // Surrender
+        case 'x': {  // Surrender TODO: maybe just get rid of surrender altogether
             cout << "\nPlayer Surrenders  :-(  \n";
             
             break;
@@ -517,7 +517,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
 /**
  @brief Plays the AI hands (hitting, standing, splitting)
  */
-void Dealer::AIAction(Shoe* shoe)    //TODO: finish this - Like action() for my hand
+void Dealer::computerAction(Shoe* shoe)    //TODO: finish this - Like action() for my hand
 {
     int numAIHands = (int)otherPlayers.size();
     //int numPats = (int)otherPats.size();

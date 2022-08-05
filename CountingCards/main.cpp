@@ -129,7 +129,7 @@ int main(int argc, const char * argv[]) {
         }
         else   //handContinues==0, Do dealer action, then start new hand
         {
-            dealer->AIAction(shoe);
+            dealer->computerAction(shoe);
             handContinues = dealer->dealerAction(shoe, bank);
             if(handContinues<0) break;
             cout << "\nNEW HAND \n";
