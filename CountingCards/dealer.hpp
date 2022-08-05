@@ -16,27 +16,25 @@ class Dealer
 {
 private:
     int _numPlayers;
-    std::vector<Hand> handArray;
-    std::vector<Hand> patHands;
+    std::vector<Hand> handArray;                // The user's array of hands (only 1 unless split)
+    std::vector<Hand> patHands;                 // The user's array of hands standing pat (only 1 or 0 unless split)
     
-    std::vector<Hand> otherPlayers;
-    std::vector<Hand> otherPats;
-    Hand* dealerHand;
-    Dealer();
+    std::vector<Hand> otherPlayers;             // Computer players' array of hands
+    std::vector<Hand> otherPats;                // Computer players' array of hands already standing pat
+    Hand* dealerHand;                           // Dealer's hand (pointer)
+    Dealer();                                   // Default constructor - should never be called
 public:
-    // to deny implicit conversion (cahr to int) using "explicit"
-    explicit Dealer(int numPlayers);
     
-    int dealHands(Shoe* shoe, Bank* playerBank, int bet);
-    int action(Shoe* shoe, Bank* playerBank, char action ='a'); // int bet=0,  was in there.
+    explicit Dealer(int numPlayers);            // Contructor - using explicit to deny implicit conversion (char to int)
+    int dealHands(Shoe* shoe, Bank* playerBank, int bet);       // Initial hand dealing to user and AI players, dealer
+    int action(Shoe* shoe, Bank* playerBank, char action ='a'); // TODO: probably remove char action='a'
+    void AIAction(Shoe* shoe);                  // Perform action on computer players' hands
+    int dealerAction(Shoe* shoe, Bank* playerBank);     // Perform dealer actions after all players' hand actions done
+    
     int hitPlayer(Hand& player, Shoe* shoe);
-    
-    void playAIHands(Shoe* shoe);
-    int dealerAction(Shoe* shoe, Bank* playerBank);
-    char correctAction(Hand& player, Hand* dealer, int count=0, bool print=true);      // returns correct action for any hands vs dealer hand
+    char correctAction(Hand& player, Hand* dealer, int count=0, bool print=true); // returns correct action for any hands vs dealer card showing
 
-    ~Dealer();
-    
+    ~Dealer();                                  // Destructor
     //friend std::ostream& operator<<(std::ostream& s, const Dealer& dealer);
 };
                                         

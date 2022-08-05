@@ -30,12 +30,11 @@ Dealer::Dealer(int numPlayers)
 }
 
 /**
+ @brief      removes bet from playerBank at start of hand. Adds it back for push.
  
-    @returns 1 if hand is ongoing
+ @returns    1 if hand is ongoing
              0 if hand is finished
-            - 1 to quit game
- 
-@discussion removes bet from playerBank at start of hand. Adds it back for push.
+             -1 to quit game
  */
 int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
 {
@@ -52,13 +51,10 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
     bool lastRound = false;
     bool blackjack = false; // TODO: add this to hand, remove from here
     bool dealerBlackjack = false;
-    //dealerHand = new Hand();
     // vector of player hands. User will be zero, dealer will be _numPlayers
-    
     for(int i=0; i<_numPlayers+1; i++)
     {
         // deal two cards to every player and dealer
-        //Hand currHand = Hand(shoe->dealCard(), shoe->dealCard(), bet);
         // we are on the user
         if(i == 0)
         {
@@ -68,8 +64,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             blackjack = playerHand.isBlackjack();
             
         }
-        // if we are on dealer
-        else if(i == _numPlayers)
+        else if(i == _numPlayers) // we are on dealer
         {
             dealerHand = new Hand(shoe->dealCard(), shoe->dealCard());
             std::cout << "Dealer shows   :     " << dealerHand->displayOne() << "\n \n";
@@ -479,7 +474,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
             cout << "Your hand is       :   " << playerHand.getHand() << "\n";
             cout << "Against Dealer's   :   " << dealerHand->displayOne() << "\n";
             cout << "Your hand value   " << playerHand.getValue() << "\n";
-            this->correctAction(playerHand, dealerHand);
+            this->correctAction(playerHand, dealerHand);    // print=false by default and it prints to console
             
             // pause for user to take in action
             cout << "\nInput 'c' to continue or 'q' to quit \n";
@@ -515,46 +510,14 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe rem
             break;
         }
     }
-    
-    
     return 1;   //TODO: 1== not done
 }
-  
-/**
- @brief calls Hand::hit() and adds some dealer talking text. Time delays added for player to count, suspense
- 
- @returns -1 if player busts, player's hand value otherwise
- */
-int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even need this function - only outputs text.
-{
-    //Hand dealer = *(dealerHand);
-    cout << "Dealer says \"Hitting player's hand\" \n";
-    cout << "Player has      :   " << player.getHand() <<  "      Initially\n";
-    std::chrono::seconds duration(3);
-    std::this_thread::sleep_for(duration);
-    int newPlayerVal = player.hit(shoe);    // TODO: handArray not getting updated hand yet
-    handArray.pop_back();           //TODO: double check this works
-    handArray.push_back(player);
-    if(newPlayerVal < 0)
-    {
-        cout << "Player has      :   " << player.getHand() << "      after hitting \n";
-        std::this_thread::sleep_for(duration);
-        cout << "\nOh NO!! You busted.. You have lost your bet \n";
-    }
-    else
-    {
-        cout << "Player has      :   " << player.getHand() << "      after hitting \n";
-        std::this_thread::sleep_for(duration);
-        cout << "for a value of  " << newPlayerVal <<" \n";
-    }
-    return newPlayerVal;
-}
-   
+
 //TODO: Finish this function
 /**
  @brief Plays the AI hands (hitting, standing, splitting)
  */
-void Dealer::playAIHands(Shoe* shoe)    //TODO: finish this - Like action() for my hand
+void Dealer::AIAction(Shoe* shoe)    //TODO: finish this - Like action() for my hand
 {
     int numAIHands = (int)otherPlayers.size();
     //int numPats = (int)otherPats.size();
@@ -588,7 +551,6 @@ void Dealer::playAIHands(Shoe* shoe)    //TODO: finish this - Like action() for 
         }
     }
 }
-                                     
 
 /**
  @brief This function will hit the Dealer until they bust or have a good enough score to stand pat.
@@ -716,6 +678,40 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
     
     return 0;
 }
+  
+/**
+ @brief calls Hand::hit() and adds some dealer talking text. Time delays added for player to count, suspense
+ 
+ @returns -1 if player busts, player's hand value otherwise
+ */
+int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even need this function - only outputs text.
+{
+    //Hand dealer = *(dealerHand);
+    cout << "Dealer says \"Hitting player's hand\" \n";
+    cout << "Player has      :   " << player.getHand() <<  "      Initially\n";
+    std::chrono::seconds duration(3);
+    std::this_thread::sleep_for(duration);
+    int newPlayerVal = player.hit(shoe);    // TODO: handArray not getting updated hand yet
+    handArray.pop_back();           //TODO: double check this works
+    handArray.push_back(player);
+    if(newPlayerVal < 0)
+    {
+        cout << "Player has      :   " << player.getHand() << "      after hitting \n";
+        std::this_thread::sleep_for(duration);
+        cout << "\nOh NO!! You busted.. You have lost your bet \n";
+    }
+    else
+    {
+        cout << "Player has      :   " << player.getHand() << "      after hitting \n";
+        std::this_thread::sleep_for(duration);
+        cout << "for a value of  " << newPlayerVal <<" \n";
+    }
+    return newPlayerVal;
+}
+   
+                                    
+
+
 
 /**
  @brief returns the basic strategy for any hand vs dealer's hand with currently shown card
