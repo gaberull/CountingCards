@@ -82,7 +82,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             std::cout << "\nDealer shows   :     " << dealerHand->displayOne() << "\n \n";
             
             this->dealerBlackjack = dealerHand->isBlackjack();
-            lastRound = shoe->shoeFinished();
+            lastRound = shoe->endOfShoe();
             if(lastRound)
             {
                 std::cout << "This will be the last hand on this shoe \n";
@@ -95,7 +95,15 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             // putting bet=0 on AI hands
             Hand AIHand = Hand(shoe->dealCard(), shoe->dealCard());
             std::cout << "Player "<<_numPlayers - i+1<< " has   :     " << AIHand.getHand() << std::endl; // FIXME: print ordering doesn't match computerAction()
-            otherPlayers.push_back(AIHand);
+            if(AIHand.isBlackjack())    //FIXME: doesn't handle if dealer also has bj
+            {
+                cout << "Player " <<_numPlayers - i+1<< " has BLACKJACK!! Gets paid 3:2 \n";
+            }
+            else
+            {
+                otherPlayers.push_back(AIHand);
+            }
+            
             
         }
         if(_numPlayers > 1)     // pause if we have dealt out more than just the one player
@@ -104,6 +112,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             std::this_thread::sleep_for(duration);
         }
     }
+    //TODO: maybe display computer players here in order of back to front of otherPlayers vector
     if(dealerBlackjack && !blackjack)
     {
         handArray.pop_back();
@@ -370,13 +379,13 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                 //TODO: All new hands need to play against same dealer action
                 
                 // subtract bet again from bank. Betting 2x original bank now
-                playerBank->removeFunds(bet);
+                playerBank->removeFunds(playerHand.getBet());
                 Hand newHand = playerHand.split(shoe);    // this will change playerHand and create newHand
 
                 handArray.push_back(playerHand);
                 handArray.push_back(newHand);
-                cout << "\nNew Hand 1        : "<< handArray[handArray.size()-1].getHand() <<"\n";
-                cout << "\nNew Hand 2        : "<< handArray[handArray.size()-2].getHand() <<"\n";
+                cout << "\nNew Hand 1        : "<< handArray[handArray.size()-1].getHand() <<"  bet: $"<<playerHand.getBet()<< "\n";
+                cout << "\nNew Hand 2        : "<< handArray[handArray.size()-2].getHand() <<"  bet: $"<<playerHand.getBet()<< "\n";
                 
                 
                 // play the new (split) hands
@@ -585,6 +594,8 @@ int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop log
                 curr.hit(shoe);
                 //cout << "\nAfter Double, computer player has " << curr.getHand() <<"\n";
                 std::this_thread::sleep_for(duration);
+                cout << "\nComp Player has " << curr.getHand() << " after doubling\n";
+                std::this_thread::sleep_for(duration);
                 if(curr.getValue() < 0)
                 {
                     cout << "\nComp Player has busted \n";
@@ -683,6 +694,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
         cout << "_____________________________ \n \n";
         cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
         cout << "----------------------------- \n \n";
+        std::this_thread::sleep_for(duration);  // pause for 3 sec
     }
     
     //TODO: check this -  AI pat hands against dealer

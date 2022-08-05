@@ -34,6 +34,7 @@ Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
 {
     _cardsRemaining = numDecks * 52;
     fullShoe = std::vector<uint8_t>(_cardsRemaining);
+    _endOfShoe = false;
     
     uint8_t cardMask = 0x00;
     uint8_t suitMask = 0x00;
@@ -165,7 +166,23 @@ void Shoe::shuffle()    //TODO: possibly remove this. Not using it.
 uint8_t Shoe::dealCard()
 {
     srand((unsigned int)std::time(0));
-    int i = rand() % _cardsRemaining;   // c4 in 167, 415 is d4
+    
+    int i;
+    // If we run out of cards, grab random from whole used shoe
+    if(_cardsRemaining <= _cutPoint)
+    {
+        _endOfShoe = true;
+    }
+    if(_cardsRemaining == 0)    //FIXME: find better fix
+    {
+        i = rand() % (_numDecks * 52);
+        
+    }
+    else
+    {
+        i = rand() % _cardsRemaining;
+    }
+       // c4 in 167, 415 is d4
     uint8_t ret = fullShoe[i];
     swap(fullShoe[i], fullShoe[_cardsRemaining-1]);
     _cardsRemaining--;
@@ -182,7 +199,7 @@ uint8_t Shoe::dealCard()
 /**
  @returns bool - if the shoe needs to be restarted or not
  */
-bool Shoe::shoeFinished()
+bool Shoe::endOfShoe()
 {
     return _endOfShoe;
 }
@@ -203,6 +220,8 @@ int Shoe::getAceCount()
 {
     return _aceCount;
 }
+
+
 /**
     Destructor
  */

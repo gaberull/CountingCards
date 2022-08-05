@@ -12,6 +12,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <memory>
 
 #define MAX_RELOAD 1000
 
@@ -142,6 +143,8 @@ int main(int argc, const char * argv[]) {
             handContinues = dealer->dealerAction(shoe, bank);
             if(handContinues<0) break;      // 'Q' has been input to quit. Jump to end and final print stmt
             cout << "\nNEW HAND \n";
+            //TODO: put new shoe check here
+            
             // check if player has funds
             if(bank->getBalance() == 0)
             {
@@ -160,6 +163,12 @@ int main(int argc, const char * argv[]) {
                 if (reload > MAX_RELOAD) reload = MAX_RELOAD;
                 bank->addFunds(reload);
                 totalFunds += reload;
+            }
+            if(shoe->endOfShoe())   // Shoe is finished. Start a new one    //FIXME: not working
+            {
+                cout << "Time to start a new shoe \n\n";
+                delete shoe;
+                Shoe* shoe = new Shoe(numDecks, cutPoint);
             }
             cout << "\nENTER NEW BET     |     Enter 'q' to quit. \n";
             cin >> bet_str;

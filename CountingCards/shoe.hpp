@@ -27,7 +27,7 @@ public:
     Shoe(int numDecks, int cutPoint);
     void shuffle();             //TODO: remove if not going to use. Probably won't
     uint8_t dealCard();
-    bool shoeFinished();
+    bool endOfShoe();
     int getCount();
     int getAceCount();
     ~Shoe();
