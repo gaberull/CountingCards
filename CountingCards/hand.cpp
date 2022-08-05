@@ -353,7 +353,7 @@ char Hand::getSecondCard()
     return cardArray[1];
 }
 /**
- @brief hit a hand
+ @brief hit a hand. No print statements, just shoe, hand actions
  @returns -1 if hand busts | value of hand otherwise
  */
 int Hand::hit(Shoe* shoe)
@@ -395,7 +395,7 @@ int Hand::hit(Shoe* shoe)
     
     if(_value > 21)
     {
-        return -1;
+        _value = -1;
     }
     return _value;
 }

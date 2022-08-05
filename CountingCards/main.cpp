@@ -43,6 +43,17 @@ int main(int argc, const char * argv[]) {
         cin >> cutPoint;
     }
     
+    cout << "\nEnter number of Players between 1 and 4  \n";
+    int numPlayers = 0;
+    cin >> numPlayers;
+    while(!cin || (numPlayers < 1 || numPlayers > 4))
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Wrong Input. Enter a number of players between 1 and 4 \n";
+        cin >> numPlayers;
+    }
+    
     int totalFunds = 0;    //track all funds added for end profit/loss
     // Starting player balance
     int funds = 0;
@@ -109,7 +120,7 @@ int main(int argc, const char * argv[]) {
     }
     Bank* bank = new Bank(funds);
     // TODO: get number of players from user, put it in Dealer constructor
-    Dealer* dealer = new Dealer(1);
+    Dealer* dealer = new Dealer(numPlayers);        // 1 for 1 player
     
     // Hands are dealt
     int handContinues = 0;      // -1 = quit, 0 = hand done, 1 = hand ongoing
