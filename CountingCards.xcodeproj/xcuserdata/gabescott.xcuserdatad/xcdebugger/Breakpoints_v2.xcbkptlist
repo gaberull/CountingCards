@@ -14,8 +14,8 @@
             filePath = "CountingCards/dealer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "Dealer::action(shoe, playerBank, action)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "CountingCards/dealer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "412"
-            endingLineNumber = "412"
+            startingLineNumber = "406"
+            endingLineNumber = "406"
             landmarkName = "Dealer::action(shoe, playerBank, action)"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "CountingCards/dealer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "750"
-            endingLineNumber = "750"
+            startingLineNumber = "739"
+            endingLineNumber = "739"
             landmarkName = "Dealer::hitPlayer(player, shoe)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "CountingCards/dealer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
+            startingLineNumber = "287"
+            endingLineNumber = "287"
             landmarkName = "Dealer::action(shoe, playerBank, action)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "CountingCards/dealer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "544"
-            endingLineNumber = "544"
+            startingLineNumber = "533"
+            endingLineNumber = "533"
             landmarkName = "Dealer::computerAction(shoe)"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,8 +94,8 @@
             filePath = "CountingCards/dealer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "781"
-            endingLineNumber = "781"
+            startingLineNumber = "770"
+            endingLineNumber = "770"
             landmarkName = "Dealer::correctAction(player, dealer, count, print)"
             landmarkType = "7">
          </BreakpointContent>
