@@ -16,8 +16,6 @@
 
 using namespace std;
 
-//TODO: handle quitting in middle of hand, and updating final balance. If hand is quit midway, that bet is lost
-                                                     
 /**
  constructor to be used
  */
@@ -212,6 +210,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
     return 1;   // 1 means hand is not over. funds have already been removed from playerBank
     
 }
+
 /**
  @brief     Dealer offers menu of option and then performs it. The user
             can input an action character. if action parameter is the default 'a',
@@ -221,12 +220,12 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
  @param     action - this char is set to default value='a'   in the function declaration, and may not end up being used
         TODO: check this line of documentation above for 'action' parameter
  
- @returns   0 if hand is done, 1 if hand continues, -1 to quit program
- 
  @discussion    adds the main functionality of the gameplay. It covers all actions that the player can take.
                 actions include: hit, stand, split, double, get strategy hint, get current running count, list rules, surrender
                 Hands are popped off the back of handArray at end of action. Specifically before a 0 is returned
                 bet is removed from bank in dealHands(), and then again in 'd' - double and 's' - split (double can add less than bet, split can't)
+ 
+ @returns   0 if hand is done, 1 if hand continues, -1 to quit program
  */
 //TODO: check some action
 int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe remove this action default value
@@ -566,8 +565,9 @@ void Dealer::computerAction(Shoe* shoe)    //TODO: finish this - Like action() f
 }
 
 /**
- @brief This function will hit the Dealer until they bust or have a good enough score to stand pat.
- @returns 0 if hand done, -1 to quit
+ @brief     This function will hit the Dealer until they bust or have a good enough score to stand pat.
+ @returns   0 - hand is done
+            -1 - to quit
  */
 int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to return anything.
 {
@@ -695,7 +695,8 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
 /**
  @brief calls Hand::hit() and adds some dealer talking text. Time delays added for player to count, suspense
  
- @returns -1 if player busts, player's hand value otherwise
+ @returns   -1 - player busts
+            player's hand value otherwise
  */
 int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even need this function - only outputs text.
 {
@@ -727,16 +728,15 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even
 
 
 /**
- @brief returns the basic strategy for any hand vs dealer's hand with currently shown card
- @parameter count - the count of the deck. Strategy will be adjusted accordings
- @parameter print - if true (default), print statements, if false, no print statements. (player vs AI strategy)
- 
- @returns char for action
-          'h'  -  hit
-          's'  -  split
-          'p'  -  stand pat
-          'd'  -  double
-          'x'  -  surrender
+ @brief     get the basic strategy for any hand vs dealer's hand with currently shown card
+ @param     count - the count of the deck. Strategy will be adjusted accordings
+ @param     print - if true (default), print statements, if false, no print statements. (player vs AI strategy)
+ @returns   char for action
+            'h'  -  hit
+            's'  -  split
+            'p'  -  stand pat
+            'd'  -  double
+            'x'  -  surrender
  */
 char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   //TODO: add print staements for strats
 {
@@ -930,27 +930,17 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
     return 'h';
 }
 /**
-    Destructor for Dealer
+ @brief  Destructor for Dealer
  */
 Dealer::~Dealer()
 {
     //cout << "Dealer destructor being called \n";
     delete dealerHand;
 }
-
-/**     display bankroll
- 
- cout << "_____________________________ \n \n";
- cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
- cout << "----------------------------- \n \n";
- 
- */
-
                                                                     
 /**
- Overloaded ostream operator<< to easily print off a dealer's info
+ @brief Overloaded ostream operator<< to easily print off a dealer's info
  */
-
 /*
 friend ostream& operator<<(ostream& s, const Dealer& dealer)
 {
@@ -969,3 +959,11 @@ friend ostream& operator<<(ostream& s, const Dealer& dealer)
     
 }
                                                                     */
+
+/**     display bankroll
+ 
+ cout << "_____________________________ \n \n";
+ cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
+ cout << "----------------------------- \n \n";
+ 
+ */
