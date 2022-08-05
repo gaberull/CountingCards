@@ -33,7 +33,7 @@ public:
     
     void playAIHands(Shoe* shoe);
     int dealerAction(Shoe* shoe, Bank* playerBank);
-    char correctAction(Hand& player, Hand* dealer, int count=0);      // returns correct action for any hands vs dealer hand
+    char correctAction(Hand& player, Hand* dealer, int count=0, bool print=true);      // returns correct action for any hands vs dealer hand
 
     ~Dealer();
     
