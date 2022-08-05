@@ -39,6 +39,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
     delete dealerHand;
     handArray = std::vector<Hand>();    // TODO: these should reset arrays at each hand deal. Check if necessary
     otherPlayers = std::vector<Hand>();
+    this->dealerBlackjack = false;
     
     if(playerBank->getBalance() < bet)      // Check that bet amount is in playerBank
     {
@@ -61,8 +62,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
     
     playerBank->removeFunds(bet);
     bool lastRound = false;
-    bool blackjack = false; // TODO: add this to hand, remove from here
-    bool dealerBlackjack = false;
+    bool blackjack = false;
     // vector of player hands. User will be zero, dealer will be _numPlayers
     for(int i=0; i<_numPlayers+1; i++)
     {
@@ -81,7 +81,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             dealerHand = new Hand(shoe->dealCard(), shoe->dealCard());
             std::cout << "\nDealer shows   :     " << dealerHand->displayOne() << "\n \n";
             
-            dealerBlackjack = dealerHand->isBlackjack();
+            this->dealerBlackjack = dealerHand->isBlackjack();
             lastRound = shoe->shoeFinished();
             if(lastRound)
             {
@@ -223,8 +223,10 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
  @returns   0 if hand is done, 1 if hand continues, -1 to quit program
  */
 //TODO: check some action
-int Dealer::action(Shoe* shoe, Bank* playerBank, char action) // TODO: maybe remove this action default value
+int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
 {
+    //FIXME: multiple splits don't work
+    //if(handArray.size() == 0) return 0;
     Hand playerHand = handArray.back();
     
     //cout << "\n     Good Luck!!  \n\n";
@@ -534,7 +536,6 @@ int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop log
     {
         return 0;
     }
-    cout << "Performing Computer hand actions \n";
     //for(int i=1; i<=numAIHands; i++)
     //{
         //cout << "AI Player has " << otherPlayers.back().getHand() << "\n";
@@ -601,7 +602,7 @@ int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop log
                 }
                 else
                 {
-                    otherPlayers.push_back(curr);
+                    otherPats.push_back(curr);
                 }
                 return computerAction(shoe);
                 break;

@@ -134,7 +134,11 @@ int main(int argc, const char * argv[]) {
         }
         else   //handContinues==0, Do comuterAction, then Do dealer action, then start new hand
         {
-            dealer->computerAction(shoe);
+            if(numPlayers > 1 && !dealer->hasBlackjack())
+            {
+                cout << "\nPerforming computer hand actions \n";
+                dealer->computerAction(shoe);
+            }
             handContinues = dealer->dealerAction(shoe, bank);
             if(handContinues<0) break;      // 'Q' has been input to quit. Jump to end and final print stmt
             cout << "\nNEW HAND \n";
