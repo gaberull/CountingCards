@@ -24,7 +24,16 @@ Dealer::Dealer(int numPlayers)
     _numPlayers = numPlayers;
     otherPlayers = std::vector<Hand>(); // TODO: was vector<Hand>(_numplayers-1) check this
     handArray = std::vector<Hand>();
-    dealerHand = new Hand();    // TODO: could be memory leak - check this
+    dealerHand = new Hand();
+    dealerBlackjack = false;
+}
+
+/**
+ @returns bool - this dealer has blackjack
+ */
+bool Dealer::hasBlackjack()
+{
+    return dealerBlackjack;
 }
 
 /**
