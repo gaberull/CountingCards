@@ -16,7 +16,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "242"
             endingLineNumber = "242"
-            landmarkName = "Dealer::dealHands(shoe, playerBank, bet)"
+            landmarkName = "Dealer::action(shoe, playerBank, action)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -32,7 +32,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "415"
             endingLineNumber = "415"
-            landmarkName = "Dealer::dealHands(shoe, playerBank, bet)"
+            landmarkName = "Dealer::action(shoe, playerBank, action)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -48,7 +48,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "751"
             endingLineNumber = "751"
-            landmarkName = "Dealer::dealHands(shoe, playerBank, bet)"
+            landmarkName = "Dealer::hitPlayer(player, shoe)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -64,7 +64,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "296"
             endingLineNumber = "296"
-            landmarkName = "Dealer::dealHands(shoe, playerBank, bet)"
+            landmarkName = "Dealer::action(shoe, playerBank, action)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -80,7 +80,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "542"
             endingLineNumber = "542"
-            landmarkName = "Dealer::dealHands(shoe, playerBank, bet)"
+            landmarkName = "Dealer::computerAction(shoe)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -96,7 +96,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "782"
             endingLineNumber = "782"
-            landmarkName = "Dealer::dealHands(shoe, playerBank, bet)"
+            landmarkName = "Dealer::correctAction(player, dealer, count, print)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -164,6 +164,7 @@ void Shoe::shuffle()    //TODO: possibly remove this. Not using it.
 
 /**
  @brief pulls one card from shoe using shuffle algorithm
+        increments _aceCount and increments or decrements _count
  */
 uint8_t Shoe::dealCard()
 {
@@ -175,10 +176,9 @@ uint8_t Shoe::dealCard()
     {
         _endOfShoe = true;
     }
-    if(_cardsRemaining == 0)    //FIXME: find better fix
+    if(_cardsRemaining == 0)  // No cards left. temporary fix so program doesn't break. May repeat a couple cards
     {
         i = rand() % (_numDecks * 52);
-        
     }
     else
     {
@@ -186,20 +186,71 @@ uint8_t Shoe::dealCard()
     }
        // c4 in 167, 415 is d4
     uint8_t ret = fullShoe[i];
-    if(ret>>4 == 0x01)
+    // keeping count of the deck. High cards vs low cards
+    switch(ret>>4)
     {
-        _aceCount++;
+        case 0x01:
+        {
+            _aceCount++;
+            _count--;
+            break;
+        }
+        case 0x02:
+        {
+            _count++;
+            break;
+        }
+        case 0x03:
+        {
+            _count++;
+            break;
+        }
+        case 0x04:
+        {
+            _count++;
+            break;
+        }
+        case 0x05:
+        {
+            _count++;
+            break;
+        }
+        case 0x06:
+        {
+            _count++;
+            break;
+        }
+        case 0x0A:
+        {
+            _count--;
+            break;
+        }
+        case 0x0B:
+        {
+            _count--;
+            break;
+        }
+        case 0x0C:
+        {
+            _count--;
+            break;
+        }
+        case 0x0D:
+        {
+            _count--;
+            break;
+        }
     }
+    
+    // swap card with end of deck (shuffle on each card draw)
     swap(fullShoe[i], fullShoe[_cardsRemaining-1]);
     _cardsRemaining--;
-    
     
     if(_cardsRemaining <= _cutPoint)
     {
         _endOfShoe = true;
     }
     return ret;
-    
 }
 
 /**
