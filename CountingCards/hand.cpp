@@ -498,6 +498,7 @@ bool Hand::isSoft()
 
 /**
  Destructor. Doesn't do anything of substance.
+ parameter
  */
 Hand:: ~Hand()
 {
@@ -506,6 +507,7 @@ Hand:: ~Hand()
 
  /**
   friend function - overloaded ostream '= 'operator
+  -parameter hand
   */
 ostream& operator<<(ostream& s, Hand& hand)
 {

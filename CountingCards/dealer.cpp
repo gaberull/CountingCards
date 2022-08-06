@@ -17,7 +17,13 @@
 using namespace std;
 
 /**
- constructor to be used
+ @brief
+    only Dealer constructor that will be used
+ @param numPlayers
+    the number of players in current game
+ @property
+    allocates memory on heap for dealerHand pointer
+    using "new" keyword
  */
 Dealer::Dealer(int numPlayers)
 {
@@ -29,7 +35,11 @@ Dealer::Dealer(int numPlayers)
 }
 
 /**
- @returns bool - this dealer has blackjack
+ @brief
+    get whether or not dealer has a blackjack
+ @return bool
+    true    -   the dealer has blackjack
+    false   -    the dealer doesn't have blackjack
  */
 bool Dealer::hasBlackjack()
 {
@@ -37,10 +47,12 @@ bool Dealer::hasBlackjack()
 }
 
 /**
- @brief      removes bet from playerBank at start of hand. Adds it back for push.
- @returns    1 - hand is ongoing
-             0 - hand is finished
-             -1 - quit game
+ @brief
+    removes bet from playerBank at start of hand. Bet is then added to hand in Hand() constructor
+ @returns   int
+    1   -   hand is ongoing
+    0   -   hand is finished
+    -1  -   quit game
  */
 int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
 {
@@ -202,20 +214,46 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
 }
 
 /**
- @brief     Dealer offers menu of option and then performs it. The user
-            can input an action character. if action parameter is the default 'a',
-            will request action character, otherwise skips that
- @param     shoe - the shoe containing all the decks that the game is being played with
- @param     playerBank - the user's current balance of funds, and functions to update that balance
- @param     action - this char is set to default value='a'   in the function declaration, and may not end up being used
-        TODO: check this line of documentation above for 'action' parameter
+ @brief
+    Dealer offers menu of option and then performs it. The user
+    can input an action character. if action parameter is the default 'a',
+    will request action character, otherwise skips that
  
- @discussion    adds the main functionality of the gameplay. It covers all actions that the player can take.
-                actions include: hit, stand, split, double, get strategy hint, get current running count, list rules, surrender
-                Hands are popped off the back of handArray at end of action. Specifically before a 0 is returned
-                bet is removed from bank in dealHands(), and then again in 'd' - double and 's' - split (double can add less than bet, split can't)
+ @param shoe (Shoe)
+    the shoe containing all the decks that the game is being played with
+ @param playerBank (Bank)
+    the user's current balance of funds, and functions to update that balance
+ @param action (char)
+    this char is set to default value='a'   in the function declaration, and may not end up being used
  
- @returns   0 if hand is done, 1 if hand continues, -1 to quit program
+ @property  case 'q', 'Q'
+    quit the program
+ @property  case 'h'
+    hit the hand
+ @property  case 'p'
+    stand pat with hand
+ @property  case 's'
+    split hand and turn into 2 hands to be played
+ @property  case 'd'
+    double hand
+ @property  case 'm'
+    get optimal play (strategy) for hand vs dealer's currently shown card
+ @property  case 'c'
+    get current count of deck. Prints running count and true count (ratio of running count to # decks remaining)
+ @property  case 'r'
+    get a list of the rules of blackjack
+ 
+ @discussion
+    adds the main functionality of the gameplay. It covers all actions that the player can
+    take. Possible actions include the above listed properties. Hands are popped off the
+    back of handArray at end of action. Specifically before a 0 is returned bet is removed
+    from bank in dealHands(), and then again in 'd' - double and 's' - split (double can
+    add less than bet, split can't)
+ 
+ @return int
+    0   -   hand is done
+    1   -   hand continues
+    -1  -   quit program
  */
 //TODO: check some action
 int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
@@ -457,19 +495,6 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             // pause for user to take in action
             std::chrono::seconds duration(3);
             std::this_thread::sleep_for(duration);
-                                                                                            /*
-            cout << "\nInput 'c' to continue or 'q' to quit \n";
-            char temp;
-            cin >> temp;
-            if(temp=='q' || temp=='Q') return -1;
-            while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
-            {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
-                cin >> temp;
-            }
-                                                                                             */
             return Dealer::action(shoe, playerBank);
             break;
         }
@@ -485,7 +510,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             cout << "\nPlayer Surrenders  :-(  \n";
             break;
         }
-            // default will not execute
+            // default case will never execute
         default: {
             break;
         }
@@ -493,9 +518,16 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
     return 1;   // should never be hit
 }
 
-//TODO: Finish this function
 /**
- @brief Plays the AI hands (hitting, standing, splitting)
+ @brief
+    Completes the computer  hands' actions (hitting, standing, splitting). Goes
+    until there are no more computer hands to act on and all hands are either
+    bust or in the vector of hands standing pat called otherPats.
+ @param shoe
+    the Shoe object that holds the decks
+ @return int
+    0   -   Hand is finished. otherPlayers vector is empty. No more hands to play
+    1   -  (Won't ever be returned) Hand isn't finished
  */
 int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop logic
 {
@@ -586,10 +618,13 @@ int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop log
 }
 
 /**
- @brief     This function will hit the Dealer until they bust or have a good enough score to stand pat.
-            Called after user hands and computer hands have completed hand actions
- @returns   0 - hand is done
-            -1 - to quit
+ @brief
+    This function will hit the Dealer until they bust or have a good enough
+    score (17 or better) to stand pat. Called after user hands and computer
+    hands have completed hand actions
+ @returns   int
+    0   -   hand is done
+    -1  -   quit game
  */
 int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to return anything.
 {
@@ -700,10 +735,11 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
 }
   
 /**
- @brief calls Hand::hit() and adds some dealer talking text. Time delays added for player to count, suspense
- 
- @returns   -1 - player busts
-            player's hand value otherwise
+ @brief
+    calls Hand::hit() and adds some dealer talking text. Time delays added for player to count, suspense
+ @returns   int
+    -1      player busts
+    X       player's hand value
  */
 int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even need this function - only outputs text.
 {
@@ -713,8 +749,6 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even
     std::chrono::seconds duration(2);
     std::this_thread::sleep_for(duration);
     int newPlayerVal = player.hit(shoe);    // TODO: handArray not getting updated hand yet
-    //handArray.pop_back();           //TODO: double check this works
-    //handArray.push_back(player);
     if(newPlayerVal < 0)
     {
         cout << "Player has      :   " << player.getHand() << "      after hitting \n";
@@ -731,15 +765,19 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even
 }
 
 /**
- @brief     get the basic strategy for any hand vs dealer's hand with currently shown card
- @param     count - the count of the deck. Strategy will be adjusted accordings
- @param     print - if true (default), print statements, if false, no print statements. (player vs AI strategy)
- @returns   char for action
-            'h'  -  hit
-            's'  -  split
-            'p'  -  stand pat
-            'd'  -  double
-            'x'  -  surrender
+ @brief
+    get the basic strategy for any hand vs dealer's hand with currently shown card.
+ @param count
+    the count of the deck. Strategy will be adjusted accordings
+ @param print (bool)
+    true (default) -    print statements
+    false                   no print statements. (player vs AI strategy)
+ @return char for action
+    'h' -   hit
+    's' -   split
+    'p' -   stand pat
+    'd' -   double
+    'x' -   surrender
  */
 char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   //TODO: add print staements for strats
 {
@@ -984,7 +1022,9 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
     cout << "Hit \n";
     return 'h';
 }
+
 /**
+ @brief
     Destructor for Dealer
  */
 Dealer::~Dealer()
@@ -994,7 +1034,8 @@ Dealer::~Dealer()
 }
                                                                     
 /**
- @brief Overloaded ostream operator<< to easily print off a dealer's info
+ @brief
+    Overloaded ostream operator<< to easily print off a dealer's info
  */
 /*
 friend ostream& operator<<(ostream& s, const Dealer& dealer)
