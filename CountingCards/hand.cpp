@@ -44,7 +44,6 @@ Hand::Hand()
  */
 Hand::Hand(const Hand& diffHand)
 {
-    
     cardMap = { {0x01, 'A'}, {0x02, '2'},{0x03, '3'},{0x04, '4'},{0x05, '5'},{0x06, '6'},{0x07, '7'},{0x08, '8'},{0x09, '9'},{0x0A, 'T'},{0x0B, 'J'},{0x0C, 'Q'},{0x0D, 'K'} };
     valueMap = {{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'7',7},{'8',8},{'9',9},{'T',10},{'J',10},{'Q',10},{'K',10}};
     // Spades, Clubs, Hearts, Diamonds
@@ -52,18 +51,6 @@ Hand::Hand(const Hand& diffHand)
     
     this->_card1 = diffHand._card1;
     this->_card2 = diffHand._card2;
-    
-    //this->cardArray = vector<char>(diffHand.cardArray.size());
-    //for(int i=0; i<diffHand.cardArray.size(); i++)
-    //{
-    //    this->cardArray[i] = diffHand.cardArray[i];
-    //}
-    
-    //this->cardArray = vector<char>(diffHand.cardArray.size());
-    //for(int i=0; i<diffHand.cardArray.size(); i++)
-    //{
-    //    this->cardArray.push_back(diffHand.cardArray[i]);
-    //}
     this->numCards = diffHand.numCards;
     
     this->cardArray = vector<char>(numCards);
@@ -78,13 +65,6 @@ Hand::Hand(const Hand& diffHand)
     {
         this->suitArray[i] = diffHand.suitArray[i];
     }
-    
-    //this->suitArray = vector<char>(diffHand.suitArray.size());
-    //for(int i=0; i<diffHand.suitArray.size(); i++)
-    //{
-    //    this->suitArray[i] = diffHand.suitArray[i];
-    //}
-    
     
     this->blackjack = diffHand.blackjack;
     this->splittable = diffHand.splittable;
@@ -107,14 +87,13 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
     
     cardArray = std::vector<char>(2, '0');
     suitArray = std::vector<char>(2,'0');
-    // valuemap doesn't include Ace
     
     cardMap = { {0x01, 'A'}, {0x02, '2'},{0x03, '3'},{0x04, '4'},{0x05, '5'},{0x06, '6'},{0x07, '7'},{0x08, '8'},{0x09, '9'},{0x0A, 'T'},{0x0B, 'J'},{0x0C, 'Q'},{0x0D, 'K'} };
+    // valuemap doesn't include Ace
     valueMap = {{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'7',7},{'8',8},{'9',9},{'T',10},{'J',10},{'Q',10},{'K',10}};
     // Spades, Clubs, Hearts, Diamonds
     suitMap = { {0x01,'S'},{0x02,'C'},{0x03,'H'},{0x04,'D'} };
                                                                          
-    
     uint8_t rank1 = card1 >> 4;
     //cardArray[0] = cardMap[rank1];
     
@@ -179,26 +158,6 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
             break;
     }
     suitArray[0] = suitMap[suit1];
-    //TODO: remove below switch stmt - after checking that suitMap works and I won't need it. Do this after I figure out if the vectors for cards will be const static
-                                        /*
-    switch (suit1) {
-        case 0x01:
-            suitArray[0] = 'S';
-            break;
-        case 0x02:
-            suitArray[0] = 'C';
-            break;
-        case 0x03:
-            suitArray[0] = 'H';
-            break;
-        case 0x04:
-            suitArray[0] = 'D';
-            break;
-            
-        default:
-            break;
-    }
-                                         */
     
     // get 2nd card
     uint8_t rank2 = card2 >> 4;
@@ -268,32 +227,11 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
     }
     
     suitArray[1] = suitMap[suit2];
-    //TODO: remove below switch stmt - after checking that suitMap works and I won't need it. Do this after I figure out if the vectors for cards will be const static
-                                        /*
-    switch (suit2) {
-        case 0x01:
-            suitArray[1] = 'S';
-            break;
-        case 0x02:
-            suitArray[1] = 'C';
-            break;
-        case 0x03:
-            suitArray[1] = 'H';
-            break;
-        case 0x04:
-            suitArray[1] = 'D';
-            break;
-            
-        default:
-            break;
-    }
-                                         */
     
     if(cardArray[0]==cardArray[1])
     {
         splittable = true;
     }
-    
     if(cardArray[0] == 'A' && (cardArray[1] == 'T' || cardArray[1] == 'J' || cardArray[1] == 'Q' || cardArray[1] == 'K'))
     {
         blackjack = true;
@@ -338,7 +276,8 @@ string Hand::displayOne()
 }
 
 /**
- @returns char for first card AKA char of upward facing card (for dealer only)
+ @brief     get first card in cardArray
+ @returns   char for first card AKA char of upward facing card (for dealer only)
  */
 char Hand::getFirstCard()
 {
@@ -346,6 +285,7 @@ char Hand::getFirstCard()
 }
 
 /**
+ @brief   get second card in cardArray
  @returns char for second card
  */
 char Hand::getSecondCard()
@@ -353,12 +293,11 @@ char Hand::getSecondCard()
     return cardArray[1];
 }
 /**
- @brief hit a hand. No print statements, just shoe, hand actions
- @returns -1 if hand busts | value of hand otherwise
+ @brief     hit a hand. No print statements, just shoe, hand actions
+ @returns   -1 if hand busts | value of hand otherwise
  */
 int Hand::hit(Shoe* shoe)
 {
-
     blackjack = false;  // hand is no longer a blackjack or splittable if we are hitting
     splittable = false;
     numCards++;
@@ -373,8 +312,7 @@ int Hand::hit(Shoe* shoe)
     suitArray.push_back(suit);
     int value = 0;  // value of card received while hitting
     
-    // if our card is not an Ace
-    if(valueMap.find(cardSymbol)!=valueMap.end())
+    if(valueMap.find(cardSymbol)!=valueMap.end())   // if our card is not an Ace (not in map)
     {
         value = valueMap[cardSymbol];
     }
@@ -401,8 +339,9 @@ int Hand::hit(Shoe* shoe)
 }
 
 /**
- @brief doubles hand's bet and then calls hit()
-        player can enter a bet to double for less. if bet==0 (default val), the bet will be doubled
+ @brief     doubles hand's bet and then calls hit()
+            player can enter a bet to double for less. if bet==0 (default val), the bet will be doubled
+ @returns   int - value of hand after hit
  */
 int Hand::doubleHand(Shoe* shoe, int bet)   // TODO: see if I used this. check about removing bet from bank and calling this from 'd' in action
 {
@@ -458,13 +397,12 @@ Hand Hand::split(Shoe* shoe)        //TODO: should I return pointer? reference? 
     {
         this->cardArray[i] = newHand1.cardArray[i];
     }
-    
     return newHand2;
 }
                                                 
 /**
- Overloaded = operator
- Just calls Hand copy constructor
+ @brief Overloaded = operator
+        Just calls Hand copy constructor
  */
 Hand& Hand::operator= (Hand& diffHand)      //TODO: check that his works fine
 {
@@ -474,11 +412,12 @@ Hand& Hand::operator= (Hand& diffHand)      //TODO: check that his works fine
         *this = temp;
     }
     return *this;
-                                            
 }
                                                     
 /**
- @return bool | True ==blackjack, false==not blackjack
+ @return    bool
+            true - blackjack
+            false - not blackjack
  */
 bool Hand::isBlackjack()
 {
@@ -494,12 +433,10 @@ bool Hand::isBlackjack()
         }
     }
     return false;
-    
-    // could just use *this.isBlackjack()
 }
 
 /**
-    Returns whether or not the hand can be split
+@returns bool - whether or not the hand can be split
  */
 bool Hand::isSplittable()
 {
@@ -507,7 +444,7 @@ bool Hand::isSplittable()
 }
 
 /**
- @returns the number of cards in the hand
+ @returns int - the number of cards in the hand
  */
 int Hand::getNumCards()
 {
@@ -515,7 +452,7 @@ int Hand::getNumCards()
 }
 
 /**
- @return current value of hand (max of 21)
+ @returns current value of hand (max of 21)
  */
 int Hand::getValue()
 {
@@ -530,13 +467,18 @@ void Hand::setPat(bool pat)
     isPat = pat;
 }
 
+/**
+ @brief     get whether or not the hand has been stood pat on
+ @returns   bool - hand is pat or not
+ */
 bool Hand::getPat()
 {
     return isPat;
 }
 
 /**
- @returns whether or not hand is soft (has a soft ace and can drop by 10)
+ @discussion    soft ace is currently being counted as 11, can still drop to 1
+ @returns       bool - whether or not hand is soft (has a soft ace and can drop by 10)
  */
 bool Hand::isSoft()
 {

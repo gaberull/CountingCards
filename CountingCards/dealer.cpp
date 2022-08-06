@@ -848,7 +848,7 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
             if(upCard == '6') return 'd';
             else return 'p';
         }
-        if(playerValue == 19)   // TODO: check this
+        if(playerValue == 19)
         {
             if(print) cout << "stand with 19 with more than 2 cards \n";
             return 'p';
@@ -862,7 +862,7 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
         }
         if(playerValue == 18) // TODO: Add how to play when more than 2 cards
         {
-            if(print) cout << "Can't double. Soft 18 stand against dealer 2 through 8, hit against 9 through A otherwise stand pat \n";
+            if(print) cout << "Can't double. Soft 18 Hit vs 9,10 otherwise stand pat \n";
             if(upCard == '9' || upCard == 'T' || upCard == 'J' || upCard =='Q' || upCard =='K' || upCard =='A') return 'h';
             else return 'p';
         }
@@ -874,7 +874,7 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
         }
         if(playerValue == 17)  // more than 2 cards
         {
-            if(print) cout << "Can't double. Soft 17 always hit \n";
+            if(print) cout << "Can't double. Always hit Soft 17 \n";
             return 'h';
         }
         if(playerValue == 16 && player.getNumCards()==2)  // TODO: Add how to play when more than 2 cards
@@ -885,7 +885,7 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
         }
         if(playerValue == 16)
         {
-            if(print) cout << "Hit soft 16 when can't double. \n";
+            if(print) cout << "Can't double. Always Hit soft 16 \n";
             return 'h';
         }
         if(playerValue == 15 && player.getNumCards()==2)  // TODO: Add how to play when more than 2 cards
@@ -1002,7 +1002,7 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
     return 'h';
 }
 /**
- @brief  Destructor for Dealer
+    Destructor for Dealer
  */
 Dealer::~Dealer()
 {

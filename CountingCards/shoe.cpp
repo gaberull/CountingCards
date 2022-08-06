@@ -32,11 +32,28 @@ Shoe::Shoe()
  */
 Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
 {
+    //_numDecks = numDecks; // int function header
     _cardsRemaining = numDecks * 52;
-    fullShoe = std::vector<uint8_t>(_cardsRemaining);
-    _endOfShoe = false;
-    _aceCount = 0;
     _count = 0;
+    _aceCount = 0;
+    _endOfShoe = false;
+    fullShoe = vector<uint8_t>(_cardsRemaining, 0x00);
+    
+    // set point at which shoe will be done with
+    switch (cutPoint) {
+        case 0:
+            _cutPoint = 0;
+            break;
+        case 1:
+            _cutPoint = _cardsRemaining / 10;
+            break;
+        case 2:
+            _cutPoint = _cardsRemaining / 4;
+            break;
+        case 3:
+            _cutPoint = _cardsRemaining / 2;
+            break;
+    }
     
     uint8_t cardMask = 0x00;
     uint8_t suitMask = 0x00;
@@ -106,27 +123,14 @@ Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
         fullShoe[i] |= cardMask;
         fullShoe[i] |= suitMask;
     }
-    // set point at which shoe will be done with
-    switch (cutPoint) {
-        case 0:
-            _cutPoint = 0;
-            break;
-        case 1:
-            _cutPoint = _cardsRemaining / 10;
-            break;
-        case 2:
-            _cutPoint = _cardsRemaining / 4;
-            break;
-        case 3:
-            _cutPoint = _cardsRemaining / 2;
-            break;
-    }
+    
     
 }
 /**
  @brief shuffles the vector of cards in place using Fisher Yates algorithm in O(n) time with O(1) extra space
         It really just resets the final card and resets the shoe, since the actual cards don't really get shuffled. They are pulled randomly
  */
+/*
 void Shoe::shuffle()    //TODO: possibly remove this. Not using it.
 {
     _cardsRemaining = 52 * _numDecks;
@@ -161,6 +165,7 @@ void Shoe::shuffle()    //TODO: possibly remove this. Not using it.
             break;
     }
 }
+*/
 
 /**
  @brief pulls one card from shoe using shuffle algorithm
@@ -262,7 +267,8 @@ bool Shoe::endOfShoe()
 }
 
 /**
-    Get count of the deck
+ @brief    Get count of the deck
+ @returns  running count of the deck
  */
 int Shoe::getCount()
 {
@@ -270,7 +276,8 @@ int Shoe::getCount()
 }
 
 /**
- @brief takes running count and divides by number of decks remaining
+ @brief  takes running count and divides by number of decks remaining
+ @return float - running count / number of decks remaining
  */
 float Shoe::getTrueCount()
 {
@@ -287,7 +294,7 @@ float Shoe::getTrueCount()
 }
 
 /**
-@brief Get the count of aces we have seen
+@brief  Get the count of aces we have seen
 @return int - number of aces that have been dealt
  */
 int Shoe::getAceCount()
@@ -297,7 +304,7 @@ int Shoe::getAceCount()
 
 
 /**
-    Destructor
+    Destructor for Shoe
  */
 Shoe::~Shoe()
 {

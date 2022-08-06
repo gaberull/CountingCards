@@ -21,9 +21,10 @@ private:
     
     std::vector<Hand> otherPlayers;             // Computer players' array of hands
     std::vector<Hand> otherPats;                // Computer players' array of hands already standing pat
+    
     Hand* dealerHand;                           // Dealer's hand (pointer)
     bool dealerBlackjack = false;
-    Dealer();                                   // Default constructor - should never be called
+    Dealer();                                   // Default constructor - private so it can't be called
 public:
     
     explicit Dealer(int numPlayers);            // Contructor - using explicit to deny implicit conversion (char to int)
@@ -36,8 +37,6 @@ public:
     char correctAction(Hand& player, Hand* dealer, int count=0, bool print=true); // returns correct action for any hands vs dealer card showing
     ~Dealer();                                  // Destructor
     
-    
-
     //friend std::ostream& operator<<(std::ostream& s, const Dealer& dealer);
 };
                                         
