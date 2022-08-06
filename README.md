@@ -3,7 +3,9 @@
 ## A blackjack Game by Gabe Scott
 
 ### Summary
-Who doesn't love a good game of blackjack? ***CountingCards*** helps the player learn blackjack gameplay and basic strategy, provides a fun way to practice keeping the count of the deck, offers advice on adjusting your bet and adjusting strategy based on the count of the deck. This game will be a fun way to help the you bring your best game to the casino. *This game helps the user win money at the casino, or at the very least, limit their losses*
+Who doesn't love a good game of blackjack? ***CountingCards*** helps the player learn blackjack gameplay and basic strategy, provides a fun way to practice keeping the count of the deck, offers advice on adjusting your bet and adjusting strategy based on the count of the deck. This game will be a fun way to help the you bring your best game to the casino. 
+
+***This game will help the user to win money at the casino, or at the very least, limit their losses***
 
 > **TODO:** Finish these features (7/29/22)
 
