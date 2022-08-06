@@ -318,7 +318,16 @@ int Hand::hit(Shoe* shoe)
     }
     else    // our card is an Ace. Check current value of hand
     {
-        (_value <= 10) ? value = 11 : value = 1;
+        if(_value <= 10)
+        {
+            value = 11;
+            soft = true;
+        }
+        else
+        {
+            value = 1;
+        }
+        //(_value <= 10) ? value = 11 : value = 1;
     }
     
     _value += value;
