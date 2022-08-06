@@ -170,7 +170,7 @@ int main(int argc, const char * argv[]) {
             {
                 cout << "Time to start a new shoe with "<<numDecks<<" decks \n\n";
                 delete shoe;
-                Shoe* shoe = new Shoe(numDecks, cutPoint);
+                shoe = new Shoe(numDecks, cutPoint);    //TODO: check don't need 'Shoe shoe = ... '
             }
             cout << "\nENTER NEW BET     |     Enter 'q' to quit. \n";
             cin >> bet_str;
