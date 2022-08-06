@@ -47,7 +47,7 @@ public:
     int getNumCards();                      // get number of cards
     void setPat(bool pat);                  // set whether or not hand can receive more cards
     bool getPat();                          // get whether or not hand can receive more cards
-    int doubleHand(Shoe* shoe, int bet=0);
+    //int doubleHand(Shoe* shoe, int bet=0);
     int getBet();                           // get bet on this hand
     void setBet(int bet);                   // set new bet on this hand
     bool isSoft();                          // returns whether or not the hand is soft

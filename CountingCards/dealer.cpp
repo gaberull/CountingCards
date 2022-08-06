@@ -195,25 +195,8 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             if(temp=='q' || temp=='Q') return -1;
             //////////////////////////////               End of  Continue sequence             ////////////////////////////////////////////
             return 0;
-            
         }
     }
-                                                                                        
-    //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
-                                                                        /*
-    cout << "\nInput 'c' to continue or 'q' to quit \n";
-    char temp;
-    cin >> temp;
-    while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
-    {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
-        cin >> temp;
-    }
-    if(temp=='q' || temp=='Q') return -1;
-                                                                         */
-    //////////////////////////////               End of  Continue sequence             ////////////////////////////////////////////
     return 1;   // 1 means hand is not over. funds have already been removed from playerBank
     
 }
@@ -245,16 +228,6 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
     Hand playerHand = handArray.back();
     handArray.pop_back();
     
-    //cout << "\n     Good Luck!!  \n\n";
-                                                                                /*
-    cout << "_____________________________ \n \n";
-    cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
-    cout << "| CURRENT BET  : $"<< playerHand.getBet() << "  \n";
-    cout << "----------------------------- \n \n";
-                                                                                 */
-    
-    //handArray.pop_back(); // do this later. when hand done
- 
     // TODO: bet=0 default, and can pull bet from hands.
     //TODO: somehow need to call action() for each hand in handArray to handle split hands
     
@@ -387,8 +360,8 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
 
                 handArray.push_back(playerHand);
                 handArray.push_back(newHand);
-                cout << "\nNew Hand 1        : "<< handArray[handArray.size()-1].getHand() <<"  bet: $"<<playerHand.getBet()<< "\n";
-                cout << "\nNew Hand 2        : "<< handArray[handArray.size()-2].getHand() <<"  bet: $"<<playerHand.getBet()<< "\n";
+                cout << "\nNew Hand 1       : "<< handArray[handArray.size()-1].getHand() <<"  bet: $"<<playerHand.getBet()<< "\n";
+                cout << "\nNew Hand 2       : "<< handArray[handArray.size()-2].getHand() <<"  bet: $"<<playerHand.getBet()<< "\n";
                 
                 // play the new (split) hands
                 cout << "\nWe will now play the two new hands \n";
@@ -420,6 +393,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                 cout << "Player doesn't have enough to double bet. Player adds their roll to bet of $"<< playerBank->getBalance() <<" to hand. \n";
                 newBet = playerBank->getBalance();
             }
+            //doubleHand( newbet
             playerBank->removeFunds(newBet);
             
             int oldbet = playerHand.getBet();

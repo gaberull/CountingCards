@@ -180,7 +180,7 @@ int main(int argc, const char * argv[]) {
                 delete shoe;
                 shoe = new Shoe(numDecks, cutPoint);    //TODO: check don't need 'Shoe shoe = ... '
             }
-            cout << "\nENTER NEW BET     |     Enter 'q' to quit. \n";
+            cout << "\nPLEASE ENTER NEW BET  |  'q' to quit. \n";
             cin >> bet_str;
             if(bet_str[0] == 'q' || bet_str[0] == 'Q') break;
             while(!cin || bet_str[0] < '0' || bet_str[0] > '9')

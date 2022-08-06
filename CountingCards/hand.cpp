@@ -352,6 +352,7 @@ int Hand::hit(Shoe* shoe)
             player can enter a bet to double for less. if bet==0 (default val), the bet will be doubled
  @returns   int - value of hand after hit
  */
+                                                        /*
 int Hand::doubleHand(Shoe* shoe, int bet)   // TODO: see if I used this. check about removing bet from bank and calling this from 'd' in action
 {
     if(bet != 0 )
@@ -367,6 +368,7 @@ int Hand::doubleHand(Shoe* shoe, int bet)   // TODO: see if I used this. check a
     isPat = true;
     return ret;
 }
+                                                         */
 
 /**
  @brief get bet currently place on this hand
