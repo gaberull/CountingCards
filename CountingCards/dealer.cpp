@@ -29,10 +29,9 @@ Dealer::Dealer(int numPlayers)
 
 /**
  @brief      removes bet from playerBank at start of hand. Adds it back for push.
- 
- @returns    1 if hand is ongoing
-             0 if hand is finished
-             -1 to quit game
+ @returns    1 - hand is ongoing
+             0 - hand is finished
+             -1 - quit game
  */
 int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
 {
@@ -74,13 +73,11 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             handArray.push_back(playerHand);
             std::cout << "\nYour cards     :     " << playerHand.getHand() << "\n\n\n";
             blackjack = playerHand.isBlackjack();
-            
         }
         else if(i == _numPlayers) // we are on dealer
         {
             dealerHand = new Hand(shoe->dealCard(), shoe->dealCard());
             std::cout << "\nDealer shows   :     " << dealerHand->displayOne() << "\n \n";
-            
             this->dealerBlackjack = dealerHand->isBlackjack();
             lastRound = shoe->endOfShoe();
             if(lastRound)
@@ -88,11 +85,9 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
                 std::cout << "This will be the last hand on this shoe \n";
             }
         }
-        else    // other AIPlayers
+        else    // Computer Players
         {
-            //4 players - 0 me, 1, 2 ,3 , 4 dealer
-            // 1 becomes
-            // putting bet=0 on AI hands
+            // putting bet=0 on computer hands
             Hand AIHand = Hand(shoe->dealCard(), shoe->dealCard());
             std::cout << "Player "<<_numPlayers - i+1<< " has   :     " << AIHand.getHand() << std::endl; // FIXME: print ordering doesn't match computerAction()
             if(AIHand.isBlackjack())    //FIXME: doesn't handle if dealer also has bj
@@ -103,8 +98,6 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             {
                 otherPlayers.push_back(AIHand);
             }
-            
-            
         }
         if(_numPlayers > 1)     // pause if we have dealt out more than just the one player
         {
@@ -151,7 +144,6 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
             cout << "----------------------------- \n \n";
             
-            
             //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
             cout << "\nInput 'c' to continue or 'q' to quit \n";
             char temp;
@@ -197,7 +189,6 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             
         }
     }
-    
     //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
     cout << "\nInput 'c' to continue or 'q' to quit \n";
     char temp;
@@ -301,8 +292,6 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                 cout << "_____________________________ \n \n";
                 cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
                 cout << "----------------------------- \n \n";
-                
-                
             }
             else
             {
@@ -312,7 +301,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             break;
         }
         
-            /// Stand Pat - 'p'
+            /// Stand Pat
         case 'p': {
             cout << "\nPlayer Chooses to Stand with         "<< playerHand.getHand() << " \n\n";
             playerHand.setPat(true);
@@ -335,7 +324,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             break;
         }
             /// Split the hand - must be a pair. We don't end on split, so it won't return a 0 or 1. Only calls action again.
-        case 's': {  //Player splits a pair. Must double bet or add remainder of stack
+        case 's': {  //Player splits a pair. Must double bet OR add remainder of bankroll to bet
             cout << "\nPlayer Splits \n";
             if(!playerHand.isSplittable())
             {
@@ -355,7 +344,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                 handArray.push_back(playerHand);
                 return Dealer::action(shoe, playerBank);  // ??
             }
-            else    // split the  hand
+            else    // split the hand
             {
                 int bet = playerHand.getBet();
                 if(playerBank->getBalance() < bet)
@@ -387,10 +376,8 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                 cout << "\nNew Hand 1        : "<< handArray[handArray.size()-1].getHand() <<"  bet: $"<<playerHand.getBet()<< "\n";
                 cout << "\nNew Hand 2        : "<< handArray[handArray.size()-2].getHand() <<"  bet: $"<<playerHand.getBet()<< "\n";
                 
-                
                 // play the new (split) hands
                 cout << "\nWe will now play the two new hands \n";
-                
                 //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
                 cout << "\nInput 'c' to continue or 'q' to quit \n";
                 char temp;
@@ -406,9 +393,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                 //////////////////////////////               End of  Continue sequence             ////////////////////////////////////////////
                 
                 return Dealer::action(shoe, playerBank);
-                
             }
-            
             break;
         }
         case 'd': {// Double down
@@ -431,7 +416,6 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             cout << "----------------------------- \n \n";
             
             // add one and only one card to player's hand. Then it is pat. or bust.
-            
             player = hitPlayer(playerHand, shoe);
             playerHand.setPat(true);
             
@@ -453,15 +437,12 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                 }
                 if(temp=='q' || temp=='Q') return -1;
                 
-                
                 return Dealer::action(shoe, playerBank);
-                
             }
             else    // still alive after player doubled
             {
                 patHands.push_back(playerHand);
                 //cout << "\nPlayer has a score of "<< player << " \n\n";
-                
                 cout << "\nInput 'c' to continue or 'q' to quit \n";
                 char temp;
                 cin >> temp;
@@ -497,7 +478,6 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                 cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
                 cin >> temp;
             }
-            
             return Dealer::action(shoe, playerBank);
             break;
         }
@@ -511,10 +491,9 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
         }
         case 'x': {  // Surrender TODO: maybe just get rid of surrender altogether
             cout << "\nPlayer Surrenders  :-(  \n";
-            
             break;
         }
-            
+            // default will not execute
         default: {
             break;
         }
@@ -534,85 +513,83 @@ int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop log
     {
         return 0;
     }
-    //for(int i=1; i<=numAIHands; i++)
-    //{
-        //cout << "AI Player has " << otherPlayers.back().getHand() << "\n";
-        Hand curr = otherPlayers.back();
-        otherPlayers.pop_back();
-        char action = this->correctAction(curr, dealerHand, 0, false);
-        std::chrono::seconds duration(3);
-        switch (action) {
-            case 'h':
+    //cout << "AI Player has " << otherPlayers.back().getHand() << "\n";
+    Hand curr = otherPlayers.back();
+    otherPlayers.pop_back();
+    char action = this->correctAction(curr, dealerHand, 0, false);
+    std::chrono::seconds duration(3);
+    switch (action) {
+        case 'h':
+        {
+            cout << "\nComp Player has " << curr.getHand() << "\n";
+            cout << "Computer Player will hit \n";
+            std::this_thread::sleep_for(duration);
+            curr.hit(shoe);
+            //cout << "\nAfter hit, computer player has " << curr.getHand() <<"\n";
+            std::this_thread::sleep_for(duration);
+            if(curr.getValue() < 0)
             {
                 cout << "\nComp Player has " << curr.getHand() << "\n";
-                cout << "Computer Player will hit \n";
-                std::this_thread::sleep_for(duration);
-                curr.hit(shoe);
-                //cout << "\nAfter hit, computer player has " << curr.getHand() <<"\n";
-                std::this_thread::sleep_for(duration);
-                if(curr.getValue() < 0)
-                {
-                    cout << "\nComp Player has " << curr.getHand() << "\n";
-                    cout << "\nComp Player has busted \n";
-                }
-                else
-                {
-                    otherPlayers.push_back(curr);
-                }
-                
-                return computerAction(shoe);
-                break;
+                cout << "\nComp Player has busted \n";
             }
-            case 'p':
+            else
             {
-                cout << "\nComp Player has " << curr.getHand() << "\n";
-                cout << "Computer Player will Stand Pat \n";
-                otherPats.push_back(curr);
-                std::this_thread::sleep_for(duration);
-                // computerPat()
-                return computerAction(shoe);
-                break;
-            }
-            case 's':
-            {
-                cout << "\nComp Player has " << curr.getHand() << "\n";
-                cout << "Computer Player will split \n";
-                std::this_thread::sleep_for(duration);
-                Hand newHand = curr.split(shoe);    // this will change playerHand and create newHand
                 otherPlayers.push_back(curr);
-                otherPlayers.push_back(newHand);
-                cout << "\nNew Comp Hand 1        : "<< otherPlayers[otherPlayers.size()-1].getHand() <<"\n";
-                cout << "\nNew Comp Hand 2        : "<< otherPlayers[otherPlayers.size()-2].getHand() <<"\n";
-                return computerAction(shoe);
-                break;
             }
-            case 'd':
-            {
-                cout << "\nComp Player has " << curr.getHand() << "\n";
-                cout << "Computer Player will double \n";   // actually just hitting once
-                std::this_thread::sleep_for(duration);
-                curr.hit(shoe);
-                //cout << "\nAfter Double, computer player has " << curr.getHand() <<"\n";
-                std::this_thread::sleep_for(duration);
-                cout << "\nComp Player has " << curr.getHand() << " after doubling\n";
-                std::this_thread::sleep_for(duration);
-                if(curr.getValue() < 0)
-                {
-                    cout << "\nComp Player has busted \n";
-                }
-                else
-                {
-                    otherPats.push_back(curr);
-                }
-                return computerAction(shoe);
-                break;
-            }
-            default:
-            {
-                break;
-            }
+            
+            return computerAction(shoe);
+            break;
         }
-    //}
+        case 'p':
+        {
+            cout << "\nComp Player has " << curr.getHand() << "\n";
+            cout << "Computer Player will Stand Pat \n";
+            otherPats.push_back(curr);
+            std::this_thread::sleep_for(duration);
+            // computerPat()
+            return computerAction(shoe);
+            break;
+        }
+        case 's':
+        {
+            cout << "\nComp Player has " << curr.getHand() << "\n";
+            cout << "Computer Player will split \n";
+            std::this_thread::sleep_for(duration);
+            Hand newHand = curr.split(shoe);    // this will change playerHand and create newHand
+            otherPlayers.push_back(curr);
+            otherPlayers.push_back(newHand);
+            cout << "\nNew Comp Hand 1        : "<< otherPlayers[otherPlayers.size()-1].getHand() <<"\n";
+            cout << "\nNew Comp Hand 2        : "<< otherPlayers[otherPlayers.size()-2].getHand() <<"\n";
+            return computerAction(shoe);
+            break;
+        }
+        case 'd':
+        {
+            cout << "\nComp Player has " << curr.getHand() << "\n";
+            cout << "Computer Player will double \n";   // actually just hitting once
+            std::this_thread::sleep_for(duration);
+            curr.hit(shoe);
+            //cout << "\nAfter Double, computer player has " << curr.getHand() <<"\n";
+            std::this_thread::sleep_for(duration);
+            cout << "\nComp Player has " << curr.getHand() << " after doubling\n";
+            std::this_thread::sleep_for(duration);
+            if(curr.getValue() < 0)
+            {
+                cout << "\nComp Player has busted \n";
+            }
+            else
+            {
+                otherPats.push_back(curr);
+            }
+            return computerAction(shoe);
+            break;
+        }
+            //default will not execute
+        default:
+        {
+            break;
+        }
+    }
     return 1;
 }
 
@@ -689,15 +666,12 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
         {
             cout << "You win $" << playerHand.getBet() << "!!!\n";
             playerBank->addFunds(playerHand.getBet()*2);
-            
         }
         cout << "_____________________________ \n \n";
         cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
         cout << "----------------------------- \n \n";
         std::this_thread::sleep_for(duration);  // pause for 3 sec
     }
-    
-    //TODO: check this -  AI pat hands against dealer
     
     int numAIHands = (int)otherPats.size();
     for(int i=1; i<=numAIHands; i++)  // 1-indexed for purposes of printing
@@ -719,7 +693,6 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
             cout << "Comp Player " << i << " Wins \n\n";
         }
     }
-    //cout << "\nDealer will now complete AI players' hands\n\n";
     cout << "\nInput 'c' to continue or 'q' to quit \n";
     char temp;
     cin >> temp;
@@ -731,7 +704,6 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
         cin >> temp;
     }
     if(temp=='q' || temp=='Q') return -1;
-    
     return 0;
 }
   
@@ -784,7 +756,7 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
     char second = player.getSecondCard();
     int playerValue = player.getValue();
     
-    //TODO: implement surrenders later
+    //TODO: implement surrender later
     /// Surrenders
     
     /// Splits
