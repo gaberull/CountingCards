@@ -166,7 +166,7 @@ int main(int argc, const char * argv[]) {
             }
             if(shoe->endOfShoe())   // Shoe is finished. Start a new one    //FIXME: not working
             {
-                cout << "Time to start a new shoe \n\n";
+                cout << "Time to start a new shoe with "<<numDecks<<" decks \n\n";
                 delete shoe;
                 Shoe* shoe = new Shoe(numDecks, cutPoint);
             }

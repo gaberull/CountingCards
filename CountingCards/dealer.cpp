@@ -861,48 +861,84 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
             if(print) cout << "Always stand pat with soft 20 \n";
             return 'p';
         }
-        if(playerValue == 19)
+        if(playerValue == 19 && player.getNumCards()==2)
         {
             if(print) cout << "Double soft 19 against dealer 6, otherwise stand pat \n";
             if(upCard == '6') return 'd';
             else return 'p';
         }
-        if(playerValue == 18)
+        if(playerValue == 19)   // TODO: check this
+        {
+            if(print) cout << "stand with 19 with more than 2 cards \n";
+            return 'p';
+        }
+        if(playerValue == 18 && player.getNumCards()==2)
         {
             if(print) cout << "Double soft 18 against dealer 2 through 6, hit against 9 through A otherwise stand pat \n";
             if(upCard >= '2' && upCard <= '6') return 'd';
             if(upCard == '9' || upCard == 'T' || upCard == 'J' || upCard =='Q' || upCard =='K' || upCard =='A') return 'h';
             else return 'p';
         }
-        if(playerValue == 17)
+        if(playerValue == 18) // TODO: Add how to play when more than 2 cards
+        {
+            if(print) cout << "Can't double. Soft 18 stand against dealer 2 through 8, hit against 9 through A otherwise stand pat \n";
+            if(upCard == '9' || upCard == 'T' || upCard == 'J' || upCard =='Q' || upCard =='K' || upCard =='A') return 'h';
+            else return 'p';
+        }
+        if(playerValue == 17 && player.getNumCards()==2)
         {
             if(print) cout << "Double soft 17 against dealer 3 through 6, otherwise hit \n";
             if(upCard >= '3' && upCard <= '6') return 'd';
             else return 'h';
         }
-        if(playerValue == 16)
+        if(playerValue == 17)  // more than 2 cards
+        {
+            if(print) cout << "Can't double. Soft 17 always hit \n";
+            return 'h';
+        }
+        if(playerValue == 16 && player.getNumCards()==2)  // TODO: Add how to play when more than 2 cards
         {
             if(print) cout << "Double soft 16 against dealer 4 through 6, otherwise hit \n";
             if(upCard >= '4' && upCard <= '6') return 'd';
             else return 'h';
         }
-        if(playerValue == 15)
+        if(playerValue == 16)
+        {
+            if(print) cout << "Hit soft 16 when can't double. \n";
+            return 'h';
+        }
+        if(playerValue == 15 && player.getNumCards()==2)  // TODO: Add how to play when more than 2 cards
         {
             if(print) cout << "Double soft 15 against dealer 4 through 6, otherwise hit \n";
             if(upCard >= '4' && upCard <= '6') return 'd';
             else return 'h';
         }
-        if(playerValue == 14)
+        if(playerValue == 15)  // TODO: Add how to play when more than 2 cards
+        {
+            if(print) cout << "Hit soft 15 when can't double \n";
+            return 'h';
+        }
+        if(playerValue == 14 && player.getNumCards()==2)
         {
             if(print) cout << "Double soft 14 against dealer 5 or 6, otherwise hit \n";
             if(upCard >= '5' && upCard <= '6') return 'd';
             else return 'h';
         }
-        if(playerValue == 13)
+        if(playerValue == 14)  // TODO: Add how to play when more than 2 cards
+        {
+            if(print) cout << "Always hit soft 14 when can't double \n";
+            return 'h';
+        }
+        if(playerValue == 13 && player.getNumCards()==2)  // TODO: Add how to play when more than 2 cards
         {
             if(print) cout << "Double soft 13 against dealer 5 or 6, otherwise hit \n";
             if(upCard >= '5' && upCard <= '6') return 'd';
             else return 'h';
+        }
+        if(playerValue == 13)
+        {
+            if(print) cout << "Always hit soft 13 when can't double \n";
+            return 'h';
         }
     }
     /// Hard Hands
@@ -943,22 +979,37 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
             if(upCard >= '4' && upCard <= '6') return 'p';
             else return 'h';
         }
-        if(playerValue == 11)
+        if(playerValue == 11 && player.getNumCards() == 2)
         {
             if(print) cout << "Always double 11 \n";
             return 'd';
         }
-        if(playerValue == 10)
+        if(playerValue == 11)
+        {
+            if(print) cout << "Hit 11\n";
+            return 'h';
+        }
+        if(playerValue == 10 && player.getNumCards() == 2)
         {
             if(print) cout << "Double 10 against dealer 2 through 9, otherwise hit \n";
             if(upCard >= '2' && upCard <= '9') return 'd';
             else return 'h';
         }
-        if(playerValue == 9)
+        if(playerValue == 10)
+        {
+            if(print) cout << "Hit 10 with more than 2 cards \n";
+            return 'h';
+        }
+        if(playerValue == 9 && player.getNumCards() == 2)
         {
             if(print) cout << "Double 9 against dealer 3 through 6, otherwise hit \n";
             if(upCard >= '3' && upCard <= '6') return 'd';
             else return 'h';
+        }
+        if(playerValue == 9)
+        {
+            if(print) cout << "hit 9 with more than 2 cards \n";
+            return 'h';
         }
         if(playerValue <= 8)        // TODO: double check this is the final condition I need
         {
@@ -966,6 +1017,7 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
             return 'h';
         }
     }
+    cout << "Hit \n";
     return 'h';
 }
 /**
