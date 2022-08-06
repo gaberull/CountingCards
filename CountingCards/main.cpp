@@ -126,13 +126,17 @@ int main(int argc, const char * argv[]) {
     // Hands are dealt
     int handContinues = 0;      // -1 = quit, 0 = hand done, 1 = hand ongoing
     handContinues = dealer->dealHands(shoe, bank, bet);
+    
+    cout << "Running count is "<<shoe->getCount() << endl;  //TODO: remove this
+    cout << "True count (ratio) is "<< shoe->getTrueCount() << endl;       //TODO: remove this
     // while handOngoing >=0
     while(handContinues>-1) // while quit hasn't been requested
     {
         if(handContinues==1)    // hand is ongoing, call action
         {
             handContinues = dealer->action(shoe, bank);
-            cout << "Ace count is "<<shoe->getAceCount() << endl;
+            cout << "Running count is "<<shoe->getCount() << endl;  //TODO: remove this
+            cout << "True count (ratio) is "<<shoe->getTrueCount() << endl;  //TODO: remove this
         }
         else   //handContinues==0, Do comuterAction, then Do dealer action, then start new hand
         {
@@ -140,8 +144,10 @@ int main(int argc, const char * argv[]) {
             {
                 cout << "\nPerforming computer hand actions \n";
                 dealer->computerAction(shoe);
-                cout << "Ace count is "<<shoe->getAceCount() << endl;
+                cout << "Running count is "<<shoe->getCount() << endl;  //TODO: remove this
+                cout << "True count (ratio) is "<<shoe->getTrueCount() << endl;  //TODO: remove this
             }
+            cout << "Running count is "<<shoe->getCount() << endl;  //TODO: remove this
             handContinues = dealer->dealerAction(shoe, bank);
             if(handContinues<0) break;      // 'Q' has been input to quit. Jump to end and final print stmt
             cout << "\nNEW HAND \n";
@@ -168,6 +174,8 @@ int main(int argc, const char * argv[]) {
             }
             if(shoe->endOfShoe())   // Shoe is finished. Start a new one    //FIXME: not working
             {
+                cout << "Running count is "<<shoe->getCount() << endl;  //TODO: remove this
+                cout << "True count (ratio) is "<<shoe->getTrueCount() << endl;  //TODO: remove this
                 cout << "Time to start a new shoe with "<<numDecks<<" decks \n\n";
                 delete shoe;
                 shoe = new Shoe(numDecks, cutPoint);    //TODO: check don't need 'Shoe shoe = ... '
@@ -185,7 +193,8 @@ int main(int argc, const char * argv[]) {
             }
             bet = (int) stol(bet_str);
             handContinues = dealer->dealHands(shoe, bank, bet);
-            cout << "Ace count is "<<shoe->getAceCount() << endl;
+            cout << "Running count is "<<shoe->getCount() << endl;  //TODO: remove this
+            cout << "True count (ratio) is "<<shoe->getTrueCount() << endl;  //TODO: remove this
         }
     }
     int net = bank->getBalance() - totalFunds;

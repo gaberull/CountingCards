@@ -281,6 +281,7 @@ int Shoe::getCount()
  */
 float Shoe::getTrueCount()
 {
+    float ret = 0.00;
     float decksLeft = 0.0;
     if(_cardsRemaining>0)
     {
@@ -290,7 +291,19 @@ float Shoe::getTrueCount()
     {
         decksLeft = 1/52.0;
     }
-    return _count / decksLeft;
+    ret = _count / decksLeft;
+    
+    // round to 2 decimals
+    ret = (int)(ret * 100 + .5);
+    ret /= 100;
+    return ret;
+    
+                            /*
+    cout << "Running count is "<<shoe->getCount() << endl;  //TODO: remove this
+    float count = (int)(shoe->getTrueCount() * 100 + .5);   //TODO: remove this
+    count = (float) count/100;                              //TODO: remove this
+    cout << "True count (ratio) is "<< count << endl;       //TODO: remove this
+                             */
 }
 
 /**

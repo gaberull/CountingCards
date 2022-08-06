@@ -80,7 +80,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
         {
             Hand playerHand = Hand(shoe->dealCard(), shoe->dealCard(), bet);
             handArray.push_back(playerHand);
-            std::cout << "\nYour cards     :     " << playerHand.getHand() << "\n\n\n";
+            std::cout << "\nYour cards     :     " << playerHand.getHand() << "\n\n";
             blackjack = playerHand.isBlackjack();
         }
         else if(i == _numPlayers) // we are on dealer
@@ -198,7 +198,9 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             
         }
     }
+                                                                                        
     //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
+                                                                        /*
     cout << "\nInput 'c' to continue or 'q' to quit \n";
     char temp;
     cin >> temp;
@@ -210,6 +212,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
         cin >> temp;
     }
     if(temp=='q' || temp=='Q') return -1;
+                                                                         */
     //////////////////////////////               End of  Continue sequence             ////////////////////////////////////////////
     return 1;   // 1 means hand is not over. funds have already been removed from playerBank
     
@@ -258,8 +261,10 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
     int player = playerHand.getValue();
     if(action =='a')
     {
-        cout << "\nYour hand is    :     "<< playerHand.getHand() << " \n";
-        std::cout << "Dealer shows    :     " << dealerHand->displayOne() << "\n\n";
+        cout << "\n-------------------------------\n";
+        cout << "Your Cards     :     "<< playerHand.getHand() << " \n";
+        cout << "Dealer shows   :     " << dealerHand->displayOne() << "\n";
+        cout << "-------------------------------\n";
         // List menu of options for the player
         cout << "\n***  Please choose the action you would like to take  ***\n";
         cout << "------------------------------------------------------------------------------\n\n";
@@ -476,6 +481,9 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             this->correctAction(playerHand, dealerHand);    // print=false by default and it prints to console
             handArray.push_back(playerHand);
             // pause for user to take in action
+            std::chrono::seconds duration(3);
+            std::this_thread::sleep_for(duration);
+                                                                                            /*
             cout << "\nInput 'c' to continue or 'q' to quit \n";
             char temp;
             cin >> temp;
@@ -487,6 +495,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                 cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
                 cin >> temp;
             }
+                                                                                             */
             return Dealer::action(shoe, playerBank);
             break;
         }
@@ -526,7 +535,7 @@ int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop log
     Hand curr = otherPlayers.back();
     otherPlayers.pop_back();
     char action = this->correctAction(curr, dealerHand, 0, false);
-    std::chrono::seconds duration(3);
+    std::chrono::seconds duration(2);
     switch (action) {
         case 'h':
         {
@@ -567,8 +576,8 @@ int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop log
             Hand newHand = curr.split(shoe);    // this will change playerHand and create newHand
             otherPlayers.push_back(curr);
             otherPlayers.push_back(newHand);
-            cout << "\nNew Comp Hand 1        : "<< otherPlayers[otherPlayers.size()-1].getHand() <<"\n";
-            cout << "\nNew Comp Hand 2        : "<< otherPlayers[otherPlayers.size()-2].getHand() <<"\n";
+            cout << "\nHand 2    :       "<< otherPlayers[otherPlayers.size()-1].getHand() <<"\n";
+            cout << "\nHand 1    :       "<< otherPlayers[otherPlayers.size()-2].getHand() <<"\n";
             return computerAction(shoe);
             break;
         }
@@ -635,7 +644,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
     
     int dealerScore = dealerHand->getValue();
     cout << "\nDealer Has      " << dealerHand->getHand() << "   initially \n";
-    std::chrono::seconds duration(3);
+    std::chrono::seconds duration(2);
     std::this_thread::sleep_for(duration);              // Pause so player can count cards
     int numHits = 0;
     while(dealerScore < 17 && dealerScore>0)
@@ -727,7 +736,7 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even
     //Hand dealer = *(dealerHand);
     cout << "Dealer says \"Hitting player's hand\" \n";
     cout << "Player has      :   " << player.getHand() <<  "      Initially\n";
-    std::chrono::seconds duration(3);
+    std::chrono::seconds duration(2);
     std::this_thread::sleep_for(duration);
     int newPlayerVal = player.hit(shoe);    // TODO: handArray not getting updated hand yet
     //handArray.pop_back();           //TODO: double check this works
