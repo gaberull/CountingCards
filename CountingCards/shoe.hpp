@@ -30,6 +30,7 @@ public:
     bool endOfShoe();
     int getCount();
     int getAceCount();
+    float getTrueCount();
     ~Shoe();
 };
 

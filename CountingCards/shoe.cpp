@@ -270,6 +270,23 @@ int Shoe::getCount()
 }
 
 /**
+ @brief takes running count and divides by number of decks remaining
+ */
+float Shoe::getTrueCount()
+{
+    float decksLeft = 0.0;
+    if(_cardsRemaining>0)
+    {
+        decksLeft = _cardsRemaining/52.0;
+    }
+    else
+    {
+        decksLeft = 1/52.0;
+    }
+    return _count / decksLeft;
+}
+
+/**
 @brief Get the count of aces we have seen
 @return int - number of aces that have been dealt
  */
