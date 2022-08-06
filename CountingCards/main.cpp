@@ -132,6 +132,7 @@ int main(int argc, const char * argv[]) {
         if(handContinues==1)    // hand is ongoing, call action
         {
             handContinues = dealer->action(shoe, bank);
+            cout << "Ace count is "<<shoe->getAceCount() << endl;
         }
         else   //handContinues==0, Do comuterAction, then Do dealer action, then start new hand
         {
@@ -139,6 +140,7 @@ int main(int argc, const char * argv[]) {
             {
                 cout << "\nPerforming computer hand actions \n";
                 dealer->computerAction(shoe);
+                cout << "Ace count is "<<shoe->getAceCount() << endl;
             }
             handContinues = dealer->dealerAction(shoe, bank);
             if(handContinues<0) break;      // 'Q' has been input to quit. Jump to end and final print stmt
@@ -183,6 +185,7 @@ int main(int argc, const char * argv[]) {
             }
             bet = (int) stol(bet_str);
             handContinues = dealer->dealHands(shoe, bank, bet);
+            cout << "Ace count is "<<shoe->getAceCount() << endl;
         }
     }
     int net = bank->getBalance() - totalFunds;

@@ -35,6 +35,8 @@ Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
     _cardsRemaining = numDecks * 52;
     fullShoe = std::vector<uint8_t>(_cardsRemaining);
     _endOfShoe = false;
+    _aceCount = 0;
+    _count = 0;
     
     uint8_t cardMask = 0x00;
     uint8_t suitMask = 0x00;
@@ -184,6 +186,10 @@ uint8_t Shoe::dealCard()
     }
        // c4 in 167, 415 is d4
     uint8_t ret = fullShoe[i];
+    if(ret>>4 == 0x01)
+    {
+        _aceCount++;
+    }
     swap(fullShoe[i], fullShoe[_cardsRemaining-1]);
     _cardsRemaining--;
     
