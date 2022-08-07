@@ -72,7 +72,7 @@ int main(int argc, const char * argv[]) {
     // Create shoe and player bank, and pass them to dealer in constructor
     char bet_str[10];
     cout << "\nBLACKJACK TIME!!!!! \n";
-    cout << "\nPlace your bet! (enter a number i.e. \"155\") or 'q' to quit \n";
+    cout << "\nPlace your bet! (enter a number i.e. \"80\") or 'q' to quit \n";
     cin >> bet_str;
     if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;
     while(!cin || bet_str[0] < '0' || bet_str[0] > '9')
@@ -140,7 +140,7 @@ int main(int argc, const char * argv[]) {
         {
             if(numPlayers > 1 && !dealer->hasBlackjack())
             {
-                cout << "\nPerforming computer hand actions \n";
+                cout << "\n** Performing computer hand actions **\n";
                 dealer->computerAction(shoe);
             }
             handContinues = dealer->dealerAction(shoe, bank);
@@ -171,7 +171,7 @@ int main(int argc, const char * argv[]) {
                 delete shoe;
                 shoe = new Shoe(numDecks, cutPoint);
             }
-            cout << "\n** NEW HAND **\n";
+            cout << "\n****    NEW HAND    *****\n";
             //TODO: figure out if should display all win/loss here each hand or not
                                                                                 /*
             int net = bank->getBalance() - totalFunds;
