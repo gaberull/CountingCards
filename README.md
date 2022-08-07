@@ -3,15 +3,15 @@
 ### A blackjack Game by Gabe Scott
 
 ## Documentation TODO:
-- [ ] dimensions of images - 91 x 28
 - [ ] complete features list below
 - [ ] complete rules
 - [ ] complete info on counting cards in general
 - [ ] decide on readme header sizes
 - [ ] **Remove this list and section**
-- [ ] figure out where to put note:
+- [ ] figure out where to put / remove **Notes:**:
 
-- ***Source files are in ./CountingCards/***
+- ***Source files are in ./CountingCards/***   (probably keep this one)
+- dimensions of screenshot images: 91 x 28
 
 ## Summary
 
@@ -59,7 +59,7 @@ For more information about blackjack rules see [Bicycle's Blackjack Rules](https
 
 ## Screenshots
 
-**Menu of options, New hand starting with two players (one computerplayer):**
+**Menu of options, New hand starting with two players (1 computer player):**
 ![New Hand - 2 Players](/screenshots/8_7_22/newhand_2players.png "New Hand with 2 Players")
 
 **Menu Display, New hand starting with three players, Deck Count:**
