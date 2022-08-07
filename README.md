@@ -102,10 +102,5 @@ In the near future, I will create a GUI and full mobile game using React Native,
 
 #### Coding
 
-##### C++
-
 - [Rounding Floating Point int C++ - G4G](https://www.geeksforgeeks.org/rounding-floating-point-number-two-decimal-places-c-c/) for using implicit int conversion to round a float to 2 digits
-
-##### Markdown
-
 - [Markdown Basic Syntax - markdownguide.org](https://www.markdownguide.org/basic-syntax/#link-best-practices)
