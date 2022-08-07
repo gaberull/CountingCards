@@ -30,6 +30,7 @@ public:
     int getCount();             // get running count of deck
     float getTrueCount();       // get running count of deck / num decks remaining
     int getAceCount();          // get running count of aces dealt
+    int getCardsLeft();         // get num cards left in shoe
     //std::string printCountStr();
     ~Shoe();                    // shoe destructor
 };

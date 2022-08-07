@@ -84,61 +84,57 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
     bool blackjack = false;
     
     std::cout << "\n** Dealing Cards **\n";
-    // vector of player hands. User will be zero, dealer will be _numPlayers
-    for(int i=0; i<_numPlayers+1; i++)
+    
+    Hand playerHand = Hand(shoe->dealCard(), shoe->dealCard(), bet);
+    blackjack = playerHand.isBlackjack();
+    handArray.push_back(playerHand);
+    dealerHand = new Hand(shoe->dealCard(), shoe->dealCard());
+    if(_numPlayers > 1 || dealerHand->isBlackjack() || playerHand.isBlackjack()) // don't display hands if only 1 player, will show in action(). Gotta do blackjack payouts if any blackjacks
     {
-        // deal two cards to every player and dealer
-        // we are on the user
-        if(i == 0)
+        std::cout << "\nYour cards         :    " << playerHand.getHand() << "\n\n";
+        std::chrono::seconds duration(2);
+        std::this_thread::sleep_for(duration);
+    }
+    
+    // vector of player hands. User will be zero, dealer will be _numPlayers
+    for(int i=0; i<_numPlayers-1; i++)
+    {
+        // putting bet=0 on computer hands
+        Hand AIHand = Hand(shoe->dealCard(), shoe->dealCard());
+        std::cout << "Player "<<_numPlayers - i<< " has       :    " << AIHand.getHand() << std::endl; // FIXME: print ordering doesn't match computerAction()
+        if(AIHand.isBlackjack() && !dealerHand->isBlackjack())
         {
-            Hand playerHand = Hand(shoe->dealCard(), shoe->dealCard(), bet);
-            handArray.push_back(playerHand);
-            //can print with operator<< overload. cout << playerHand;
-            std::cout << "\nYour cards         :    " << playerHand.getHand() << "\n\n";
-            
-            blackjack = playerHand.isBlackjack();
+            cout << "Player " <<_numPlayers - i+1<< " has BLACKJACK!! Gets paid 3:2 \n\n";
         }
-        else if(i == _numPlayers) // we are on dealer
+        //FIXME: change ordering so that dealer checks hand first, then payout or don't payout
+        //else if(AIHand.isBlackjack() && dealerHand->isBlackjack())
+        //{
+        //    cout << "Player " <<_numPlayers - i+1<< " has Blackjack, but so does dealer. Hand is a push\n\n";
+        //}
+        else
         {
-            dealerHand = new Hand(shoe->dealCard(), shoe->dealCard());
-            std::cout << "\nDealer shows       :    " << dealerHand->displayOne() << "\n \n";
-            //this->dealerBlackjack = dealerHand->isBlackjack();
-            if(shoe->endOfShoe())
-            {
-                std::cout << "This will be the last hand on this shoe \n";
-            }
+            otherPlayers.push_back(AIHand);
         }
-        else    // Computer Players
-        {
-            // putting bet=0 on computer hands
-            Hand AIHand = Hand(shoe->dealCard(), shoe->dealCard());
-            std::cout << "Player "<<_numPlayers - i+1<< " has       :    " << AIHand.getHand() << std::endl; // FIXME: print ordering doesn't match computerAction()
-            if(AIHand.isBlackjack() && !dealerHand->isBlackjack())
-            {
-                cout << "Player " <<_numPlayers - i+1<< " has BLACKJACK!! Gets paid 3:2 \n\n";
-            }
-            //FIXME: change ordering so that dealer checks hand first, then payout or don't payout
-            else if(AIHand.isBlackjack() && dealerHand->isBlackjack())
-            {
-                cout << "Player " <<_numPlayers - i+1<< " has Blackjack, but so does dealer. Hand is a push\n\n";
-            }
-            else
-            {
-                otherPlayers.push_back(AIHand);
-            }
-        }
-        if(_numPlayers > 1)     // pause if we have dealt out more than just the one player
-        {
-            std::chrono::seconds duration(2);
-            std::this_thread::sleep_for(duration);
-        }
+        std::chrono::seconds duration(2);
+        std::this_thread::sleep_for(duration);
+    }
+    
+    if(_numPlayers > 1 || dealerHand->isBlackjack() || playerHand.isBlackjack())  // don't display hands if only 1 player, will show in action()
+    {
+        std::cout << "\nDealer shows       :    " << dealerHand->displayOne() << "\n \n";
+        std::chrono::seconds duration(2);
+        std::this_thread::sleep_for(duration);
+    }
+    if(shoe->endOfShoe())
+    {
+        std::cout << "This will be the last hand on this shoe \n";
     }
     //TODO: maybe display computer players here in order of back to front of otherPlayers vector
     if(!blackjack && dealerHand->isBlackjack())
     {
         handArray.pop_back();
         cout << "Dealer Has         :    " << dealerHand->getHand() << "\n";
-        cout << "That lucky buffoon has BLACKJACK.. Got us this time.. \n\n";   //FIXME: too much displayed when dealer wins here heads up
+        cout << "\nThat lucky buffoon has BLACKJACK.. Got us this time.. \n\n";   //FIXME: too much displayed when dealer wins here heads up
         cout << "_____________________________ \n \n";
         cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
         cout << "----------------------------- \n \n";
@@ -191,8 +187,10 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
         else    // Player beats dealer with a blackjack
         {
             playerBank->addFunds(bet);
-            string win = std::to_string(playerBank->payBlackjack(bet));
-            cout << "\n****   CONGRATS!!!! You hit a BLACKJACK!! You Win $" << win << "  ****\n\n";
+            playerBank->payBlackjack(bet);
+            int win = bet * 3/2;
+            string win_str = std::to_string(win);
+            cout << "****   You hit a BLACKJACK!!!  You Win $" << win_str << "  ****\n\n";
             // add bet back in first. then payout blackjack
             
             //playerBank->payBlackjack(bet);
@@ -265,7 +263,6 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
     1   -   hand continues
     -1  -   quit program
  */
-//TODO: check some action
 int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
 {
     if(handArray.size() == 0)
@@ -338,7 +335,8 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
         
             /// Stand Pat
         case 'p': {
-            cout << "\nPlayer Stands with :    "<< playerHand.getHand() << " \n\n";
+            cout << "\nPlayer Stands with :    "<< playerHand.getHand() << " \n";
+            cout << "for a value of     "<< playerHand.getValue() << " \n\n";
             playerHand.setPat(true);
             patHands.push_back(playerHand);
             
@@ -359,6 +357,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             break;
         }
             /// Split the hand - must be a pair. We don't end on split, so it won't return a 0 or 1. Only calls action again.
+            //TODO: pay blackjack on split
         case 's': {  //Player splits a pair. Must double bet OR add remainder of bankroll to bet
             cout << "\nPlayer Splits \n";
             if(!playerHand.isSplittable())
@@ -409,11 +408,10 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                 playerBank->removeFunds(playerHand.getBet());
                 Hand newHand = playerHand.split(shoe);    // this will change playerHand and create newHand
 
-                handArray.push_back(playerHand);
-                handArray.push_back(newHand);
                 
-                cout << "\nHand 1             :    " << handArray[handArray.size()-1].getHand() <<"  bet: $"<<playerHand.getBet()<< "\n";
-                cout << "\nHand 2             :    " << handArray[handArray.size()-2].getHand() <<"  bet: $"<<playerHand.getBet()<< "\n";
+                
+                cout << "\nHand 1             :    " << playerHand.getHand() <<"  bet: $"<<playerHand.getBet()<< "\n";
+                cout << "\nHand 2             :    " << newHand.getHand() <<"  bet: $"<<playerHand.getBet()<< "\n";
                 //cout << "\nNew Hand 1       : "<< handArray[handArray.size()-1].getHand() <<"  bet: $"<<playerHand.getBet()<< "\n";
                 //cout << "\nNew Hand 2       : "<< handArray[handArray.size()-2].getHand() <<"  bet: $"<<playerHand.getBet()<< "\n";
                 
@@ -432,6 +430,27 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                 }
                 if(temp=='q' || temp=='Q') return -1;
                 //////////////////////////////               End of  Continue sequence             ////////////////////////////////////////////
+                
+                handArray.push_back(playerHand);
+                if(playerHand.isBlackjack())
+                {
+                    int bet = playerHand.getBet();
+                    string bet_str = to_string(bet * 3/2);
+                    cout << "\nHand 1 is blackjack!! You win $"<< bet_str << " \n\n";
+                    playerBank->addFunds(playerHand.getBet());
+                    playerBank->payBlackjack(bet);
+                    handArray.pop_back();
+                }
+                handArray.push_back(newHand);
+                if(newHand.isBlackjack())
+                {
+                    int bet = newHand.getBet();
+                    string bet_str = to_string(bet * 3/2);
+                    cout << "\nHand 2 is blackjack!! You win $"<< bet_str << " \n\n";
+                    playerBank->addFunds(newHand.getBet());
+                    playerBank->payBlackjack(bet);
+                    handArray.pop_back();
+                }
                 
                 return Dealer::action(shoe, playerBank);
             }
@@ -541,7 +560,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             cout << "Dealer hits until he has 17 or better  \n";
             cout << "Dealer stands on Soft 17s  \n";
             cout << "*** The rest of the rule list has not yet been implemented as of 8/7/22. - Gabe \n\n";
-            cout << "Please select another option (after 2 second delay)\n";
+            cout << "Please select another option (after 3 second delay)\n";
             std::chrono::seconds duration(3);
             std::this_thread::sleep_for(duration);
             handArray.push_back(playerHand);        // put hand back in vector of hands being played
@@ -552,8 +571,8 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             cout << "\nPlayer Surrenders  :-(  \n";
             cout << "Surrendering has not yet been implemented as of 8/7/22. \n";
             cout << "I likely will just end up removing it from this game altogether - Gabe \n";
-            cout << "Please select another option (after 2 second delay)\n";
-            std::chrono::seconds duration(2);
+            cout << "Please select another option (after 3 second delay)\n";
+            std::chrono::seconds duration(3);
             std::this_thread::sleep_for(duration);
             handArray.push_back(playerHand);        // put hand back in vector of hands being played
             return Dealer::action(shoe, playerBank);
@@ -680,15 +699,19 @@ int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop log
  */
 int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to return anything.
 {
-/*
-    cout << "_____________________________ \n \n";
-    cout << "| BANKROLL     : $"<< playerBank.getBalance() <<" \n";
-    cout << "----------------------------- \n \n";
-*/
-    // if there are none of this player's hands to play, or AI hands to play
-    if(patHands.size()==0 && otherPats.size()==0 && !dealerHand->isBlackjack())     //TODO: may have handled dealer bj already
+                                                                                                /*
+    if(dealerHand->isBlackjack() )   // TODO: check the action, see if I need more than this
     {
-        cout << "Action is Complete. Dealer Had   " << dealerHand->getHand() << "\n\n";
+        cout << "\n** Action is Complete **\n\n";
+        cout << "\n** LINE 689 Dealer.cpp  **\n\n";
+        return 0;
+    }
+                                                                                                 */
+    // if there are none of this player's hands to play, or AI hands to play
+    if((patHands.size()==0 && otherPats.size()==0) || dealerHand->isBlackjack())     //TODO: may have handled dealer bj already
+    {
+        //cout << "** Action is Complete. Dealer Had   " << dealerHand->getHand() << "**\n\n";  // TODO: see if i need this line
+        cout << "\n** Action is Complete **\n\n";
         cout << "\nInput 'c' to continue or 'q' to quit \n";
         char temp;
         cin >> temp;
@@ -726,6 +749,11 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
         cout << "Dealer BUSTS!!!!  \n";
     }
     
+    cout << "\n** Hand Showdown **\n";
+    (dealerHand->getValue() > 0) ?
+    cout << "\nDEALER Has         :    " << dealerHand->getHand() << "\n\n":
+    cout <<"\nDealer is BUST \n\n";
+    
     int numYourHands = (int)patHands.size();
     for(int i=1; i<=numYourHands; i++)  // 1-indexed for purposes of printing
     {
@@ -748,19 +776,8 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
             playerBank->addFunds(playerHand.getBet()*2);
         }
         // TODO: only print this on final hand of user
-        if(i==numYourHands)
-        {
-            cout << "_____________________________ \n \n";
-            cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
-            cout << "----------------------------- \n";
-            std::this_thread::sleep_for(duration);  // pause for 3 sec
-        }
+        
     }
-    
-    cout << "\n** Hand Showdown **\n";
-    (dealerHand->getValue() > 0) ?
-    cout << "\nDEALER Has         :    " << dealerHand->getHand() << "\n\n":
-    cout <<"\nDealer is BUST \n\n";
     
     int numAIHands = (int)otherPats.size();
     for(int i=1; i<=numAIHands; i++)  // 1-indexed for purposes of printing
@@ -783,6 +800,12 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
             cout << "Comp Player " << i << " Wins \n\n";
         }
     }
+
+    cout << "_____________________________ \n \n";
+    cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
+    cout << "----------------------------- \n";
+    std::this_thread::sleep_for(duration);  // pause for 3 sec
+    
     cout << "\nInput 'c' to continue or 'q' to quit \n";
     char temp;
     cin >> temp;

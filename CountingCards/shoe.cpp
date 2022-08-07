@@ -164,6 +164,8 @@ uint8_t Shoe::dealCard()
     if(_cardsRemaining <= 0)  // No cards left. will repeat a couple cards
     {
         i = rand() % (_numDecks * 52);  // If we run out of cards, grab random from whole used shoe
+        _count = 0;
+        _aceCount = 0;
     }
     else
     {
@@ -231,6 +233,11 @@ uint8_t Shoe::dealCard()
     {
         swap(fullShoe[i], fullShoe[_cardsRemaining-1]);
     }
+    else
+    {
+        _count = 0;
+        _aceCount = 0;
+    }
     _cardsRemaining--;
     
     if(_cardsRemaining <= _cutPoint)
@@ -261,6 +268,10 @@ bool Shoe::endOfShoe()
  */
 int Shoe::getCount()
 {
+    if(this->_cardsRemaining <= 0)
+    {
+        return 0;
+    }
     return _count;
 }
 
@@ -275,14 +286,12 @@ float Shoe::getTrueCount()
 {
     float ret = 0.00;
     float decksLeft = 0.0;
-    if(_cardsRemaining>0)
+    if(_cardsRemaining <= 0)
     {
-        decksLeft = _cardsRemaining/52.0;
+        return 0.00;
     }
-    else
-    {
-        decksLeft = 1/52.0;
-    }
+
+    decksLeft = _cardsRemaining/52.0;
     ret = _count / decksLeft;
     // round to 2 decimals
     ret = (int)(ret * 100 + .5);
@@ -299,7 +308,10 @@ int Shoe::getAceCount()
     return _aceCount;
 }
 
-
+int Shoe::getCardsLeft()
+{
+    return _cardsRemaining;
+}
 /**
  @brief Destructor for Shoe
  */
