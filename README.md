@@ -1,23 +1,26 @@
 # Counting Cards 
 
-## A blackjack Game by Gabe Scott
+### A blackjack Game by Gabe Scott
 
 ## Documentation TODO:
 - [ ] dimensions of images - 91 x 28
 - [ ] complete features list below
 - [ ] complete rules
 - [ ] complete info on counting cards in general
-- [ ] figure out where to put note:
-        - ***Source files are in ./CountingCards/***
 - [ ] decide on readme header sizes
 - [ ] **Remove this list and section**
+- [ ] figure out where to put note:
 
-### Summary
+- ***Source files are in ./CountingCards/***
+
+## Summary
+
 Who doesn't love a good game of blackjack? ***CountingCards*** helps the player learn blackjack gameplay and basic strategy, provides a fun way to practice keeping the count of the deck, offers advice on adjusting your bet and adjusting strategy based on the count of the deck. This game will be a fun way to help the you bring your best game to the casino. 
 
 ***This game will help the user to win money at the casino, or at the very least, limit their losses***
 
-### Features of CountingCards
+## Features of CountingCards
+
 - Player chooses how many decks of cards they want in the dealer's shoe
 - Player chooses total number of players (choosing 4 would result in 3 computer players and him/herself)
 - Add funds to player bank as desired
@@ -36,14 +39,11 @@ Who doesn't love a good game of blackjack? ***CountingCards*** helps the player 
     - Strategy hint
     - Get current running count
     - List rules
-    - Surrender  **TODO:** Not implemented as of 8/5/22. Might not
     - Add funds
     - Quit      
 
-### Some info on card counting in the game of blackjack
-- first item
 
-### Game of Blackjack Rules
+## Game of Blackjack Rules
 
 - Player attempts to get the better score between him/herself and the dealer, up to 21, without going over. 
 - Player acts before the dealer
@@ -53,10 +53,11 @@ Who doesn't love a good game of blackjack? ***CountingCards*** helps the player 
 
 For more information about blackjack rules see [Bicycle's Blackjack Rules](https://bicyclecards.com/how-to-play/blackjack/).
 
-### Screenshots
+### Some info on card counting in the game of Blackjack
 
-// TODO: remove below note
-**Note:** dimensions 91 x 28 in terminal for taking screenshots
+- first item
+
+## Screenshots
 
 **Menu of options, New hand starting with two players (one computerplayer):**
 ![New Hand - 2 Players](/screenshots/8_7_22/newhand_2players.png "New Hand with 2 Players")
@@ -83,7 +84,8 @@ For more information about blackjack rules see [Bicycle's Blackjack Rules](https
 **Dealer Acting on its Hand:**
 ![Dealer Acting](/screenshots/8_7_22/pat_dealeraction.png "Dealer Action")
 
-#### References:
+### References:
+
 - [blackjackapprenticeship.com](https://www.blackjackapprenticeship.com/blackjack-strategy-charts/) for Blackjack basic strategy charts
 - [Wizards of Odds Counting Strategy](https://wizardofodds.com/games/blackjack/card-counting/high-low/)
 - [Bicycle.com - How to play blackjack](https://bicyclecards.com/how-to-play/blackjack/)
