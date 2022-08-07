@@ -124,35 +124,24 @@ int main(int argc, const char * argv[]) {
     Dealer* dealer = new Dealer(numPlayers);        // 1 for 1 player
     
     // Hands are dealt
-    int handContinues = 0;      // -1 = quit, 0 = hand done, 1 = hand ongoing
+    int handContinues = 0;   // -1 == quit, 0 == hand done, 1 == hand ongoing
     handContinues = dealer->dealHands(shoe, bank, bet);
-    
-    cout << "Running count is "<<shoe->getCount() << endl;  //TODO: remove this
-    cout << "True count (ratio) is "<< shoe->getTrueCount() << endl;       //TODO: remove this
-    // while handOngoing >=0
     while(handContinues>-1) // while quit hasn't been requested
     {
-        if(handContinues==1)    // hand is ongoing, call action
+        if(handContinues==1)    // hand is ongoing, call action (for user)
         {
             handContinues = dealer->action(shoe, bank);
-            cout << "Running count is "<<shoe->getCount() << endl;  //TODO: remove this
-            cout << "True count (ratio) is "<<shoe->getTrueCount() << endl;  //TODO: remove this
         }
-        else   //handContinues==0, Do comuterAction, then Do dealer action, then start new hand
+        else   //handContinues==0, Do computerAction, then Do dealer action, then start new hand
         {
             if(numPlayers > 1 && !dealer->hasBlackjack())
             {
                 cout << "\nPerforming computer hand actions \n";
                 dealer->computerAction(shoe);
-                cout << "Running count is "<<shoe->getCount() << endl;  //TODO: remove this
-                cout << "True count (ratio) is "<<shoe->getTrueCount() << endl;  //TODO: remove this
             }
-            cout << "Running count is "<<shoe->getCount() << endl;  //TODO: remove this
             handContinues = dealer->dealerAction(shoe, bank);
-            if(handContinues<0) break;      // 'Q' has been input to quit. Jump to end and final print stmt
-            cout << "\nNEW HAND \n";
-            //TODO: put new shoe check here
-            
+            if(handContinues<0) break;      // 'Q' has been input to quit (-1). Jump to end and final print stmt
+            cout << "\n** NEW HAND **\n";
             // check if player has funds
             if(bank->getBalance() == 0)
             {
@@ -172,13 +161,11 @@ int main(int argc, const char * argv[]) {
                 bank->addFunds(reload);
                 totalFunds += reload;
             }
-            if(shoe->endOfShoe())   // Shoe is finished. Start a new one    //FIXME: not working
+            if(shoe->endOfShoe())   // Shoe is finished. Start a new one
             {
-                cout << "Running count is "<<shoe->getCount() << endl;  //TODO: remove this
-                cout << "True count (ratio) is "<<shoe->getTrueCount() << endl;  //TODO: remove this
-                cout << "Time to start a new shoe with "<<numDecks<<" decks \n\n";
+                cout << "Time to start a new shoe with " << numDecks<< " decks \n\n";
                 delete shoe;
-                shoe = new Shoe(numDecks, cutPoint);    //TODO: check don't need 'Shoe shoe = ... '
+                shoe = new Shoe(numDecks, cutPoint);
             }
             cout << "\nPLEASE ENTER NEW BET  |  'q' to quit. \n";
             cin >> bet_str;
@@ -215,8 +202,6 @@ int main(int argc, const char * argv[]) {
     
     return 0;
 }
-
-
 
 /*
 cout << "_____________________________ \n \n";

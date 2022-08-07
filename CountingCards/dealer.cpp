@@ -499,7 +499,14 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             break;
         }
         case 'c': {  // Current count of Deck
-            cout << "\nPlayer Requests the current count of the deck  \n";
+            //cout << "\n**Player Requests the count of the deck**\n";  //TODO: see about adding asterisks to display
+            cout << "\nPlayer Requests the count of the deck\n\n";
+            cout << "The Running Count is "<< shoe->getCount() << "\n";
+            cout << "True count (ratio) is "<< shoe->getTrueCount() << "\n"; 
+            std::chrono::seconds duration(2);
+            std::this_thread::sleep_for(duration);
+            handArray.push_back(playerHand);        // put hand back in vector of hands being played
+            return Dealer::action(shoe, playerBank);
             break;
         }
         case 'r': {  // List Rules
