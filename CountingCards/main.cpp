@@ -172,17 +172,10 @@ int main(int argc, const char * argv[]) {
                 shoe = new Shoe(numDecks, cutPoint);
             }
             cout << "\n****    NEW HAND    *****\n";
-            //TODO: figure out if should display all win/loss here each hand or not
-                                                                                /*
-            int net = bank->getBalance() - totalFunds;
-            cout << "_____________________________ \n \n";
-            cout << "| TOTAL FUNDS ADDED    : $"<< totalFunds <<" \n";
-            cout << "| BANKROLL             : $"<< bank->getBalance() <<" \n";
-            cout << "----------------------------- \n";
-            (net >= 0) ?
-            cout << "| NET WIN/LOSS         : $"<< net <<" \n\n":
-            cout << "| NET WIN/LOSS         : -$"<< net*-1 <<" \n\n";
-                                                                                 */
+            
+            //cout << "Running count                           :  "<<shoe->getCount() << endl;  //TODO: remove this
+            //cout << "True count (ratio count:decks remaining):  "<<shoe->getTrueCount() << endl;  //TODO: remove this
+            
             cout << "\nPLEASE ENTER NEW BET  |  'q' to quit. \n";
             cin >> bet_str;
             if(bet_str[0] == 'q' || bet_str[0] == 'Q') break;
@@ -196,8 +189,8 @@ int main(int argc, const char * argv[]) {
             }
             bet = (int) stol(bet_str);
             handContinues = dealer->dealHands(shoe, bank, bet);
-            cout << "Running count is "<<shoe->getCount() << endl;  //TODO: remove this
-            cout << "True count (ratio) is "<<shoe->getTrueCount() << endl;  //TODO: remove this
+            //cout << "Running count is "<<shoe->getCount() << endl;  //TODO: remove this
+            //cout << "True count (ratio) is "<<shoe->getTrueCount() << endl;  //TODO: remove this
         }
     }
     int net = bank->getBalance() - totalFunds;

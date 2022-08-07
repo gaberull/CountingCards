@@ -195,7 +195,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             
             //playerBank->payBlackjack(bet);
             handArray.pop_back();
-            cout << "Dealer Has         :    " << dealerHand->getHand() << "\n\n";
+            //cout << "Dealer Has         :    " << dealerHand->getHand() << "\n\n";
             cout << "_____________________________ \n \n";
             cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
             cout << "----------------------------- \n \n";
@@ -316,7 +316,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
         }
             /// Hit the Hand
         case 'h': {
-            cout << "\nYOU CHOSE TO HIT! \n";
+            //cout << "\nYOU CHOSE TO HIT! \n";
             player = hitPlayer(playerHand, shoe);
             if(player<0)   // player busts. money removed from bank and added to hand in dealHands()
             {
@@ -557,8 +557,14 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
         }
         case 'r': {  // List Rules      // TODO: implement listing of blackjack rules
             cout << "\nPlayer Requests a list of the rules  \n\n";
-            cout << "Dealer hits until he has 17 or better  \n";
-            cout << "Dealer stands on Soft 17s  \n";
+            cout << "* Dealer hits until he has 17 or better  \n";
+            cout << "* Dealer stands on Soft 17s  \n";
+            cout << "* The running count is calculated as follows:  \n";
+            cout << "   - high cards add 1 to count  \n";
+            cout << "   - low cards subtract 1 from count  \n";
+            cout << "   - The true count is ratio running count to decks remaining  \n";
+            cout << "   - The higher the count, the better  \n";
+            cout << "   - The true count will be used later on  \n";
             cout << "*** The rest of the rule list has not yet been implemented as of 8/7/22. - Gabe \n\n";
             cout << "Please select another option (after 3 second delay)\n";
             std::chrono::seconds duration(3);
@@ -785,19 +791,19 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
         Hand AI = otherPats.back();  // TODO: check this operator= works fine
         otherPats.pop_back();
         //cout << "\nYour cards     :     " << playerHand.getHand() << "\n\n";
-        cout << "Comp Player " << i << " has  :    " << AI.getHand() << "\n";
+        cout << "Comp Player  has   :    " << AI.getHand() << "\n";
         //(dealerScore<0) ? cout << "Against Dealer's Busted Hand \n" : cout << "Against Dealer's :  " << dealerHand->getHand() << "\n";
         if(AI.getValue() < dealerScore)  // player loses
         {
-            cout << "Comp Player " << i << " Loses \n\n";
+            cout << "Comp Player Loses \n\n";
         }
         else if(AI.getValue() == dealerHand->getValue())    // player ties
         {
-            cout << "Comp Player " << i << " Pushes \n\n";
+            cout << "Comp Player Pushes \n\n";
         }
         else // player wins (not with blackjack)
         {
-            cout << "Comp Player " << i << " Wins \n\n";
+            cout << "Comp Player Wins \n\n";
         }
     }
 
@@ -830,7 +836,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
 int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even need this function - only outputs text.
 {
     //Hand dealer = *(dealerHand);
-    cout << "** Hitting player's hand **\n";
+    cout << "** Hitting player's hand **\n\n";
     cout << "Player has         :    " << player.getHand() <<  "      Initially\n";
     std::chrono::seconds duration(2);
     std::this_thread::sleep_for(duration);
