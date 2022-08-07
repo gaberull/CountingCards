@@ -3,19 +3,20 @@
 ### A blackjack Game by Gabe Scott
 
 ## Documentation TODO:
-- [ ] complete features list below
-- [ ] complete rules
+- [ ] complete the features list below
+- [ ] complete the blackjack rules list below
 - [ ] complete info on counting cards in general
-- [ ] decide on readme header sizes
+- [x] decide on README.md header sizes
 - [ ] **Remove this list and section**
-- [ ] figure out where to put / remove **Notes:**:
+- [ ] add ability for player to play multiple hands
+- [ ] figure out where to put/remove **Notes:**:
 
-- ***Source files are in ./CountingCards/***   (probably keep this one)
-- dimensions of screenshot images: 91 x 28
+    - ***Source files are in ./CountingCards/***   (probably keep this one)
+    - dimensions of screenshot images: 91 x 28
 
 ## Summary
 
-Who doesn't love a good game of blackjack? ***CountingCards*** helps the player learn blackjack gameplay and basic strategy, provides a fun way to practice keeping the count of the deck, offers advice on adjusting your bet and adjusting strategy based on the count of the deck. This game will be a fun way to help the you bring your best game to the casino. 
+Who doesn't love a good game of blackjack? ***CountingCards*** helps the player learn blackjack gameplay and basic strategy, provides a fun way to practice keeping the count of the deck, offers advice on adjusting your bet and adjusting strategy based on the count of the deck. This game will be a fun way to help the you bring your best game to the casino or a blackjack game with friends. 
 
 ***This game will help the user to win money at the casino, or at the very least, limit their losses***
 
@@ -30,17 +31,21 @@ Who doesn't love a good game of blackjack? ***CountingCards*** helps the player 
 - Select option from menu prompt to get optimal strategy for any hand against the dealer's shown card
 - Select option from menu prompt to get current count of deck
 - Select option from menu prompt to get the rules of the game
-- Computer players all play according to basic strategy for their hand vs the dealer's shown card
+- Computer players all play according to common basic strategy for their hand vs the dealer's shown card
 - In hand play options include:
     - Hit hand
     - Stand pat
     - Split hand
     - Double down
+        * split and double can be stacked like in a real game of blackjack
     - Strategy hint
+        * get basic strategy for the player's hand vs the dealer's shown card
+        * get adjusted strategy based on count of the deck vs dealer's shown card
     - Get current running count
     - List rules
     - Add funds
-    - Quit      
+    - Quit  
+- Net session results are displayed at end of game, when the quit option is requested    
 
 
 ## Game of Blackjack Rules
@@ -86,7 +91,6 @@ For more information about blackjack rules see [Bicycle's Blackjack Rules](https
 In the near future, I will create a GUI and full mobile game using React Native, connecting it to the C++ backend. Ideally, the use of React should make it very portable, and able to run on multiple platforms without much modification from one to the next.
 
 - Add in ability for player to play multiple hands, reduce total players to 5
-
 
 ### References:
 
