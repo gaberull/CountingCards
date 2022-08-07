@@ -14,9 +14,10 @@
 #include <string>
 #include <vector>
 using namespace std;
-      
-/*
- Default Constructor
+
+/**
+ @brief
+    Default Constructor
  */
 Hand::Hand()
 {
@@ -40,7 +41,8 @@ Hand::Hand()
 }
 
 /**
-    Copy constructor
+@brief
+ Copy constructor
  */
 Hand::Hand(const Hand& diffHand)
 {
@@ -75,7 +77,16 @@ Hand::Hand(const Hand& diffHand)
 }
 
 /**
- Main constructor that will be used
+ @brief
+    Main constructor that will be used for Hand()
+ @param card1
+    first card in new hand
+ @param card2
+    second card in new hand
+ @param bet = 0 (default value)
+    bet for new hand. Computer hands will be called without inputting bet
+    and thus will not be considered since their winnings and losses won't
+    be totalled.
  */
 Hand::Hand(uint8_t card1, uint8_t card2, int bet)
 {
@@ -247,7 +258,11 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
 }
 
 /**
- @brief get the current makeup of all cards in the hand
+ @brief
+    get the current makeup of all cards in the hand
+ @return string
+    string of the hand with verital lines and spaces
+    on outsides of string
  */
 string Hand::getHand()
 {
@@ -264,7 +279,11 @@ string Hand::getHand()
 }
 
 /**
-    This function is for the dealer to display only one card initially
+ @brief
+    Display one card. Used for dealer's upward facing card.
+ @return string
+    String containing hand symbol, suit, and vertical lines on outside
+    and spaces in between cards and outside lines
  */
 string Hand::displayOne()
 {
@@ -276,8 +295,10 @@ string Hand::displayOne()
 }
 
 /**
- @brief     get first card in cardArray
- @returns   char for first card AKA char of upward facing card (for dealer only)
+ @brief
+    get first card in cardArray
+ @return char
+    first card
  */
 char Hand::getFirstCard()
 {
@@ -285,16 +306,21 @@ char Hand::getFirstCard()
 }
 
 /**
- @brief   get second card in cardArray
- @returns char for second card
+ @brief
+    get second card in cardArray
+ @returns char
+    char for second card
  */
 char Hand::getSecondCard()
 {
     return cardArray[1];
 }
 /**
- @brief     hit a hand. No print statements, just shoe, hand actions
- @returns   -1 if hand busts | value of hand otherwise
+ @brief
+    hit a hand. No print statements, just shoe action, hand actions
+ @returns int
+    -1  -   hand busts
+    X   -   value of hand otherwise, between 1 and 21 inclusive
  */
 int Hand::hit(Shoe* shoe)
 {
@@ -348,9 +374,12 @@ int Hand::hit(Shoe* shoe)
 }
 
 /**
- @brief     doubles hand's bet and then calls hit()
-            player can enter a bet to double for less. if bet==0 (default val), the bet will be doubled
- @returns   int - value of hand after hit
+ @brief
+    doubles hand's bet and then calls hit(). player can enter a bet to double for less.
+    if bet==0 (default val), the bet will be doubled
+ @returns int
+    -1  -   hand is busted
+    x   -   value of hand after hit
  */
                                                         /*
 int Hand::doubleHand(Shoe* shoe, int bet)   // TODO: see if I used this. check about removing bet from bank and calling this from 'd' in action
@@ -371,20 +400,27 @@ int Hand::doubleHand(Shoe* shoe, int bet)   // TODO: see if I used this. check a
                                                          */
 
 /**
- @brief get bet currently place on this hand
+ @brief
+    get bet currently placed on this hand
  */
 int Hand::getBet()
 {
     return handBet;
 }
 
+/**
+ @brief
+    set bet for this hand
+ */
 void Hand::setBet(int bet)
 {
     handBet = bet;
 }
 /**
- @brief Splits a hand containing 2 cards, both of same symbol. Suit doesn't matter.
- @returns a new hand, BUT also sets the original hand to be a new hand!!!
+ @brief
+    Splits a hand containing 2 cards, both of same symbol. Suit doesn't matter.
+ @returns Hand
+    a new hand. **Also sets the original hand to be a new hand!!** (Important)
  */
 Hand Hand::split(Shoe* shoe)        //TODO: should I return pointer? reference? (prolly not reference)
 {
@@ -412,8 +448,10 @@ Hand Hand::split(Shoe* shoe)        //TODO: should I return pointer? reference? 
 }
                                                 
 /**
- @brief Overloaded = operator
-        Just calls Hand copy constructor
+ @brief
+    Overloaded = operator. Calls Hand copy constructor
+ @returns Hand reference
+    For purposes of chaining
  */
 Hand& Hand::operator= (Hand& diffHand)      //TODO: check that his works fine
 {
@@ -426,9 +464,11 @@ Hand& Hand::operator= (Hand& diffHand)      //TODO: check that his works fine
 }
                                                     
 /**
- @return    bool
-            true - blackjack
-            false - not blackjack
+ @brief
+    get whether or not hand is a blacjack
+ @return bool
+    true    -   blackjack
+    false   -   not blackjack
  */
 bool Hand::isBlackjack()
 {
@@ -447,7 +487,14 @@ bool Hand::isBlackjack()
 }
 
 /**
-@returns bool - whether or not the hand can be split
+ @brief
+    get if hand can be split or not
+ @return bool
+    true    -   Hand can be split
+    false   -   Hand cannot be split
+ @discussion
+    In order for a hand to be splittable, it must only have 2 cards, and each of the cards
+    must have the same symbol. i.e. 'A', 'T', '4', etc
  */
 bool Hand::isSplittable()
 {
@@ -455,7 +502,10 @@ bool Hand::isSplittable()
 }
 
 /**
- @returns int - the number of cards in the hand
+ @brief
+    get the number of cards in the hand
+ @returns int
+    X   -   the number of cards in the hand (minimum of 2)
  */
 int Hand::getNumCards()
 {
@@ -463,7 +513,10 @@ int Hand::getNumCards()
 }
 
 /**
- @returns current value of hand (max of 21)
+ @brief
+    get the current sum of the value of all cards in hand
+ @returns int
+    current value of hand (max of 21)
  */
 int Hand::getValue()
 {
@@ -471,7 +524,8 @@ int Hand::getValue()
 }
 
 /**
- @brief set whether the hand can receive more cards or is "standing pat"
+ @brief
+    set whether the hand can receive more cards or is "standing pat"
  */
 void Hand::setPat(bool pat)
 {
@@ -479,8 +533,11 @@ void Hand::setPat(bool pat)
 }
 
 /**
- @brief     get whether or not the hand has been stood pat on
- @returns   bool - hand is pat or not
+ @brief
+    get whether or not the hand has been stood pat on
+ @returns bool
+    true    -   hand is standing pat
+    false   -   hand is not standing pat
  */
 bool Hand::getPat()
 {
@@ -488,8 +545,14 @@ bool Hand::getPat()
 }
 
 /**
- @discussion    soft ace is currently being counted as 11, can still drop to 1
- @returns       bool - whether or not hand is soft (has a soft ace and can drop by 10)
+ @brief
+    Get whether or not current hand is soft
+ @discussion
+    A soft hand is any hand that still has an ace in it that can be counted as either 11 or 1.
+    In other words, a soft hand is a hand that has no risk of busting from hitting the hand.
+ @returns bool
+    true    -   hand is soft
+    false   -   hand is NOT soft. AKA hard
  */
 bool Hand::isSoft()
 {
@@ -497,18 +560,22 @@ bool Hand::isSoft()
 }
 
 /**
- Destructor. Doesn't do anything of substance.
- parameter
+ @brief
+    Hand destructor. Doesn't do anything.
  */
 Hand:: ~Hand()
 {
     //cout << "Hand destructor called \n";
 }
 
- /**
-  friend function - overloaded ostream '= 'operator
-  -parameter hand
-  */
+/**
+@brief
+  overloaded ostream operator= function. Prints hand.
+@param hand
+  Hand object
+@param s
+  ostream object reference
+*/
 ostream& operator<<(ostream& s, Hand& hand)
 {
     s << hand.getHand();
