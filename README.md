@@ -88,8 +88,7 @@ For more information about blackjack rules see [Bicycle's Blackjack Rules](https
 
 **(8/7/22):** 
 
-In the near future, I will create a GUI and full mobile game using React Native, connecting it to the C++ backend. Ideally, the use of React should make it very portable, and able to run on multiple platforms without much modification from one to the next.
-
+- GUI : In the near future, I will create a GUI and full mobile game using **React Native**, connecting it to the C++ backend. Ideally, the use of React should make it very portable, and able to run on multiple platforms without much modification from one to the next.
 - Add in ability for player to play multiple hands, reduce total players to 5
 
 ### References:
