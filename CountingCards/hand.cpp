@@ -264,7 +264,7 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
     string of the hand with verital lines and spaces
     on outsides of string
  */
-string Hand::getHand()
+string Hand::getHand() const
 {
     string ret = "| ";
     
@@ -453,12 +453,12 @@ Hand Hand::split(Shoe* shoe)        //TODO: should I return pointer? reference? 
  @returns Hand reference
     For purposes of chaining
  */
-Hand& Hand::operator= (Hand& diffHand)      //TODO: check that his works fine
+Hand& Hand::operator= (const Hand& diffHand) //TODO: check that this works. Changed it 8/7/22
 {
     if(this != &diffHand)
     {
-        Hand temp(diffHand._card1, diffHand._card2);
-        *this = temp;
+        (*this) = Hand(diffHand);
+        return (*this);
     }
     return *this;
 }
@@ -527,7 +527,7 @@ int Hand::getValue()
  @brief
     set whether the hand can receive more cards or is "standing pat"
  */
-void Hand::setPat(bool pat)
+void Hand::setPat(const bool pat)
 {
     isPat = pat;
 }
@@ -576,7 +576,7 @@ Hand:: ~Hand()
 @param s
   ostream object reference
 */
-ostream& operator<<(ostream& s, Hand& hand)
+ostream& operator<<(std::ostream& s, const Hand& hand) 
 {
     s << hand.getHand();
     return s;

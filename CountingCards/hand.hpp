@@ -30,12 +30,14 @@ class Hand
     int handBet = 0;
     bool soft = false;
     
+    friend std::ostream& operator<<(std::ostream& s, const Hand& hand);   // overload << operator
+    
 public:
     
     Hand();                                 // Default constructor
     Hand(const Hand& diffHand);             // Copy constructor
     Hand(uint8_t card1, uint8_t card2, int bet=0);     // 3 parameter constructor
-    std::string getHand();                  // get str of hand
+    std::string getHand() const;                  // get str of hand
     std::string displayOne();               // Function to display one card for Dealer
     char getFirstCard();                    // Returns hand's first card (dealer's shown card)
     char getSecondCard();                   // Returns hand's second card
@@ -45,17 +47,17 @@ public:
     bool isBlackjack();                     // Blackjack - i.e. AsJs
     bool isSplittable();                    // Two cards are a pair - splittable
     int getNumCards();                      // get number of cards
-    void setPat(bool pat);                  // set whether or not hand can receive more cards
+    void setPat(const bool pat);                  // set whether or not hand can receive more cards
     bool getPat();                          // get whether or not hand can receive more cards
     //int doubleHand(Shoe* shoe, int bet=0);
     int getBet();                           // get bet on this hand
-    void setBet(int bet);                   // set new bet on this hand
+    void setBet(const int bet);                   // set new bet on this hand
     bool isSoft();                          // returns whether or not the hand is soft
     
-    Hand& operator= (Hand& diffHand);       // overload = operator. returns *this for chaining purposes
+    Hand& operator= (const Hand& diffHand);       // overload = operator. returns *this for chaining purposes
     ~Hand();                                //Destructor
     
-    friend std::ostream& operator<<(std::ostream& s, const Hand& hand);   // overload << operator
+    
 };
 
                                                 
