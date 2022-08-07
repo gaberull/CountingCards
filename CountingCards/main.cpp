@@ -58,7 +58,7 @@ int main(int argc, const char * argv[]) {
     int totalFunds = 0;    //track all funds added for end profit/loss
     // Starting player balance
     int funds = 0;
-    cout << "\nEnter starting player funds from 100 to 1,000 \n";
+    cout << "\nHow much money will you put on the table? (enter 100 to 1000) \n";
     cin >> funds;
     while(!cin || funds < 100 || funds > 1000)
     {
@@ -145,7 +145,7 @@ int main(int argc, const char * argv[]) {
             }
             handContinues = dealer->dealerAction(shoe, bank);
             if(handContinues<0) break;      // 'Q' has been input to quit (-1). Jump to end and final print stmt
-            cout << "\n** NEW HAND **\n";
+            
             // check if player has funds
             if(bank->getBalance() == 0)
             {
@@ -171,6 +171,18 @@ int main(int argc, const char * argv[]) {
                 delete shoe;
                 shoe = new Shoe(numDecks, cutPoint);
             }
+            cout << "\n** NEW HAND **\n";
+            //TODO: figure out if should display all win/loss here each hand or not
+                                                                                /*
+            int net = bank->getBalance() - totalFunds;
+            cout << "_____________________________ \n \n";
+            cout << "| TOTAL FUNDS ADDED    : $"<< totalFunds <<" \n";
+            cout << "| BANKROLL             : $"<< bank->getBalance() <<" \n";
+            cout << "----------------------------- \n";
+            (net >= 0) ?
+            cout << "| NET WIN/LOSS         : $"<< net <<" \n\n":
+            cout << "| NET WIN/LOSS         : -$"<< net*-1 <<" \n\n";
+                                                                                 */
             cout << "\nPLEASE ENTER NEW BET  |  'q' to quit. \n";
             cin >> bet_str;
             if(bet_str[0] == 'q' || bet_str[0] == 'Q') break;
