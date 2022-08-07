@@ -51,6 +51,12 @@ For more information about blackjack rules see [Bicycle's Blackjack Rules](https
 
 *Source files are in ./CountingCards/*
 
+### Screenshots
+// **Note** dimensions 91 x 28 in terminal for taking screenshots
+
+*Image of a new hand starting with two players (one computerplayer):*
+![The San Juan Mountains are beautiful!](/screenshots/8_7_22/newhand_2players.png "New Hand with 2 Players")
+
 #### References:
 - [blackjackapprenticeship.com](https://www.blackjackapprenticeship.com/blackjack-strategy-charts/) for Blackjack basic strategy charts
 - [Wizards of Odds Counting Strategy](https://wizardofodds.com/games/blackjack/card-counting/high-low/)
