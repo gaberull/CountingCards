@@ -94,6 +94,12 @@ In the near future, I will create a GUI and full mobile game using React Native,
 
 ### References:
 
+#### Blackjack
+
 - [blackjackapprenticeship.com](https://www.blackjackapprenticeship.com/blackjack-strategy-charts/) for Blackjack basic strategy charts
 - [Wizards of Odds Counting Strategy](https://wizardofodds.com/games/blackjack/card-counting/high-low/)
 - [Bicycle.com - How to play blackjack](https://bicyclecards.com/how-to-play/blackjack/)
+
+#### C++
+
+- [Rounding Floating Point - G4G] (https://www.geeksforgeeks.org/rounding-floating-point-number-two-decimal-places-c-c/) for using implicit int conversion to round a float to 2 digits
