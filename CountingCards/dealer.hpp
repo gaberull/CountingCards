@@ -18,13 +18,13 @@ private:
     int _numPlayers;
     std::vector<Hand> handArray;                // The user's array of hands (only 1 unless split)
     std::vector<Hand> patHands;                 // The user's array of hands standing pat (only 1 or 0 unless split)
-    
     std::vector<Hand> otherPlayers;             // Computer players' array of hands
     std::vector<Hand> otherPats;                // Computer players' array of hands already standing pat
-    
     Hand* dealerHand;                           // Dealer's hand (pointer)
     bool dealerBlackjack = false;
     Dealer();                                   // Default constructor - private so it can't be called
+    
+    //friend std::ostream& operator<<(std::ostream& s, const Dealer& dealer);
 public:
     
     explicit Dealer(int numPlayers);            // Contructor - using explicit to deny implicit conversion (char to int)
@@ -37,7 +37,7 @@ public:
     char correctAction(Hand& player, Hand* dealer, int count=0, bool print=true); // returns correct action for any hands vs dealer card showing
     ~Dealer();                                  // Destructor
     
-    //friend std::ostream& operator<<(std::ostream& s, const Dealer& dealer);
+    
 };
                                         
 
