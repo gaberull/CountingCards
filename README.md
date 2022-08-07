@@ -84,6 +84,9 @@ For more information about blackjack rules see [Bicycle's Blackjack Rules](https
 **Dealer Acting on its Hand:**
 ![Dealer Acting](/screenshots/8_7_22/pat_dealeraction.png "Dealer Action")
 
+**End of Game and Results Disaply - After user has input 'Q' or 'q' to quit**
+![Quit Screen](/screenshots/8_7_22/quitscreen.png "End of Game")
+
 ## Future Features:
 
 **(8/7/22):**
