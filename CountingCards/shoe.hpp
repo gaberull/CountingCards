@@ -24,7 +24,7 @@ class Shoe
     
 public:
     Shoe(int numDecks, int cutPoint);
-    //void shuffle();           //TODO: remove if not going to use. Probably won't
+    int getCardsRemaining();    // return number of cards remaining in shoe //TODO: remove
     uint8_t dealCard();         // deal single card from shoe
     bool endOfShoe();           // return if shoe will be restarted at end of round
     int getCount();             // get running count of deck

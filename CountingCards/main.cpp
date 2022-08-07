@@ -123,6 +123,10 @@ int main(int argc, const char * argv[]) {
     // TODO: get number of players from user, put it in Dealer constructor
     Dealer* dealer = new Dealer(numPlayers);        // 1 for 1 player
     
+    // *****
+    //TODO: add prompt to add more funds at start of new hand
+    // *****
+    
     // Hands are dealt
     int handContinues = 0;   // -1 == quit, 0 == hand done, 1 == hand ongoing
     handContinues = dealer->dealHands(shoe, bank, bet);

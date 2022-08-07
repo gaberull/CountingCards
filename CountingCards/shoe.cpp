@@ -12,8 +12,9 @@
 using namespace std;
                                                              
 /**
-    Default constructor.
-    Should be private and unable to be called, hence commented out.
+ @brief
+    Default constructor. Should be private and unable
+    to be called, hence why it's commented out.
  */
 Shoe::Shoe()
 {
@@ -26,9 +27,23 @@ Shoe::Shoe()
     fullShoe = std::vector<uint8_t>(52, 0x00);
                                          */
 }
+
 /**
- @brief Constructor
- @param numDecks - number of decks in the shoe
+ @brief
+    returns number of cards remaining in shoe
+ */
+int Shoe::getCardsRemaining()
+{
+    return _cardsRemaining;
+}
+
+/**
+ @brief
+    Shoe Constructor
+ @param numDecks
+    number of decks in the shoe
+ @param cutPoint
+    The point in the deck (card index) at which the shoe needs to be reset
  */
 Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
 {
@@ -39,7 +54,7 @@ Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
     _endOfShoe = false;
     fullShoe = vector<uint8_t>(_cardsRemaining, 0x00);
     
-    // set point at which shoe will be done with
+    // set point at which shoe will be finished
     switch (cutPoint) {
         case 0:
             _cutPoint = 0;
@@ -52,6 +67,8 @@ Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
             break;
         case 3:
             _cutPoint = _cardsRemaining / 2;
+            break;
+        default:    // default case won't be hit
             break;
     }
     
@@ -100,6 +117,8 @@ Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
             case 12:
                 cardMask = 0xD0;    // King
                 break;
+            default:    // default case won't be hit
+                break;
         };
         
         // Suit switch statement
@@ -116,74 +135,35 @@ Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
             case 3:
                 suitMask = 0x04;    // Diamonds
                 break;
+            default:    // default case won't be hit
+                break;
         };
-        
         // set card and suit
         fullShoe[i] = 0x00;
         fullShoe[i] |= cardMask;
         fullShoe[i] |= suitMask;
     }
-    
-    
 }
-/**
- @brief shuffles the vector of cards in place using Fisher Yates algorithm in O(n) time with O(1) extra space
-        It really just resets the final card and resets the shoe, since the actual cards don't really get shuffled. They are pulled randomly
- */
-/*
-void Shoe::shuffle()    //TODO: possibly remove this. Not using it.
-{
-    _cardsRemaining = 52 * _numDecks;
-    _count = 0;
-    _endOfShoe = false;
-    cout << "Where would you like to place the cut card? \n";
-    char c;
-    cout << "Input 0 to play all of the shoe, 1 to play 90%, 2 to play 75%, and 3 to play 50% \n";
-    cin >> c;
-    while(!cin || c < '0' || c > '3')
-    {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Wrong Input. Enter 0 to play all of the shoe, 1 to play 90%, 2 to play 75%, and 3 to play 50% \n";
-        cin >> c;
-    }
-    switch (c) {
-        case 0:
-            _cutPoint = 0;
-            break;
-        case 1:
-            _cutPoint = _cardsRemaining / 10;
-            break;
-        case 2:
-            _cutPoint = _cardsRemaining / 4;
-            break;
-        case 3:
-            _cutPoint = _cardsRemaining / 2;
-            break;
-            
-        default:
-            break;
-    }
-}
-*/
 
 /**
- @brief pulls one card from shoe using shuffle algorithm
-        increments _aceCount and increments or decrements _count
+ @brief
+    pulls one card from shoe using shuffle algorithm. Each
+    pull is random. Sets _endOfShoe once _cardRemaining
+    == _cutPoint.
+ @returns uint8_t
+    unsigned 8 bit int. first 4 bits are card, last 4 are suit
  */
 uint8_t Shoe::dealCard()
 {
-    srand((unsigned int)std::time(0));
     
-    int i;
-    // If we run out of cards, grab random from whole used shoe
-    if(_cardsRemaining <= _cutPoint)
+    //cout << "-- cards remaining == " << getCardsRemaining() << "\n";  // debug line
+    
+    // seed random number generator
+    srand((unsigned int)std::time(0));
+    int i = 0;
+    if(_cardsRemaining <= 0)  // No cards left. will repeat a couple cards
     {
-        _endOfShoe = true;
-    }
-    if(_cardsRemaining == 0)  // No cards left. temporary fix so program doesn't break. May repeat a couple cards
-    {
-        i = rand() % (_numDecks * 52);
+        i = rand() % (_numDecks * 52);  // If we run out of cards, grab random from whole used shoe
     }
     else
     {
@@ -246,9 +226,11 @@ uint8_t Shoe::dealCard()
             break;
         }
     }
-    
     // swap card with end of deck (shuffle on each card draw)
-    swap(fullShoe[i], fullShoe[_cardsRemaining-1]);
+    if (_cardsRemaining > 0)
+    {
+        swap(fullShoe[i], fullShoe[_cardsRemaining-1]);
+    }
     _cardsRemaining--;
     
     if(_cardsRemaining <= _cutPoint)
@@ -259,7 +241,12 @@ uint8_t Shoe::dealCard()
 }
 
 /**
- @returns bool - if the shoe needs to be restarted or not
+ @brief
+    get whether or not this is the final round in shoe before it
+    needs to be reset.
+ @returns bool
+    true    -   the shoe needs to be restarted
+    false   -   the shoe doesn't need to be restarted
  */
 bool Shoe::endOfShoe()
 {
@@ -267,8 +254,10 @@ bool Shoe::endOfShoe()
 }
 
 /**
- @brief    Get count of the deck
- @returns  running count of the deck
+ @brief
+    Get count of the deck
+ @returns int
+    running count of the deck
  */
 int Shoe::getCount()
 {
@@ -276,8 +265,11 @@ int Shoe::getCount()
 }
 
 /**
- @brief  takes running count and divides by number of decks remaining
- @return float - running count / number of decks remaining
+ @brief
+    takes running running count and divides by number of decks
+    to get the "True count" ratio
+ @return float
+    running count / number of decks remaining
  */
 float Shoe::getTrueCount()
 {
@@ -292,23 +284,15 @@ float Shoe::getTrueCount()
         decksLeft = 1/52.0;
     }
     ret = _count / decksLeft;
-    
     // round to 2 decimals
     ret = (int)(ret * 100 + .5);
     ret /= 100;
     return ret;
-    
-                            /*
-    cout << "Running count is "<<shoe->getCount() << endl;  //TODO: remove this
-    float count = (int)(shoe->getTrueCount() * 100 + .5);   //TODO: remove this
-    count = (float) count/100;                              //TODO: remove this
-    cout << "True count (ratio) is "<< count << endl;       //TODO: remove this
-                             */
 }
 
 /**
-@brief  Get the count of aces we have seen
-@return int - number of aces that have been dealt
+ @brief Get the count of aces we have seen
+ @return int    number of aces that have been dealt thus far
  */
 int Shoe::getAceCount()
 {
@@ -317,7 +301,7 @@ int Shoe::getAceCount()
 
 
 /**
-    Destructor for Shoe
+ @brief Destructor for Shoe
  */
 Shoe::~Shoe()
 {
