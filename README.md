@@ -56,10 +56,10 @@ For more information about blackjack rules see [Bicycle's Blackjack Rules](https
 // TODO: remove below note
 **Note:** dimensions 91 x 28 in terminal for taking screenshots
 
-Menu of options, New hand starting with two players (one computerplayer):
+**Menu of options, New hand starting with two players (one computerplayer):**
 ![New Hand - 2 Players](/screenshots/8_7_22/newhand_2players.png "New Hand with 2 Players")
 
-Menu, New hand starting with three players, Deck Count:
+Menu Display, New hand starting with three players, Deck Count:
 ![New Hand - 3 Players, count](/screenshots/8_7_22/count_menu_multihands.png "New Hand with 3 Players")
 
 Hand showdown and payout of bet against dealer:
@@ -71,7 +71,7 @@ Splitting a Hand, Display of Deck Count:
 Requesting a strategy hint from menu:
 ![Strategy Request](/screenshots/8_7_22/strats_menu.png "Requesting Strategy Hint")
 
-Doubling a Hand:
+Doubling a Hand (2 images):
 ![Double Hand](/screenshots/8_7_22/double2.png "Doubling Hand")
 ![Double Hand 2](/screenshots/8_7_22/double.png "Doubling Hand 2")
 
