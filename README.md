@@ -100,6 +100,12 @@ In the near future, I will create a GUI and full mobile game using React Native,
 - [Wizards of Odds Counting Strategy](https://wizardofodds.com/games/blackjack/card-counting/high-low/)
 - [Bicycle.com - How to play blackjack](https://bicyclecards.com/how-to-play/blackjack/)
 
-#### C++
+#### Coding
 
-- [Rounding Floating Point - G4G] (https://www.geeksforgeeks.org/rounding-floating-point-number-two-decimal-places-c-c/) for using implicit int conversion to round a float to 2 digits
+##### C++
+
+- [Rounding Floating Point int C++ - G4G](https://www.geeksforgeeks.org/rounding-floating-point-number-two-decimal-places-c-c/) for using implicit int conversion to round a float to 2 digits
+
+##### Markdown
+
+- [Markdown Basic Syntax - markdownguide.org](https://www.markdownguide.org/basic-syntax/#link-best-practices)
