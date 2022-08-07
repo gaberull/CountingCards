@@ -2,12 +2,19 @@
 
 ## A blackjack Game by Gabe Scott
 
+## Documentation TODO:
+- [ ] dimensions of images - 91 x 28
+- [ ] complete features list below
+- [ ] complete rules
+- [ ] complete info on counting cards in general
+- [ ] figure out where to put note *Source files are in ./CountingCards/*
+- [ ] decide on readme header sizes
+- [ ] **Remove this list and section**
+
 ### Summary
 Who doesn't love a good game of blackjack? ***CountingCards*** helps the player learn blackjack gameplay and basic strategy, provides a fun way to practice keeping the count of the deck, offers advice on adjusting your bet and adjusting strategy based on the count of the deck. This game will be a fun way to help the you bring your best game to the casino. 
 
 ***This game will help the user to win money at the casino, or at the very least, limit their losses***
-
-> **TODO:** Finish these features (7/29/22)
 
 ### Features of CountingCards
 - Player chooses how many decks of cards they want in the dealer's shoe
@@ -32,12 +39,8 @@ Who doesn't love a good game of blackjack? ***CountingCards*** helps the player 
     - Add funds
     - Quit      
 
-> **TODO:** Finish these rules (7/29/22)
-
-
 ### Some info on card counting in the game of blackjack
 - first item
-
 
 ### Game of Blackjack Rules
 
@@ -48,8 +51,6 @@ Who doesn't love a good game of blackjack? ***CountingCards*** helps the player 
 - For this particular implementation of Blackjack, dealer will stand on both soft and hard 17s
 
 For more information about blackjack rules see [Bicycle's Blackjack Rules](https://bicyclecards.com/how-to-play/blackjack/).
-
-*Source files are in ./CountingCards/*
 
 ### Screenshots
 
@@ -84,3 +85,4 @@ For more information about blackjack rules see [Bicycle's Blackjack Rules](https
 #### References:
 - [blackjackapprenticeship.com](https://www.blackjackapprenticeship.com/blackjack-strategy-charts/) for Blackjack basic strategy charts
 - [Wizards of Odds Counting Strategy](https://wizardofodds.com/games/blackjack/card-counting/high-low/)
+- [Bicycle.com - How to play blackjack](https://bicyclecards.com/how-to-play/blackjack/)
