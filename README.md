@@ -84,6 +84,11 @@ For more information about blackjack rules see [Bicycle's Blackjack Rules](https
 **Dealer Acting on its Hand:**
 ![Dealer Acting](/screenshots/8_7_22/pat_dealeraction.png "Dealer Action")
 
+## Future Features:
+
+**(8/7/22):**
+In the near future, I will create a GUI and full mobile game using React Native, connecting it to the C++ backend. Ideally, the use of React should make it very portable, and able to run on multiple platforms without much modification from one to the next.
+
 ### References:
 
 - [blackjackapprenticeship.com](https://www.blackjackapprenticeship.com/blackjack-strategy-charts/) for Blackjack basic strategy charts
