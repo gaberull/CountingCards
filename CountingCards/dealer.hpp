@@ -21,14 +21,14 @@ private:
     std::vector<Hand> otherPlayers;             // Computer players' array of hands
     std::vector<Hand> otherPats;                // Computer players' array of hands already standing pat
     Hand* dealerHand;                           // Dealer's hand (pointer)
-    bool dealerBlackjack = false;
+    //bool dealerBlackjack = false;
     Dealer();                                   // Default constructor - private so it can't be called
     
     //friend std::ostream& operator<<(std::ostream& s, const Dealer& dealer);
 public:
     
     explicit Dealer(int numPlayers);            // Contructor - using explicit to deny implicit conversion (char to int)
-    bool hasBlackjack();                        // returns dealerBlackjack - whether or not this dealer's hand is blackjack
+    bool hasBlackjack();                        // returns  whether or not this dealer's hand is blackjack
     int dealHands(Shoe* shoe, Bank* playerBank, int bet);       // Initial hand dealing to user and AI players, dealer
     int action(Shoe* shoe, Bank* playerBank, char action ='a'); // TODO: probably remove char action='a'
     int computerAction(Shoe* shoe);                  // Perform action on computer players' hands

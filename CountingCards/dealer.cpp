@@ -31,7 +31,7 @@ Dealer::Dealer(int numPlayers)
     otherPlayers = std::vector<Hand>(); // TODO: was vector<Hand>(_numplayers-1) check this
     handArray = std::vector<Hand>();
     dealerHand = new Hand();
-    dealerBlackjack = false;
+    //dealerBlackjack = false;
 }
 
 /**
@@ -43,7 +43,7 @@ Dealer::Dealer(int numPlayers)
  */
 bool Dealer::hasBlackjack()
 {
-    return dealerBlackjack;
+    return dealerHand->isBlackjack();
 }
 
 /**
@@ -59,7 +59,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
     delete dealerHand;
     handArray = std::vector<Hand>();    // TODO: these should reset arrays at each hand deal. Check if necessary
     otherPlayers = std::vector<Hand>();
-    this->dealerBlackjack = false;
+    //this->dealerBlackjack = false;
     
     if(playerBank->getBalance() < bet)      // Check that bet amount is in playerBank
     {
@@ -81,7 +81,6 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
     }
     
     playerBank->removeFunds(bet);
-    bool lastRound = false;
     bool blackjack = false;
     
     std::cout << "\n** Dealing Cards **\n";
@@ -103,9 +102,8 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
         {
             dealerHand = new Hand(shoe->dealCard(), shoe->dealCard());
             std::cout << "\nDealer shows       :    " << dealerHand->displayOne() << "\n \n";
-            this->dealerBlackjack = dealerHand->isBlackjack();
-            lastRound = shoe->endOfShoe();
-            if(lastRound)
+            //this->dealerBlackjack = dealerHand->isBlackjack();
+            if(shoe->endOfShoe())
             {
                 std::cout << "This will be the last hand on this shoe \n";
             }
@@ -119,7 +117,11 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             {
                 cout << "Player " <<_numPlayers - i+1<< " has BLACKJACK!! Gets paid 3:2 \n\n";
             }
-            //FIXME: handle when dealer and AI both have bj
+            //FIXME: change ordering so that dealer checks hand first, then payout or don't payout
+            else if(AIHand.isBlackjack() && dealerHand->isBlackjack())
+            {
+                cout << "Player " <<_numPlayers - i+1<< " has Blackjack, but so does dealer. Hand is a push\n\n";
+            }
             else
             {
                 otherPlayers.push_back(AIHand);
@@ -132,7 +134,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
         }
     }
     //TODO: maybe display computer players here in order of back to front of otherPlayers vector
-    if(dealerBlackjack && !blackjack)
+    if(!blackjack && dealerHand->isBlackjack())
     {
         handArray.pop_back();
         cout << "Dealer Has         :    " << dealerHand->getHand() << "\n";
@@ -158,7 +160,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
     }
     if(blackjack)
     {
-        if(dealerBlackjack)
+        if(dealerHand->isBlackjack())
         {
             /// HAND IS A PUSH
             handArray.pop_back();
@@ -215,6 +217,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             //////////////////////////////               End of  Continue sequence             ////////////////////////////////////////////
             return 0;
         }
+        
     }
     return 1;   // 1 means hand is not over. funds have already been removed from playerBank
     
@@ -534,10 +537,12 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             break;
         }
         case 'r': {  // List Rules      // TODO: implement listing of blackjack rules
-            cout << "\nPlayer Requests a list of the rules  \n";
-            cout << "Listing rules has not yet been implemented as of 8/7/22. - Gabe \n";
+            cout << "\nPlayer Requests a list of the rules  \n\n";
+            cout << "Dealer hits until he has 17 or better  \n";
+            cout << "Dealer stands on Soft 17s  \n";
+            cout << "*** The rest of the rule list has not yet been implemented as of 8/7/22. - Gabe \n\n";
             cout << "Please select another option (after 2 second delay)\n";
-            std::chrono::seconds duration(2);
+            std::chrono::seconds duration(3);
             std::this_thread::sleep_for(duration);
             handArray.push_back(playerHand);        // put hand back in vector of hands being played
             return Dealer::action(shoe, playerBank);
@@ -698,7 +703,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
         return 0;
     }
     
-    cout << "** Dealer Acts on Hand **\n";
+    cout << "\n** Dealer Acts on Hand **\n";
     int dealerScore = dealerHand->getValue();
     cout << "\nDealer Has         :    " << dealerHand->getHand() << "      initially \n";
     std::chrono::seconds duration(2);
@@ -752,7 +757,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
         }
     }
     
-    cout << "\n** Hand Showdown **\n\n";
+    cout << "\n** Hand Showdown **\n";
     (dealerHand->getValue() > 0) ?
     cout << "\nDEALER Has         :    " << dealerHand->getHand() << "\n\n":
     cout <<"\nDealer is BUST \n\n";
@@ -1089,6 +1094,7 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
     }
     // TODO: remove these stmts and put if(print) before printing
     cout << "\n** HIT **\n";
+    cout << "\n** ERROR - SHOULD NOT HIT THIS MESSAGE **\n";
     cout << "\n The hand that got here was "<<player.getHand() << "\n";
     cout << "\n The hand that got here has "<<player.getValue() << "\n";
     cout << "\n Soft ? "<<player.isSoft() << "\n";
