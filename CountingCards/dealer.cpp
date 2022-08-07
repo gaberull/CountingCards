@@ -83,6 +83,8 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
     playerBank->removeFunds(bet);
     bool lastRound = false;
     bool blackjack = false;
+    
+    std::cout << "\n** Dealing Cards **\n";
     // vector of player hands. User will be zero, dealer will be _numPlayers
     for(int i=0; i<_numPlayers+1; i++)
     {
@@ -318,7 +320,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             player = hitPlayer(playerHand, shoe);
             if(player<0)   // player busts. money removed from bank and added to hand in dealHands()
             {
-                cout << "Player busts\n\n";
+                //cout << "Player busts\n\n";
                 cout << "_____________________________ \n \n";
                 cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
                 cout << "----------------------------- \n \n";
@@ -696,6 +698,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
         return 0;
     }
     
+    cout << "** Dealer Acts on Hand **\n";
     int dealerScore = dealerHand->getValue();
     cout << "\nDealer Has         :    " << dealerHand->getHand() << "      initially \n";
     std::chrono::seconds duration(2);
@@ -808,7 +811,7 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even
     {
         cout << "Player has         :    " << player.getHand() << "      after hitting \n";
         std::this_thread::sleep_for(duration);
-        cout << "\nOh NO!! You busted.. You have lost your bet \n";
+        cout << "\nOh NO!! You busted.. You have lost your bet of $"<< player.getBet() <<"\n";
     }
     else
     {
@@ -841,8 +844,11 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
     char second = player.getSecondCard();
     int playerValue = player.getValue();
     
-    //TODO: implement surrender or remove it
-    /// Surrenders
+    if(player.getValue() == 21 )
+    {
+        if(print) cout << "Of course STAND PAT on 21 !!! \n";
+        return 'p';
+    }
     
     /// Splits
     if(first == second)
@@ -956,8 +962,15 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
         if(playerValue == 16 && player.getNumCards()==2)
         {
             if(print) cout << "\n** DOUBLE soft 16 against dealer 4 through 6, otherwise HIT **\n";
-            if(upCard >= '4' && upCard <= '6') return 'd';
-            else return 'h';
+            if(upCard >= '4' && upCard <= '6')
+            {
+                return 'd';
+                
+            }
+            else
+            {
+                return 'h';
+            }
         }
         if(playerValue == 16)
         {
@@ -1074,7 +1087,21 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
             return 'h';
         }
     }
+    // TODO: remove these stmts and put if(print) before printing
     cout << "\n** HIT **\n";
+    cout << "\n The hand that got here was "<<player.getHand() << "\n";
+    cout << "\n The hand that got here has "<<player.getValue() << "\n";
+    cout << "\n Soft ? "<<player.isSoft() << "\n";
+    cout << "\nInput 'c' to continue or 'q' to quit \n";
+    char temp;
+    cin >> temp;
+    while(!cin || (temp != 'c' && temp != 'C'))
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Wrong Input. Enter 'C' or 'c' to continue. \n";
+        cin >> temp;
+    }
     return 'h';
 }
 
