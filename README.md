@@ -7,7 +7,8 @@
 - [ ] complete features list below
 - [ ] complete rules
 - [ ] complete info on counting cards in general
-- [ ] figure out where to put note - ***Source files are in ./CountingCards/***
+- [ ] figure out where to put note:
+        - ***Source files are in ./CountingCards/***
 - [ ] decide on readme header sizes
 - [ ] **Remove this list and section**
 
