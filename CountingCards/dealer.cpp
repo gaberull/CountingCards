@@ -111,10 +111,11 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             // putting bet=0 on computer hands
             Hand AIHand = Hand(shoe->dealCard(), shoe->dealCard());
             std::cout << "Player "<<_numPlayers - i+1<< " has       :    " << AIHand.getHand() << std::endl; // FIXME: print ordering doesn't match computerAction()
-            if(AIHand.isBlackjack() && !dealerHand->isBlackjack())    //FIXME: handle when dealer and AI both have bj
+            if(AIHand.isBlackjack() && !dealerHand->isBlackjack())
             {
                 cout << "Player " <<_numPlayers - i+1<< " has BLACKJACK!! Gets paid 3:2 \n\n";
             }
+            //FIXME: handle when dealer and AI both have bj
             else
             {
                 otherPlayers.push_back(AIHand);
@@ -258,7 +259,6 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
 //TODO: check some action
 int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
 {
-    //FIXME: multiple splits don't work
     if(handArray.size() == 0)
     {
         return 0;
@@ -390,7 +390,6 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                     handArray.push_back(playerHand);
                     return Dealer::action(shoe, playerBank);
                 }
-                //TODO: All new hands need to play against same dealer action
                 
                 // subtract bet again from bank. Betting 2x original bank now
                 playerBank->removeFunds(playerHand.getBet());
@@ -798,14 +797,14 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even
     'd' -   double
     'x' -   surrender
  */
-char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   //TODO: add print staements for strats
+char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   //TODO: add print staements for adjusted count
 {
     char upCard = dealer->getFirstCard();
     char first = player.getFirstCard();
     char second = player.getSecondCard();
     int playerValue = player.getValue();
     
-    //TODO: implement surrender later
+    //TODO: implement surrender or remove it
     /// Surrenders
     
     /// Splits
@@ -917,7 +916,7 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
             if(print) cout << "\n** Can't double. Always hit Soft 17 **\n";
             return 'h';
         }
-        if(playerValue == 16 && player.getNumCards()==2)  // TODO: Add how to play when more than 2 cards
+        if(playerValue == 16 && player.getNumCards()==2)
         {
             if(print) cout << "\n** Double soft 16 against dealer 4 through 6, otherwise hit **\n";
             if(upCard >= '4' && upCard <= '6') return 'd';
@@ -928,13 +927,13 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
             if(print) cout << "\n** Can't double. Always Hit soft 16 **\n";
             return 'h';
         }
-        if(playerValue == 15 && player.getNumCards()==2)  // TODO: Add how to play when more than 2 cards
+        if(playerValue == 15 && player.getNumCards()==2)
         {
             if(print) cout << "\n** Double soft 15 against dealer 4 through 6, otherwise hit **\n";
             if(upCard >= '4' && upCard <= '6') return 'd';
             else return 'h';
         }
-        if(playerValue == 15)  // TODO: Add how to play when more than 2 cards
+        if(playerValue == 15)
         {
             if(print) cout << "\n** Hit soft 15 when can't double **\n";
             return 'h';
@@ -945,12 +944,12 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)   
             if(upCard >= '5' && upCard <= '6') return 'd';
             else return 'h';
         }
-        if(playerValue == 14)  // TODO: Add how to play when more than 2 cards
+        if(playerValue == 14)
         {
             if(print) cout << "\n** Always hit soft 14 when can't double **\n";
             return 'h';
         }
-        if(playerValue == 13 && player.getNumCards()==2)  // TODO: Add how to play when more than 2 cards
+        if(playerValue == 13 && player.getNumCards()==2)
         {
             if(print) cout << "\n** Double soft 13 against dealer 5 or 6, otherwise hit **\n";
             if(upCard >= '5' && upCard <= '6') return 'd';
