@@ -20,7 +20,7 @@ public:
     void setBalance(int value) {_balance = value; }
     void addFunds( int value ) {_balance += value; }
     void removeFunds(int value) {(_balance-value<=0) ? _balance=0 : _balance-=value; }
-    void payBlackjack(int bet) { _balance += (bet * 3 / 2); }
+    int payBlackjack(int bet) { _balance += (bet * 3 / 2); return _balance; }
     void payWin(int bet) { _balance += bet; }
     ~Bank() {//std::cout << "Bank destructor called\n";
         
