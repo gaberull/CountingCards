@@ -27,9 +27,10 @@ Who doesn't love a good game of blackjack? ***CountingCards*** helps the player 
     - Double down
     - Strategy hint
     - Get current running count
-    - list rules
-    - surrender  **TODO:** Not implemented as of 8/5/22. Might not
-    - quit      
+    - List rules
+    - Surrender  **TODO:** Not implemented as of 8/5/22. Might not
+    - Add funds
+    - Quit      
 
 > **TODO:** Finish these rules (7/29/22)
 
