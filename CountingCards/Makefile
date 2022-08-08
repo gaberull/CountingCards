@@ -7,7 +7,7 @@ CC = g++
 
 CPPFLAGS = -Wall -g -std=gnu++17
 # dependencies:
-DEPS = dealer.hpp hand.hpp shoe.hpp
+DEPS = dealer.hpp hand.hpp shoe.hpp bank.hpp
 # object files:
 OBJ = main.o dealer.o hand.o shoe.o
 # symbol definitions:
