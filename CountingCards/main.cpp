@@ -120,7 +120,6 @@ int main(int argc, const char * argv[]) {
         return 1;
     }
     Bank* bank = new Bank(funds);
-    // TODO: get number of players from user, put it in Dealer constructor
     Dealer* dealer = new Dealer(numPlayers);        // 1 for 1 player
     
     // *****
