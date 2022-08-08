@@ -23,15 +23,15 @@ OBJ = main.o dealer.o hand.o shoe.o
 
 # $(CC) -c -o $@ $< $(CFLAGS)
 
+#%.o: %.cpp $(DEPS)
+#	$(CC) $(CPPFLAGS) -c $<
+
 # TODO: try *.o on counting rule instead of OBJ
 
 all: counting
 
 counting: $(OBJ)
 	$(CC) $(CPPFLAGS) -o counting $(OBJ)
-
-#%.o: %.cpp $(DEPS)
-#	$(CC) $(CPPFLAGS) -c $<
 
 main.o: main.cpp shoe.hpp bank.hpp dealer.hpp
 	$(CC) $(CPPFLAGS) -c $<
