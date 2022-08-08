@@ -8,7 +8,6 @@
 #include "shoe.hpp"
 #include "bank.hpp"
 #include "dealer.hpp"
-//#include "hand.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -18,7 +17,8 @@
 
 using namespace std;
 
-int main(int argc, const char * argv[]) {
+int main(int argc, const char * argv[])
+{
     cout << "Let's Play some Blackjack!! \n";
     cout << "\nEnter number of decks between 1 and 8 to play! \n";
     int numDecks = 0;

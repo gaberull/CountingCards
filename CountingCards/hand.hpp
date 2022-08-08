@@ -16,6 +16,7 @@ class Hand
     std::vector<char> cardArray;
     std::vector<char> suitArray;
     
+    //TODO: make these maps static
     std::unordered_map<uint8_t, char> cardMap;
     std::unordered_map<char, int> valueMap;
     std::unordered_map<uint8_t, char> suitMap;
@@ -33,7 +34,6 @@ class Hand
     friend std::ostream& operator<<(std::ostream& s, const Hand& hand);   // overload << operator
     
 public:
-    
     Hand();                                 // Default constructor
     Hand(const Hand& diffHand);             // Copy constructor
     Hand(uint8_t card1, uint8_t card2, int bet=0);     // 3 parameter constructor
@@ -56,9 +56,4 @@ public:
     
     Hand& operator= (const Hand& diffHand);       // overload = operator. returns *this for chaining purposes
     ~Hand();                                //Destructor
-    
-    
 };
-
-                                                
-// friend ostream& operator<<(ostream& s, const Hand& hand);

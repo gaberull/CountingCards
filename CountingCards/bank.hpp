@@ -6,9 +6,8 @@
 //
                                                             
 #pragma once
-                                            
-//#include <stdio.h>
 #include <iostream>
+
 class Bank
 {
 private:
@@ -23,8 +22,5 @@ public:
     int payBlackjack(int bet) { _balance += (bet * 3 / 2); return _balance; }
     void payWin(int bet) { _balance += bet; }
     ~Bank() { //std::cout << "Bank destructor called\n";
-    
     }
 };
-                                             
-                                                            

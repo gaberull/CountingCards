@@ -26,7 +26,6 @@ private:
     
     //friend std::ostream& operator<<(std::ostream& s, const Dealer& dealer);
 public:
-    
     explicit Dealer(int numPlayers);            // Contructor - using explicit to deny implicit conversion (char to int)
     bool hasBlackjack();                        // returns  whether or not this dealer's hand is blackjack
     int dealHands(Shoe* shoe, Bank* playerBank, int bet);       // Initial hand dealing to user and AI players, dealer
@@ -36,10 +35,4 @@ public:
     int hitPlayer(Hand& player, Shoe* shoe);
     char correctAction(Hand& player, Hand* dealer, int count=0, bool print=true); // returns correct action for any hands vs dealer card showing
     ~Dealer();                                  // Destructor
-    
-    
 };
-                                        
-
-
-
