@@ -7,13 +7,14 @@ counting
 # MacOS files
 .DS_Store
 
-#VSCode config files
+# VSCode config files
 .vscode
 
-## Xcode User settings
+# Xcode User settings
 xcuserdata/
 
 ######## ** C++ **  ######
+
 # Prerequisites
 *.d
 
