@@ -5,9 +5,9 @@
 ## Installation Instructions
 
 For Unix architecture (Mac or Linux):
-- Download folder containing source files: ./CountingCards
+- Download folder containing source files: ./CountingCards/
 - run Makefile with command: "make" or "make all"
-- run executable file with command: "./counting" 
+- run executable file named "counting" with command: "./counting" 
 - optional: run "make clean" after to remove object files and executable file
 
 ## TODO:
