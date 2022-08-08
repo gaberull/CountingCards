@@ -382,7 +382,7 @@ int Hand::hit(Shoe* shoe)
     x   -   value of hand after hit
  */
                                                         /*
-int Hand::doubleHand(Shoe* shoe, int bet)   // TODO: see if I used this. check about removing bet from bank and calling this from 'd' in action
+int Hand::doubleHand(Shoe* shoe, int bet)   // TODO: see if I need this. check about removing bet from bank and calling this from 'd' in action
 {
     if(bet != 0 )
     {
