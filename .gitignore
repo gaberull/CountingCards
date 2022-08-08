@@ -1,2 +1,3 @@
 *.o
 counting
+.DS_Store
