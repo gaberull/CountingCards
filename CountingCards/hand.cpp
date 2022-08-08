@@ -19,14 +19,12 @@ using namespace std;
  @brief
     Default Constructor
  */
-Hand::Hand()
+Hand::Hand()    //TODO: make maps static and const
 {
-    
     cardMap = { {0x01, 'A'}, {0x02, '2'},{0x03, '3'},{0x04, '4'},{0x05, '5'},{0x06, '6'},{0x07, '7'},{0x08, '8'},{0x09, '9'},{0x0A, 'T'},{0x0B, 'J'},{0x0C, 'Q'},{0x0D, 'K'} };
     valueMap = {{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'7',7},{'8',8},{'9',9},{'T',10},{'J',10},{'Q',10},{'K',10}};
     // Spades, Clubs, Hearts, Diamonds
     suitMap = { {0x01,'S'},{0x02,'C'},{0x03,'H'},{0x04,'D'} };
-    
     _card1 = 0x00;
     _card2 = 0x01;
     cardArray = std::vector<char>(2, '0');
@@ -60,8 +58,6 @@ Hand::Hand(const Hand& diffHand)
     {
         this->cardArray[i] = diffHand.cardArray[i];
     }
-    
-    //cardArray = std::vector<char>(diffHand.cardArray);
     this->suitArray = std::vector<char>(numCards);
     for(int i=0; i<numCards; i++)
     {
@@ -106,11 +102,8 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
     suitMap = { {0x01,'S'},{0x02,'C'},{0x03,'H'},{0x04,'D'} };
                                                                          
     uint8_t rank1 = card1 >> 4;
-    //cardArray[0] = cardMap[rank1];
-    
     uint8_t suit1 = card1 & 0x0F;
-    //suitArray[0] = suitMap[suit1];
-                                    
+    
     switch (rank1) {
         case 0x01:
             cardArray[0] = 'A';
@@ -179,6 +172,7 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
             if(_value <=10)
             {
                 _value +=11;
+                soft = true;    //TODO: double check this
             }
             else
             {
