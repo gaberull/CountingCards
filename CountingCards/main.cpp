@@ -6,7 +6,6 @@
 //  Copyright (c) 2022 Gabe Scott   -   MIT License
 //
 
-
 #include "shoe.hpp"
 #include "bank.hpp"
 #include "dealer.hpp"
@@ -126,6 +125,7 @@ int main(int argc, const char * argv[])
     
     // *****
     //TODO: add prompt to add more funds at start of new hand
+    // TODO: putting in wrong bet evalue twice breaks it
     // *****
     
     // Hands are dealt
