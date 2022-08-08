@@ -6,9 +6,10 @@
 
 For Unix architecture (Mac or Linux):
 - Download folder containing source files: ./CountingCards/
-- run Makefile with command: "make" or "make all"
+- In a terminal, naviage to source code folder
+- Run Makefile with command: "make" or "make all"
 - run executable file named "counting" with command: "./counting" 
-- optional: run "make clean" after to remove object files and executable file
+- optional: After, run "make clean" to remove object files and executable file
 
 ## TODO:
 
