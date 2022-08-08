@@ -316,7 +316,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             /// Hit the Hand
         case 'h': {
             //cout << "\nYOU CHOSE TO HIT! \n";
-            cout << "** Hitting player's hand **\n\n";
+            cout << "\n** Hitting player's hand **\n\n";
             player = hitPlayer(playerHand, shoe);
             if(player<0)   // player busts. money removed from bank and added to hand in dealHands()
             {
@@ -550,19 +550,18 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             cout << "Your hand value     " << playerHand.getValue() << "\n";
             this->correctAction(playerHand, dealerHand);
             handArray.push_back(playerHand);
-            cout << "\nInput 'c' to continue or 'q' to quit \n";    // TODO: check weird delay
+            cout << "\n***  Please choose the action you would like to take  ***\n";    // TODO: Maybe ask for action input
             char temp;
             cin >> temp;
             if(temp=='q' || temp=='Q') return -1;
-            while(!cin || (temp != 'c' && temp != 'C'))
+            if(!cin || (temp != 'h' && temp != 'p' && temp != 's' && temp != 'd' && temp != 'm' && temp != 'c' && temp != 'r' && temp != 'x'))
             {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Wrong Input. Enter 'C' or 'c' to continue. 'q' or 'Q' to quit\n";
-                cin >> temp;
-                if(temp=='q' || temp=='Q') return -1;
+                cout << "\nWrong Input. \n";
+                return Dealer::action(shoe, playerBank);
             }
-            return Dealer::action(shoe, playerBank);
+            return Dealer::action(shoe, playerBank, temp);
             break;
         }
         case 'c': {  // Current count of Deck
@@ -587,10 +586,21 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             cout << "   - The higher the count, the better  \n";
             cout << "   - The true count will be used later on  \n";
             cout << "*** The rest of the rule list has not yet been implemented as of 8/7/22. - Gabe \n\n";
-            cout << "Please select another option (after 3 second delay)\n";
-            std::chrono::seconds duration(3);
-            std::this_thread::sleep_for(duration);
+            
             handArray.push_back(playerHand);        // put hand back in vector of hands being played
+            
+            cout << "\nInput 'c' to continue or 'q' to quit \n";
+            char temp;
+            cin >> temp;
+            if(temp=='q' || temp=='Q') return -1;
+            while(!cin || (temp != 'c' && temp != 'C'))
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
+                cin >> temp;
+                if(temp=='q' || temp=='Q') return -1;
+            }
             return Dealer::action(shoe, playerBank);
             break;
         }
@@ -779,7 +789,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
     cout << "\n** Hand Showdown **\n";
     (dealerHand->getValue() > 0) ?
     cout << "\nDEALER Has         :    " << dealerHand->getHand() << "\n\n":
-    cout <<"\nDealer is BUST \n\n";
+    cout <<"\nDealer is BUST \n";   //TODO: maybe add \n
     
     int numYourHands = (int)patHands.size();
     for(int i=1; i<=numYourHands; i++)  // 1-indexed for purposes of printing
