@@ -54,7 +54,7 @@ bool Dealer::hasBlackjack()
     0   -   hand is finished
     -1  -   quit game
  */
-int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
+int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 - not showing dealer other card when everybody busts
 {
     delete dealerHand;
     handArray = std::vector<Hand>();    // TODO: these should reset arrays at each hand deal. Check if necessary
@@ -140,7 +140,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
         cout << "----------------------------- \n \n";
         
         // skip continue sequence showing twice when only 1 player and dealer has bj
-        if(_numPlayers == 1)    //FIXME: new
+        if(_numPlayers == 1)
         {
             //std::chrono::seconds duration(2);
             //std::this_thread::sleep_for(duration);
@@ -176,7 +176,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
             cout << "----------------------------- \n \n";
             
-            if(_numPlayers == 1)    //FIXME: new
+            if(_numPlayers == 1)
             {
                 //std::chrono::seconds duration(2);
                 //std::this_thread::sleep_for(duration);
@@ -216,7 +216,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             cout << "----------------------------- \n \n";
             
             // skip double continue sequence when 1 player (other in dealerAction() )
-            if(_numPlayers == 1)    //FIXME: new
+            if(_numPlayers == 1)
             {
                 //std::chrono::seconds duration(2);   // TODO: maybe remove this pause and from other 2 spots where it is
                 //std::this_thread::sleep_for(duration);
@@ -925,7 +925,7 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)
     
     if(player.getValue() == 21 )
     {
-        if(print) cout << "Of course STAND PAT on 21 !!! \n";
+        if(print) cout << "** Of course STAND PAT on 21 !!! **\n";
         return 'p';
     }
     
