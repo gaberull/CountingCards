@@ -9,7 +9,8 @@
 #include "shoe.hpp"
 #include <vector>
 #include <iostream>
-#include <time.h>
+#include <ctime>
+
 using namespace std;
                                                              
 /**
