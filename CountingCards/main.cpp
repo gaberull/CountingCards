@@ -159,6 +159,7 @@ int main(int argc, const char * argv[]) {
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     cout << "Wrong Input. Enter number to reload or 'q' to quit \n";
                     cin >> reload_str;
+                    if(reload_str[0] == 'q' || reload_str[0]=='Q') break;
                 }
                 int reload = (int) stol(reload_str);
                 if (reload > MAX_RELOAD) reload = MAX_RELOAD;
@@ -173,8 +174,8 @@ int main(int argc, const char * argv[]) {
             }
             cout << "\n****    NEW HAND    *****\n";
             
-            //cout << "Running count                           :  "<<shoe->getCount() << endl;  //TODO: remove this
-            //cout << "True count (ratio count:decks remaining):  "<<shoe->getTrueCount() << endl;  //TODO: remove this
+            //cout << "Running count                           :  "<<shoe->getCount() << "\n";
+            //cout << "True count (ratio count:decks remaining):  "<<shoe->getTrueCount() << "\n";
             
             cout << "\nPLEASE ENTER NEW BET  |  'q' to quit. \n";
             cin >> bet_str;
@@ -194,9 +195,10 @@ int main(int argc, const char * argv[]) {
         }
     }
     int net = bank->getBalance() - totalFunds;
-    /// EXIT SEQUENCE
+    
+    // EXIT SEQUENCE
     cout << "\nThanks for Playing!! \n";
-    cout << "_____________________________ \n \n";
+    cout << "_____________________________ \n\n";
     cout << "| TOTAL FUNDS ADDED    : $"<< totalFunds <<" \n";
     cout << "| BANKROLL             : $"<< bank->getBalance() <<" \n";
     cout << "----------------------------- \n";

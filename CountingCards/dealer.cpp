@@ -317,6 +317,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             /// Hit the Hand
         case 'h': {
             //cout << "\nYOU CHOSE TO HIT! \n";
+            cout << "** Hitting player's hand **\n\n";
             player = hitPlayer(playerHand, shoe);
             if(player<0)   // player busts. money removed from bank and added to hand in dealHands()
             {
@@ -357,7 +358,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             break;
         }
             /// Split the hand - must be a pair. We don't end on split, so it won't return a 0 or 1. Only calls action again.
-            //TODO: pay blackjack on split
+            //FIXME: split may not be working correctly 8/7/22
         case 's': {  //Player splits a pair. Must double bet OR add remainder of bankroll to bet
             cout << "\nPlayer Splits \n";
             if(!playerHand.isSplittable())
@@ -488,6 +489,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             cout << "----------------------------- \n \n";
             
             // add one and only one card to player's hand. Then it is pat. or bust.
+            cout << "** Doubling player's hand **\n\n";
             player = hitPlayer(playerHand, shoe);
             playerHand.setPat(true);
             
@@ -769,7 +771,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
         (dealerScore<0) ? cout << "Against Dealer's Busted Hand \n" : cout << "Against Dealer's   :    " << dealerScore << "\n";
         if(playerHand.getValue() < dealerScore)  // player loses
         {
-            cout << "You have lost your bet of $" << playerHand.getBet() << "\n\n"; //TODO: test this double '\n' on this line and lines below
+            cout << "YOU LOST your bet of $" << playerHand.getBet() << "\n\n"; //TODO: test this double '\n' on this line and lines below
         }
         else if(playerHand.getValue() == dealerHand->getValue())    // player ties
         {
@@ -778,7 +780,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
         }
         else // player wins (not with blackjack)
         {
-            cout << "You win $" << playerHand.getBet() << "!!!\n\n";
+            cout << "YOU WIN $" << playerHand.getBet() << "!!!\n\n";
             playerBank->addFunds(playerHand.getBet()*2);
         }
         // TODO: only print this on final hand of user
@@ -836,7 +838,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
 int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even need this function - only outputs text.
 {
     //Hand dealer = *(dealerHand);
-    cout << "** Hitting player's hand **\n\n";
+    //cout << "** Hitting player's hand **\n\n";
     cout << "Player has         :    " << player.getHand() <<  "      Initially\n";
     std::chrono::seconds duration(2);
     std::this_thread::sleep_for(duration);
