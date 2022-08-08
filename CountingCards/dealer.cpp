@@ -3,6 +3,7 @@
 //  CountingCards
 //
 //  Created by Gabe Scott on 7/25/22.
+//  Copyright (c) 2022 Gabe Scott   -   MIT License
 //
 
 #include <thread>   // for sleep_for
