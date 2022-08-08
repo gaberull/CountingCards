@@ -2,7 +2,16 @@
 
 ### A blackjack Game by Gabe Scott
 
-## Documentation TODO:
+## Installation Instructions
+
+For Unix architecture (Max or Linux):
+- Download folder containing source files: ./CountingCards
+- run Makefile with command: "make" or "make all"
+- run executable file with command: "./counting" 
+- optional: run "make clean" after to remove object files and executable file
+
+## TODO:
+
 - [ ] complete the features list below
 - [ ] complete the blackjack rules list below
 - [ ] complete info on counting cards in general
