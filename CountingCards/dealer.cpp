@@ -473,11 +473,22 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             cout << "Player gets one additional card and doubles bet \n";
             
             int newBet = playerHand.getBet();// = playerHand.getBet();
-            if(playerBank->getBalance() < newBet)
+            if(playerBank->getBalance() == 0)
+            {
+                cout << "You have no more money. Just hit instead. Doubling is a losing play now\n";
+                cout << "Choose hit from the menu \n";
+                handArray.push_back(playerHand);
+                // pause for user to take in action
+                std::chrono::seconds duration(3);
+                std::this_thread::sleep_for(duration);
+                return Dealer::action(shoe, playerBank);
+            }
+            else if(playerBank->getBalance() < newBet)
             {
                 cout << "Player doesn't have enough to double bet. Player adds their roll to bet of $"<< playerBank->getBalance() <<" to hand. \n";
                 newBet = playerBank->getBalance();
             }
+            
             //doubleHand( newbet
             playerBank->removeFunds(newBet);
             
@@ -837,8 +848,6 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)  //TODO: don't need to re
  */
 int Dealer::hitPlayer(Hand& player, Shoe* shoe)  //TODO: Check and see if I even need this function - only outputs text.
 {
-    //Hand dealer = *(dealerHand);
-    //cout << "** Hitting player's hand **\n\n";
     cout << "Player has         :    " << player.getHand() <<  "      Initially\n";
     std::chrono::seconds duration(2);
     std::this_thread::sleep_for(duration);
