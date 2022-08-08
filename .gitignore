@@ -1,3 +1,8 @@
+# object files
 *.o
+
+# make file compiled executable output
 counting
+
+# MacOS files
 .DS_Store
