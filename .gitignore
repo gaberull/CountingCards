@@ -6,3 +6,7 @@ counting
 
 # MacOS files
 .DS_Store
+
+#VSCode config files
+.vscode
+
