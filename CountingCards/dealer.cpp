@@ -134,7 +134,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
     {
         handArray.pop_back();
         cout << "Dealer Has         :    " << dealerHand->getHand() << "\n";
-        cout << "\nThat lucky buffoon has BLACKJACK.. Got us this time.. \n\n";   //FIXME: too much displayed when dealer wins here heads up
+        cout << "\n** That lucky buffoon has BLACKJACK.. Got us this time..  **\n\n";   //FIXME: too much displayed when dealer wins here heads up
         cout << "_____________________________ \n \n";
         cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
         cout << "----------------------------- \n \n";
@@ -142,8 +142,8 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
         // skip continue sequence showing twice when only 1 player and dealer has bj
         if(_numPlayers == 1)    //FIXME: new
         {
-            std::chrono::seconds duration(2);
-            std::this_thread::sleep_for(duration);
+            //std::chrono::seconds duration(2);
+            //std::this_thread::sleep_for(duration);
             return 0;
         }
         
@@ -178,8 +178,8 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             
             if(_numPlayers == 1)    //FIXME: new
             {
-                std::chrono::seconds duration(2);
-                std::this_thread::sleep_for(duration);
+                //std::chrono::seconds duration(2);
+                //std::this_thread::sleep_for(duration);
                 return 0;
             }
             
@@ -218,8 +218,8 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)
             // skip double continue sequence when 1 player (other in dealerAction() )
             if(_numPlayers == 1)    //FIXME: new
             {
-                std::chrono::seconds duration(2);   // TODO: maybe remove this pause and from other 2 spots where it is
-                std::this_thread::sleep_for(duration);
+                //std::chrono::seconds duration(2);   // TODO: maybe remove this pause and from other 2 spots where it is
+                //std::this_thread::sleep_for(duration);
                 return 0;
             }
             
@@ -428,17 +428,11 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                 // subtract bet again from bank. Betting 2x original bank now
                 playerBank->removeFunds(playerHand.getBet());
                 Hand newHand = playerHand.split(shoe);    // this will change playerHand and create newHand
-
-                
                 
                 cout << "\nHand 1             :    " << playerHand.getHand() <<"  bet: $"<<playerHand.getBet()<< "\n";
                 cout << "\nHand 2             :    " << newHand.getHand() <<"  bet: $"<<playerHand.getBet()<< "\n";
                 
-                //TODO: PUT PAUSE HERE IF BJ ONLY
-                
-                
                 bool bjflag = false;
-                
                 handArray.push_back(playerHand);
                 if(playerHand.isBlackjack())
                 {
