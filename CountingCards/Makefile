@@ -30,7 +30,19 @@ all: counting
 counting: $(OBJ)
 	$(CC) $(CPPFLAGS) -o counting $(OBJ)
 
-%.o: %.cpp $(DEPS)
+#%.o: %.cpp $(DEPS)
+#	$(CC) $(CPPFLAGS) -c $<
+
+main.o: main.cpp shoe.hpp bank.hpp dealer.hpp
+	$(CC) $(CPPFLAGS) -c $<
+
+dealer.o: dealer.cpp dealer.hpp shoe.hpp hand.hpp bank.hpp
+	$(CC) $(CPPFLAGS) -c $<
+
+hand.o: hand.cpp shoe.hpp hand.hpp 
+	$(CC) $(CPPFLAGS) -c $<
+
+shoe.o: shoe.cpp shoe.hpp
 	$(CC) $(CPPFLAGS) -c $<
 
 clean:
