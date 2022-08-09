@@ -25,15 +25,15 @@ Note: Instructions 1-4 are only for those who haven't done any software developm
 
 5. Drag this entire folder (CountingCards) to the Desktop from downloads folder
 
-6. input command into terminal:    cd Desktop
+6. input command into terminal:    cd Desktop/CountingCards
 
 optional: hold command and hit the plus key (+) whhile in terminal multiple times to make text bigger to your liking
 
 7. input command into terminal:    make
 
-9. input command into terminal:    clear
+8. input command into terminal:    clear
 
-10. input command into terminal:    ./counting     
+9. input command into terminal:    ./counting     
    OR   
    look for executable in the folder called "counting" and double click it.
 
