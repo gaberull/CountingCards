@@ -13,10 +13,7 @@ Who doesn't love a good game of blackjack? ***CountingCards*** helps the player 
 For Unix architecture (Mac or Linux):
 - Download folder containing source files: ./CountingCards/
 - In a terminal, naviage to source code folder
-- Run Makefile with command: 
-> make 
-or 
-> make all
+- Run Makefile with command: "make" or "make all"
 - run executable file named "counting" with command: "./counting" 
 - optional: After, run "make clean" to remove object files and executable file
 - **If you have limited/no developer experince, and haven't installed command line tools before, open INSTRUCTIONS.txt and follow the more detailed instructions to compile the code**
