@@ -76,6 +76,7 @@ For Unix architecture (Mac or Linux):
 - Players act before the dealer acts
 - Players attempt to get the better score between him/herself and the dealer, up to 21, without going over . 
 - Aces can be worth 11 or 1 points, with the better of the two options applying automatically. 
+- A hand that wins is paid 1:1, unless it is a blackjack, which pays 3:2
 - For this particular implementation of Blackjack, dealer will stand on both soft and hard 17s and any hand with better than 17 points.
 
 For more information about blackjack rules see [Bicycle's Blackjack Rules](https://bicyclecards.com/how-to-play/blackjack/).
