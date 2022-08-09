@@ -16,18 +16,11 @@ using namespace std;
 /**
  @brief
     Default constructor. Should be private and unable
-    to be called, hence why it's commented out.
+    to be called
  */
 Shoe::Shoe()
 {
-                                        /*
-    int _numDecks = 1;
-    int _cardsRemaining = 0;
-    int _cutPoint = 52;
-    int _count = 0;
-    bool _endOfShoe = false;
-    fullShoe = std::vector<uint8_t>(52, 0x00);
-                                         */
+    
 }
 
 /**
@@ -93,19 +86,19 @@ Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
                 cardMask = 0x40;    // Four
                 break;
             case 4:
-                cardMask = 0x50;    // five
+                cardMask = 0x50;    // Five
                 break;
             case 5:
-                cardMask = 0x60;    // six
+                cardMask = 0x60;    // Six
                 break;
             case 6:
-                cardMask = 0x70;    // seven
+                cardMask = 0x70;    // Seven
                 break;
             case 7:
-                cardMask = 0x80;    // eight
+                cardMask = 0x80;    // Eight
                 break;
             case 8:
-                cardMask = 0x90;    // nine
+                cardMask = 0x90;    // Nine
                 break;
             case 9:
                 cardMask = 0xA0;    // Ten
@@ -122,7 +115,6 @@ Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
             default:    // default case won't be hit
                 break;
         };
-        
         // Suit switch statement
         switch (i%4) {
             case 0:
@@ -157,9 +149,6 @@ Shoe::Shoe(int numDecks, int cutPoint): _numDecks(numDecks)
  */
 uint8_t Shoe::dealCard()
 {
-    
-    //cout << "-- cards remaining == " << getCardsRemaining() << "\n";  // debug line
-    
     // seed random number generator
     srand((unsigned int)std::time(0));
     int i = 0;
@@ -173,9 +162,9 @@ uint8_t Shoe::dealCard()
     {
         i = rand() % _cardsRemaining;
     }
-       // c4 in 167, 415 is d4
     uint8_t ret = fullShoe[i];
     // keeping count of the deck. High cards vs low cards
+    // seeing low card adds 1 to count, high card subtracts
     switch(ret>>4)
     {
         case 0x01:
@@ -235,7 +224,7 @@ uint8_t Shoe::dealCard()
     {
         swap(fullShoe[i], fullShoe[_cardsRemaining-1]);
     }
-    else
+    else    // no cards left. count is neutral
     {
         _count = 0;
         _aceCount = 0;
@@ -292,7 +281,6 @@ float Shoe::getTrueCount()
     {
         return 0.00;
     }
-
     decksLeft = _cardsRemaining/52.0;
     ret = _count / decksLeft;
     // round to 2 decimals
