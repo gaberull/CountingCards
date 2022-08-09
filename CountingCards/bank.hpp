@@ -3,9 +3,9 @@
 //  CountingCards
 //
 //  Created by Gabe Scott on 7/25/22.
-//  Copyright (c) 2022 Gabe Scott   -   MIT License
+//  Copyright (c) 2022 Gabe Scott
 //
-                                                            
+
 #pragma once
 #include <iostream>
 
