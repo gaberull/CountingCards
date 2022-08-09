@@ -59,9 +59,9 @@ int main(int argc, const char * argv[])
     int totalFunds = 0;    //track all funds added for end profit/loss
     // Starting player balance
     int funds = 0;
-    cout << "\nHow much money will you put on the table? (enter 100 to 1000) \n";
+    cout << "\nHow much money will you put on the table? (enter 100 to " << MAX_RELOAD<< ")\n";
     cin >> funds;
-    while(!cin || funds < 100 || funds > 1000)
+    while(!cin || funds < 100 || funds > MAX_RELOAD)
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -88,7 +88,8 @@ int main(int argc, const char * argv[])
     
     bet = (int) stol(bet_str);
     
-    // Try-Catch statements I probably won't use
+    // Try-Catch statements that I probably won't use
+    // TODO: remove these
                                                             /* Try,Catch
     // allocate new shoe, bank, and dealer on heap
     Shoe* shoe = nullptr;
@@ -123,12 +124,12 @@ int main(int argc, const char * argv[])
     Bank* bank = new Bank(funds);
     Dealer* dealer = new Dealer(numPlayers);        // 1 for 1 player
     
-    // *****
+    //
     //TODO: add prompt to add more funds at start of new hand
-    // TODO: putting in wrong bet evalue twice breaks it
-    // *****
+    // TODO: putting in wrong bet value twice breaks it - from M testing 8/8/22
+    //
     
-    // Hands are dealt
+    // Hands are dealt  --------------------------------------------------------
     int handContinues = 0;   // -1 == quit, 0 == hand done, 1 == hand ongoing
     handContinues = dealer->dealHands(shoe, bank, bet);
     while(handContinues>-1) // while quit hasn't been requested
@@ -191,8 +192,8 @@ int main(int argc, const char * argv[])
             }
             bet = (int) stol(bet_str);
             handContinues = dealer->dealHands(shoe, bank, bet);
-            //cout << "Running count is "<<shoe->getCount() << endl;  //TODO: remove this
-            //cout << "True count (ratio) is "<<shoe->getTrueCount() << endl;  //TODO: remove this
+            //cout << "Running count is "<<shoe->getCount() << endl;
+            //cout << "True count (ratio) is "<<shoe->getTrueCount() << endl;
         }
     }
     int net = bank->getBalance() - totalFunds;
@@ -207,16 +208,10 @@ int main(int argc, const char * argv[])
     cout << "| NET WIN/LOSS         : $"<< net <<" \n\n":
     cout << "| NET WIN/LOSS         : -$"<< net*-1 <<" \n\n";
     
-    // Unallocate heap memory
+    // De-allocate heap memory
     delete shoe;
     delete dealer;
     delete bank;
     
     return 0;
 }
-
-/*
-cout << "_____________________________ \n \n";
-cout << "| BANKROLL     : $"<< bank.getBalance() <<" \n";
-cout << "| CURRENT BET  : $"<< bet << "  \n";
-cout << "----------------------------- \n \n";                  */
