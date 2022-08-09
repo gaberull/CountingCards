@@ -211,8 +211,6 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
             // skip double 'c' to continue sequence when 1 player (other in dealerAction() )
             if(_numPlayers == 1)
             {
-                //std::chrono::seconds duration(2);   // TODO: maybe remove this pause and from other 2 spots where it is
-                //std::this_thread::sleep_for(duration);
                 return 0;
             }
             
@@ -557,9 +555,9 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "\nWrong Input. \n";
-                return Dealer::action(shoe, playerBank);
+                return Dealer::action(shoe, playerBank);    // show menu again
             }
-            return Dealer::action(shoe, playerBank, temp);
+            return Dealer::action(shoe, playerBank, temp);  // don't show menu again - should still be visible above
             break;
         }
             // Get Current count of Deck
