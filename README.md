@@ -10,7 +10,7 @@ For Unix architecture (Mac or Linux):
 - Run Makefile with command: "make" or "make all"
 - run executable file named "counting" with command: "./counting" 
 - optional: After, run "make clean" to remove object files and executable file
-- **If you have no developer experince, and haven't installed command line tools before, open INSTRUCTIONS.txt and follow the more detailed instructions to compile the code**
+- **If you have limited/no developer experince, and haven't installed command line tools before, open INSTRUCTIONS.txt and follow the more detailed instructions to compile the code**
 
 ## TODO:
 
@@ -58,14 +58,26 @@ Who doesn't love a good game of blackjack? ***CountingCards*** helps the player 
     - Quit  
 - Net session results are displayed at end of game, when the quit option is requested    
 
+## Blackjack Terminology
+
+- Blackjack - A two card hand that contains exactly one ace, and one hand counting for 10 points (King, Queen, Jack, or Ten). This pays out at a ratio of 3:2.
+- Dealer - The person distributing hands to all the players and him/herself.
+- Bust, busted - When a hand goes over 21 and is now dead.
+- Soft Hand - A hand that contains at least one ace still counting for 11 points. Since Aces can count for either 1 or 11 points, this hand has no chance of busting by taking a card.
+- Hard, hard hand - A hand that does not have any aces counting for 11 in it. It can either contain aces or not.  
+- Shoe - the box that holds the deck(s) that the cards are being distributed from.
+- Hit, hitting - Taking a card from the shoe.
+- Double, doubling down - The action of doubling the bet on a hand and taking just one card. This hand's action is now complete.
+- Split, splitting - The action of splitting a pair in a hand into two hands, with each hand then receiving one card. The original bet is doubled and then split between the two hands.
+- Standing, standing pat - when a player has not busted, and will not be taking any more cards. The action for that hand is complete. 
+- Count - The positive or negative value that is calculated by adding one for high cards, and subtracting one for low cards. A higher count is better for the player, because a deck full of high cards works in the player's favor, due to a higher payout when hitting blackjack.
 
 ## Game of Blackjack Rules
 
-- Player attempts to get the better score between him/herself and the dealer, up to 21, without going over. 
-- Player acts before the dealer
-- Aces can be worth 11 or 1 at the player's discretion. (In CountingCards, the optimal of the two is automatically awarded)
-- Pairs can be split by matching the size of the original bet. They then become two hands.
-- For this particular implementation of Blackjack, dealer will stand on both soft and hard 17s
+- Players act before the dealer acts
+- Players attempt to get the better score between him/herself and the dealer, up to 21, without going over . 
+- Aces can be worth 11 or 1 points, with the better of the two options applying automatically. 
+- For this particular implementation of Blackjack, dealer will stand on both soft and hard 17s and any hand with better than 17 points.
 
 For more information about blackjack rules see [Bicycle's Blackjack Rules](https://bicyclecards.com/how-to-play/blackjack/).
 
@@ -99,7 +111,7 @@ For more information about blackjack rules see [Bicycle's Blackjack Rules](https
 
 **(8/7/22):** 
 
-- GUI : In the near future, I will create a GUI and full mobile game using **React Native**, connecting it to the C++ backend. Ideally, the use of React should make it very portable, and able to run on multiple platforms without much modification from one to the next.
+- GUI : I'm current working on a GUI and full mobile game using **React Native**, connecting it to the C++ backend. Ideally, the use of React should make it very portable, and able to run on multiple platforms without much modification from one to the next.
 - Add in ability for player to play multiple hands, reduce total players to 5
 
 ### References:
@@ -114,16 +126,3 @@ For more information about blackjack rules see [Bicycle's Blackjack Rules](https
 
 - [Rounding Floating Point int C++ - G4G](https://www.geeksforgeeks.org/rounding-floating-point-number-two-decimal-places-c-c/) for using implicit int conversion to round a float to 2 digits
 - [Markdown Basic Syntax - markdownguide.org](https://www.markdownguide.org/basic-syntax/#link-best-practices)
-
-### License Information:
-
-MIT License
-
-Copyright (c) 2022 Gabe Scott
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
