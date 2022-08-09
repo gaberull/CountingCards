@@ -14,6 +14,7 @@
 #include <utility>
 #include <string>
 #include <vector>
+
 using namespace std;
 
 /**
@@ -53,8 +54,8 @@ Hand::Hand(const Hand& diffHand)
     this->_card1 = diffHand._card1;
     this->_card2 = diffHand._card2;
     this->numCards = diffHand.numCards;
-    
     this->cardArray = vector<char>(numCards);
+    
     for(int i=0; i<numCards; i++)
     {
         this->cardArray[i] = diffHand.cardArray[i];
@@ -233,7 +234,6 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
     }
     
     suitArray[1] = suitMap[suit2];
-    
     if(cardArray[0]==cardArray[1])
     {
         splittable = true;
@@ -348,7 +348,6 @@ int Hand::hit(Shoe* shoe)
         {
             value = 1;
         }
-        //(_value <= 10) ? value = 11 : value = 1;
     }
     
     _value += value;
@@ -360,7 +359,6 @@ int Hand::hit(Shoe* shoe)
             soft = false;
         }
     }
-    
     if(_value > 21)
     {
         _value = -1;
@@ -393,7 +391,6 @@ int Hand::doubleHand(Shoe* shoe, int bet)   // TODO: see if I need this. check a
     return ret;
 }
                                                          */
-
 /**
  @brief
     get bet currently placed on this hand
@@ -414,15 +411,17 @@ void Hand::setBet(int bet)
 /**
  @brief
     Splits a hand containing 2 cards, both of same symbol. Suit doesn't matter.
+ @discussion
+    Hand is checked that it is splittable before split() is called - in action()
  @returns Hand
     a new hand. **Also sets the original hand to be a new hand!!** (Important)
  */
 Hand Hand::split(Shoe* shoe)        //TODO: should I return pointer? reference? (prolly not reference)
 {
-    // checked that it is splittable before it is called in action()
-
-    // Create two whole new hands using constructor w/ 2 card arguments
+    /* checks that it is splittable before it is called in action() */
+    
     int bet = this->getBet();
+    // Create two whole new hands using constructor w/ 2 card arguments
     Hand newHand1(this->_card1, shoe->dealCard(), bet);
     Hand newHand2(this->_card2, shoe->dealCard(), bet);
     this->_card1 = newHand1._card1;
