@@ -2,6 +2,12 @@
 
 ### A blackjack Game by Gabe Scott
 
+## Summary
+
+Who doesn't love a good game of blackjack? ***CountingCards*** helps the player learn blackjack gameplay and basic strategy, provides a fun way to practice keeping the count of the deck, offers advice on adjusting your bet and adjusting strategy based on the count of the deck. This game will be a fun way to help the you bring your best game to the casino or a blackjack game with friends. 
+
+***This game will help the user to win money at the casino, or at the very least, limit their losses***
+
 ## Installation Instructions
 
 For Unix architecture (Mac or Linux):
@@ -21,15 +27,8 @@ For Unix architecture (Mac or Linux):
 - [ ] **Remove this list and section**
 - [ ] add ability for player to play multiple hands
 - [ ] figure out where to put/remove **Notes:**:
-
     - ***Source files are in ./CountingCards/***   (probably keep this one)
     - dimensions of screenshot images: 91 x 28
-
-## Summary
-
-Who doesn't love a good game of blackjack? ***CountingCards*** helps the player learn blackjack gameplay and basic strategy, provides a fun way to practice keeping the count of the deck, offers advice on adjusting your bet and adjusting strategy based on the count of the deck. This game will be a fun way to help the you bring your best game to the casino or a blackjack game with friends. 
-
-***This game will help the user to win money at the casino, or at the very least, limit their losses***
 
 ## Features of CountingCards
 
@@ -83,7 +82,7 @@ For more information about blackjack rules see [Bicycle's Blackjack Rules](https
 
 ### Some info on card counting in the game of Blackjack
 
-- first item
+- **TODO: fill out these items**
 
 ## Screenshots
 
