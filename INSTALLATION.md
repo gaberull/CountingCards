@@ -7,7 +7,8 @@ Instructions 1-4 are only for those who haven't done any software development, a
 
 1. Open terminal (hold command and hit spacebar, type terminal)
 2. Copy the following line (cmd+c) and paste it into terminal (cmd+v):
-> /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+``` /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" ```
 
 ***This will take a few min to complete***
 
@@ -16,26 +17,31 @@ Instructions 1-4 are only for those who haven't done any software development, a
    - Possibly enter again (when prompted)
 
 4. Input command into terminal:
-> brew install gcc
+
+ ``` brew install gcc ```
 
 ***This will also take a few min***
 
 5. Drag the entire ./CountingCards/ folder to the Desktop from downloads folder
 
 6. Input command into terminal:
-> cd Desktop/CountingCards/
+
+``` cd Desktop/CountingCards/ ```
 
 *optional: hold command and hit the plus key (+) whhile in terminal multiple times to make text bigger to your liking*
 
 7. Input command into terminal: 
-> make
+
+``` make ```
 
 8. Input command into terminal:
-> clear
+
+``` clear ```
 
 9. Input command into terminal:
-> ./counting
+
+``` ./counting ```
 **OR**
-look for executable in the folder called "counting" and double click it
+look for executable file in the folder called "counting" and double click it. It will be the one without a file extension.
 
 **Enjoy the game!!!**
