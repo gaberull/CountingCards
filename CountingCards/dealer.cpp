@@ -576,16 +576,30 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
         }
             // List Rules
         case 'r': {        // TODO: implement listing of blackjack rules
+            
             cout << "\n** Player Requests a list of the rules  **\n\n";
-            cout << "* Dealer hits until he has 17 or better  \n";
-            cout << "* Dealer stands on Soft 17s  \n";
+            cout << "Some Terminology:\n\n";
+            cout <<"|Blackjack| - A two card hand that contains exactly one ace, and one hand counting for 10 points (King, Queen, Jack, or Ten). This pays out at 3:2\n";
+            
+            cout <<"\n|Dealer| - The person distributing hands to all the players and him/herself\n";
+            cout <<"\n|Bust, busted| - When a hand goes over 21 and is now dead\n";
+            cout <<"\n|Soft Hand| - A hand that contains at least one ace still counting for 11 points. Since Aces can count for either 1 or 11 points, this hand has no chance of busting by taking a card\n";
+            cout <<"\n|Hard, hard hand| - A hand that does not have any aces counting for 11 in it. It can either contain aces or not\n";
+            cout <<"\n|Shoe| - the box that holds the deck(s) that the cards are being distributed from.\n";
+            cout <<"\n|Hit, hitting| - Taking a card from the shoe\n";
+            cout <<"\n|Double, doubling down| - The action of doubling the bet on a hand and taking just one card. This hand's action is now complete\n";
+            cout <<"\n|Split, splitting hand| - The action of splitting a pair in a hand into two hands, with each hand then receiving one card. The original bet is doubled and then split between the two hands\n";
+            cout <<"\n|Standing, standing pat| - when a player has not busted, and will not be taking any more cards. The action for that hand is complete\n";
+            cout <<"\n|Count| - The positive or negative value that is calculated by adding one for high cards, and subtracting one for low cards. A higher count is better for the player, because a deck full of high cards works in the player's favor, due to a higher payout when hitting blackjack\n";
+            
+            cout << "\n Other Info: \n";
+            cout << "* Dealer hits until he has 17 or better (stands on soft 17s) \n";
             cout << "* The running count is calculated as follows:  \n";
             cout << "   - high cards add 1 to count  \n";
             cout << "   - low cards subtract 1 from count  \n";
             cout << "   - The true count is ratio running count to decks remaining  \n";
             cout << "   - The higher the count, the better  \n";
-            cout << "   - The true count will be used later on  \n";
-            cout << "*** The rest of the rule list has not yet been implemented as of 8/7/22. - Gabe \n\n";
+            cout << "   - True count is used to adjust bet sizing and specific hand actions\n"; //TODO: implement this
             
             handArray.push_back(playerHand);        // put hand back in vector of hands being played
             
