@@ -10,7 +10,7 @@ Instructions 1-4 are only for those who haven't done any software development, a
 
 ``` /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" ```
 
-***This will take a few min to complete***
+   ***This will take a few min to complete***
 
 3. - Hit enter again (when prompted) to confirm installation
    - Enter computer password when prompted
@@ -20,7 +20,7 @@ Instructions 1-4 are only for those who haven't done any software development, a
 
  ``` brew install gcc ```
 
-***This will also take a few min***
+   ***This will also take a few min***
 
 5. Drag the entire ./CountingCards/ folder to the Desktop from downloads folder
 
