@@ -59,17 +59,17 @@ For Unix architecture (Mac or Linux):
 
 ## Blackjack Terminology
 
-- Blackjack - A two card hand that contains exactly one ace, and one hand counting for 10 points (King, Queen, Jack, or Ten). This pays out at a ratio of 3:2.
-- Dealer - The person distributing hands to all the players and him/herself.
-- Bust, busted - When a hand goes over 21 and is now dead.
-- Soft Hand - A hand that contains at least one ace still counting for 11 points. Since Aces can count for either 1 or 11 points, this hand has no chance of busting by taking a card.
-- Hard, hard hand - A hand that does not have any aces counting for 11 in it. It can either contain aces or not.  
-- Shoe - the box that holds the deck(s) that the cards are being distributed from.
-- Hit, hitting - Taking a card from the shoe.
-- Double, doubling down - The action of doubling the bet on a hand and taking just one card. This hand's action is now complete.
-- Split, splitting - The action of splitting a pair in a hand into two hands, with each hand then receiving one card. The original bet is doubled and then split between the two hands.
-- Standing, standing pat - when a player has not busted, and will not be taking any more cards. The action for that hand is complete. 
-- Count - The positive or negative value that is calculated by adding one for high cards, and subtracting one for low cards. A higher count is better for the player, because a deck full of high cards works in the player's favor, due to a higher payout when hitting blackjack.
+- ***Blackjack*** - A two card hand that contains exactly one ace, and one hand counting for 10 points (King, Queen, Jack, or Ten). This pays out at a ratio of 3:2.
+- ***Dealer*** - The person distributing hands to all the players and him/herself.
+- ***Bust, busted*** - When a hand goes over 21 and is now dead.
+- ***Soft Hand*** - A hand that contains at least one ace still counting for 11 points. Since Aces can count for either 1 or 11 points, this hand has no chance of busting by taking a card.
+- ***Hard, hard hand*** - A hand that does not have any aces counting for 11 in it. It can either contain aces or not.  
+- ***Shoe*** - the box that holds the deck(s) that the cards are being distributed from.
+- ***Hit, hitting*** - Taking a card from the shoe.
+- ***Double, doubling down*** - The action of doubling the bet on a hand and taking just one card. This hand's action is now complete.
+- ***Split, splitting hand*** - The action of splitting a pair in a hand into two hands, with each hand then receiving one card. The original bet is doubled and then split between the two hands.
+- ***Standing, standing pat*** - when a player has not busted, and will not be taking any more cards. The action for that hand is complete. 
+- ***Count*** - The positive or negative value that is calculated by adding one for high cards, and subtracting one for low cards. A higher count is better for the player, because a deck full of high cards works in the player's favor, due to a higher payout when hitting blackjack.
 
 ## Game of Blackjack Rules
 
