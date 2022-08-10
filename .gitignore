@@ -42,3 +42,6 @@ xcuserdata/
 *.la
 *.a
 *.lib
+
+# Specific files for my benefit
+WINDOWS_instructions.txt
