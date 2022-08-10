@@ -82,7 +82,8 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
     playerBank->removeFunds(bet);
     bool blackjack = false;
     
-    std::cout << "\n** Dealing Cards **\n";
+    cout << "\n";
+    cout << "<<<<<<  Dealing Cards  >>>>>>" << endl;
     
     Hand playerHand = Hand(shoe->dealCard(), shoe->dealCard(), bet);
     blackjack = playerHand.isBlackjack();
@@ -147,7 +148,9 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
         }
         
         //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
-        cout << "\nInput 'c' to continue or 'q' to quit \n";
+        cout << "\n";
+        cout << "~~~~~  'c' - Continue | 'q' - Quit   ~~~~~" << endl;
+        //cout << "\nInput 'c' to continue or 'q' to quit \n";
         char temp;
         cin >> temp;
         while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
@@ -181,7 +184,9 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
             }
 
             //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
-            cout << "\nInput 'c' to continue or 'q' to quit \n";
+            cout << "\n";
+            cout << "~~~~~  'c' - Continue | 'q' - Quit   ~~~~~" << endl;
+            //cout << "\nInput 'c' to continue or 'q' to quit \n";
             char temp;
             cin >> temp;
             while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
@@ -201,10 +206,13 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
             playerBank->payBlackjack(bet);
             int win = bet * 3/2;
             string win_str = std::to_string(win);
-            cout << "****   You hit a BLACKJACK!!!  You Win $" << win_str << "  ****\n\n";
-            cout << "--------------------";
-            cout << "  You win "<< win_str << "   |\n\n";
-            cout << "--------------------";
+            //cout << "****   You hit a BLACKJACK!!!  You Win $" << win_str << "  ****\n\n";
+            cout << "*** You hit a BLACKJACK!!! ***\n";
+            cout << "--------------------\n";
+            cout << "You win "<< win_str << "!!      |\n";
+            cout << "--------------------\n\n";
+            
+            
             handArray.pop_back();
             //cout << "Dealer Has         :    " << dealerHand->getHand() << "\n\n";
             cout << "_____________________________ \n \n";
@@ -218,7 +226,9 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
             }
             
             //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
-            cout << "\nInput 'c' to continue or 'q' to quit \n";
+            //cout << "\nInput 'c' to continue or 'q' to quit \n";
+            cout << "\n";
+            cout << "~~~~~  'c' - Continue | 'q' - Quit   ~~~~~" << endl;
             char temp;
             cin >> temp;
             while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
@@ -331,7 +341,11 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
         }
             // Hit the Hand
         case 'h': {
-            cout << "\n** Hitting player's hand **\n\n";
+            cout << "\n";
+            cout << "<<<<  Hitting Player's Hand  >>>>" << endl;
+            cout << "\n";
+            
+            //cout << "\n** Hitting player's hand **\n\n";
             player = hitPlayer(playerHand, shoe);
             if(player<0)   // player busts
             {
@@ -354,7 +368,9 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             playerHand.setPat(true);
             patHands.push_back(playerHand);
             
-            cout << "\nInput 'c' to continue or 'q' to quit \n";
+            //cout << "\nInput 'c' to continue or 'q' to quit \n";
+            cout << "\n";
+            cout << "~~~~~  'c' - Continue | 'q' - Quit   ~~~~~" << endl;
             char temp;
             cin >> temp;
             while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
@@ -388,7 +404,9 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                 if(playerBank->getBalance() < bet)
                 {
                     cout << "Not enough funds to split. Choose another action \n";
-                    cout << "\nInput 'c' to continue or 'q' to quit \n";
+                    //cout << "\nInput 'c' to continue or 'q' to quit \n";
+                    cout << "\n";
+                    cout << "~~~~~  'c' - Continue | 'q' - Quit   ~~~~~" << endl;
                     char temp;
                     cin >> temp;
                     while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
@@ -416,7 +434,15 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                     bjflag = true;
                     int bet = playerHand.getBet();
                     string bet_str = to_string(bet * 3/2);
-                    cout << "\n** Hand 1 is blackjack!! You win $"<< bet_str << " **\n\n";
+                    //cout << "\n** Hand 1 is blackjack!! You win $"<< bet_str << " **\n\n";
+                    cout << "\n***  Hand 1 is blackjack!!  ***\n";
+                    cout << "--------------------\n";
+                    cout << "You win "<< bet_str << "!!      |\n";
+                    cout << "--------------------\n\n";
+                    
+                    cout << ":::::::::::::::::::::::::" << endl;
+                    cout << "::    You win "<< bet_str << "!!       ::" << endl;
+                    cout << ":::::::::::::::::::::::::" << endl;
                     playerBank->addFunds(playerHand.getBet());
                     playerBank->payBlackjack(bet);
                     handArray.pop_back();
@@ -427,7 +453,11 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                     bjflag = true;
                     int bet = newHand.getBet();
                     string bet_str = to_string(bet * 3/2);
-                    cout << "\n** Hand 2 is blackjack!! You win $"<< bet_str << " **\n\n";
+                    //cout << "\n** Hand 2 is blackjack!! You win $"<< bet_str << " **\n\n";
+                    cout << "\n***  Hand 2 is blackjack!!  ***\n";
+                    cout << "--------------------\n";
+                    cout << "You win "<< bet_str << "!!      |\n";
+                    cout << "--------------------\n\n";
                     playerBank->addFunds(newHand.getBet());
                     playerBank->payBlackjack(bet);
                     handArray.pop_back();
@@ -439,7 +469,9 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                     std::this_thread::sleep_for(duration);
                 }
                 //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
-                cout << "\nInput 'c' to continue or 'q' to quit \n";
+                //cout << "\nInput 'c' to continue or 'q' to quit \n";
+                cout << "\n";
+                cout << "~~~~~  'c' - Continue | 'q' - Quit   ~~~~~" << endl;
                 char temp;
                 cin >> temp;
                 while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
@@ -496,7 +528,8 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             cout << "----------------------------- \n \n";
             
             // add one and only one card to player's hand. Then it is pat. or bust.
-            cout << "** Doubling player's hand **\n\n";
+            cout << "<<<<<   Doubling Hand   >>>>>" << endl;
+            //cout << "** Doubling player's hand **\n\n";
             player = hitPlayer(playerHand, shoe);
             playerHand.setPat(true);
             
@@ -506,7 +539,9 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
                 cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
                 cout << "----------------------------- \n \n";
                 
-                cout << "\nInput 'c' to continue or 'q' to quit \n";
+                //cout << "\nInput 'c' to continue or 'q' to quit \n";
+                cout << "\n";
+                cout << "~~~~~  'c' - Continue | 'q' - Quit   ~~~~~" << endl;
                 char temp;
                 cin >> temp;
                 while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
@@ -604,7 +639,9 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
             
             handArray.push_back(playerHand);        // put hand back in vector of hands being played
             
-            cout << "\nInput 'c' to continue or 'q' to quit \n";
+            //cout << "\nInput 'c' to continue or 'q' to quit \n";
+            cout << "\n";
+            cout << "~~~~~  'c' - Continue | 'q' - Quit   ~~~~~" << endl;
             char temp;
             cin >> temp;
             if(temp=='q' || temp=='Q') return -1;
@@ -759,8 +796,12 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
     if((patHands.size()==0 && otherPats.size()==0) || dealerHand->isBlackjack())
     {
         //cout << "** Action is Complete. Dealer Had   " << dealerHand->getHand() << "**\n\n";  // TODO: see if i need this line
-        cout << "\n** Action is Complete **\n\n";
-        cout << "\nInput 'c' to continue or 'q' to quit \n";
+        //cout << "\n** Action is Complete **\n\n";
+        cout << "\n";
+        cout << "<<<<< Action is Complete >>>>>" << endl;
+        //cout << "\nInput 'c' to continue or 'q' to quit \n";
+        cout << "\n";
+        cout << "~~~~~  'c' - Continue | 'q' - Quit   ~~~~~" << endl;
         char temp;
         cin >> temp;
         if(temp=='q' || temp=='Q') return -1;
@@ -775,7 +816,10 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
         return 0;
     }
     // Dealer acts
-    cout << "\n** Dealer Acts on Hand **\n";
+    //cout << "\n** Dealer Acts on Hand **\n";
+    cout << "\n";
+    cout << "<<<<<<<<<  Dealer Acts  >>>>>>>>>" << endl;
+    
     int dealerScore = dealerHand->getValue();
     cout << "\nDealer Has         :    " << dealerHand->getHand() << "      initially \n";
     std::chrono::seconds duration(2);
@@ -792,13 +836,19 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
     if(dealerScore > 0)    // dealer not bust
     {
         cout << "Dealer action is finished \n\n";
+//        cout << "\n";
+//        cout << "<<<<< Action is Complete >>>>>" << endl;
+//        cout << "\n";
+//        cout << "<<<<< Action is Complete >>>>>" << endl;
     }
     else    // dealer is bust
     {
         cout << "Dealer BUSTS!!!!  \n";
     }
     
-    cout << "\n** Hand Showdown **\n";
+    //cout << "\n** Hand Showdown **\n";
+    cout << "\n";
+    cout << "<<<<<<<   Hand Showdown   >>>>>>>" << endl;
     (dealerHand->getValue() > 0) ?
     cout << "\nDEALER Has         :    " << dealerHand->getHand() << "\n\n":
     cout <<"\nDealer is BUST \n";
@@ -858,7 +908,9 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
     cout << "----------------------------- \n";
     std::this_thread::sleep_for(duration);  // pause for 3 sec
     
-    cout << "\nInput 'c' to continue or 'q' to quit \n";
+    //cout << "\nInput 'c' to continue or 'q' to quit \n";
+    cout << "\n";
+    cout << "~~~~~  'c' - Continue | 'q' - Quit   ~~~~~" << endl;
     char temp;
     cin >> temp;
     if(temp=='q' || temp=='Q') return -1;
@@ -937,7 +989,7 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)
     }
     
     // Splits
-    if(first == second)
+    if(first == second && player.getNumCards()==2)
     {
         if(first == 'A')
         {

@@ -20,8 +20,15 @@ using namespace std;
 
 int main(int argc, const char * argv[])
 {
-    cout << "Let's Play some Blackjack!! \n";
-    cout << "\nEnter number of decks between 1 and 8 to play! \n";
+    cout << "::::::::::::::::::::::::::::::::::::" << endl;
+    cout << "::                                ::" << endl;
+    cout << "::          LET'S   PLAY          ::" << endl;
+    cout << "::                                ::" << endl;
+    cout << "::       SOME    BLACKJACK!       ::" << endl;
+    cout << "::                                ::" << endl;
+    cout << "::::::::::::::::::::::::::::::::::::" << endl;
+    
+    cout << "\n\nEnter number of decks to play with (1-8) \n";
     int numDecks = 0;
     cin >> numDecks;
     while(!cin || numDecks < 1 || numDecks > 8)
@@ -31,10 +38,32 @@ int main(int argc, const char * argv[])
         cout << "Wrong Input. Enter a number of decks between 1 and 8 \n";
         cin >> numDecks;
     }
+    // Decoration ideas
+                                                                    /*
+    cout << bar << "\n\n";
+    cout << "<=><=><=><=><=><=><=><=><=><=><=><=>" << endl;
+    cout << "\n\n";
+    cout << ":::::::::::::::::::::::::::::" << endl;
+    cout << "::   You win $100!!        ::" << endl;
+    cout << ":::::::::::::::::::::::::::::" << endl;
+    
+    cout << "\n\n";
+    cout << "<<<<<<< Hand Showdown >>>>>>>" << endl;
+    cout << "\n\n";
+    cout << "<=><=><=><=><=><=><=><=><=><=><=><=>" << endl;
+    cout << "<=>                                 " << endl;
+    cout << "<=>                                 " << endl;
+    cout << "<=><=><=><=><=><=><=><=><=><=><=><=>" << endl;
+    cout << "\n\n";
+                                                                     */
+    //cout << "~~~~~   Enter Your Bet | 'q' to quit   ~~~~~" << endl;
+    
+    
+    //cout << e << "\n" << b << "\n" << c << "\n" << d << "\n" << e << "\n";
     
     int cutPoint = -1;
-    cout << "\nChoose point where shoe is reshuffled (cut card location)\n";
-    cout << "Enter 0 to play full shoe, 1 for 90%, 2 for 75%, 3 for 50% \n";
+    cout << "\nChoose Point Where Shoe Is Reshuffled \n";
+    cout << "0 -> play full shoe | 1 -> 90%  |  2 -> 75% |  3 -> 50% \n";
     cin >> cutPoint;
     while(!cin || cutPoint < 0 || cutPoint > 3)
     {
@@ -59,7 +88,7 @@ int main(int argc, const char * argv[])
     int totalFunds = 0;    //track all funds added for end profit/loss
     // Starting player balance
     int funds = 0;
-    cout << "\nHow much money will you put on the table? (enter 100 to " << MAX_RELOAD<< ")\n";
+    cout << "\nHow Much Money Will you Put On Table? (100 - " << MAX_RELOAD<< ")\n";
     cin >> funds;
     while(!cin || funds < 100 || funds > MAX_RELOAD)
     {
@@ -72,8 +101,9 @@ int main(int argc, const char * argv[])
     
     // Create shoe and player bank, and pass them to dealer in constructor
     char bet_str[10];
-    cout << "\nBLACKJACK TIME!!!!! \n";
-    cout << "\nPlace your bet! (enter a number i.e. \"80\") or 'q' to quit \n";
+    cout << "\n\n";
+    cout << "~~~~~   Enter Your Bet | 'q' to quit   ~~~~~" << endl;
+    //cout << "\n";
     cin >> bet_str;
     if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;
     while(!cin || bet_str[0] < '0' || bet_str[0] > '9')
@@ -142,7 +172,9 @@ int main(int argc, const char * argv[])
         {
             if(numPlayers > 1 && !dealer->hasBlackjack())
             {
-                cout << "\n** Performing computer hand actions **\n";
+                cout << "\n";
+                cout << "<<<<     Computer Action     >>>>" << endl;
+                //cout << "\n** Performing computer hand actions **\n";
                 dealer->computerAction(shoe);
             }
             handContinues = dealer->dealerAction(shoe, bank);
@@ -174,12 +206,18 @@ int main(int argc, const char * argv[])
                 delete shoe;
                 shoe = new Shoe(numDecks, cutPoint);
             }
-            cout << "\n****    NEW HAND    *****\n";
+            cout <<"\n";
+            cout << "<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>" << endl;
+            cout << "<<<         NEW HAND          >>>" << endl;
+            cout << "<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>" << endl;
+            //cout << "\n****    NEW HAND    *****\n";
             
             //cout << "Running count                           :  "<<shoe->getCount() << "\n";
             //cout << "True count (ratio count:decks remaining):  "<<shoe->getTrueCount() << "\n";
             
-            cout << "\nPLEASE ENTER NEW BET  |  'q' to quit. \n";
+            cout << "\n";
+            cout << "~~~~~   Enter Your Bet | 'q' to quit   ~~~~~" << endl;
+            //cout << "\nPLEASE ENTER NEW BET  |  'q' to quit. \n";
             cin >> bet_str;
             if(bet_str[0] == 'q' || bet_str[0] == 'Q') break;
             while(!cin || bet_str[0] < '0' || bet_str[0] > '9')
