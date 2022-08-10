@@ -1,5 +1,7 @@
 ## TODO:
 
+- [ ] Handle computer player getting blackjack on a split hand - currently standing pat
+- [ ] check getting bj against dealer's bj in multiplayer and single player
 - [ ] Handle error where putting too many funds twice
 - [x] Implement rules - 'r' in action()
 - [ ] Implement change in basic strategy and info for adjusting betting patterns based on true count (the ratio)
