@@ -202,6 +202,9 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
             int win = bet * 3/2;
             string win_str = std::to_string(win);
             cout << "****   You hit a BLACKJACK!!!  You Win $" << win_str << "  ****\n\n";
+            cout << "--------------------";
+            cout << "  You win "<< win_str << "   |\n\n";
+            cout << "--------------------";
             handArray.pop_back();
             //cout << "Dealer Has         :    " << dealerHand->getHand() << "\n\n";
             cout << "_____________________________ \n \n";
@@ -299,7 +302,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action)
         cout << "\n***  Please choose the action you would like to take  ***\n";
         cout << "---------------------------------------------------------------------------\n";
         cout << "||  'h' - Hit            |  'p' - Stand Pat      |  's' - Split          ||\n";
-        cout << "||  'd' - Double Down    |  'm' - Strategy Hint  |  'c' - Current Count  ||\n";
+        cout << "||  'd' - Double Down    |  'm' - Strategy Hint  |  'c' - Get Count      ||\n";
         cout << "||  'r' - List Rules     |  'x' - Surrender      |  'q' or 'Q' to Quit   ||\n";
         cout << "---------------------------------------------------------------------------\n\n";
         
@@ -824,7 +827,10 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
         }
         else // player wins (not with blackjack)
         {
-            cout << "YOU WIN $" << playerHand.getBet() << "!!!\n\n";
+            cout << "--------------------\n";
+            cout << "You win "<< playerHand.getBet() << "!!      |\n";
+            cout << "--------------------\n\n";
+            //cout << "YOU WIN $" << playerHand.getBet() << "!!!\n\n";
             playerBank->addFunds(playerHand.getBet()*2);
         }
     }
@@ -1106,7 +1112,7 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)
         }
         if(playerValue == 15)
         {
-            if(print) cout << "\n** STAND PAT with hard 15 against dealer 2 or 6, otherwise HIT **\n\n";
+            if(print) cout << "\n** STAND PAT with hard 15 against dealer 2 through 6, otherwise HIT **\n\n";
             if(upCard >= '2' && upCard <= '6') return 'p';
             else return 'h';
         }
