@@ -14,3 +14,4 @@
 - Sad face on loss, maybe in a box like the winnings
 - try to make winnings boxes similar in size, using num of digits of win size and offsetting w/ spaces or lack thereof on opposite end of print statement
 - Require bets to be in $5 increments
+- Clear console sometimes to make it cleaner
