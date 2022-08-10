@@ -18,15 +18,42 @@
 using namespace std;
 
 /**
+ Definition of const static cardMap. Couldn't be defined inline
+ */
+unordered_map<uint8_t,char> Hand::cardMap =
+{
+    {0x01,'A'}, {0x02, '2'}, {0x03,'3'},{0x04,'4'}, {0x05,'5'},{0x06,'6'}, {0x07,'7'}, {0x08,'8'}, {0x09,'9'}, {0x0A,'T'}, {0x0B,'J'}, {0x0C,'Q'}, {0x0D,'K'}
+};
+
+/**
+ Definition of const static valueMap. Couldn't be defined inline
+ */
+unordered_map<char,int> Hand::valueMap =
+{
+    {'2',2}, {'3',3}, {'4',4}, {'5',5}, {'6',6}, {'7',7}, {'8',8}, {'9',9}, {'T',10}, {'J',10}, {'Q',10}, {'K',10}
+};
+
+/**
+ Definition of const static suitMap. Couldn't be defined inline
+ */
+unordered_map<uint8_t,char> Hand::suitMap =
+{
+    // spades     clubs      hearts     diamonds
+    {0x01,'S'}, {0x02,'C'}, {0x03,'H'}, {0x04,'D'}
+};
+
+/**
  @brief
     Default Constructor
  */
 Hand::Hand()    //TODO: make maps static and const
 {
-    cardMap = { {0x01, 'A'}, {0x02, '2'},{0x03, '3'},{0x04, '4'},{0x05, '5'},{0x06, '6'},{0x07, '7'},{0x08, '8'},{0x09, '9'},{0x0A, 'T'},{0x0B, 'J'},{0x0C, 'Q'},{0x0D, 'K'} };
-    valueMap = {{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'7',7},{'8',8},{'9',9},{'T',10},{'J',10},{'Q',10},{'K',10}};
+    // mapping of first 4 bits to card symbol
+/*  cardMap = { {0x01,'A'}, {0x02, '2'}, {0x03,'3'},{0x04,'4'}, {0x05,'5'},{0x06,'6'}, {0x07,'7'}, {0x08,'8'}, {0x09,'9'},      {0x0A,'T'}, {0x0B,'J'}, {0x0C,'Q'}, {0x0D,'K'} };
+    valueMap = { {'2',2}, {'3',3}, {'4',4}, {'5',5}, {'6',6}, {'7',7}, {'8',8}, {'9',9}, {'T',10}, {'J',10}, {'Q',10}, {'K',10} };
     // Spades, Clubs, Hearts, Diamonds
-    suitMap = { {0x01,'S'},{0x02,'C'},{0x03,'H'},{0x04,'D'} };
+    suitMap = { {0x01,'S'}, {0x02,'C'}, {0x03,'H'}, {0x04,'D'} };
+*/
     _card1 = 0x00;
     _card2 = 0x01;
     cardArray = std::vector<char>(2, '0');
@@ -46,11 +73,12 @@ Hand::Hand()    //TODO: make maps static and const
  */
 Hand::Hand(const Hand& diffHand)
 {
+/*
     cardMap = { {0x01, 'A'}, {0x02, '2'},{0x03, '3'},{0x04, '4'},{0x05, '5'},{0x06, '6'},{0x07, '7'},{0x08, '8'},{0x09, '9'},{0x0A, 'T'},{0x0B, 'J'},{0x0C, 'Q'},{0x0D, 'K'} };
     valueMap = {{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'7',7},{'8',8},{'9',9},{'T',10},{'J',10},{'Q',10},{'K',10}};
     // Spades, Clubs, Hearts, Diamonds
     suitMap = { {0x01,'S'},{0x02,'C'},{0x03,'H'},{0x04,'D'} };
-    
+*/
     this->_card1 = diffHand._card1;
     this->_card2 = diffHand._card2;
     this->numCards = diffHand.numCards;
@@ -96,12 +124,13 @@ Hand::Hand(uint8_t card1, uint8_t card2, int bet)
     
     cardArray = std::vector<char>(2, '0');
     suitArray = std::vector<char>(2,'0');
-    
+/*
     cardMap = { {0x01, 'A'}, {0x02, '2'},{0x03, '3'},{0x04, '4'},{0x05, '5'},{0x06, '6'},{0x07, '7'},{0x08, '8'},{0x09, '9'},{0x0A, 'T'},{0x0B, 'J'},{0x0C, 'Q'},{0x0D, 'K'} };
-    // valuemap doesn't include Ace
+    //valuemap doesn't include Ace
     valueMap = {{'2',2},{'3',3},{'4',4},{'5',5},{'6',6},{'7',7},{'8',8},{'9',9},{'T',10},{'J',10},{'Q',10},{'K',10}};
     // Spades, Clubs, Hearts, Diamonds
     suitMap = { {0x01,'S'},{0x02,'C'},{0x03,'H'},{0x04,'D'} };
+*/
                                                                          
     uint8_t rank1 = card1 >> 4;
     uint8_t suit1 = card1 & 0x0F;
