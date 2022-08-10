@@ -5,7 +5,6 @@
 ## Summary
 
 Who doesn't love a good game of blackjack? ***CountingCards*** helps the player learn blackjack gameplay and basic strategy, provides a fun way to practice keeping the count of the deck, offers advice on adjusting your bet and adjusting strategy based on the count of the deck. This game will be a fun way to help the you bring your best game to the casino or a blackjack game with friends. 
-
 ***This game will help the user to win money at the casino, or at the very least, limit their losses***
 
 ## Installation Instructions
@@ -17,18 +16,6 @@ For Unix architecture (Mac or Linux):
 - run executable file named "counting" with command: "./counting" 
 - optional: After, run "make clean" to remove object files and executable file
 - **If you have limited/no developer experince, and haven't installed command line tools before, open INSTALLATION.md and follow the more detailed instructions to compile the code**
-
-## TODO:
-
-- [ ] complete the features list below
-- [ ] complete the blackjack rules list below
-- [ ] complete info on counting cards in general
-- [x] decide on README.md header sizes
-- [ ] **Remove this list and section**
-- [ ] add ability for player to play multiple hands
-- [ ] figure out where to put/remove **Notes:**:
-    - ***Source files are in ./CountingCards/***   (probably keep this one)
-    - dimensions of screenshot images: 91 x 28
 
 ## Features of CountingCards
 
@@ -78,12 +65,11 @@ For Unix architecture (Mac or Linux):
 - Aces can be worth 11 or 1 points, with the better of the two options applying automatically. 
 - A hand that wins is paid 1:1, unless it is a blackjack, which pays 3:2
 - For this particular implementation of Blackjack, dealer will stand on both soft and hard 17s and any hand with better than 17 points.
-
-For more information about blackjack rules see [Bicycle's Blackjack Rules](https://bicyclecards.com/how-to-play/blackjack/).
+- For more information about blackjack rules see [Bicycle's Blackjack Rules](https://bicyclecards.com/how-to-play/blackjack/).
 
 ### Some info on card counting in the game of Blackjack
 
-- **TODO: fill out these items**
+- [ ] **fill out this section**
 
 ## Screenshots
 
