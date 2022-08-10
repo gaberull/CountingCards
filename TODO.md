@@ -14,6 +14,8 @@
 - [x] Remove TODO section from README.md
 - [ ] add ability for player to play multiple hands
 - [x] figure out where to put/remove **Notes:** - Putting them in ideas in TODO.md
+- [ ] Get new screenshots after style change 8/9/22
+    - [ ] Put new screenshots in their own dated folder on github 
     
 ## Notes to self
  - dimensions of screenshot images: 91 x 28
