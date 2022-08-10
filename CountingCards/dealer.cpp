@@ -127,7 +127,8 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
     }
     if(shoe->endOfShoe())
     {
-        std::cout << "This will be the last hand on this shoe \n";
+        std::cout << "<<<<  Final Hand of Shoe  >>>>" << endl;
+        //std::cout << "This will be the last hand on this shoe \n";
     }
     //TODO: maybe display computer players here in order of back to front of otherPlayers vector
     if(!blackjack && dealerHand->isBlackjack())
