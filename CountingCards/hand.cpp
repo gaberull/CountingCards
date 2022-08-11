@@ -397,6 +397,63 @@ int Hand::hit(Shoe* shoe)
 
 /**
  @brief
+    Just like Hand::hit() but player has chosen their card in Dealer::hitPlayer()
+    Deck card removal doesn't happen. Doesn't call dealCard() or affect cnt
+ @param card  uint8_t
+    the user's card chosen in Dealer::hitPlayer()
+ @returns int
+    -1  -   hand busts
+    X   -   value of hand otherwise, between 1 and 21 inclusive
+ */
+int Hand::testHit(uint8_t card)
+{
+    blackjack = false;  // hand is no longer a blackjack or splittable if we are hitting
+    splittable = false;
+    numCards++;
+    
+    uint8_t character = card>>4;
+    uint8_t cardsuit = card&0x0F;
+    
+    char cardSymbol = cardMap[character];
+    cardArray.push_back(cardSymbol);
+    char suit = suitMap[cardsuit];
+    suitArray.push_back(suit);
+    int value = 0;  // value of card received while hitting
+    
+    if(valueMap.find(cardSymbol)!=valueMap.end())   // if our card is not an Ace (not in map)
+    {
+        value = valueMap[cardSymbol];
+    }
+    else    // our card is an Ace. Check current value of hand
+    {
+        if(_value <= 10)
+        {
+            value = 11;
+            soft = true;
+        }
+        else
+        {
+            value = 1;
+        }
+    }
+    _value += value;
+    if(_value > 21)
+    {
+        if(soft)    // handle if hand is soft
+        {
+            _value -= 10;
+            soft = false;
+        }
+    }
+    if(_value > 21)
+    {
+        _value = -1;
+    }
+    return _value;
+}
+
+/**
+ @brief
     doubles hand's bet and then calls hit(). player can enter a bet to double for less.
     if bet==0 (default val), the bet will be doubled
  @returns int

@@ -29,8 +29,8 @@ int main(int argc, const char * argv[])
     cout << "::::::::::::::::::::::::::::::::::::" << endl;
     
     cout << "\n\nHow many decks do you want to use?  (1 - 8)\n";
-    //cout << "\n\nEnter number of decks to play with (1-8) \n";
     int numDecks = 0;
+    bool test = false;
     cin >> numDecks;
     while(!cin || numDecks < 1 || numDecks > 8)
     {
@@ -39,29 +39,16 @@ int main(int argc, const char * argv[])
         cout << "Wrong Input. Enter a number of decks between 1 and 8 \n";
         cin >> numDecks;
     }
-    // Decoration ideas
-                                                                    /*
-    cout << bar << "\n\n";
-    cout << "<=><=><=><=><=><=><=><=><=><=><=><=>" << endl;
-    cout << "\n\n";
-    cout << ":::::::::::::::::::::::::::::" << endl;
-    cout << "::   You win $100!!        ::" << endl;
-    cout << ":::::::::::::::::::::::::::::" << endl;
     
     cout << "\n\n";
-    cout << "<<<<<<< Hand Showdown >>>>>>>" << endl;
-    cout << "\n\n";
-    cout << "<=><=><=><=><=><=><=><=><=><=><=><=>" << endl;
-    cout << "<=>                                 " << endl;
-    cout << "<=>                                 " << endl;
-    cout << "<=><=><=><=><=><=><=><=><=><=><=><=>" << endl;
-    cout << "\n\n";
-                                                                     */
-    
-    cout << "\n\n";
-    cout << "How many players? (1 - 4) \n";
+    cout << "How many players? (1 - 4)\n";  //9 is test mode !!!!!!!!!!!!!!!!!!!!!!!!!!
     int numPlayers = 0;
     cin >> numPlayers;
+    if(numPlayers == 9)
+    {
+        test = true;
+        numPlayers = 1;
+    }
     while(!cin || (numPlayers < 1 || numPlayers > 4))
     {
         cin.clear();
@@ -71,11 +58,8 @@ int main(int argc, const char * argv[])
     }
     
     int cutPoint = -1;
-    //cout << "\n";
-    //cout << "\n<< <<   Set Cut Card   >> >>" << endl;
     cout << "\n";
-    cout << "\nHow much of the shoe will we play?  (before re-shuffle)\n";  // TODO: remove "the"
-    //cout << "\nChoose Point Where Shoe Is Reshuffled \n";
+    cout << "\nHow much of the shoe will we play?  (before re-shuffle)\n";
     cout << "0 - 100%  |  1 - 90%  |  2 - 75% |  3 - 50% \n";
     cin >> cutPoint;
     while(!cin || cutPoint < 0 || cutPoint > 3)
@@ -87,11 +71,9 @@ int main(int argc, const char * argv[])
         cin >> cutPoint;
     }
     
-    
-    
     int totalFunds = 0;    //track all funds added for end profit/loss
-    // Starting player balance
-    int funds = 0;
+    
+    int funds = 0;  // Starting player balance
     cout << "\n\n";
     cout << "How Much Money Will you Put On Table? (100 - " << MAX_RELOAD<< ")\n";
     cin >> funds;
@@ -104,25 +86,27 @@ int main(int argc, const char * argv[])
     }
     totalFunds += funds;
     
-    // Create shoe and player bank, and pass them to dealer in constructor
-    char bet_str[10];
-    cout << "\n";
-    cout << "\nEnter Bet  |  'q' to quit " << endl;
-    //cout << "~~~~~   Enter Your Bet | 'q' to quit   ~~~~~" << endl;
-    //cout << "\n";
-    cin >> bet_str;
-    if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;
-    while(!cin || bet_str[0] < '0' || bet_str[0] > '9')
+    int bet = 0;
+    if(!test)
     {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Wrong Input. Enter number to bet or 'q' to quit \n";
+        // Create shoe and player bank, and pass them to dealer in constructor
+        char bet_str[10];
+        cout << "\n";
+        cout << "\nEnter Bet  |  'q' to quit " << endl;
+        //cout << "~~~~~   Enter Your Bet | 'q' to quit   ~~~~~" << endl;
+        //cout << "\n";
         cin >> bet_str;
         if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;
+        while(!cin || bet_str[0] < '0' || bet_str[0] > '9')
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Wrong Input. Enter number to bet or 'q' to quit \n";
+            cin >> bet_str;
+            if(bet_str[0] == 'q' || bet_str[0] == 'Q') return 0;
+        }
+        bet = (int) stol(bet_str);
     }
-    int bet = 0;
-    
-    bet = (int) stol(bet_str);
     
     // Try-Catch statements that I probably won't use
     // TODO: remove these
@@ -167,12 +151,17 @@ int main(int argc, const char * argv[])
     
     // Hands are dealt  --------------------------------------------------------
     int handContinues = 0;   // -1 == quit, 0 == hand done, 1 == hand ongoing
-    handContinues = dealer->dealHands(shoe, bank, bet);
+    
+    if(test) handContinues = dealer->testHands(bank);
+    else handContinues = dealer->dealHands(shoe, bank, bet);
+    
+    
     while(handContinues>-1) // while quit hasn't been requested
     {
         if(handContinues==1)    // hand is ongoing, call action (for user)
         {
-            handContinues = dealer->action(shoe, bank);
+            if(test) handContinues = dealer->action(shoe, bank, 'a', true);
+            else handContinues = dealer->action(shoe, bank);
         }
         else   //handContinues==0, Do computerAction, then Do dealer action, then start new hand
         {
@@ -180,7 +169,6 @@ int main(int argc, const char * argv[])
             {
                 cout << "\n";
                 cout << "    <<<<     Computer Action     >>>>" << endl;
-                //cout << "\n** Performing computer hand actions **\n";
                 dealer->computerAction(shoe);
             }
             handContinues = dealer->dealerAction(shoe, bank);
@@ -192,14 +180,16 @@ int main(int argc, const char * argv[])
                 cout << "\nYOU ARE OUT OF FUNDS! \n";
                 cout << "\nEnter amount to reload (up to $1,000) | 'q' to quit! \n";
                 char reload_str[10];
-                if(reload_str[0] == 'q' || reload_str[0]=='Q') break;
+                reload_str[0] = toupper(reload_str[0]);
+                if(reload_str[0]=='Q') break;
                 while(!cin || reload_str[0] < '0' || reload_str[0] > '9' )
                 {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     cout << "Wrong Input. Enter number to reload or 'q' to quit \n";
                     cin >> reload_str;
-                    if(reload_str[0] == 'q' || reload_str[0]=='Q') break;
+                    reload_str[0] = toupper(reload_str[0]);
+                    if(reload_str[0]=='Q') break;
                 }
                 int reload = (int) stol(reload_str);
                 if (reload > MAX_RELOAD) reload = MAX_RELOAD;
@@ -212,41 +202,30 @@ int main(int argc, const char * argv[])
                 delete shoe;
                 shoe = new Shoe(numDecks, cutPoint);
             }
-//            cout <<"\n\n";
-//            cout << "<< << << << << <<>> >> >> >> >> >>" << endl;
-//            cout << "<            NEW HAND            >" << endl;
-//            cout << "<< << << << << <<>> >> >> >> >> >>" << endl;
-            
-//            cout <<"\n\n";
-//            cout << "-- -- -- -- -- -- -- -- -- -- -- --" << endl;
-//            cout << "-            NEW HAND            -" << endl;
-//            cout << "-- -- -- -- -- -- -- -- -- -- -- --" << endl;
-            
             cout <<"\n";
             cout << "    <<<   NEW HAND   >>>" << endl;
-            
-            
-            //cout << "\n****    NEW HAND    *****\n";
-            
-            //cout << "Running count                           :  "<<shoe->getCount() << "\n";
-            //cout << "True count (ratio count:decks remaining):  "<<shoe->getTrueCount() << "\n";
-            
             cout << "\n";
-            cout << "\nEnter Bet  |  'q' to quit " << endl;
-            cin >> bet_str;
-            if(bet_str[0] == 'q' || bet_str[0] == 'Q') break;
-            while(!cin || bet_str[0] < '0' || bet_str[0] > '9')
+            if(!test)
             {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Wrong Input. Enter number to bet or 'q' to quit \n";
-                cin >> bet_str;
-                if(bet_str[0] == 'q' || bet_str[0] == 'Q') break;
+                cout << "\nEnter Bet  |  'q' to quit " << endl;
+                string new_bet_str = "";
+                cin >> new_bet_str;
+                new_bet_str[0] = toupper(new_bet_str[0]);
+                if(new_bet_str[0] == 'Q') break;
+                while(!cin || new_bet_str[0] < '0' || new_bet_str[0] > '9')
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Wrong Input. Enter number to bet or 'q' to quit \n";
+                    cin >> new_bet_str;
+                    new_bet_str[0] = toupper(new_bet_str[0]);
+                    if(new_bet_str[0] == 'Q') break;
+                }
+                bet = (int) stol(new_bet_str);
             }
-            bet = (int) stol(bet_str);
-            handContinues = dealer->dealHands(shoe, bank, bet);
-            //cout << "Running count is "<<shoe->getCount() << endl;
-            //cout << "True count (ratio) is "<<shoe->getTrueCount() << endl;
+            (!test) ?
+            handContinues = dealer->dealHands(shoe, bank, bet):
+            handContinues = dealer->testHands(bank);
         }
     }
     int net = bank->getBalance() - totalFunds;

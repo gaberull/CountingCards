@@ -43,6 +43,7 @@ public:
     char getFirstCard();                    // Returns hand's first card (dealer's shown card)
     char getSecondCard();                   // Returns hand's second card
     int hit(Shoe* shoe);                    // hit hand - get one card
+    int testHit(uint8_t card);
     Hand split(Shoe* shoe);                 // split a pair (only have 2 cards) TODO: need & for reference (Hand&) ?
     int getValue();                         // get integer value of hand
     bool isBlackjack();                     // Blackjack - i.e. AsJs
