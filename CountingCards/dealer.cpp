@@ -540,8 +540,11 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Wrong Input. \n";
             cout << "**  What action would you like to take?  **\n\n";
-            cout << "||  'h' - hit           |  'p' - stand pat                  |  's' - split       |  'd' - double down  ||\n";
-            cout << "||  'm' - Strategy Hint |  'c' - get current running count  |  'r' - list rules  |  'x' - surrender    ||\n\n";
+            cout << "---------------------------------------------------------------------------\n";
+            cout << "||  'h' - Hit            |  'p' - Stand Pat      |  's' - Split          ||\n";
+            cout << "||  'd' - Double Down    |  'm' - Strategy Hint  |  'c' - Get Count      ||\n";
+            cout << "||  'r' - List Rules     |  'x' - Surrender      |  'q' or 'Q' to Quit   ||\n";
+            cout << "---------------------------------------------------------------------------\n\n";
             cin >> action;
             action = toupper(action);
         }
@@ -1222,6 +1225,12 @@ int Dealer::testHitPlayer(Hand& player)
     char temp;
     cin >> temp;
     temp = toupper(temp);
+    while(!cin || (temp != 'A' && temp != '2' && temp != '3' && temp != '4' && temp != '5' && temp != '6' && temp != '7' && temp != '8' && temp != '9' && temp != 'T' && temp != 'J' && temp != 'Q' && temp != 'K'))
+    {
+        cout << "wrong input. enter 2-9 or T,J,Q,K " << endl;
+        cin >> temp;
+        temp = toupper(temp);
+    }
     int newPlayerVal = player.testHit(revCardMap[temp]);
     std::chrono::seconds duration(2);
     if(newPlayerVal < 0)
