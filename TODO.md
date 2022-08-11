@@ -22,7 +22,7 @@
 - [ ] Put new screenshots in their own dated folder on github 
     
 ## Notes to self
- - dimensions of screenshot images: 91 x 28
+ - dimensions of terminal for screenshot images: 91 x 28
 
 ## Ideas
 

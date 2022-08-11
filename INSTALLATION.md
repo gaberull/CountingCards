@@ -1,4 +1,4 @@
-# Installation Instructions
+# Installation Instructions for Mac
 
 **Note:** 
 Instructions 1-4 are only for those who haven't done any software development, and haven't previously installed command line tools. The instructions only need to be followed one time. 
