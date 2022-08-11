@@ -2,7 +2,6 @@
 //  hand.cpp
 //  CountingCards
 //
-//  Created by Gabe Scott on 7/28/22.
 //  Copyright (c) 2022 Gabe Scott
 //
 
