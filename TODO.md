@@ -1,5 +1,6 @@
 ## TODO:
 
+- [ ] Add count notices like "Count is high, maybe you should consider raising your bet
 - [ ] Handle computer player getting blackjack on a split hand - currently standing pat
 - [ ] check getting bj against dealer's bj in multiplayer and single player
 - [x] Handle error where putting too many funds twice
@@ -31,3 +32,4 @@
 - Sad face on loss, maybe in a box like the winnings
 - try to make winnings boxes similar in size, using num of digits of win size and offsetting w/ spaces or lack thereof on opposite end of print statement
 - Require bets to be in $5 increments
+- Maybe have game analyze betting patters and do something with that
