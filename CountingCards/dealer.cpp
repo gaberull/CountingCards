@@ -230,7 +230,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
             //cout << "****   You hit a BLACKJACK!!!  You Win $" << win_str << "  ****\n\n";
             cout << "*** You hit a BLACKJACK!!! ***\n";
             cout << "\n";
-            cout << "You WIN "<< win_str << "!!!!      \n";
+            cout << "You WIN $"<< win_str << "!!!!      \n";
             cout << "\n";
             
             
@@ -332,7 +332,7 @@ int Dealer::testHands(Bank* playerBank)
         cout << "\n";
         cout << "Player Has         :    " << player.getHand() << endl;
         cout << "Dealer Shows       :    " << dealerHand->displayOne() << endl;
-        cout << "Uh Oh!" << endl;
+        cout << "Uh Ohhh..." << endl;
         std::chrono::seconds duration(2);
         std::this_thread::sleep_for(duration);
         cout << "Dealer Has         :    " << dealerHand->getHand() << endl;
@@ -376,7 +376,7 @@ int Dealer::testHands(Bank* playerBank)
         std::this_thread::sleep_for(duration);
         cout << "*** You hit a BLACKJACK!!! ***\n";
         cout << "\n";
-        cout << "You WIN "<< win_str << "!!!!      \n";
+        cout << "You WIN $"<< win_str << "!!!!      \n";
         cout << "\n";
         cout << "Dealer Had         :    " << dealerHand->getHand() << endl;
         
@@ -410,12 +410,12 @@ int Dealer::testHands(Bank* playerBank)
         cout << "Player Has         :    " << player.getHand() << endl;
         cout << "Dealer Shows       :    " << dealerHand->displayOne() << endl;
         cout << "\n";
-        cout << "Uh Oh!" << endl;
+        cout << "Uh Ohhh..." << endl;
         std::this_thread::sleep_for(duration);
         cout << "Dealer Has         :    " << dealerHand->getHand() << endl;
         cout << "For blackjack :( " << endl;
         cout << "\n";
-        cout << "You lost your bet of $" << player.getBet() << endl;
+        cout << "You LOST your bet of $" << player.getBet() << ":-( " << endl;
         //cout << "\n";
         cout << "-----------------------------  \n";
         cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
@@ -642,11 +642,10 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
                     bjflag = true;
                     int bet = playerHand.getBet();
                     string bet_str = to_string(bet * 3/2);
-                    //cout << "\n** Hand 1 is blackjack!! You win $"<< bet_str << " **\n\n";
                     cout << "\n***  Hand 1 is blackjack!!  ***\n";
                     
                     cout << "\n";
-                    cout << "You WIN "<< bet_str << "!!!!      \n";
+                    cout << "You WIN $"<< bet_str << "!!!!      \n";
                     cout << "\n";
                     
                     playerBank->addFunds(playerHand.getBet());
@@ -662,7 +661,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
                     cout << "\n***  Hand 2 is blackjack!!  ***\n";
                     
                     cout << "\n";
-                    cout << "You WIN "<< bet_str << "!!!!      \n";
+                    cout << "You WIN $"<< bet_str << "!!!!      \n";
                     cout << "\n\n";
                     playerBank->addFunds(newHand.getBet());
                     playerBank->payBlackjack(bet);
@@ -1101,26 +1100,24 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
         (dealerScore<0) ?
         cout << "Against Dealer's Busted Hand \n":
         cout << "Against Dealer's   :    " << dealerScore << "\n";
-        cout << "\n";
+        if(_numPlayers==1) cout << "\n";                            //FIXME: check here
         
         if(playerHand.getValue() < dealerScore)  // player loses
         {
-            cout << "YOU LOST your bet of $" << playerHand.getBet() << "\n";
+            cout << "YOU LOST your bet of $" << playerHand.getBet() << ":-( "<< endl;
+            if(_numPlayers  > 1) cout << "\n";
         }
         else if(playerHand.getValue() == dealerHand->getValue())    // player ties
         {
-            cout << "Hand is a Push. You win and lose nothing \n\n";
+            cout << "Hand is a Push. You win and lose nothing " << endl;
+            if(_numPlayers > 1) cout << "\n";
             playerBank->addFunds(playerHand.getBet());
         }
         else // player wins (not with blackjack)
         {
-//            cout << "--------------------\n";
-//            cout << "You win "<< playerHand.getBet() << "!!      |\n";
-//            cout << "--------------------\n\n";
-            
             cout << "\n";
-            cout << "You WIN "<< playerHand.getBet() << "!!!!      \n";
-            //cout << "\n";
+            cout << "You WIN $"<< playerHand.getBet() << "!!!! " << endl;
+            if(_numPlayers>1) cout << "\n";
             playerBank->addFunds(playerHand.getBet()*2);
         }
     }
@@ -1182,7 +1179,7 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)
     {
         cout << "Player has         :    " << player.getHand() << "      after hitting \n";
         std::this_thread::sleep_for(duration);
-        cout << "\nOh NO!! You busted.. You have lost your bet of $"<< player.getBet() <<"\n";
+        cout << "\nOh NO!! You busted.. You LOST your bet of $"<< player.getBet() <<"  :-( \n";
     }
     else
     {
@@ -1225,7 +1222,7 @@ int Dealer::testHitPlayer(Hand& player)
     {
         cout << "Player has         :    " << player.getHand() << "      after hitting \n";
         std::this_thread::sleep_for(duration);
-        cout << "\nOh NO!! You busted.. You have lost your bet of $"<< player.getBet() <<"\n";
+        cout << "\nOh NO!! You busted.. You LOST your bet of $"<< player.getBet() <<"    :-(\n";
     }
     else
     {
