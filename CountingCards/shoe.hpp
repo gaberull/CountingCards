@@ -33,7 +33,4 @@ public:
     int getCardsLeft();         // get num cards left in shoe
     //std::string printCountStr();
     ~Shoe();                    // shoe destructor
-    
-    // Only for testing purposes. To be removed later
-    
 };

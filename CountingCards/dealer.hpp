@@ -29,14 +29,12 @@ public:
     explicit Dealer(int numPlayers);                    // Contructor - using explicit to deny implicit conversion (char to int)
     bool hasBlackjack();                                // returns  whether or not this dealer's hand is blackjack
     int dealHands(Shoe* shoe, Bank* playerBank, int bet);       // Initial hand dealing to user and AI players, dealer
+    int testHands(Bank* playerBank);                    // for testing purposes - choose hand & dealer hand
     int action(Shoe* shoe, Bank* playerBank, char action ='a', bool test=false); 
     int computerAction(Shoe* shoe);                     // Perform action on computer players' hands
     int dealerAction(Shoe* shoe, Bank* playerBank);     // Perform dealer actions after all players' hand actions done
     int hitPlayer(Hand& player, Shoe* shoe);            // calls hit() and adds text output
-    char correctAction(Hand& player, Hand* dealer, int count=0, bool print=true); // returns correct action for any hands vs dealer card showing
+    int testHitPlayer(Hand& player);                    // for testing. choose hit card
+    char correctAction(Hand& player, Hand* dealer, int count=0, bool print=true); // returns correct action for any hands vs dealer card shown
     ~Dealer();                                          // Destructor
-    
-    // Only for testing purpsoes. To be removed later.
-    int testHands(Bank* playerBank);
-    int testHitPlayer(Hand& player);
 };
