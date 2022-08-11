@@ -105,6 +105,8 @@ For Unix architecture (Mac or Linux):
 
 - GUI : I'm current working on a GUI and full mobile game using **React Native**, connecting it to the C++ backend. Ideally, the use of React should make it very portable, and able to run on multiple platforms without much modification from one to the next.
 - Add in ability for player to play multiple hands, reduce total players to 5
+- Add in analysis of betting patterns
+- Add in analysis of times when player did not act correctly (and count), and option to print to file
 
 ### References:
 

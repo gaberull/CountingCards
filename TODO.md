@@ -24,6 +24,8 @@
     - [x] Choosing dealer hand
 - [ ] Add testing mode capabilities to splitting and dealer received cards
 - [ ] Put new screenshots in their own dated folder on github 
+- [ ] report of when (and count) the player did not do the right action. 
+    - [ ] Option to print to file
     
 ## Notes and Ideas to self
 
