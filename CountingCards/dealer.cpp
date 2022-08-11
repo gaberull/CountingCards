@@ -2,7 +2,6 @@
 //  dealer.cpp
 //  CountingCards
 //
-//  Created by Gabe Scott on 7/25/22.
 //  Copyright (c) 2022 Gabe Scott
 //
 
@@ -292,13 +291,13 @@ int Dealer::testHands(Bank* playerBank)
     cout << "Enter player first card" << endl;
     cin >> p_first;
     p_first = toupper(p_first);
-    cout << "Enter player second card (Capital char)" << endl;
+    cout << "Enter player second card " << endl;
     cin >> p_sec;
     p_sec = toupper(p_sec);
-    cout << "Enter dealer first card (Capital char)" << endl;
+    cout << "Enter dealer first card " << endl;
     cin >> d_first;
     d_first = toupper(d_first);
-    cout << "Enter dealer second card (Capital char)" << endl;
+    cout << "Enter dealer second card " << endl;
     cin >> d_sec;
     d_sec = toupper(d_sec);
     cout << "Enter bet. No more than $" << playerBank->getBalance() << endl;
