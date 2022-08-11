@@ -2,7 +2,7 @@
 
 - [ ] Handle computer player getting blackjack on a split hand - currently standing pat
 - [ ] check getting bj against dealer's bj in multiplayer and single player
-- [ ] Handle error where putting too many funds twice
+- [x] Handle error where putting too many funds twice
 - [x] Implement rules - 'r' in action()
 - [ ] Implement change in basic strategy and info for adjusting betting patterns based on true count (the ratio)
 - [x] Handle input of capital letters everywhere where a char is input from stdin
@@ -18,14 +18,15 @@
 - [x] figure out where to put/remove **Notes:** - Putting them in ideas in TODO.md
 - [ ] Get new screenshots after style change 8/9/22
 - [x] Create testing mode capabilities
+    - [x] Choosing player hand
+    - [x] Choosing hit card
+    - [x] Choosing dealer hand
 - [ ] Add testing mode capabilities to splitting and dealer received cards
 - [ ] Put new screenshots in their own dated folder on github 
     
-## Notes to self
- - dimensions of terminal for screenshot images: 91 x 28
+## Notes and Ideas to self
 
-## Ideas
-
+- dimensions of terminal for screenshot images: 91 x 28
 - Maybe add in words with a few microseconds delay for a hand won that spread across the console
 - Sad face on loss, maybe in a box like the winnings
 - try to make winnings boxes similar in size, using num of digits of win size and offsetting w/ spaces or lack thereof on opposite end of print statement
