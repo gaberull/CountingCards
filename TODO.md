@@ -1,5 +1,6 @@
 ## TODO:
 
+- [ ] Get new screenshots with the new (much better looking) lowercase card suits
 - [ ] Add count notices like "Count is high, maybe you should consider raising your bet
 - [ ] Handle computer player getting blackjack on a split hand - currently standing pat
 - [ ] check getting bj against dealer's bj in multiplayer and single player
