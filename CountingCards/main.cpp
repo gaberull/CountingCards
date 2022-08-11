@@ -2,7 +2,6 @@
 //  main.cpp
 //  CountingCards
 //
-//  Created by Gabe Scott on 7/25/22.
 //  Copyright (c) 2022 Gabe Scott
 //
 
@@ -55,6 +54,12 @@ int main(int argc, const char * argv[])
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Wrong Input. Enter a number of players between 1 and 4 \n";
         cin >> numPlayers;
+        if(numPlayers==9)
+        {
+            test = true;
+            numPlayers = 1;
+            break;
+        }
     }
     
     int cutPoint = -1;
@@ -178,11 +183,12 @@ int main(int argc, const char * argv[])
             if(bank->getBalance() == 0)
             {
                 cout << "\nYOU ARE OUT OF FUNDS! \n";
-                cout << "\nEnter amount to reload (up to $1,000) | 'q' to quit! \n";
+                cout << "\nEnter amount to reload (up to $" << MAX_RELOAD << ") | 'q' to quit! \n";
                 char reload_str[10];
+                cin >> reload_str;
                 reload_str[0] = toupper(reload_str[0]);
                 if(reload_str[0]=='Q') break;
-                while(!cin || reload_str[0] < '0' || reload_str[0] > '9' )
+                while(!cin || reload_str[0] <= '0' || reload_str[0] > '9' ) //TODO: handle each digit being number
                 {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -192,9 +198,23 @@ int main(int argc, const char * argv[])
                     if(reload_str[0]=='Q') break;
                 }
                 int reload = (int) stol(reload_str);
-                if (reload > MAX_RELOAD) reload = MAX_RELOAD;
+                if (reload > MAX_RELOAD)
+                {
+                    reload = MAX_RELOAD;
+                    cout << "your reload was too much. You get a reload of $" << MAX_RELOAD <<endl;
+                    cout << "\n";
+                    
+                }
                 bank->addFunds(reload);
                 totalFunds += reload;
+                int net = bank->getBalance() - totalFunds;
+                cout << "_____________________________ \n\n";
+                cout << "| TOTAL FUNDS ADDED    : $"<< totalFunds <<" \n";
+                cout << "| BANKROLL             : $"<< bank->getBalance() <<" \n";
+                cout << "----------------------------- \n";
+                (net >= 0) ?
+                cout << "| NET PROFIT/LOSS         : $"<< net <<" \n\n":
+                cout << "| NET PROFIT/LOSS         : -$"<< net*-1 <<" \n\n";
             }
             if(shoe->endOfShoe())   // Shoe is finished. Start a new one
             {
