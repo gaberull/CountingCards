@@ -22,7 +22,6 @@ For Unix architecture (Mac or Linux):
 - Player chooses how many decks of cards they want in the dealer's shoe
 - Player chooses total number of players (choosing 4 would result in 3 computer players and him/herself)
 - Add funds to player bank as desired
-- Request optimal play at any point based on blackjack basic strategy
 - Check your own count of the shoe against the true count, kept by CountingCards
 - Track net win/loss over entire session
 - Select option from menu prompt to get optimal strategy for any hand against the dealer's shown card
@@ -34,15 +33,20 @@ For Unix architecture (Mac or Linux):
     - Stand pat
     - Split hand
     - Double down
-        * split and double can be stacked like in a real game of blackjack
+        * split and double can be stacked multiple times as in a real game of blackjack
     - Strategy hint
         * get basic strategy for the player's hand vs the dealer's shown card
         * get adjusted strategy based on count of the deck vs dealer's shown card
     - Get current running count
     - List rules
-    - Add funds
-    - Quit  
+    - Add funds after running out
+    - Quit with option from menu prompt
 - Net session results are displayed at end of game, when the quit option is requested    
+- Testing Mode:
+    * If user inputs the number of players to be 9, they can choose the hand that is dealt to them. There is nothing on screen that tells them about this.
+    * User can then choose the card they receive from hitting or doubling.
+    * Since these cards are not dealt out of the shoe, they do not affect the count
+
 
 ## Blackjack Terminology
 
@@ -64,7 +68,7 @@ For Unix architecture (Mac or Linux):
 - Players attempt to get the better score between him/herself and the dealer, up to 21, without going over . 
 - Aces can be worth 11 or 1 points, with the better of the two options applying automatically. 
 - A hand that wins is paid 1:1, unless it is a blackjack, which pays 3:2
-- For this particular implementation of Blackjack, dealer will stand on both soft and hard 17s and any hand with better than 17 points.
+- For this particular implementation of Blackjack, dealer will stand pat on both soft and hard 17s, and any hand with better than 17 points.
 - For more information about blackjack rules see [Bicycle's Blackjack Rules](https://bicyclecards.com/how-to-play/blackjack/).
 
 ### Some info on card counting in the game of Blackjack
