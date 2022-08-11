@@ -16,7 +16,6 @@ class Hand
     std::vector<char> cardArray;
     std::vector<char> suitArray;
     
-    //TODO: make these maps static
     static std::unordered_map<uint8_t, char> cardMap;
     static std::unordered_map<char, int> valueMap;
     static std::unordered_map<uint8_t, char> suitMap;
