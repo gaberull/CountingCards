@@ -323,7 +323,7 @@ int Dealer::testHands(Bank* playerBank)
     // player bj        dealer bj
     // player bj        dealer not bj
     // player not bj    dealer bj
-    // player not bj    dealer no bj
+    // player not bj    dealer not bj
     
     if(player.isBlackjack() && dealerHand->isBlackjack())
     {
@@ -416,26 +416,11 @@ int Dealer::testHands(Bank* playerBank)
         cout << "For blackjack :( " << endl;
         cout << "\n";
         cout << "You lost your bet of $" << player.getBet() << endl;
-        cout << "\n";
+        //cout << "\n";
         cout << "-----------------------------  \n";
         cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
         cout << "----------------------------- \n \n";
-                                                                                        /*
-        cout << "'c' to Continue  | 'q' to Quit " << endl;
-        char temp;
-        cin >> temp;
-        temp = toupper(temp);
-        if(temp == 'Q') return -1;
-        while(!cin || (temp != 'C') )
-        {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
-            cin >> temp;
-            temp = toupper(temp);
-            if(temp=='Q') return -1;
-        }
-                                                                                        */
+                                                                                        
         return 0;
     }
     else    //(!player->isBlackjack() && !dealerHand->isBlackjack()
@@ -443,6 +428,7 @@ int Dealer::testHands(Bank* playerBank)
         cout << "\n";
         cout << "Player Has         :    " << player.getHand() << endl;
         cout << "Dealer Shows       :    " << dealerHand->displayOne() << endl;
+        cout << "\n";
         
         cout << "'c' to Continue  | 'q' to Quit " << endl;
         char in = 'a';
@@ -452,6 +438,7 @@ int Dealer::testHands(Bank* playerBank)
         {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "\n";
             cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
             cin >> in;
             in = toupper(in);
@@ -585,7 +572,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             patHands.push_back(playerHand);
             
             cout << "\n";
-            cout << "\n'c' to Continue  | 'q' to Quit  " << endl;
+            cout << "'c' to Continue  | 'q' to Quit  " << endl;
             char temp = 'a';
             cin >> temp;
             //temp = toupper(temp);
@@ -1114,10 +1101,11 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
         (dealerScore<0) ?
         cout << "Against Dealer's Busted Hand \n":
         cout << "Against Dealer's   :    " << dealerScore << "\n";
+        cout << "\n";
         
         if(playerHand.getValue() < dealerScore)  // player loses
         {
-            cout << "YOU LOST your bet of $" << playerHand.getBet() << "\n\n";
+            cout << "YOU LOST your bet of $" << playerHand.getBet() << "\n";
         }
         else if(playerHand.getValue() == dealerHand->getValue())    // player ties
         {
@@ -1132,7 +1120,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
             
             cout << "\n";
             cout << "You WIN "<< playerHand.getBet() << "!!!!      \n";
-            cout << "\n";
+            //cout << "\n";
             playerBank->addFunds(playerHand.getBet()*2);
         }
     }
@@ -1220,6 +1208,7 @@ int Dealer::testHitPlayer(Hand& player)
     };
     cout << "Test Hitting \n" << endl;
     cout << "Player has         :    " << player.getHand() <<  "      Initially\n";
+    cout << "\n";
     cout << "Input desired card from hitting" << endl;
     char temp;
     cin >> temp;
