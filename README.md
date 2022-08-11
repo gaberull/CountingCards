@@ -1,13 +1,13 @@
-# Counting Cards 
-
-### A blackjack Game by Gabe Scott
+# Counting Cards - A blackjack game by Gabe Scott
 
 Source files are in ./CountingCards/
 
 ## Summary
 
-Who doesn't love a good game of blackjack? ***CountingCards*** helps the player learn blackjack gameplay and basic strategy, provides a fun way to practice keeping the count of the deck, offers advice on adjusting your bet and adjusting strategy based on the count of the deck. This game will be a fun way to help the you bring your best game to the casino or a blackjack game with friends. 
-***This game will help the user to win money at the casino, or at the very least, limit their losses***
+Who doesn't love a good game of blackjack? ***CountingCards*** helps the player learn blackjack gameplay and basic strategy, provides a fun way to practice keeping the count of the deck, offers advice on adjusting your bet and adjusting strategy based on the count of the deck. 
+
+This game is a fun way to help the you bring your best game to the casino or to a blackjack game among friends. 
+***CountingCards will help you win money at the casino, or at the very least, limit your losses***
 
 ## Installation Instructions
 
