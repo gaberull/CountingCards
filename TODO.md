@@ -5,9 +5,8 @@
 - [ ] Handle error where putting too many funds twice
 - [x] Implement rules - 'r' in action()
 - [ ] Implement change in basic strategy and info for adjusting betting patterns based on true count (the ratio)
-- [ ] Handle input of capital letters everywhere where a char is input from stdin
+- [x] Handle input of capital letters everywhere where a char is input from stdin
 - [x] Make hashmaps static for Card class
-- [ ] Add ability for user to play multiple hands
 - [ ] Add table limits (betting) and maybe allow player to select them
 - [ ] complete the features list on README.md
 - [ ] complete the blackjack rules list on README.md
@@ -15,9 +14,12 @@
 - [x] decide on README.md header sizes
 - [x] Remove TODO section from README.md
 - [ ] add ability for player to play multiple hands
+- [ ] Add ability for user to add more funds without having busted first
 - [x] figure out where to put/remove **Notes:** - Putting them in ideas in TODO.md
 - [ ] Get new screenshots after style change 8/9/22
-    - [ ] Put new screenshots in their own dated folder on github 
+- [x] Create testing mode capabilities
+- [ ] Add testing mode capabilities to splitting and dealer received cards
+- [ ] Put new screenshots in their own dated folder on github 
     
 ## Notes to self
  - dimensions of screenshot images: 91 x 28
@@ -28,4 +30,3 @@
 - Sad face on loss, maybe in a box like the winnings
 - try to make winnings boxes similar in size, using num of digits of win size and offsetting w/ spaces or lack thereof on opposite end of print statement
 - Require bets to be in $5 increments
-- Clear console sometimes to make it cleaner
