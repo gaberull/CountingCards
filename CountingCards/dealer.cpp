@@ -271,7 +271,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
 
 /**
  @brief
-    Only for testing purposes. Test user's set hand against dealer's set hand.
+    Only for testing purposes. Choose hands of user and dealer.
  @discussion
     set players hand and set dealer's hand. Only for 1 player vs dealer for now
  @returns int
@@ -279,7 +279,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
     1   -   hand is ongoing
     -1  -   quit game
  */
-int Dealer::testHands(Bank* playerBank)
+int Dealer::testDealHands(Bank* playerBank)
 {
     unordered_map<char, uint8_t> revCardMap =
     {

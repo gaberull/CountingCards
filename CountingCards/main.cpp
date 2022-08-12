@@ -157,7 +157,7 @@ int main(int argc, const char * argv[])
     // Hands are dealt  --------------------------------------------------------
     int handContinues = 0;   // -1 == quit, 0 == hand done, 1 == hand ongoing
     
-    if(test) handContinues = dealer->testHands(bank);
+    if(test) handContinues = dealer->testDealHands(bank);
     else handContinues = dealer->dealHands(shoe, bank, bet);
     
     
@@ -245,7 +245,7 @@ int main(int argc, const char * argv[])
             }
             (!test) ?
             handContinues = dealer->dealHands(shoe, bank, bet):
-            handContinues = dealer->testHands(bank);
+            handContinues = dealer->testDealHands(bank);
         }
     }
     int net = bank->getBalance() - totalFunds;
