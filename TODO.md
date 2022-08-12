@@ -11,8 +11,10 @@
     - [x] Choosing player hand
     - [x] Choosing hit card
     - [x] Choosing dealer hand
+- [x] Put new screenshots in their own dated folder on github 
+- [x] complete the features list on README.md
+- [x] complete the blackjack rules list on README.md
 - [ ] Add testing mode capabilities to splitting and dealer received cards
-- [ ] Put new screenshots in their own dated folder on github 
 - [ ] report of when (and count) the player did not do the right action. 
     - [ ] Option to print to file
     - [ ] Get new screenshots with the new (much better looking) lowercase card suits
@@ -21,12 +23,10 @@
 - [ ] check getting bj against dealer's bj in multiplayer and single player
 - [ ] Implement change in basic strategy and info for adjusting betting patterns based on true count (the ratio)
 - [ ] Add table limits (betting) and maybe allow player to select them
-- [ ] complete the features list on README.md
-- [ ] complete the blackjack rules list on README.md
 - [ ] complete info on counting cards in general on README.md
 - [ ] add ability for player to play multiple hands
 - [ ] Add ability for user to add more funds without having busted first
-- [ ] replace menu option "surrender" with add funds after this hand
+- [ ] Replace menu option "surrender" with add funds after this hand
     
 ## Notes and Ideas to self
 
