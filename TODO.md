@@ -14,6 +14,7 @@
 - [x] Put new screenshots in their own dated folder on github 
 - [x] complete the features list on README.md
 - [x] complete the blackjack rules list on README.md
+- [ ] High score component to game?
 - [ ] Add testing mode capabilities to splitting and dealer received cards
 - [ ] report of when (and count) the player did not do the right action. 
     - [ ] Option to print to file

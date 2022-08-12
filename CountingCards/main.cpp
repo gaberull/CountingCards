@@ -260,15 +260,15 @@ int main(int argc, const char * argv[])
     }
     int net = bank->getBalance() - totalFunds;
     cout << "\n\n\n\n\n";
-    cout << "         _____\n";
-    cout << "        |A .  | _____\n";
-    cout << "        | /.\\ ||A ^  | _____\n";
-    cout << "        |(_._)|| / \\ ||A _  | _____\n";
-    cout << "        |  |  || \\ / || ( ) ||A_ _ |\n";
-    cout << "        |____V||  .  ||(_'_)||( v )|\n";
-    cout << "               |____V||  |  || \\ / |\n";
-    cout << "                      |____V||  .  |\n";
-    cout << "                             |____V|\n\n";
+    cout << "        _____\n";
+    cout << "       |A .  | _____\n";
+    cout << "       | /.\\ ||A ^  | _____\n";
+    cout << "       |(_._)|| / \\ ||A _  | _____\n";
+    cout << "       |  |  || \\ / || ( ) ||A_ _ |\n";
+    cout << "       |____V||  .  ||(_'_)||( v )|\n";
+    cout << "              |____V||  |  || \\ / |\n";
+    cout << "                     |____V||  .  |\n";
+    cout << "                            |____V|\n\n\n";
 
     // EXIT SEQUENCE
     cout << "\nThanks for Playing!! \n";
