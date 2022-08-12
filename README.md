@@ -25,14 +25,16 @@ For Unix architecture (Mac or Linux):
 
 ## Features of CountingCards
 
-- Chooses how many decks of cards you want in the dealer's shoe
-- Chooses total number of players (e.g. choosing 4 would result in 3 computer players and him/herself)
+- Choose how many decks of cards you want in the dealer's shoe
+- Choose how deep to set the cut card - This simluates a real world blackjack game and should affect one's counting and betting strategy. 
+    - Play 100% of shoe (This isn't done in real life games)
+    - Play 90% of shoe
+    - Play 75% of shoe
+    - Play 50% of shoe
+- Choose total number of players (e.g. choosing 4 would result in 3 computer players and him/herself)
 - Add funds to bankroll as desired
 - Check your own count of the shoe against the true count, kept by CountingCards
 - Track net win/loss over entire session
-- Select option from menu prompt to get optimal strategy for any hand against the dealer's shown card
-- Select option from menu prompt to get current count of deck
-- Select option from menu prompt to get the rules of the game
 - Computer players all play according to common basic strategy for their hand vs the dealer's shown card
 - In-hand menu of play options include:
     - Hit hand
@@ -48,10 +50,11 @@ For Unix architecture (Mac or Linux):
     - Add funds after running out
     - Quit with option from menu prompt
 - Net session results are displayed at end of game, when the quit option is requested    
-- Testing Mode:
-    * If user inputs the number of players to be 9, they can choose the hand that is dealt to them. There is nothing on screen that tells them about this.
+- Testing Mode (hidden feature):
+    * If user inputs the number of players to be 9, they can choose the hand that is dealt to them
     * User can then choose the card they receive from hitting or doubling.
     * Since these cards are not dealt out of the shoe, they do not affect the count
+    * This is a hidden feature and there is no prompt on-screen that tells the player about this
 
 
 ## Blackjack Terminology
