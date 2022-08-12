@@ -1,24 +1,12 @@
 ## TODO:
 
-- [ ] Get new screenshots with the new (much better looking) lowercase card suits
-- [ ] Add count notices like "Count is high, maybe you should consider raising your bet
-- [ ] Handle computer player getting blackjack on a split hand - currently standing pat
-- [ ] check getting bj against dealer's bj in multiplayer and single player
 - [x] Handle error where putting too many funds twice
 - [x] Implement rules - 'r' in action()
-- [ ] Implement change in basic strategy and info for adjusting betting patterns based on true count (the ratio)
 - [x] Handle input of capital letters everywhere where a char is input from stdin
 - [x] Make hashmaps static for Card class
-- [ ] Add table limits (betting) and maybe allow player to select them
-- [ ] complete the features list on README.md
-- [ ] complete the blackjack rules list on README.md
-- [ ] complete info on counting cards in general on README.md
 - [x] decide on README.md header sizes
 - [x] Remove TODO section from README.md
-- [ ] add ability for player to play multiple hands
-- [ ] Add ability for user to add more funds without having busted first
 - [x] figure out where to put/remove **Notes:** - Putting them in ideas in TODO.md
-- [ ] Get new screenshots after style change 8/9/22
 - [x] Create testing mode capabilities
     - [x] Choosing player hand
     - [x] Choosing hit card
@@ -27,6 +15,17 @@
 - [ ] Put new screenshots in their own dated folder on github 
 - [ ] report of when (and count) the player did not do the right action. 
     - [ ] Option to print to file
+    - [ ] Get new screenshots with the new (much better looking) lowercase card suits
+- [ ] Add count notices like "Count is high, maybe you should consider raising your bet"
+- [ ] Handle computer player getting blackjack on a split hand - currently standing pat
+- [ ] check getting bj against dealer's bj in multiplayer and single player
+- [ ] Implement change in basic strategy and info for adjusting betting patterns based on true count (the ratio)
+- [ ] Add table limits (betting) and maybe allow player to select them
+- [ ] complete the features list on README.md
+- [ ] complete the blackjack rules list on README.md
+- [ ] complete info on counting cards in general on README.md
+- [ ] add ability for player to play multiple hands
+- [ ] Add ability for user to add more funds without having busted first
     
 ## Notes and Ideas to self
 
