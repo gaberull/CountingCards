@@ -12,12 +12,12 @@ CountingCards is a fun and educational way to help the you bring your best game 
 
 For Unix architecture (Mac or Linux):
 - Download folder containing source files: ./CountingCards/
-- In a terminal, naviage to source code folder
+- In a terminal, navigate to source code folder
 - Run Makefile with command: 
     ```make```
     OR 
     ```make all```
-- run executable file named "counting" with command: "./counting" 
+- run resultant executable file named "counting" with command: "./counting" 
 - *optional*: After, run ```make clean``` to remove object files and the executable file-
 
 **Note:**
@@ -25,16 +25,16 @@ For Unix architecture (Mac or Linux):
 
 ## Features of CountingCards
 
-- Player chooses how many decks of cards they want in the dealer's shoe
-- Player chooses total number of players (choosing 4 would result in 3 computer players and him/herself)
-- Add funds to player bank as desired
+- Chooses how many decks of cards you want in the dealer's shoe
+- Chooses total number of players (e.g. choosing 4 would result in 3 computer players and him/herself)
+- Add funds to bankroll as desired
 - Check your own count of the shoe against the true count, kept by CountingCards
 - Track net win/loss over entire session
 - Select option from menu prompt to get optimal strategy for any hand against the dealer's shown card
 - Select option from menu prompt to get current count of deck
 - Select option from menu prompt to get the rules of the game
 - Computer players all play according to common basic strategy for their hand vs the dealer's shown card
-- In hand play options include:
+- In-hand menu of play options include:
     - Hit hand
     - Stand pat
     - Split hand
@@ -43,8 +43,8 @@ For Unix architecture (Mac or Linux):
     - Strategy hint
         * get basic strategy for the player's hand vs the dealer's shown card
         * get adjusted strategy based on count of the deck vs dealer's shown card
-    - Get current running count
-    - List rules
+    - Get current running count and true count (ratio of running count to decks remaining)
+    - List rules of the game
     - Add funds after running out
     - Quit with option from menu prompt
 - Net session results are displayed at end of game, when the quit option is requested    
@@ -110,7 +110,8 @@ For Unix architecture (Mac or Linux):
 - GUI : I'm current working on a GUI and full mobile game using **React Native**, connecting it to the C++ backend. Ideally, the use of React should make it very portable, and able to run on multiple platforms without much modification from one to the next.
 - Add in ability for player to play multiple hands, reduce total players to 5
 - Add in analysis of betting patterns
-- Add in analysis of times when player did not act correctly (and count), and option to print to file
+- Add in analysis of times when player did not act correctly (and count)
+    - option to print to file
 
 ### References:
 
