@@ -19,8 +19,10 @@ For Unix architecture (Mac or Linux):
     OR 
     ```make all```
 - run executable file named "counting" with command: "./counting" 
-- *optional*: After, run ```make clean``` to remove object files and the executable file
-- **If you have limited/no developer experince, and haven't installed command line tools before, open INSTALLATION.md and follow the more detailed instructions to compile the code**
+- *optional*: After, run ```make clean``` to remove object files and the executable file-
+
+**Note:**
+ - If you have limited/no developer experince, and haven't installed command line tools before, open INSTALLATION.md and follow the more detailed instructions to compile the code
 
 ## Features of CountingCards
 
