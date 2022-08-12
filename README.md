@@ -11,14 +11,14 @@ CountingCards is a fun and educational way to help the you bring your best game 
 ## Installation Instructions
 
 For Unix architecture (Mac or Linux):
-- Download folder containing source files: ./CountingCards/
-- In a terminal, navigate to source code folder
+- Download folder from this repository containing source files: ./CountingCards/
+- In a terminal, navigate to that source code folder
 - Run Makefile with command: 
     ```make```
     OR 
     ```make all```
-- run resultant executable file named "counting" with command: "./counting" 
-- *optional*: After compilation, execute command ```make clean``` to remove object files and the executable file-
+- Run resultant executable file named "counting" with command: ```./counting``` 
+- *optional*: After compilation, execute command ```make clean``` to remove object files and the compiled executable file called "counting"
 
 **Note:**
  - If you have limited/no developer experince, and haven't installed command line tools before, open INSTALLATION.md and follow the more detailed instructions to compile the code
@@ -74,11 +74,11 @@ For Unix architecture (Mac or Linux):
 ## Game of Blackjack Rules
 
 - Players act before the dealer acts
-- Players attempt to get the better score between him/herself and the dealer, up to 21, without going over . 
-- Aces can be worth 11 or 1 points, with the better of the two options applying automatically. 
+- Players attempt to get the better score between him/herself and the dealer, up to 21, without going over (busting) 
+- Aces can be worth 11 or 1 points, with the better of the two options applying automatically 
 - A hand that wins is paid 1:1, unless it is a blackjack, which pays 3:2
-- For this particular implementation of Blackjack, dealer will stand pat on both soft and hard 17s, and any hand with better than 17 points.
-- For more information about blackjack rules see [Bicycle's Blackjack Rules](https://bicyclecards.com/how-to-play/blackjack/).
+- For this particular implementation of Blackjack, the dealer will stand pat on both soft and hard 17s, and any hand with better than 17 points
+- For more information about blackjack rules see [Bicycle's Blackjack Rules](https://bicyclecards.com/how-to-play/blackjack/)
 
 ### Some info on card counting in the game of Blackjack
 
@@ -110,11 +110,12 @@ For Unix architecture (Mac or Linux):
 
 **(8/7/22):** 
 
-- GUI : I'm current working on a GUI and full mobile game using **React Native**, connecting it to the C++ backend. Ideally, the use of React should make it very portable, and able to run on multiple platforms without much modification from one to the next.
+- GUI : I'm current working on a GUI and full mobile game using **React Native**, connecting it to the C++ backend. Ideally, the use of React should make it very portable, and able to run on multiple platforms without much modification from one to the next
 - Add in ability for player to play multiple hands, reduce total players to 5
 - Add in analysis of betting patterns
 - Add in analysis of times when player did not act correctly (and count)
     - option to print to file
+- More implementation ideas and tasks to complete are in the file [TODO.md](https://github.com/gaberull/CountingCards/blob/master/TODO.md)
 
 ### References:
 
