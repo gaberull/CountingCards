@@ -58,7 +58,7 @@ bool Dealer::hasBlackjack()
 int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 - not showing dealer other card when everybody busts
 {
     delete dealerHand;
-    handArray = std::vector<Hand>();    // TODO: these should reset arrays at each hand deal. Check if necessary
+    handArray = std::vector<Hand>();
     otherPlayers = std::vector<Hand>();
     
     if(playerBank->getBalance() < bet)      // Check that bet amount is in playerBank
@@ -520,7 +520,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
         
         cin >> action;
         action = toupper(action);
-        while(!cin || (action != 'H' && action != 'P' && action != 'S' && action != 'D' && action != 'M' && action != 'C' && action != 'R' && action != 'X' && action != 'Q'))   //TODO: add handling capital letters
+        while(!cin || (action != 'H' && action != 'P' && action != 'S' && action != 'D' && action != 'M' && action != 'C' && action != 'R' && action != 'X' && action != 'Q'))
         {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -808,7 +808,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             cout << "Your hand value     " << playerHand.getValue() << "\n";
             this->correctAction(playerHand, dealerHand);
             handArray.push_back(playerHand);
-            cout << "\n***  Please choose the action you would like to take  ***\n";    // TODO: Maybe ask for action input
+            cout << "\n***  Please choose the action you would like to take  ***\n";   
             char temp ='e';
             cin >> temp;
             temp = toupper(temp);
@@ -827,7 +827,6 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
         }
             // Get Current count of Deck
         case 'C': {
-            //cout << "\n**Player Requests the count of the deck**\n";  //TODO: see about adding asterisks to display
             cout << "\n";
             cout << "    <<<  Player requests deck count  >>>" << endl;
             cout << "\n\n";
@@ -842,7 +841,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             break;
         }
             // List Rules
-        case 'R': {        // TODO: implement listing of blackjack rules
+        case 'R': {
             
             cout << "\n";
             cout << "    <<<  Player requests game rules  >>>" << endl;
@@ -1025,19 +1024,15 @@ int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop log
  */
 int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
 {
-    //
-    // TODO: maybe see about just returning here if dealer has bj or if no players with hands left
-    // TODO: if I did that, would have to remove pause, return stmts from dealHands()
+
     //
     // if there are none of this player's hands to play, or AI hands to play
+    //
     if((patHands.size()==0 && otherPats.size()==0) || dealerHand->isBlackjack())
     {
-        //cout << "** Action is Complete. Dealer Had   " << dealerHand->getHand() << "**\n\n";  // TODO: see if i need this line
-        //cout << "\n** Action is Complete **\n\n";
         cout << "\n";
         cout << "    <<<   Action is Done   >>>" << endl;
         cout << "\n";
-        //cout << "\n<< <<   'c' to Continue  | 'q' to Quit   >> >>" << endl;
         cout << "\n'c' to Continue  | 'q' to Quit " << endl;
         char temp;
         cin >> temp;
@@ -1053,7 +1048,6 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
         return 0;
     }
     // Dealer acts
-    //cout << "\n** Dealer Acts on Hand **\n";
     cout << "\n";
     cout << "    <<<    Dealer Acts    >>>" << endl;
     
@@ -1073,10 +1067,6 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
     if(dealerScore > 0)    // dealer not bust
     {
         cout << "Dealer action is finished \n\n";
-//        cout << "\n";
-//        cout << "<<<<< Action is Complete >>>>>" << endl;
-//        cout << "\n";
-//        cout << "<<<<< Action is Complete >>>>>" << endl;
     }
     else    // dealer is bust
     {
@@ -1146,10 +1136,9 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
     std::this_thread::sleep_for(duration);  // pause for 3 sec
     
     cout << "\n";
-    //cout << "\n<< <<   'c' to Continue  | 'q' to Quit   >> >>" << endl;
     cout << "\n'c' to Continue  | 'q' to Quit " << endl;
     char temp;
-    cin >> temp;
+    cin >> temp;    //TODO: toupper this
     if(temp=='q' || temp=='Q') return -1;
     while(!cin || (temp != 'c' && temp != 'C') )
     {
