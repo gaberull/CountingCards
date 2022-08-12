@@ -19,6 +19,16 @@ using namespace std;
 
 int main(int argc, const char * argv[])
 {
+    cout << "     _____\n";
+    cout << "    |A .  | _____\n";
+    cout << "    | /.\\ ||A ^  | _____\n";
+    cout << "    |(_._)|| / \\ ||A _  | _____\n";
+    cout << "    |  |  || \\ / || ( ) ||A_ _ |\n";
+    cout << "    |____V||  .  ||(_'_)||( v )|\n";
+    cout << "           |____V||  |  || \\ / |\n";
+    cout << "                  |____V||  .  |\n";
+    cout << "                         |____V|\n\n";
+
     cout << "::::::::::::::::::::::::::::::::::::" << endl;
     cout << "::                                ::" << endl;
     cout << "::          LET'S   PLAY          ::" << endl;
@@ -249,7 +259,16 @@ int main(int argc, const char * argv[])
         }
     }
     int net = bank->getBalance() - totalFunds;
-    
+    cout << "          _____\n";
+    cout << "         |A .  | _____\n";
+    cout << "         | /.\\ ||A ^  | _____\n";
+    cout << "         |(_._)|| / \\ ||A _  | _____\n";
+    cout << "         |  |  || \\ / || ( ) ||A_ _ |\n";
+    cout << "         |____V||  .  ||(_'_)||( v )|\n";
+    cout << "                |____V||  |  || \\ / |\n";
+    cout << "                       |____V||  .  |\n";
+    cout << "                              |____V|\n\n";
+
     // EXIT SEQUENCE
     cout << "\nThanks for Playing!! \n";
     cout << "_____________________________ \n\n";

@@ -230,6 +230,14 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
             //cout << "****   You hit a BLACKJACK!!!  You Win $" << win_str << "  ****\n\n";
             cout << "*** You hit a BLACKJACK!!! ***\n";
             cout << "\n";
+
+            cout << "        _____  _____\n";
+            cout << "       |A .  ||J _  |\n";
+            cout << "       | /.\\ || ( ) |\n";
+            cout << "       |(_._)||(_'_)|\n";
+            cout << "       |  |  ||  |  |\n";
+            cout << "       |____A||____J|\n";
+            cout << "\n";
             cout << "You WIN $"<< win_str << "!!!!      \n";
             cout << "\n";
             
@@ -376,6 +384,15 @@ int Dealer::testDealHands(Bank* playerBank)
         std::this_thread::sleep_for(duration);
         cout << "*** You hit a BLACKJACK!!! ***\n";
         cout << "\n";
+
+        cout << "        _____  _____\n";
+        cout << "       |A .  ||J _  |\n";
+        cout << "       | /.\\ || ( ) |\n";
+        cout << "       |(_._)||(_'_)|\n";
+        cout << "       |  |  ||  |  |\n";
+        cout << "       |____A||____J|\n";
+        cout << "\n";
+
         cout << "You WIN $"<< win_str << "!!!!      \n";
         cout << "\n";
         cout << "Dealer Had         :    " << dealerHand->getHand() << endl;
@@ -643,7 +660,14 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
                     int bet = playerHand.getBet();
                     string bet_str = to_string(bet * 3/2);
                     cout << "\n***  Hand 1 is blackjack!!  ***\n";
-                    
+                    cout << "\n";
+
+                    cout << "        _____  _____\n";
+                    cout << "       |A .  ||J _  |\n";
+                    cout << "       | /.\\ || ( ) |\n";
+                    cout << "       |(_._)||(_'_)|\n";
+                    cout << "       |  |  ||  |  |\n";
+                    cout << "       |____A||____J|\n";
                     cout << "\n";
                     cout << "You WIN $"<< bet_str << "!!!!      \n";
                     cout << "\n";
@@ -659,7 +683,14 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
                     int bet = newHand.getBet();
                     string bet_str = to_string(bet * 3/2);
                     cout << "\n***  Hand 2 is blackjack!!  ***\n";
-                    
+                    cout << "\n";
+
+                    cout << "        _____  _____\n";
+                    cout << "       |A .  ||J _  |\n";
+                    cout << "       | /.\\ || ( ) |\n";
+                    cout << "       |(_._)||(_'_)|\n";
+                    cout << "       |  |  ||  |  |\n";
+                    cout << "       |____A||____J|\n";
                     cout << "\n";
                     cout << "You WIN $"<< bet_str << "!!!!      \n";
                     cout << "\n\n";
