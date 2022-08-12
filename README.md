@@ -14,7 +14,10 @@ This game is a fun way to help the you bring your best game to the casino or to 
 For Unix architecture (Mac or Linux):
 - Download folder containing source files: ./CountingCards/
 - In a terminal, naviage to source code folder
-- Run Makefile with command: "make" or "make all"
+- Run Makefile with command: 
+    ```make```
+    OR 
+    ```make all```
 - run executable file named "counting" with command: "./counting" 
 - optional: After, run "make clean" to remove object files and executable file
 - **If you have limited/no developer experince, and haven't installed command line tools before, open INSTALLATION.md and follow the more detailed instructions to compile the code**
