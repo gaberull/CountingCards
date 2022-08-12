@@ -108,12 +108,11 @@ For Unix architecture (Mac or Linux):
 
 ## Future Features:
 
-**(8/7/22):** 
-
-- GUI : I'm current working on a GUI and full mobile game using **React Native**, connecting it to the C++ backend. Ideally, the use of React should make it very portable, and able to run on multiple platforms without much modification from one to the next
-- Add in ability for player to play multiple hands, reduce total players to 5
-- Add in analysis of betting patterns
-- Add in analysis of times when player did not act correctly (and count)
+- GUI
+    - Currently working on a GUI and full mobile game for iOS and Android using **React Native**, connecting it to the **C++** backend. Ideally, the use of React should make it very portable, and able to run on multiple platforms without much modification from one to the next
+- Add in ability for player to play multiple hands, with a second acting as another player and reducing the number of players allowed at the table by one
+- Analysis of player's betting patterns, and advice on improvement
+- Analysis and tabulation of times when player did not act correctly
     - option to print to file
 - More implementation ideas and tasks to complete are in the file [TODO.md](https://github.com/gaberull/CountingCards/blob/master/TODO.md)
 
