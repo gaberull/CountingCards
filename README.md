@@ -87,8 +87,28 @@ For Unix architecture (Mac or Linux):
 ## Screenshots
 
 **Starting new game:**
-![]()
+![Start Screen](/screenshots/8_12_22/start_game.png)
+**Hitting blackjack:**
+![blackjack](/screenshots/8_12_22/blackjack.png)
+**Strategy hint:**
+![double](/screenshots/8_12_22/strat_double9.png)
+**Doubling hand:**
+![double](/screenshots/8_12_22/double9_and_strat.png)
+**Hitting hand:**
+![hitting](/screenshots/8_12_22/hitting.png)
+**Busting hand:**
+![busting](/screenshots/8_12_22/busting.png)
+**Getting count:**
+![get count](/screenshots/8_12_22/count.png)
+**Dealer busts:**
+![dealer bust](/screenshots/8_12_22/deadler_bust.png)
+**Testing mode:**
+![test mode](/screenshots/8_12_22/test_mode.png)
+**Exit game:**
+![exit](/screenshots/8_12_22/exit.png)
 
+[//] # 
+( These are old screenshots
 **Menu of options, New hand starting with two players (1 computer player):**
 ![New Hand - 2 Players](/screenshots/8_7_22/newhand_2players.png "New Hand with 2 Players")
 **Menu Display, New hand starting with three players, Deck Count:**
@@ -108,6 +128,7 @@ For Unix architecture (Mac or Linux):
 ![Dealer Acting](/screenshots/8_7_22/pat_dealeraction.png "Dealer Action")
 **End of Game and Results Disaply - After user has input 'Q' or 'q' to quit:**
 ![Quit Screen](/screenshots/8_7_22/quitscreen.png "End of Game")
+)
 
 ## Future Features:
 
