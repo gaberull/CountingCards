@@ -101,7 +101,7 @@ For Unix architecture (Mac or Linux):
 **Getting count:**
 ![get count](/screenshots/8_12_22/count.png)
 **Dealer busts:**
-![dealer bust](/screenshots/8_12_22/deadler_bust.png)
+![dealer bust](/screenshots/8_12_22/dealer_bust.png)
 **Testing mode:**
 ![test mode](/screenshots/8_12_22/test_mode.png)
 **Exit game:**
