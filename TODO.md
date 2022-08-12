@@ -26,6 +26,7 @@
 - [ ] complete info on counting cards in general on README.md
 - [ ] add ability for player to play multiple hands
 - [ ] Add ability for user to add more funds without having busted first
+- [ ] replace menu option "surrender" with add funds after this hand
     
 ## Notes and Ideas to self
 

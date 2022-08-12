@@ -86,6 +86,9 @@ For Unix architecture (Mac or Linux):
 
 ## Screenshots
 
+**Starting new game:**
+![]()
+
 **Menu of options, New hand starting with two players (1 computer player):**
 ![New Hand - 2 Players](/screenshots/8_7_22/newhand_2players.png "New Hand with 2 Players")
 **Menu Display, New hand starting with three players, Deck Count:**
