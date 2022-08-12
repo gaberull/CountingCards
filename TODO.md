@@ -31,7 +31,7 @@
 
 - dimensions of terminal for screenshot images: 91 x 28
 - Maybe add in words with a few microseconds delay for a hand won that spread across the console
-- Sad face on loss, maybe in a box like the winnings
-- try to make winnings boxes similar in size, using num of digits of win size and offsetting w/ spaces or lack thereof on opposite end of print statement
+- Sad face on loss, maybe in a box like the winnings, or some ascii art
+- Try to make winnings boxes similar in size, using num of digits of win size and offsetting w/ spaces or lack thereof on opposite end of print statement
 - Require bets to be in $5 increments
-- Maybe have game analyze betting patters and do something with that
+- Have game analyze betting patters and offer advice
