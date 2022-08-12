@@ -80,7 +80,7 @@ For Unix architecture (Mac or Linux):
 - For this particular implementation of Blackjack, the dealer will stand pat on both soft and hard 17s, and any hand with better than 17 points
 - For more information about blackjack rules see [Bicycle's Blackjack Rules](https://bicyclecards.com/how-to-play/blackjack/)
 
-### Some info on card counting in the game of Blackjack
+## Some info on card counting in the game of Blackjack
 
 - [ ] **fill out this section**
 
