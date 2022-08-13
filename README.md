@@ -50,6 +50,7 @@ For Unix architecture (Mac or Linux):
     - Get current running count and true count (ratio of running count to decks remaining)
     - List rules of the game
     - Add on funds to bankroll
+        - game tracks add on amounts, and doesn't let user add more than an amount that would bring player's bankroll to MAX_RELOAD * 3/4 during a single hand, even if option to add on is selected multiple times. 
     - Quit with option from menu prompt
 - Net session results are displayed at end of game, when the quit option is requested    
 - Testing Mode (hidden feature):
