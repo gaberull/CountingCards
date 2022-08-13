@@ -33,6 +33,8 @@ For Unix architecture (Mac or Linux):
     - Play 50% of shoe
 - Choose total number of players (e.g. choosing 4 would result in 3 computer players and him/herself)
 - Add funds to bankroll as desired
+    - Add up to MAX_RELOAD when out of funds
+    - add on up to MAX_RELOAD * 3/4 when not out of funds
 - Check your own count of the shoe against the true count, kept by CountingCards
 - Track net win/loss over entire session
 - Computer players all play according to common basic strategy for their hand vs the dealer's shown card
@@ -47,7 +49,7 @@ For Unix architecture (Mac or Linux):
         * get adjusted strategy based on count of the deck vs dealer's shown card
     - Get current running count and true count (ratio of running count to decks remaining)
     - List rules of the game
-    - Add funds after running out
+    - Add on funds to bankroll
     - Quit with option from menu prompt
 - Net session results are displayed at end of game, when the quit option is requested    
 - Testing Mode (hidden feature):

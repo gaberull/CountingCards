@@ -14,11 +14,13 @@
 - [x] Put new screenshots in their own dated folder on github 
 - [x] complete the features list on README.md
 - [x] complete the blackjack rules list on README.md
+- [x] Get new screenshots with the new (much better looking) lowercase 
+- [x] Add ability for user to add more funds without having busted first
+- [x] Replace menu option "surrender" with add funds after this hand
 - [ ] High score component to game?
 - [ ] Add testing mode capabilities to splitting and dealer received cards
 - [ ] report of when (and count) the player did not do the right action. 
-    - [ ] Option to print to file
-    - [ ] Get new screenshots with the new (much better looking) lowercase card suits
+    - [ ] Option to print to filecard suits
 - [ ] Add count notices like "Count is high, maybe you should consider raising your bet"
 - [ ] Handle computer player getting blackjack on a split hand - currently standing pat
 - [ ] check getting bj against dealer's bj in multiplayer and single player
@@ -26,8 +28,6 @@
 - [ ] Add table limits (betting) and maybe allow player to select them
 - [ ] complete info on counting cards in general on README.md
 - [ ] add ability for player to play multiple hands
-- [ ] Add ability for user to add more funds without having busted first
-- [ ] Replace menu option "surrender" with add funds after this hand
     
 ## Notes and Ideas to self
 
