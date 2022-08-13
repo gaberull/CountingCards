@@ -12,6 +12,7 @@ class Bank
 {
 private:
     unsigned int _balance;
+    int _addNextHand = 0;
     Bank();     // private default constructor - can't be called
 public:
     Bank(int startBalance): _balance(startBalance) { }
@@ -21,6 +22,8 @@ public:
     void removeFunds(int value) {(_balance-value<=0) ? _balance=0 : _balance-=value; }
     int payBlackjack(int bet) { _balance += (bet * 3 / 2); return _balance; }
     void payWin(int bet) { _balance += bet; }
+    int getAddNextHand() { return _addNextHand; }
+    void setAddNextHand(int amount) {_addNextHand = amount; }
     ~Bank() { //std::cout << "Bank destructor called\n";
     }
 };
