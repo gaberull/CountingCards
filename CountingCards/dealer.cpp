@@ -14,6 +14,8 @@
 #include "bank.hpp"
 #include <iostream>
 
+#define MAX_RELOAD 1000
+
 using namespace std;
 
 /**
@@ -57,16 +59,12 @@ bool Dealer::hasBlackjack()
  */
 int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 - not showing dealer other card when everybody busts
 {
-    delete dealerHand;
-    handArray = std::vector<Hand>();
-    otherPlayers = std::vector<Hand>();
-    
     if(playerBank->getBalance() < bet)      // Check that bet amount is in playerBank
     {
-        cout <<" You bet more than you have. Input new Bet  \n\n";
+        cout << "\n";
+        cout <<"Uh Oh... \n";
         char bet_str[11];
-        cout << "\nEnter Bet  |  'q' to quit   " << endl;
-        //cout << "\nENTER NEW BET     |     Enter 'q' to quit. \n";
+        cout << "You bet more than you have. Enter bet from 1 to "<<playerBank->getBalance()<< endl;
         cin >> bet_str;
         bet_str[0] = toupper(bet_str[0]);
         if(bet_str[0] == 'Q') return -1;
@@ -83,6 +81,11 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
         int bet = (int) stol(bet_str);
         return dealHands(shoe, playerBank, bet);
     }
+    delete dealerHand;
+    handArray = std::vector<Hand>();
+    otherPlayers = std::vector<Hand>();
+    
+    
     playerBank->removeFunds(bet);
     bool blackjack = false;
     
@@ -243,7 +246,8 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
             
             
             handArray.pop_back();
-            //cout << "Dealer Has         :    " << dealerHand->getHand() << "\n\n";
+            if(_numPlayers==1) cout << "Dealer Had         :    " << dealerHand->getHand() << endl; //TODO: check this on multiplayer
+            cout << "\n";
             cout << "-----------------------------  \n";
             cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
             cout << "----------------------------- \n \n";
@@ -432,7 +436,7 @@ int Dealer::testDealHands(Bank* playerBank)
         cout << "Dealer Has         :    " << dealerHand->getHand() << endl;
         cout << "For blackjack :( " << endl;
         cout << "\n";
-        cout << "You LOST your bet of $" << player.getBet() << ":-( " << endl;
+        cout << "You LOST your bet of $" << player.getBet() << "    >:-(" << endl;
         //cout << "\n";
         cout << "-----------------------------  \n";
         cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
@@ -512,6 +516,7 @@ int Dealer::testDealHands(Bank* playerBank)
  */
 int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
 {
+    
     if(handArray.size() == 0)
     {
         return 0;
@@ -532,12 +537,12 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
         cout << "---------------------------------------------------------------------------\n";
         cout << "||  'h' - Hit            |  'p' - Stand Pat      |  's' - Split          ||\n";
         cout << "||  'd' - Double Down    |  'm' - Strategy Hint  |  'c' - Get Count      ||\n";
-        cout << "||  'r' - List Rules     |  'x' - Surrender      |  'q' or 'Q' to Quit   ||\n";
+        cout << "||  'r' - List Rules     |  'b' - Reload Bank    |  'q' or 'Q' to Quit   ||\n";
         cout << "---------------------------------------------------------------------------\n\n";
         
         cin >> action;
         action = toupper(action);
-        while(!cin || (action != 'H' && action != 'P' && action != 'S' && action != 'D' && action != 'M' && action != 'C' && action != 'R' && action != 'X' && action != 'Q'))
+        while(!cin || (action != 'H' && action != 'P' && action != 'S' && action != 'D' && action != 'M' && action != 'C' && action != 'R' && action != 'B' && action != 'Q' && action != 'X'))
         {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -546,7 +551,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             cout << "---------------------------------------------------------------------------\n";
             cout << "||  'h' - Hit            |  'p' - Stand Pat      |  's' - Split          ||\n";
             cout << "||  'd' - Double Down    |  'm' - Strategy Hint  |  'c' - Get Count      ||\n";
-            cout << "||  'r' - List Rules     |  'x' - Surrender      |  'q' or 'Q' to Quit   ||\n";
+            cout << "||  'r' - List Rules     |  'b' - Reload Bank    |  'q' or 'Q' to Quit   ||\n";
             cout << "---------------------------------------------------------------------------\n\n";
             cin >> action;
             action = toupper(action);
@@ -757,7 +762,9 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             }
             else if(playerBank->getBalance() < newBet)
             {
-                cout << "Player doesn't have enough to double bet. Player adds their roll to bet of $"<< playerBank->getBalance() <<" to hand. \n";
+                cout << "Player doesn't have enough $ to double bet." << endl;
+                cout << "\n";
+                cout << "Player adds $" << playerBank->getBalance() << " to bet!" << endl;;
                 newBet = playerBank->getBalance();
             }
             playerBank->removeFunds(newBet);
@@ -844,7 +851,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             cin >> temp;
             temp = toupper(temp);
             if(temp=='Q') return -1;    //FIXME:
-            if(!cin || (temp != 'H' && temp != 'P' && temp != 'S' && temp != 'D' && temp != 'M' && temp != 'C' && temp != 'R' && temp != 'X'))
+            if(!cin || (temp != 'H' && temp != 'P' && temp != 'S' && temp != 'D' && temp != 'M' && temp != 'C' && temp != 'R' && temp != 'X' && temp != 'B'))
             {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -933,6 +940,74 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             
             if(test) return Dealer::action(shoe, playerBank, 'a', true);
             return Dealer::action(shoe, playerBank);
+            break;
+        }
+           // reload (B)ank next hand
+        case 'B':{
+            cout << "    <<<   Reload Bankroll   >>>" << endl;
+            cout << "\n";
+            cout << "\n";   //TODO: check this spacing. check +getAdd
+            if(playerBank->getBalance()+playerHand.getBet()+playerBank->getAddNextHand() > (MAX_RELOAD*3/4) )
+            {
+                cout << "Sorry, you have too much money to reload! " << endl;
+                cout << "Gotta keep it fun! " << endl;
+                std::chrono::seconds duration(3);
+                std::this_thread::sleep_for(duration);
+                handArray.push_back(playerHand);
+                
+                if(test) return Dealer::action(shoe, playerBank, 'a', true);
+                return Dealer::action(shoe, playerBank);
+            }
+            cout << "Enter amount to reload  (after this hand ends)" << endl;
+            
+            int temp;
+            cin >> temp;
+            while(!cin || temp < 0)
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Wrong Input. Enter positive number" << endl;
+                cin >> temp;
+            }
+            
+            // entered amount is too much
+            if(temp+playerHand.getBet()+playerBank->getBalance()+playerBank->getAddNextHand() > (MAX_RELOAD*3/4))
+            {
+                int currAdd = playerBank->getAddNextHand();
+                int addOn = MAX_RELOAD*3/4 - playerHand.getBet() - playerBank->getBalance() - playerBank->getAddNextHand();
+                if(addOn > 0)
+                {
+                    cout << "\n";
+                    cout << "You are broke!! We will give you a marker to " << endl;
+                    cout << "bring your bankroll up to $" << (MAX_RELOAD *3/4) <<endl;
+                    cout << "\n";
+                    cout << "* Adding $" << addOn + currAdd << " to your bankroll next hand! *" << endl;
+                }
+                else    //addOn == 0   - the player tried to add on twice in a row
+                {
+                    cout << "\n";
+                    cout << "Nice try... No more monies for you!";
+                    cout << "\n";
+                    cout << "\n";
+                }
+                
+                playerBank->setAddNextHand(currAdd + addOn);
+            }
+            else    // entered amount is good
+            {
+                int addOn = playerBank->getAddNextHand() + temp;
+                cout << "\n";
+                cout << "You will add on $" << addOn << " next hand" <<endl;
+                playerBank->setAddNextHand(addOn);
+            }
+            
+            std::chrono::seconds duration(2);
+            std::this_thread::sleep_for(duration);
+            handArray.push_back(playerHand);
+            
+            if(test) return Dealer::action(shoe, playerBank, 'a', true);
+            return Dealer::action(shoe, playerBank);
+            
             break;
         }
             // default case will never execute
@@ -1125,7 +1200,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
         
         if(playerHand.getValue() < dealerScore)  // player loses
         {
-            cout << "YOU LOST your bet of $" << playerHand.getBet() << ":-( "<< endl;
+            cout << "YOU LOST your bet of $" << playerHand.getBet() << "    >:-("<< endl;
             if(_numPlayers  > 1) cout << "\n";
         }
         else if(playerHand.getValue() == dealerHand->getValue())    // player ties
@@ -1199,7 +1274,7 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)
     {
         cout << "Player has         :    " << player.getHand() << "      after hitting \n";
         std::this_thread::sleep_for(duration);
-        cout << "\nOh NO!! You busted.. You LOST your bet of $"<< player.getBet() <<"  :-( \n";
+        cout << "\nOh NO!! You busted.. You LOST your bet of $"<< player.getBet() <<"    >:-(\n";
     }
     else
     {
@@ -1242,7 +1317,7 @@ int Dealer::testHitPlayer(Hand& player)
     {
         cout << "Player has         :    " << player.getHand() << "      after hitting \n";
         std::this_thread::sleep_for(duration);
-        cout << "\nOh NO!! You busted.. You LOST your bet of $"<< player.getBet() <<"    :-(\n";
+        cout << "\nOh NO!! You busted.. You LOST your bet of $"<< player.getBet() <<"    >:-(\n";
     }
     else
     {
@@ -1526,6 +1601,21 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)
     }
     return 'h';
 }
+                                            /*
+string printCard(char first, char sec)
+{
+    string ret = "";
+    
+    string s = "   _____\n";
+            s+="   |A .  |\n";
+            s+="   | /.\ |\n";
+            s+="   |  |  |\n";
+            s+="   |____V|\n";
+    
+    
+    
+}
+                                             */
 
 /**
  @brief

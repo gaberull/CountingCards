@@ -35,5 +35,6 @@ public:
     int hitPlayer(Hand& player, Shoe* shoe);            // calls hit() and adds text output
     int testHitPlayer(Hand& player);                    // for testing. choose hit card
     char correctAction(Hand& player, Hand* dealer, int count=0, bool print=true); // returns correct action for any hands vs dealer card shown
+    //std::string printCard(char first, char sec);
     ~Dealer();                                          // Destructor
 };

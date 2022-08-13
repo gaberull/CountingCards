@@ -8,12 +8,14 @@
 #include "shoe.hpp"
 #include "bank.hpp"
 #include "dealer.hpp"
+#include <thread>   // for sleep_for(duration)
+#include <chrono>   // for sleep_for(duration)
 #include <iostream>
 #include <string>
 #include <vector>
 #include <memory>
 
-#define MAX_RELOAD 1000
+#define MAX_RELOAD 1000 // if changed, change in dealer.cpp too
 
 using namespace std;
 
@@ -177,6 +179,7 @@ int main(int argc, const char * argv[])
         {
             if(test) handContinues = dealer->action(shoe, bank, 'a', true);
             else handContinues = dealer->action(shoe, bank);
+            
         }
         else   //handContinues==0, Do computerAction, then Do dealer action, then start new hand
         {
@@ -187,6 +190,23 @@ int main(int argc, const char * argv[])
                 dealer->computerAction(shoe);
             }
             handContinues = dealer->dealerAction(shoe, bank);
+            
+            // add on funds - will be 0 unless set in Dealer::action()
+            int addOn = bank->getAddNextHand();
+            if(addOn>0)
+            {
+                bank->addFunds(addOn);
+                bank->setAddNextHand(0);
+                cout << "\n\n";
+                cout << "Adding $" << addOn << " to bankroll " <<endl;
+                cout << "-----------------------------  \n";
+                cout << "| BANKROLL     : $"<< bank->getBalance() <<" \n";
+                cout << "----------------------------- \n \n";
+                totalFunds += addOn;
+                std::chrono::seconds duration(2);
+                std::this_thread::sleep_for(duration);
+            }
+
             if(handContinues<0) break;      // 'Q' has been input to quit (-1). Jump to end and final print stmt
             
             // check if player has funds
