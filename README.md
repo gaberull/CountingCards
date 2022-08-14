@@ -90,17 +90,17 @@ For Unix architecture (Mac or Linux):
 ## Demo
 
 **Starting new game:**
-<br><br><br>
+<br><br>
 ![Start Screen](https://raw.githubusercontent.com/gaberull/CountingCards/master/screenshots/8_14_22/game_intro.gif)
 <br><br><br>
 
 **One Player Gameplay:**
-<br><br><br>
+<br><br>
 ![Start Screen](https://raw.githubusercontent.com/gaberull/CountingCards/master/screenshots/8_14_22/1p_gameplay.gif)
 <br><br><br>
 
 **Testing Mode::**
-<br><br><br>
+<br><br>
 ![Start Screen](https://raw.githubusercontent.com/gaberull/CountingCards/master/screenshots/8_14_22/testing_mode.gif)
 <br><br><br>
 
