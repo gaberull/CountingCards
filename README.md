@@ -94,6 +94,14 @@ For Unix architecture (Mac or Linux):
 
 ![Start Screen](https://raw.githubusercontent.com/gaberull/CountingCards/master/screenshots/8_14_22/game_intro.gif)
 
+
+**One Player Gameplay:**
+
+
+![Start Screen](https://raw.githubusercontent.com/gaberull/CountingCards/master/screenshots/8_14_22/1p_gameplay.gif)
+
+
+
 | Screenshots |
 | ----------- |
 ![Start Screen](/screenshots/8_12_22/start_game.png)
