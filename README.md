@@ -90,7 +90,7 @@ For Unix architecture (Mac or Linux):
 ## Demo
 
 **Starting new game:**
-<img src="https://github.com/gaberull/CountingCards/blob/master/screenshots/8_14_22/game_intro.gif" width="535" height="370" alt="Game Intro"/>
+<img src="https://github.com/gaberull/CountingCards/blob/master/screenshots/8_14_22/game_intro.gif" width="642" height="444" alt="Game Intro"/>
 <br>
 <br>![Start Screen](/screenshots/8_12_22/start_game.png)
 **Hitting blackjack:**
