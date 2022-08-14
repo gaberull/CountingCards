@@ -90,6 +90,8 @@ For Unix architecture (Mac or Linux):
 ## Demo
 
 **Starting new game:**
+
+
 ![Start Screen](https://raw.githubusercontent.com/gaberull/CountingCards/master/screenshots/8_14_22/game_intro.gif)
 
 ![Start Screen](/screenshots/8_12_22/start_game.png)
