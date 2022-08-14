@@ -87,10 +87,11 @@ For Unix architecture (Mac or Linux):
 
 - [ ] **fill out this section**
 
-## Screenshots
+## Demo
 
 **Starting new game:**
-![Start Screen](/screenshots/8_12_22/start_game.png)
+<br>![Game Intro](https://github.com/gaberull/CountingCards/blob/master/screenshots/8_14_22/game_intro.gif)
+<br>![Start Screen](/screenshots/8_12_22/start_game.png)
 **Hitting blackjack:**
 ![blackjack](/screenshots/8_12_22/blackjack.png)
 **Strategy hint:**
