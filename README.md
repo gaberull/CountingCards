@@ -90,7 +90,7 @@ For Unix architecture (Mac or Linux):
 ## Demo
 
 **Starting new game:**
-<br>![Game Intro](https://github.com/gaberull/CountingCards/blob/master/screenshots/8_14_22/game_intro.gif)
+<br>![Game Intro](https://github.com/gaberull/CountingCards/blob/master/screenshots/8_14_22/game_intro.gif =250x)
 <br>![Start Screen](/screenshots/8_12_22/start_game.png)
 **Hitting blackjack:**
 ![blackjack](/screenshots/8_12_22/blackjack.png)
