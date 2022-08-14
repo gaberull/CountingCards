@@ -99,12 +99,13 @@ For Unix architecture (Mac or Linux):
 ![Start Screen](https://raw.githubusercontent.com/gaberull/CountingCards/master/screenshots/8_14_22/1p_gameplay.gif)
 <br><br><br>
 
-**Testing Mode::**
+**Testing Mode:**
 <br><br>
 ![Start Screen](https://raw.githubusercontent.com/gaberull/CountingCards/master/screenshots/8_14_22/testing_mode.gif)
 <br><br><br>
 
 ### Screenshots
+<br>
 
 **Start Screen:**
 ![Start Screen](/screenshots/8_12_22/start_game.png)
