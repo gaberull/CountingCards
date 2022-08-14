@@ -91,16 +91,15 @@ For Unix architecture (Mac or Linux):
 
 **Starting new game:**
 
-
-![Start Screen](https://raw.githubusercontent.com/gaberull/CountingCards/master/screenshots/8_14_22/game_intro.gif)
-
+<br><br>![Start Screen](https://raw.githubusercontent.com/gaberull/CountingCards/master/screenshots/8_14_22/game_intro.gif)
 
 **One Player Gameplay:**
 
+<br><br>![Start Screen](https://raw.githubusercontent.com/gaberull/CountingCards/master/screenshots/8_14_22/1p_gameplay.gif)
 
-![Start Screen](https://raw.githubusercontent.com/gaberull/CountingCards/master/screenshots/8_14_22/1p_gameplay.gif)
+**Testing Mode::**
 
-
+<br><br><br><br><br><br>![Start Screen](https://raw.githubusercontent.com/gaberull/CountingCards/master/screenshots/8_14_22/testing_mode.gif)
 
 | Screenshots |
 | ----------- |
