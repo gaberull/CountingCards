@@ -113,11 +113,6 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
         {
             cout << "Player  has BLACKJACK!! Gets paid 3:2 \n\n";
         }
-        //FIXME: change ordering so that dealer checks hand first, then payout or don't payout
-        //else if(AIHand.isBlackjack() && dealerHand->isBlackjack())
-        //{
-        //    cout << "Player " <<_numPlayers - i+1<< " has Blackjack, but so does dealer. Hand is a push\n\n";
-        //}
         else
         {
             otherPlayers.push_back(AIHand);
@@ -164,7 +159,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
             return 0;
         }
         
-        //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
+        //               Continue sequence                /////////////////////////////////////////////////
         cout << "\n";
         //cout << "\n<< <<   'c' to Continue  | 'q' to Quit   >> >>" << endl;
         cout << "\n'c' to Continue  | 'q' to Quit " << endl;
@@ -183,12 +178,12 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
             if(temp=='Q') return -1;
         }
         
-        //////////////////////////////               End of  Continue sequence             ////////////////////////////////////////////
+        //            End of  Continue sequence             ////////////////////////////////////////////
         return 0;
     }
     if(blackjack)
     {
-        if(dealerHand->isBlackjack())   // HAND IS A PUSH
+        if(dealerHand->isBlackjack())   // Hand is a PUSH
         {
             handArray.pop_back();
             playerBank->addFunds(bet);   // put funds back in that we took out at start for bet
@@ -206,10 +201,8 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
                 return 0;
             }
 
-            //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
+            //               Continue sequence                /////////////////////////////////////////////////
             cout << "\n";
-            //cout << "~~~~~  'c' - Continue | 'q' - Quit   ~~~~~" << endl;
-            //cout << "\n<< <<   'c' to Continue  | 'q' to Quit   >> >>" << endl;
             cout << "\n'c' to Continue  | 'q' to Quit  " << endl;
             char temp;
             cin >> temp;
@@ -221,7 +214,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
                 cin >> temp;
             }
             if(temp=='q' || temp=='Q') return -1;
-            //////////////////////////////               End of  Continue sequence             ////////////////////////////////////////////
+            //              End of  Continue sequence             ////////////////////////////////////////////
             return 0;
         }
         else    // Player beats dealer with a blackjack
