@@ -167,17 +167,15 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
         char temp;
         cin >> temp;
         temp = toupper(temp);
-        if(temp == 'Q') return -1;
-        while(!cin || (temp) != 'C')
+        while(!cin || (temp != 'C' && temp != 'Q'))
         {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
             cin >> temp;
             temp = toupper(temp);
-            if(temp=='Q') return -1;
         }
-        
+        if(temp == 'Q') return -1;
         //            End of  Continue sequence             ////////////////////////////////////////////
         return 0;
     }
@@ -206,14 +204,16 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
             cout << "\n'c' to Continue  | 'q' to Quit  " << endl;
             char temp;
             cin >> temp;
-            while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
+            temp = toupper(temp);
+            while(!cin || (temp != 'C' && temp != 'Q'))
             {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
                 cin >> temp;
+                temp = toupper(temp);
             }
-            if(temp=='q' || temp=='Q') return -1;
+            if(temp=='Q') return -1;
             //              End of  Continue sequence             ////////////////////////////////////////////
             return 0;
         }
@@ -259,14 +259,16 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
             cout << "\n'c' to Continue  | 'q' to Quit  " << endl;
             char temp;
             cin >> temp;
-            while(!cin || (temp != 'c' && temp != 'C' && temp != 'q' && temp != 'Q'))
+            temp = toupper(temp);
+            while(!cin || (temp != 'C' && temp != 'Q'))
             {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
                 cin >> temp;
+                temp = toupper(temp);
             }
-            if(temp=='q' || temp=='Q') return -1;
+            if(temp=='Q') return -1;
             //////////////////////////////               End of  Continue sequence             ////////////////////////////////////////////
             return 0;
         }
@@ -551,7 +553,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
         }
     }
     switch (action) {
-        case 'Q':{   // Double down
+        case 'Q':{   // Quit
             cout << "\nPlayer Requests to Quit. \n\n";
             return -1;
             break;
@@ -590,16 +592,17 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             cout << "'c' to Continue  | 'q' to Quit  " << endl;
             char temp = 'a';
             cin >> temp;
-            //temp = toupper(temp);
-            while(!cin || (toupper(temp)!= 'C' && toupper(temp) != 'Q') )
+            temp = toupper(temp);
+            while(!cin || (temp!= 'C' && temp != 'Q') )
             {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
                 cin >> temp;
                 temp = toupper(temp);
-                if(temp=='Q') return -1;
             }
+            if(temp=='Q') return -1;
+            
             if(test) return Dealer::action(shoe, playerBank, 'a', true);
             return Dealer::action(shoe, playerBank);
             break;
@@ -629,16 +632,16 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
                     char temp;
                     cin >> temp;
                     temp = toupper(temp);
-                    if(temp == 'Q') return -1;
-                    while(!cin || (temp != 'C'))
+                    while(!cin || (temp != 'C' && temp != 'Q'))
                     {
                         cin.clear();
                         cin.ignore(numeric_limits<streamsize>::max(), '\n');
                         cout << "Wrong Input. Enter 'c' to continue. 'q' to quit\n";
                         cin >> temp;
                         temp = toupper(temp);
-                        if(temp=='Q') return -1;
+                        //if(temp=='Q') return -1;
                     }
+                    if(temp == 'Q') return -1;
                     handArray.push_back(playerHand);
                     if(test) return Dealer::action(shoe, playerBank, 'a', true);
                     return Dealer::action(shoe, playerBank);
@@ -707,16 +710,16 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
                 char temp;
                 cin >> temp;
                 temp = toupper(temp);
-                if(temp=='Q') return -1;
-                while(!cin || (temp != 'C' ))
+                while(!cin || (temp != 'C' && temp != 'Q'))
                 {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
                     cin >> temp;
                     temp = toupper(temp);
-                    if(temp=='Q') return -1;
                 }
+                if(temp=='Q') return -1;
+                
                 if(test) return Dealer::action(shoe, playerBank, 'a', true);
                 return Dealer::action(shoe, playerBank);
             }
@@ -787,19 +790,19 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
                 {
                     cout << "\n";
                     cout << "\n'c' to Continue  | 'q' to Quit " << endl;
-                    char temp;
+                    char temp = 'a';
                     cin >> temp;
                     temp = toupper(temp);
-                    if(temp=='Q') return -1;
-                    while(!cin || (temp != 'C') )
+                    while(!cin || (temp != 'C' && temp != 'Q') )
                     {
                         cin.clear();
                         cin.ignore(numeric_limits<streamsize>::max(), '\n');
                         cout << "Wrong Input. Enter 'C' or 'c' to continue. 'q' or 'Q' to quit\n";
                         cin >> temp;
                         temp = toupper(temp);
-                        if(temp =='Q') return -1;
+                        //if(temp =='Q') return -1;
                     }
+                    if(temp=='Q') return -1;
                 }
                 if(test) return Dealer::action(shoe, playerBank, 'a', true);
                 return Dealer::action(shoe, playerBank);
@@ -811,16 +814,16 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
                 char temp = 'a';
                 cin >> temp;
                 temp = toupper(temp);
-                if(temp=='Q') return -1;
-                while(!cin || (temp != 'C'))
+                while(!cin || (temp != 'C' && temp != 'Q'))
                 {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     cout << "Wrong Input. Enter 'C' or 'c' to continue. 'q' or 'Q' to quit\n";
                     cin >> temp;
                     temp = toupper(temp);
-                    if(temp=='Q') return -1;
                 }
+                if(temp=='Q') return -1;
+                
                 if(test) return Dealer::action(shoe, playerBank, 'a', true);
                 return Dealer::action(shoe, playerBank);   // hand finished
             }
@@ -907,16 +910,16 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             char temp;
             cin >> temp;
             temp = toupper(temp);
-            if(temp=='Q') return -1;
-            while(!cin || (temp != 'C'))
+            while(!cin || (temp != 'C' && temp != 'Q'))
             {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
                 cin >> temp;
                 temp = toupper(temp);
-                if(temp=='Q') return -1;
             }
+            if(temp=='Q') return -1;
+            
             if(test) return Dealer::action(shoe, playerBank, 'a', true);
             return Dealer::action(shoe, playerBank);
             break;
