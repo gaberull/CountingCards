@@ -17,6 +17,7 @@
 - [x] Get new screenshots with the new (much better looking) lowercase 
 - [x] Add ability for user to add more funds without having busted first
 - [x] Replace menu option "surrender" with add funds after this hand
+- [x] Sad face on loss, maybe in a box like the winnings, or some ascii art
 - [ ] High score component to game?
 - [ ] Add testing mode capabilities to splitting and dealer received cards
 - [ ] report of when (and count) the player did not do the right action. 
@@ -33,7 +34,6 @@
 
 - dimensions of terminal for screenshot images: 91 x 28
 - Maybe add in words with a few microseconds delay for a hand won that spread across the console
-- Sad face on loss, maybe in a box like the winnings, or some ascii art
 - Try to make winnings boxes similar in size, using num of digits of win size and offsetting w/ spaces or lack thereof on opposite end of print statement
 - Require bets to be in $5 increments
 - Have game analyze betting patters and offer advice
