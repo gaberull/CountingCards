@@ -29,7 +29,7 @@ For Unix architecture (Mac or Linux):
 
 - Choose how many decks of cards you want in the dealer's shoe
 - Choose how deep to set the cut card - This simluates a real world blackjack game and should affect one's counting and betting strategy  
-  - Play 100% of shoe (This isn't done in real life games)
+  - Play 100% of shoe *(This isn't done in real life games)*
   - Play 90% of shoe
   - Play 75% of shoe
   - Play 50% of shoe
