@@ -99,7 +99,7 @@ srand((unsigned int)std::time(0));
 - Then a random number between 0 and _cardsRemaining-1 is chosen:
 
 ```C++ 
-i = rand() % _cardsRemaining; 
+int i = rand() % _cardsRemaining; 
 ```
 
 - Then the card that was chosen is swapped with the end card still allowed to be drawn
