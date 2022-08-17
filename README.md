@@ -102,7 +102,7 @@ srand((unsigned int)std::time(0));
 int i = rand() % _cardsRemaining; 
 ```
 
-- Then the card that was chosen is swapped with the end card still allowed to be drawn
+- Then the card that was chosen is swapped with the end card that is still eligible to be drawn:
 
 ```C++
 swap(fullShoe[i], fullShoe[_cardsRemaining-1]);
