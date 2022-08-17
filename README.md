@@ -14,10 +14,7 @@ For Unix architecture (Mac or Linux):
 
 - Download folder from this repository containing source files: ./CountingCards/
 - In a terminal, navigate to that source code folder
-- Run Makefile with command:  
-    ```make```
-    OR  
-    ```make all```
+- Run Makefile with command:  ```make``` OR  ```make all```
 - Run resultant executable file named "counting" with command: ```./counting```  
 - *optional*: After compilation, execute command ```make clean``` to remove object files and the compiled executable file called "counting"
 
