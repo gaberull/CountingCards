@@ -146,6 +146,5 @@ Generally speaking, the player does not have an edge long-term against the casin
 - [Rounding Floating Point int C++ - G4G](https://www.geeksforgeeks.org/rounding-floating-point-number-two-decimal-places-c-c/) for using implicit int conversion to round a float to 2 digits
 - [Markdown Basic Syntax - markdownguide.org](https://www.markdownguide.org/basic-syntax/#link-best-practices)
 
-
-
+<br><br><br>
 Copyright (c) 2022 Gabe Scott
