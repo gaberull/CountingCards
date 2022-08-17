@@ -14,6 +14,8 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <cstdint>
+#include <climits>
 
 #define MAX_RELOAD 1000 // if changed, change in dealer.cpp too
 

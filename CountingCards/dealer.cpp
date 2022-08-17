@@ -85,7 +85,6 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
     handArray = std::vector<Hand>();
     otherPlayers = std::vector<Hand>();
     
-    
     playerBank->removeFunds(bet);
     bool blackjack = false;
     
