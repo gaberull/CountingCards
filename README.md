@@ -92,13 +92,21 @@ Generally speaking, the player does not have an edge long-term against the casin
 I have implemented a shuffle algorithm based on the modern Fisher-Yates shuffle algorithm. Each pull of a card from the dealer's shoe is pseudo-random, rather than the shoe itself being shuffled periodically. The algorithm works as follows:
 
 - Before each draw, the pseudo random number generator is seeded with the system's current time: 
-``` srand((unsigned int)std::time(0));```
+```C++ 
+    srand((unsigned int)std::time(0));
+```
 - Then a random number between 0 and _cardsRemaining-1 is chosen:
-``` i = rand() % _cardsRemaining; ```
+```C++ 
+    i = rand() % _cardsRemaining; 
+```
 - Then the card that was chosen is swapped with the end card still allowed to be drawn
-```swap(fullShoe[i], fullShoe[_cardsRemaining-1]);```
+```C++
+swap(fullShoe[i], fullShoe[_cardsRemaining-1]);
+```
 - After the card is dealt, _cardsRemaining is decremented, and the drawn card can no longer be dealt:
-``` _cardsRemaining--```
+```C++ 
+    _cardsRemaining--
+```
 
 *This code can be viewed in the file !["shoe.cpp"](https://github.com/gaberull/CountingCards/blob/master/CountingCards/shoe.cpp). Specifically in the function Shoe::dealCard().*
 
