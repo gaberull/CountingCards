@@ -97,23 +97,22 @@ I have implemented a shuffle algorithm based on the modern Fisher-Yates shuffle 
     srand((unsigned int)std::time(0));
 ```
 - Then a random number between 0 and _cardsRemaining-1 is chosen:
-
-```C++ 
+<br>```C++ 
     i = rand() % _cardsRemaining; 
 ```
 - Then the card that was chosen is swapped with the end card still allowed to be drawn
-
+<br>
 ```C++
 swap(fullShoe[i], fullShoe[_cardsRemaining-1]);
-
+<br>
 ```
 - After the card is dealt, _cardsRemaining is decremented, and the drawn card can no longer be dealt:
-
+<br>
 ```C++ 
     _cardsRemaining--
 ```
 
-*This code can be viewed in the file ["shoe.cpp"](https://github.com/gaberull/CountingCards/blob/master/CountingCards/shoe.cpp). Specifically in the function Shoe::dealCard().*
+*This code can be viewed in the file [shoe.cpp](https://github.com/gaberull/CountingCards/blob/master/CountingCards/shoe.cpp). Specifically in the function Shoe::dealCard().*
 
 ## Demo
 
