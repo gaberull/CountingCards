@@ -10,6 +10,9 @@
 #include <vector>
 #include <unordered_map>
 #include "shoe.hpp"
+#include <cstdlib>
+#include <ostream>
+#include <string>
 
 class Hand
 {

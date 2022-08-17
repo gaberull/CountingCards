@@ -9,6 +9,7 @@
 #include <vector>
 #include <unordered_map>
 #include <cstdlib>
+#include <cstdint>
 
 class Shoe
 {
