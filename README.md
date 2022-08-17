@@ -113,7 +113,7 @@ swap(fullShoe[i], fullShoe[_cardsRemaining-1]);
 _cardsRemaining--
 ```
 
-*This code can be viewed in the file [shoe.cpp](https://github.com/gaberull/CountingCards/blob/master/CountingCards/shoe.cpp). Specifically in the function Shoe::dealCard().*
+*This code can be viewed in the function* ```C++ Shoe::dealCard()``` *of file [shoe.cpp](https://github.com/gaberull/CountingCards/blob/master/CountingCards/shoe.cpp)*
 
 ## Demo
 
