@@ -19,6 +19,7 @@
 - [x] Replace menu option "surrender" with add funds after this hand
 - [x] Sad face on loss, maybe in a box like the winnings, or some ascii art
 - [x] check getting bj against dealer's bj in multiplayer and single player
+- [x] Explain about the shuffling algorithm I'm using in README.md
 - [ ] High score component to game? 
 - [ ] Add testing mode capabilities to splitting and dealer received cards
 - [ ] report of when (and count) the player did not do the right action. 
@@ -29,7 +30,7 @@
 - [ ] Add table limits (betting) and maybe allow player to select them
 - [ ] complete info on counting cards in general on README.md
 - [ ] add ability for player to play multiple hands
-- [ ] Explain about the shuffling algorithm I'm using in README.md
+
     
 ## Notes and Ideas to self
 
