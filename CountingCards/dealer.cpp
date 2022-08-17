@@ -287,6 +287,8 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
  */
 int Dealer::testDealHands(Bank* playerBank)
 {
+    // these chosen cards will all be spades because it doesn't matter. 
+    // They are not being dealt from the shoe.
     unordered_map<char, uint8_t> revCardMap =
     {
         {'A',0x11},{'2', 0x21}, {'3',0x31},{'4',0x41}, {'5',0x51},{'6',0x61}, {'7',0x71}, {'8',0x81}, {'9',0x91}, {'T',0xA1}, {'J',0xB1}, {'Q',0xC1},{'K',0xD1}
@@ -310,7 +312,7 @@ int Dealer::testDealHands(Bank* playerBank)
     int bet = -1;
     cin >>bet;
     
-    while(!cin || bet < 0 || bet > playerBank->getBalance())
+    while(!cin || bet < 0 || bet > playerBank->getBalance())    //TODO: check this < 0 should be <= 0
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
