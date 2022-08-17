@@ -18,13 +18,13 @@
 - [x] Add ability for user to add more funds without having busted first
 - [x] Replace menu option "surrender" with add funds after this hand
 - [x] Sad face on loss, maybe in a box like the winnings, or some ascii art
+- [x] check getting bj against dealer's bj in multiplayer and single player
 - [ ] High score component to game? 
 - [ ] Add testing mode capabilities to splitting and dealer received cards
 - [ ] report of when (and count) the player did not do the right action. 
     - [ ] Option to print to file
 - [ ] Add count notices like "Count is high, maybe you should consider raising your bet"
 - [ ] Handle computer player getting blackjack on a split hand - currently standing pat
-- [ ] check getting bj against dealer's bj in multiplayer and single player
 - [ ] Implement change in basic strategy and info for adjusting betting patterns based on true count (the ratio)
 - [ ] Add table limits (betting) and maybe allow player to select them
 - [ ] complete info on counting cards in general on README.md
@@ -34,6 +34,5 @@
 
 - dimensions of terminal for screenshot images: 91 x 28
 - Maybe add in words with a few microseconds delay for a hand won that spread across the console
-- Try to make winnings boxes similar in size, using num of digits of win size and offsetting w/ spaces or lack thereof on opposite end of print statement
-- Require bets to be in $5 increments
-- Have game analyze betting patters and offer advice
+- Require bets to be in $5 increments ??
+- Have the game analyzea player's betting patterns and offer advice
