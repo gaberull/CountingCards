@@ -88,9 +88,9 @@ For Unix architecture (Mac or Linux):
 
 Generally speaking, the player does not have an edge long-term against the casino in the game of blackjack... However, this can change when the count of the deck becomes high enough, and a player adjusts his bet-sizing accordingly. This is for the simple reason that players get paid 3:2 when hitting blackjack. The more high cards in the deck, the more likely this is to happen. So, if a player can place smaller bets when there are few high cards in the shoe, and larger bets when there are more high cards in the shoe, the player can gain and edge against the casino. CountingCards is a game that aims to help the player learn to do just that.
 
-## Shuffling algorithm implementation
+## Shuffle algorithm implementation
 
-The algorithm is based on the modern Fisher-Yates shuffle algorithm, in which each draw of a card from the dealer's shoe is pseudo-random. The algorithm works as follows:
+The CountinCards shuffle algorithm is based on the modern Fisher-Yates shuffle algorithm, in which each draw of a card from the dealer's shoe is pseudo-random. The algorithm works as follows:
 
 - Before each card draw, the random number generator is seeded with the system's current time:  
 
