@@ -129,7 +129,6 @@ _cardsRemaining--
 
 ### Screenshots
 
-<br>
 **Start Screen:**
 ![Start Screen](/screenshots/8_12_22/start_game.png)
 **Hitting blackjack:**
