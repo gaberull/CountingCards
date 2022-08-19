@@ -18,6 +18,7 @@
 - [x] Add ability for user to add more funds without having busted first
 - [x] Replace menu option "surrender" with add funds after this hand
 - [x] Sad face on loss, maybe in a box like the winnings, or some ascii art
+- [ ] Look at IMGui and openGL for graphics rendering. View github repo
 - [ ] High score component to game? 
 - [ ] Add testing mode capabilities to splitting and dealer received cards
 - [ ] report of when (and count) the player did not do the right action. 
