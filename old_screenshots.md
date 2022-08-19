@@ -1,6 +1,6 @@
-## Old Screenshots
+# Old Screenshots
 
-#### these screenshots do not reflect the most up to date look of the game
+## these screenshots do not reflect the most up to date look of the game
 
 **Menu of options, New hand starting with two players (1 computer player):**)
 ![New Hand - 2 Players](/screenshots/8_7_22/newhand_2players.png "New Hand with 2 Players") )
