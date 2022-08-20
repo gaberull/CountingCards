@@ -533,7 +533,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
         cout << "---------------------------------------------------------------------------\n";
         cout << "||  'h' - Hit            |  'p' - Stand Pat      |  's' - Split          ||\n";
         cout << "||  'd' - Double Down    |  'm' - Strategy Hint  |  'c' - Get Count      ||\n";
-        cout << "||  'r' - List Rules     |  'b' - Reload Bank    |  'q' or 'Q' to Quit   ||\n";
+        cout << "||  'r' - List Rules     |  'b' - Reload Bank    |  'q' - Quit Game      ||\n";
         cout << "---------------------------------------------------------------------------\n\n";
         
         cin >> action;
@@ -547,7 +547,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             cout << "---------------------------------------------------------------------------\n";
             cout << "||  'h' - Hit            |  'p' - Stand Pat      |  's' - Split          ||\n";
             cout << "||  'd' - Double Down    |  'm' - Strategy Hint  |  'c' - Get Count      ||\n";
-            cout << "||  'r' - List Rules     |  'b' - Reload Bank    |  'q' or 'Q' to Quit   ||\n";
+            cout << "||  'r' - List Rules     |  'b' - Reload Bank    |  'q' - Quit Game      ||\n";
             cout << "---------------------------------------------------------------------------\n\n";
             cin >> action;
             action = toupper(action);
