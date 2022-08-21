@@ -18,10 +18,10 @@
 - [x] Add ability for user to add more funds without having busted first
 - [x] Replace menu option "surrender" with add funds after this hand
 - [x] Sad face on loss, maybe in a box like the winnings, or some ascii art
-- [ ] Look at IMGui and openGL for graphics rendering. View github repo
-- [ ] High score component to game? 
 - [x] check getting bj against dealer's bj in multiplayer and single player
 - [x] Explain about the shuffling algorithm I'm using in README.md
+- [ ] Look at IMGui and openGL for graphics rendering. View github repo
+- [ ] High score component to game? 
 - [ ] Add testing mode capabilities to splitting and dealer received cards
 - [ ] report of when (and count) the player did not do the right action.  
   - [ ] Option to print to file
@@ -32,7 +32,6 @@
 - [ ] complete info on counting cards in general on README.md
 - [ ] add ability for player to play multiple hands
 - [ ] in 1 player: user splits hand, the "You win $X" statement needs a newline after it if there is more than 1 hand left. Maybe add new line in either case
-
 - [ ] Add commas if necessary to cash balances printed (bankroll, hand winning, etc)
 - [ ] Add table limits (size of MAX_RELOAD)
 
