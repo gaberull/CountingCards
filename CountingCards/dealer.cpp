@@ -59,12 +59,13 @@ bool Dealer::hasBlackjack()
  */
 int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 - not showing dealer other card when everybody busts
 {
-    if(playerBank->getBalance() < bet)      // Check that bet amount is in playerBank
+    if(playerBank->getBalance() < bet || bet > MAX_RELOAD)      // Check that bet amount is in playerBank
     {
         cout << "\n";
         cout <<"Uh Oh... \n";
         char bet_str[11];
-        cout << "You bet more than you have. Enter bet from 1 to "<<playerBank->getBalance()<< endl;
+        int max_bet = (MAX_RELOAD <= playerBank->getBalance())? MAX_RELOAD: playerBank->getBalance();
+        cout << "You bet too much. Enter bet from 1 to "<< max_bet << endl;
         cin >> bet_str;
         bet_str[0] = toupper(bet_str[0]);
         if(bet_str[0] == 'Q') return -1;
@@ -625,27 +626,27 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             }
             else    // split the hand
             {
-                int bet = playerHand.getBet();
+                int bet = playerHand.getBet();  // TODO: test splitting with not enough funds (add funds back?)
                 if(playerBank->getBalance() < bet)
                 {
-                    cout << "Not enough funds to split. Choose another action \n";
-                    cout << "\n'c' to Continue  | 'q' to Quit " << endl;
+                    handArray.push_back(playerHand);
+                    cout << "**  Not enough funds to split  **\n";
+                    cout << "\n***  Please choose the action you would like to take  ***" << endl;
                     char temp;
                     cin >> temp;
                     temp = toupper(temp);
-                    while(!cin || (temp != 'C' && temp != 'Q'))
+                    if(!cin || (temp != 'H' && temp != 'P' && temp != 'D' && temp != 'M' && temp != 'C' && temp != 'R' && temp != 'X' && temp != 'B' && temp != 'Q'))
                     {
                         cin.clear();
                         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                        cout << "Wrong Input. Enter 'c' to continue. 'q' to quit\n";
-                        cin >> temp;
-                        temp = toupper(temp);
-                        //if(temp=='Q') return -1;
+                        cout << "\nWrong Input. \n";
+                        if(test) return Dealer::action(shoe, playerBank, 'a', true);
+                        return Dealer::action(shoe, playerBank);    // show menu again
                     }
-                    if(temp == 'Q') return -1;
-                    handArray.push_back(playerHand);
-                    if(test) return Dealer::action(shoe, playerBank, 'a', true);
-                    return Dealer::action(shoe, playerBank);
+                    if(test) return Dealer::action(shoe, playerBank, temp, true);
+                    return Dealer::action(shoe, playerBank, temp);  // don't show menu again - should still be visible above
+                    break;
+                    
                 }
                 // subtract bet again from bank. Betting 2x original bank now
                 playerBank->removeFunds(playerHand.getBet());
@@ -748,7 +749,9 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             int newBet = playerHand.getBet();// = playerHand.getBet();
             if(playerBank->getBalance() == 0)
             {
-                cout << "You have no more money. Just hit instead. Doubling is a losing play now\n";
+                cout << "\n";
+                cout << "ATTENTION! \n";
+                cout << "You have no more money. Just hit instead. Doubling is a losing play now" << endl;
                 cout << "Choose hit from the menu \n";
                 handArray.push_back(playerHand);
                 // pause for user to take in action
@@ -1131,6 +1134,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
     //
     // if there are none of this player's hands to play, or AI hands to play
     //
+    //FIXME: check this logic on multiplayer and single - do we ever need "Action is Done" ?
     if((patHands.size()==0 && otherPats.size()==0) || dealerHand->isBlackjack())
     {
         cout << "\n";
@@ -1169,7 +1173,8 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
     }
     if(dealerScore > 0)    // dealer not bust
     {
-        cout << "Dealer action is finished \n\n";
+        //FIXME: check this lack of line here
+        //cout << "Dealer action is finished \n\n";
     }
     else    // dealer is bust
     {

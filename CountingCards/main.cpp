@@ -105,6 +105,9 @@ int main(int argc, const char * argv[])
     }
     totalFunds += funds;
     
+    cout << "\n";
+    cout << "**  Maximum bet for this table is set at $" << MAX_RELOAD << "  ** " << endl;
+    
     int bet = 0;
     if(!test)
     {
@@ -126,6 +129,13 @@ int main(int argc, const char * argv[])
         }
         bet = (int) stol(bet_str);
     }
+    
+    // MAX bet is set at MAX_RELOAD
+//    if(bet > MAX_RELOAD)
+//    {
+//        cout << "**  setting bet at table maximum of $" << MAX_RELOAD << "  **" << endl;
+//        bet = MAX_RELOAD;
+//    }
     
     // Try-Catch statements that I probably won't use
     // TODO: remove these
@@ -161,12 +171,8 @@ int main(int argc, const char * argv[])
         return 1;
     }
     Bank* bank = new Bank(funds);
-    Dealer* dealer = new Dealer(numPlayers);        // 1 for 1 player
+    Dealer* dealer = new Dealer(numPlayers);        
     
-    //
-    //TODO: add prompt to add more funds at start of new hand
-    // TODO: putting in wrong bet value twice breaks it - from M testing 8/8/22
-    //
     
     // Hands are dealt  --------------------------------------------------------
     int handContinues = 0;   // -1 == quit, 0 == hand done, 1 == hand ongoing
@@ -233,20 +239,23 @@ int main(int argc, const char * argv[])
                 if (reload > MAX_RELOAD)
                 {
                     reload = MAX_RELOAD;
-                    cout << "your reload was too much. You get a reload of $" << MAX_RELOAD <<endl;
                     cout << "\n";
-                    
+                    cout << "**  Your reload was for too much  **" << endl;
+                    cout << "    Adding $" << MAX_RELOAD << " to Bankroll " <<endl;
                 }
                 bank->addFunds(reload);
                 totalFunds += reload;
                 int net = bank->getBalance() - totalFunds;
-                cout << "_____________________________ \n\n";
+                cout << "\n";
+                cout << "------------------------------- \n";
                 cout << "| TOTAL FUNDS ADDED    : $"<< totalFunds <<" \n";
                 cout << "| BANKROLL             : $"<< bank->getBalance() <<" \n";
-                cout << "----------------------------- \n";
+                cout << "------------------------------- \n";
                 (net >= 0) ?
-                cout << "| NET PROFIT/LOSS         : $"<< net <<" \n\n":
-                cout << "| NET PROFIT/LOSS         : -$"<< net*-1 <<" \n\n";
+                cout << "| NET PROFIT/LOSS      : $"<< net <<" \n\n":
+                cout << "| NET PROFIT/LOSS      : -$"<< net*-1 <<" \n\n";
+                
+                
             }
             if(shoe->endOfShoe())   // Shoe is finished. Start a new one
             {
@@ -274,6 +283,11 @@ int main(int argc, const char * argv[])
                     if(new_bet_str[0] == 'Q') break;
                 }
                 bet = (int) stol(new_bet_str);
+//                if(bet > MAX_RELOAD)
+//                {
+//                    cout << "**  setting bet at table maximum of $" << MAX_RELOAD << "  **" << endl;
+//                    bet = MAX_RELOAD;
+//                }
             }
             (!test) ?
             handContinues = dealer->dealHands(shoe, bank, bet):
@@ -294,10 +308,10 @@ int main(int argc, const char * argv[])
 
     // EXIT SEQUENCE
     cout << "\nThanks for Playing!! \n";
-    cout << "_____________________________ \n\n";
+    cout << "------------------------------- \n";
     cout << "| TOTAL FUNDS ADDED    : $"<< totalFunds <<" \n";
     cout << "| BANKROLL             : $"<< bank->getBalance() <<" \n";
-    cout << "----------------------------- \n";
+    cout << "------------------------------- \n";
     (net >= 0) ?
     cout << "| NET WIN/LOSS         : $"<< net <<" \n\n":
     cout << "| NET WIN/LOSS         : -$"<< net*-1 <<" \n\n";
