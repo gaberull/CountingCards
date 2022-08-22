@@ -987,7 +987,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
                 {
                     cout << "\n";
                     cout << "You are broke!! We will give you a marker to " << endl;
-                    cout << "bring your bankroll up to $" << MAX_RELOAD <<endl;
+                    cout << "bring your bankroll up to $" << addCommas(MAX_RELOAD) <<endl;
                     cout << "\n";
                     cout << "* Adding $" << addOn + currAdd << " to your bankroll next hand! *" << endl;
                 }
