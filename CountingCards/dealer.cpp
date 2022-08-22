@@ -979,15 +979,15 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             //FIXME: make it MAX_RELOAD and not 3/4 of it
             
             // entered amount is too much
-            if(temp+playerHand.getBet()+playerBank->getBalance()+playerBank->getAddNextHand() > (MAX_RELOAD*3/4))
+            if(temp+playerHand.getBet()+playerBank->getBalance()+playerBank->getAddNextHand() > MAX_RELOAD)
             {
                 int currAdd = playerBank->getAddNextHand();
-                int addOn = MAX_RELOAD*3/4 - playerHand.getBet() - playerBank->getBalance() - playerBank->getAddNextHand();
+                int addOn = MAX_RELOAD - playerHand.getBet() - playerBank->getBalance() - playerBank->getAddNextHand();
                 if(addOn > 0)
                 {
                     cout << "\n";
                     cout << "You are broke!! We will give you a marker to " << endl;
-                    cout << "bring your bankroll up to $" << (MAX_RELOAD *3/4) <<endl;
+                    cout << "bring your bankroll up to $" << MAX_RELOAD <<endl;
                     cout << "\n";
                     cout << "* Adding $" << addOn + currAdd << " to your bankroll next hand! *" << endl;
                 }
@@ -1324,9 +1324,9 @@ int Dealer::testHitPlayer(Hand& player)
     char temp;
     cin >> temp;
     temp = toupper(temp);
-    while(!cin || (temp != 'A' && temp != '2' && temp != '3' && temp != '4' && temp != '5' && temp != '6' && temp != '7' && temp != '8' && temp != '9' && temp != 'T' && temp != 'J' && temp != 'Q' && temp != 'K'))
+    while(!cin || (revCardMap.find(temp)==revCardMap.end()))    // while wrong input
     {
-        cout << "wrong input. enter 2-9 or T,J,Q,K " << endl;
+        cout << "Wrong input. Enter 2-9 or T,J,Q,K " << endl;
         cin >> temp;
         temp = toupper(temp);
     }
