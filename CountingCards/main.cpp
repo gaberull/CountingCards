@@ -17,7 +17,7 @@
 #include <cstdint>
 #include <climits>
 
-#define MAX_RELOAD 1000 // if changed, change in dealer.cpp too
+#define MAX_RELOAD 1000 // change to match in dealer.cpp if changed here
 
 using namespace std;
 
