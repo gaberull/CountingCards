@@ -26,22 +26,24 @@
 - [x] Add commas if necessary to cash balances printed (bankroll, hand winning, etc)
 - [x] Add table limits (max bet size of MAX_RELOAD)
 - [x] complete info on counting cards in general on README.md
+- [x] in 1 player: user splits hand, the "You win $X" statement needs a newline after it if there is more than 1 hand left. Maybe add new line in either case
 
-## Not Yet Completed
+## Incomplete
 
-- [ ] Update demo screen recordings, screenshots (8/21/22)
-- [ ] Add some place to request a printout of the exact situations player got wrong on Basic strategy actions
-- [ ] Add way to tell which hand you are on when playing hands you have split - Hand 4 / X
+- [ ] Create new Utility class with static functions for things like converting int to string with commas, etc
+  - [ ] Remove the current duplicate of addComma() and addComma_main() 
+- [ ] Update demo screen recordings, screenshots (wrote this 8/21/22)
+- [ ] Add some place to request a printout of the exact situations in which player made mistake on Basic Strategy actions
+- [ ] Add way to tell which hand you are on when playing hands you have split - i.e. hand 3 / X
 - [ ] Look at IMGui and openGL for graphics rendering. View github repo
-- [ ] High score component to game?  
+- [ ] High score component to game.. ?  
 - [ ] Add testing mode capabilities to splitting and dealer received cards
-- [ ] report of when (and count) the player did not do the right action  
+- [ ] report of precisely when (and the count) the player did not do the right action  
   - [ ] ***Option to print to file***
 - [ ] Add count notices like "Count is high, maybe you should consider raising your bet"
 - [ ] Handle computer player getting blackjack on a split hand - currently standing pat
 - [ ] Implement change in basic strategy and info for adjusting betting patterns based on true count (the ratio)
 - [ ] add ability for player to play multiple hands
-- [ ] in 1 player: user splits hand, the "You win $X" statement needs a newline after it if there is more than 1 hand left. Maybe add new line in either case
 
 ## Notes and Ideas to self
 
