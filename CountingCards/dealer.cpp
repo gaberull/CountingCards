@@ -14,7 +14,7 @@
 #include "bank.hpp"
 #include <iostream>
 
-#define MAX_RELOAD 1000
+#define MAX_RELOAD 1000   // change to match in main.cpp if changed here
 
 using namespace std;
 
@@ -201,7 +201,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
                 return 0;
             }
 
-            //               Continue sequence                /////////////////////////////////////////////////
+            //               Continue sequence            ///////////
             cout << "\n";
             cout << "\n'c' to Continue    |   'q' to Quit  " << endl;
             char temp;
@@ -216,7 +216,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
                 temp = toupper(temp);
             }
             if(temp=='Q') return -1;
-            //              End of  Continue sequence             ////////////////////////////////////////////
+            //              End of  Continue sequence      ///////////
             return 0;
         }
         else    // Player beats dealer with a blackjack
@@ -239,7 +239,6 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
             cout << "You WIN $"<< win_str << "!!!!      \n";
             cout << "\n";
             
-            
             handArray.pop_back();
             if(_numPlayers==1) cout << "Dealer Had           :    " << dealerHand->getHand() << endl; //TODO: check this on multiplayer
             cout << "\n";
@@ -253,7 +252,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
                 return 0;
             }
             
-            //////////////////////////////                 Continue sequence                /////////////////////////////////////////////////
+            //               Continue sequence            ///////////
             cout << "\n";
             cout << "\n'c' to Continue    |   'q' to Quit  " << endl;
             char temp;
@@ -268,7 +267,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
                 temp = toupper(temp);
             }
             if(temp=='Q') return -1;
-            //////////////////////////////               End of  Continue sequence             ////////////////////////////////////////////
+            //              End of  Continue sequence      ///////////
             return 0;
         }
     }
@@ -296,18 +295,52 @@ int Dealer::testDealHands(Bank* playerBank)
     
     cout << "Test mode: \n" << endl;
     char p_first, p_sec, d_first, d_sec;
+    
     cout << "Enter player first card" << endl;
     cin >> p_first;
     p_first = toupper(p_first);
+    while(revCardMap.count(p_first)==0)
+    {
+        cout << "Wrong input" << endl;
+        cout << "Enter player first card" << endl;
+        cin >> p_first;
+        p_first = toupper(p_first);
+    }
+    
     cout << "Enter player second card " << endl;
     cin >> p_sec;
     p_sec = toupper(p_sec);
+    while(revCardMap.count(p_sec)==0)
+    {
+        cout << "Wrong input" << endl;
+        cout << "Enter player second card" << endl;
+        cin >> p_sec;
+        p_sec = toupper(p_sec);
+    }
+    
     cout << "Enter dealer first card " << endl;
     cin >> d_first;
     d_first = toupper(d_first);
+    while(revCardMap.count(d_first)==0)
+    {
+        cout << "Wrong input" << endl;
+        cout << "Enter dealer first card" << endl;
+        cin >> d_first;
+        d_first = toupper(d_first);
+    }
+    
     cout << "Enter dealer second card " << endl;
     cin >> d_sec;
     d_sec = toupper(d_sec);
+    while(revCardMap.count(d_sec)==0)
+    {
+        cout << "Wrong input" << endl;
+        cout << "Enter dealer second card" << endl;
+        cin >> d_sec;
+        d_sec = toupper(d_sec);
+    }
+    
+    
     cout << "Enter bet. No more than $" << addCommas(playerBank->getBalance()) << endl;
     int bet = -1;
     cin >>bet;
@@ -450,7 +483,11 @@ int Dealer::testDealHands(Bank* playerBank)
  @param playerBank (Bank)
     the user's current balance of funds, and functions to update that balance
  @param action (char)
-    this char is set to default value='a'   in the function declaration, and may not end up being used
+    choose which action to take.
+    'a' -   user chooses action (default value)
+ @param test (bool)
+    true    -   In testing mode, where user gets to choose his hand
+    false   -   Not in testing mode. Just regular play
  
  @property  case 'q', 'Q'
     quit the program
@@ -813,8 +850,6 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             cout << "\n";
             cout << "    <<<  Player requests strategy hint  >>>" << endl;
             cout << "\n\n";
-            
-            
             cout << "Your hand is         :    " << playerHand.getHand() << "\n";
             cout << "Against Dealer's     :    " << dealerHand->displayOne() << "\n";
             cout << "Your hand value     " << playerHand.getValue() << "\n";
@@ -824,7 +859,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             char temp ='e';
             cin >> temp;
             temp = toupper(temp);
-            if(temp=='Q') return -1;    //FIXME:
+            if(temp=='Q') return -1;
             if(!cin || (temp != 'H' && temp != 'P' && temp != 'S' && temp != 'D' && temp != 'M' && temp != 'C' && temp != 'R' && temp != 'X' && temp != 'B'))
             {
                 cin.clear();
@@ -1183,7 +1218,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
         (dealerScore<0) ?
         cout << "Against Dealer's Busted Hand \n":
         cout << "Against Dealer's     :    " << dealerScore << "\n";
-        if(_numPlayers==1) cout << "\n";                            //FIXME: check here
+        if(_numPlayers==1) cout << "\n";
         
         if(playerHand.getValue() < dealerScore)  // player loses
         {
@@ -1230,17 +1265,18 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
     
     cout << "\n";
     cout << "\n'c' to Continue    |   'q' to Quit " << endl;
-    char temp;
-    cin >> temp;    //TODO: toupper this
-    if(temp=='q' || temp=='Q') return -1;
-    while(!cin || (temp != 'c' && temp != 'C') )
+    char temp = 'a';
+    cin >> temp;
+    temp = toupper(temp);
+    while(!cin || (temp != 'C' && temp != 'Q') )
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Wrong Input. Enter 'C' or 'c' to continue. 'Q' or 'q' to quit\n";
         cin >> temp;
-        if(temp == 'q' || temp == 'Q') return -1;
+        temp = toupper(temp);
     }
+    if(temp=='Q') return -1;
     return 0;
 }
   
