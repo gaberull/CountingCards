@@ -21,8 +21,34 @@
 
 using namespace std;
 
+string addCommas_main(int num)
+{
+    string ret = to_string(num);
+    int ret_size = (int)ret.size();
+    for(int i=ret_size-3; i>=0; i--)    //TODO: test this adding commas
+    {
+        if(i-1 >= 0 && (ret_size-i)%3==0)
+        {
+            ret.insert(i, 1, ',');
+        }
+    }
+    return ret;
+}
+
 int main(int argc, const char * argv[])
 {
+                                                /*
+    cout << "10,000 "<< endl;
+    cout << addCommas(10000) << endl;
+    cout << "-10,000,000" << endl;
+    cout << addCommas(-10000000) << endl;
+    char bat;
+    cin >> bat;
+                                                 */
+    
+    
+    
+    
     cout << "     _____\n";
     cout << "    |A .  | _____\n";
     cout << "    | /.\\ ||A ^  | _____\n";
@@ -208,7 +234,7 @@ int main(int argc, const char * argv[])
                 cout << "\n\n";
                 cout << "Adding $" << addOn << " to bankroll " <<endl;
                 cout << "-----------------------------  \n";
-                cout << "| BANKROLL     : $"<< bank->getBalance() <<" \n";
+                cout << "| BANKROLL     : $"<< addCommas_main(bank->getBalance()) <<" \n";
                 cout << "----------------------------- \n \n";
                 totalFunds += addOn;
                 std::chrono::seconds duration(2);
@@ -241,19 +267,28 @@ int main(int argc, const char * argv[])
                     reload = MAX_RELOAD;
                     cout << "\n";
                     cout << "**  Your reload was for too much  **" << endl;
-                    cout << "    Adding $" << MAX_RELOAD << " to Bankroll " <<endl;
+                    cout << "    Adding $" << addCommas_main(MAX_RELOAD) << " to Bankroll " <<endl;
                 }
                 bank->addFunds(reload);
                 totalFunds += reload;
+                
                 int net = bank->getBalance() - totalFunds;
                 cout << "\n";
                 cout << "------------------------------- \n";
-                cout << "| TOTAL FUNDS ADDED    : $"<< totalFunds <<" \n";
-                cout << "| BANKROLL             : $"<< bank->getBalance() <<" \n";
+                cout << "| TOTAL FUNDS ADDED    : $"<< addCommas_main(totalFunds) <<" \n";
+                cout << "| BANKROLL             : $"<< addCommas_main(bank->getBalance()) <<" \n";
                 cout << "------------------------------- \n";
-                (net >= 0) ?
-                cout << "| NET PROFIT/LOSS      : $"<< net <<" \n\n":
-                cout << "| NET PROFIT/LOSS      : -$"<< net*-1 <<" \n\n";
+                string winLoss = "";
+                if(net >= 0)
+                {
+                    winLoss = addCommas_main(net);
+                    cout << "| NET PROFIT/LOSS      : $"<< winLoss <<" \n\n";
+                }
+                else
+                {
+                    winLoss = addCommas_main(net * -1);
+                    cout << "| NET PROFIT/LOSS      : -$"<< winLoss <<" \n\n";
+                }
                 
                 
             }
@@ -306,15 +341,33 @@ int main(int argc, const char * argv[])
     cout << "                   |____V||  .  |\n";
     cout << "                          |____V|\n\n\n";
 
+    
     // EXIT SEQUENCE
     cout << "\nThanks for Playing!! \n";
     cout << "------------------------------- \n";
-    cout << "| TOTAL FUNDS ADDED    : $"<< totalFunds <<" \n";
-    cout << "| BANKROLL             : $"<< bank->getBalance() <<" \n";
+    cout << "| TOTAL FUNDS ADDED    : $"<< addCommas_main(totalFunds) <<" \n";
+    cout << "| BANKROLL             : $"<< addCommas_main(bank->getBalance()) <<" \n";
     cout << "------------------------------- \n";
+    // add commas to win/loss
+    string winLoss = "";
+    if(net >= 0)
+    {
+        winLoss = addCommas_main(net);
+        cout << "| NET WIN/LOSS         : $"<< winLoss <<" \n\n";
+    }
+    else
+    {
+        winLoss = addCommas_main(net * -1);
+        cout << "| NET WIN/LOSS         : -$"<< winLoss <<" \n\n";
+    }
+                                                                        /*
+    (net>=0)?
+    winLoss = addCommas(net):
+    winLoss = addCommas(net * -1);
     (net >= 0) ?
-    cout << "| NET WIN/LOSS         : $"<< net <<" \n\n":
-    cout << "| NET WIN/LOSS         : -$"<< net*-1 <<" \n\n";
+    cout << "| NET WIN/LOSS         : $"<< winLoss <<" \n\n":
+    cout << "| NET WIN/LOSS         : -$"<< winLoss <<" \n\n";
+                                                                         */
     
     // De-allocate heap memory
     delete shoe;
