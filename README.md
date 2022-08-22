@@ -97,13 +97,13 @@ For Unix architecture (Mac or Linux):
 - For this particular implementation of Blackjack, the dealer will stand pat on both soft and hard 17s, and any hand with better than 17 points
 - For more information about blackjack rules see [Bicycle's Blackjack Rules](https://bicyclecards.com/how-to-play/blackjack/)
 
-## Info on card counting in the game of Blackjack
+## Card Counting General Info
 
 Generally speaking, the player does not have an edge long-term against the casino in the game of blackjack... However, this can change when the count of the deck becomes high enough, and a player adjusts his bet-sizing accordingly. This is for the simple reason that players get paid 3:2 when hitting blackjack. The more high cards in the deck, the more likely this is to happen. So, assuming a player knows how to play hands correctly, if the player places smaller bets when there are few high cards in the shoe, and larger bets when there are more high cards in the shoe, the player can gain an edge against the casino. CountingCards is a game that aims to help the player learn to do just that.
 
 It is a common misconception that counting cards is against the rules of the game. This is simply not accurate. However, a casino is not required to let you play if they believe you are a good, winning player. A good bet sizing strategy can keep one from drawing too much unwanted attention while playing
 
-## Shuffle algorithm implementation
+## Shuffle Algorithm Implementation
 
 The CountinCards shuffle algorithm is based on the modern Fisher-Yates shuffle algorithm, in which each draw of a card from the dealer's shoe is pseudo-random. The algorithm works as follows:
 
@@ -185,6 +185,7 @@ _cardsRemaining--
 
 - [Rounding Floating Point int C++ - G4G](https://www.geeksforgeeks.org/rounding-floating-point-number-two-decimal-places-c-c/) for using implicit int conversion to round a float to 2 digits
 - [Markdown Basic Syntax - markdownguide.org](https://www.markdownguide.org/basic-syntax/#link-best-practices)
+- [Fisher-Yates shuffle algorithm - Wikipedia](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle)
 
-<br><br><br>
+
 Copyright (c) 2022 Gabe Scott
