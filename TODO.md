@@ -45,10 +45,11 @@
 - [ ] Implement change in basic strategy and info for adjusting betting patterns based on true count (the ratio)
 - [ ] add ability for player to play multiple hands
 
-## Notes and Ideas to self
+## Ideas and Notes to self
 
 - dimensions of terminal for screenshot images: 91 x 28
 - Maybe add in words with a few microseconds delay for a hand won that spread across the console
 - Require bets to be in $5 increments ??
 - Have the game analyze player's betting patterns and offer advice
 - Track the number of times the player deviated from the optimal play
+- Worth trying for more intricate text graphics? Or just focus on real graphics?
