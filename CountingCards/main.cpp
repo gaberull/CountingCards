@@ -213,7 +213,7 @@ int main(int argc, const char * argv[])
                 bank->addFunds(addOn);
                 bank->setAddNextHand(0);
                 cout << "\n\n";
-                cout << "Adding $" << addOn << " to bankroll " <<endl;
+                cout << "Adding $" << addOn << " to bankroll " <<endl;  //TODO: print total profit/loss ?
                 cout << "-----------------------------  \n";
                 cout << "| BANKROLL     : $"<< addCommas_main(bank->getBalance()) <<" \n";
                 cout << "----------------------------- \n \n";
