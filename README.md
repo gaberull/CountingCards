@@ -57,6 +57,15 @@ For Unix architecture (Mac or Linux):
   - Since these cards are not dealt out of the shoe, they do not affect the count
   - This is a hidden feature and there is no prompt on-screen that tells the player about this
 
+  ## In-game Action Menu
+
+| Character | Action      |     Description  |
+|-----------|-------------|------------------|
+|'a' | no action | this is default value, if 'a' is called, action will be requested from player |
+| 'Q'| Quit | Player chooses to quit|
+
+
+
 ## Blackjack Terminology
 
 - ***Blackjack*** - A two card hand that contains exactly one ace, and one hand counting for 10 points (King, Queen, Jack, or Ten). This pays out at a ratio of 3:2
