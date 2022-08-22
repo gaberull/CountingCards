@@ -120,7 +120,7 @@ int main(int argc, const char * argv[])
     totalFunds += funds;
     
     cout << "\n";
-    cout << "**  Maximum bet for this table is set at $" << MAX_RELOAD << "  ** " << endl;
+    cout << "**  Maximum bet for this table is set at $" << addCommas_main(MAX_RELOAD) << "  ** " << endl;
     
     int bet = 0;
     if(!test)
@@ -128,7 +128,7 @@ int main(int argc, const char * argv[])
         // Create shoe and player bank, and pass them to dealer in constructor
         char bet_str[10];
         cout << "\n";
-        cout << "\nEnter Bet  |  'q' to quit " << endl;
+        cout << "\nEnter Bet    |    'q' to quit " << endl;
         //cout << "~~~~~   Enter Your Bet | 'q' to quit   ~~~~~" << endl;
         //cout << "\n";
         cin >> bet_str;
@@ -143,13 +143,6 @@ int main(int argc, const char * argv[])
         }
         bet = (int) stol(bet_str);
     }
-    
-    // MAX bet is set at MAX_RELOAD
-//    if(bet > MAX_RELOAD)
-//    {
-//        cout << "**  setting bet at table maximum of $" << MAX_RELOAD << "  **" << endl;
-//        bet = MAX_RELOAD;
-//    }
     
     // Try-Catch statements that I probably won't use
     // TODO: remove these
@@ -291,7 +284,7 @@ int main(int argc, const char * argv[])
             cout << "\n";
             if(!test)
             {
-                cout << "\nEnter Bet  |  'q' to quit " << endl;
+                cout << "\nEnter Bet    |   'q' to quit " << endl;
                 string new_bet_str = "";
                 cin >> new_bet_str;
                 new_bet_str[0] = toupper(new_bet_str[0]);
@@ -306,11 +299,6 @@ int main(int argc, const char * argv[])
                     if(new_bet_str[0] == 'Q') break;
                 }
                 bet = (int) stol(new_bet_str);
-//                if(bet > MAX_RELOAD)
-//                {
-//                    cout << "**  setting bet at table maximum of $" << MAX_RELOAD << "  **" << endl;
-//                    bet = MAX_RELOAD;
-//                }
             }
             (!test) ?
             handContinues = dealer->dealHands(shoe, bank, bet):
