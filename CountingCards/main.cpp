@@ -37,18 +37,6 @@ string addCommas_main(int num)
 
 int main(int argc, const char * argv[])
 {
-                                                /*
-    cout << "10,000 "<< endl;
-    cout << addCommas(10000) << endl;
-    cout << "-10,000,000" << endl;
-    cout << addCommas(-10000000) << endl;
-    char bat;
-    cin >> bat;
-                                                 */
-    
-    
-    
-    
     cout << "     _____\n";
     cout << "    |A .  | _____\n";
     cout << "    | /.\\ ||A ^  | _____\n";
