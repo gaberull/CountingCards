@@ -116,6 +116,8 @@ _cardsRemaining--
 
 ## Demo
 
+***Note: As of 8/21/22, these demo images are a bit outdated***
+
 **One Player Gameplay:**
 
 <br><br>![Start Screen](https://raw.githubusercontent.com/gaberull/CountingCards/master/screenshots/8_14_22/1p_gameplay.gif)

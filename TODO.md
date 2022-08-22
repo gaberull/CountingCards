@@ -29,6 +29,7 @@
 
 ## Not Yet Completed
 
+- [ ] Update demo screen recordings, screenshots (8/21/22)
 - [ ] Add some place to request a printout of the exact situations player got wrong on Basic strategy actions
 - [ ] Add way to tell which hand you are on when playing hands you have split - Hand 4 / X
 - [ ] Look at IMGui and openGL for graphics rendering. View github repo
@@ -47,5 +48,5 @@
 - dimensions of terminal for screenshot images: 91 x 28
 - Maybe add in words with a few microseconds delay for a hand won that spread across the console
 - Require bets to be in $5 increments ??
-- Have the game analyzea player's betting patterns and offer advice
+- Have the game analyze player's betting patterns and offer advice
 - Track the number of times the player deviated from the optimal play
