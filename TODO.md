@@ -20,10 +20,13 @@
 - [x] Sad face on loss, maybe in a box like the winnings, or some ascii art
 - [x] check getting bj against dealer's bj in multiplayer and single player
 - [x] Explain about the shuffling algorithm I'm using in README.md
+- [x] Add function that converts any dollar amount to a string with commas for printing  
+- [x] Add commas if necessary to cash balances printed (bankroll, hand winning, etc)
+- [x] Add table limits (max bet size of MAX_RELOAD)
 - [ ] Look at IMGui and openGL for graphics rendering. View github repo
-- [ ] High score component to game? 
+- [ ] High score component to game?  
 - [ ] Add testing mode capabilities to splitting and dealer received cards
-- [ ] report of when (and count) the player did not do the right action.  
+- [ ] report of when (and count) the player did not do the right action  
   - [ ] Option to print to file
 - [ ] Add count notices like "Count is high, maybe you should consider raising your bet"
 - [ ] Handle computer player getting blackjack on a split hand - currently standing pat
@@ -32,8 +35,6 @@
 - [ ] complete info on counting cards in general on README.md
 - [ ] add ability for player to play multiple hands
 - [ ] in 1 player: user splits hand, the "You win $X" statement needs a newline after it if there is more than 1 hand left. Maybe add new line in either case
-- [ ] Add commas if necessary to cash balances printed (bankroll, hand winning, etc)
-- [ ] Add table limits (size of MAX_RELOAD)
 
 ## Notes and Ideas to self
 
@@ -41,3 +42,4 @@
 - Maybe add in words with a few microseconds delay for a hand won that spread across the console
 - Require bets to be in $5 increments ??
 - Have the game analyzea player's betting patterns and offer advice
+- Track the number of times the player deviated from the optimal play

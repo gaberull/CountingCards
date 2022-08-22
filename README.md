@@ -31,9 +31,8 @@ For Unix architecture (Mac or Linux):
   - Play 75% of shoe
   - Play 50% of shoe
 - Choose total number of players (e.g. choosing 4 would result in 3 computer players and him/herself)
-- Add funds to bankroll as desired
-  - Add up to MAX_RELOAD when out of funds
-  - add on up to an amount that brings bankroll total up to MAX_RELOAD * 3/4 when not out of funds
+- Add funds to Bankroll, up to MAX_RELOAD, at one time
+- In order to keep it fun, MAX_RELOAD also functions as the table's maximum bet
 - Check your own count of the shoe against the true count, kept by CountingCards
 - Track net win/loss over entire session
 - Computer players all play according to common basic strategy for their hand vs the dealer's shown card
