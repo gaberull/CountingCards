@@ -36,43 +36,31 @@ For Unix architecture (Mac or Linux):
 - Check your own count of the shoe against the true count, kept by CountingCards
 - Track net win/loss over entire session
 - Computer players all play according to common basic strategy for their hand vs the dealer's shown card
-- In-hand menu of play options include:
-  - Hit hand
-  - Stand pat
-  - Split hand
-    - Double down
-      - split and double can be stacked multiple times as in a real game of blackjack
-    - Strategy hint
-      - get basic strategy for the player's hand vs the dealer's shown card
-      - get adjusted strategy based on count of the deck vs dealer's shown card
-    - Get current running count and true count (ratio of running count to decks remaining)
-    - List rules of the game
-    - Add on funds to bankroll
-      - game tracks add on amounts, and doesn't let user add more than an amount that would bring player's bankroll to MAX_RELOAD * 3/4 during a single hand, even if option to add on is selected multiple times.  
-    - Quit with option from menu prompt
 - Net session results are displayed at end of game, when the quit option is requested  
 - Testing Mode (hidden feature):
-  - If user inputs the number of players to be 9, they can choose the hand that is dealt to them
+  - If the user inputs the number of players to be 9, they can choose the hand that is dealt to them
   - User can then choose the card they receive from hitting or doubling.
   - Since these cards are not dealt out of the shoe, they do not affect the count
-  - This is a hidden feature and there is no prompt on-screen that tells the player about this
+  - The game prompts the user to enter one to four players, so one would have to know about this mode beforehand. There is no prompt on-screen that tells the player about this
 
-## In-game Action Menu
+### In-game Action Menu
 
 | Character | Action      |     Description  |
 |-----------|-------------|------------------|
 | 'H' | Hit Hand      | Player gets one card added to their hand |
 | 'D' | Double Down   | Player opts to receive just one card for the rest of the hand, while doubling their current bet |
-| 'S' | Split Hand    | Player opts to split the hand, and get one more card for each new hand. Bet is doubled and split between the hands |
+| 'S' | Split Hand    | Player opts to split the hand into two hands and get two more card - one for each hand. Bet is doubled and split between the hands |
 | 'P' | Stand Pat     | Player opts to not take any more cards, and stand with the hand's current point value |
-| 'M' | Strategy Hint | Player requests the correct action to take based on their hand's value against dealer's currently shown card |
-| 'B' | Reload Bank   | Player requests to add funds to their bankroll for the next hand - Capped at MAX_RELOAD |
+| 'M' | Strategy Hint | Player requests the basic strategy correct action to take based on their hand's value against dealer's currently shown card |
+| 'B' | Reload Bank   | Player requests to add funds to their bankroll starting on the next hand - Capped at MAX_RELOAD |
 | 'R' | List Rules    | Player gets a full list of blackjack rules and terminology |
 | 'C' | Get Count     | Player requests the current count of the deck - Receives both running count and true count |
 | 'Q' | Quit Game     | Player chooses to quit, game is exited immediately, with profit/loss statement displayed|
-| 'A' | No Action     | this is default value, if 'a' is called, action will be requested from player |
+| 'A' | No Action     | this is default value, if 'a' is called, action will be requested from player. This is used to stack calls to Dealer::action() |
 
-
+- split and double can be stacked multiple times as in a real game of blackjack
+- Soon, the player will be able to get adjusted strategy hints based on count of the deck vs dealer's shown card
+- When adding funds to a player's bankroll, the game tracks add on amounts, and doesn't let the user add more than an amount that would bring player's bankroll back up to MAX_RELOAD during a single hand, even if the option to add on is selected multiple times.
 
 ## Blackjack Terminology
 
