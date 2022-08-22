@@ -99,9 +99,9 @@ For Unix architecture (Mac or Linux):
 
 ## Info on card counting in the game of Blackjack
 
-Generally speaking, the player does not have an edge long-term against the casino in the game of blackjack... However, this can change when the count of the deck becomes high enough, and a player adjusts his bet-sizing accordingly. This is for the simple reason that players get paid 3:2 when hitting blackjack. The more high cards in the deck, the more likely this is to happen. So, if a player can place smaller bets when there are few high cards in the shoe, and larger bets when there are more high cards in the shoe, the player can gain and edge against the casino. CountingCards is a game that aims to help the player learn to do just that.
+Generally speaking, the player does not have an edge long-term against the casino in the game of blackjack... However, this can change when the count of the deck becomes high enough, and a player adjusts his bet-sizing accordingly. This is for the simple reason that players get paid 3:2 when hitting blackjack. The more high cards in the deck, the more likely this is to happen. So, assuming a player knows how to play hands correctly, if the player places smaller bets when there are few high cards in the shoe, and larger bets when there are more high cards in the shoe, the player can gain an edge against the casino. CountingCards is a game that aims to help the player learn to do just that.
 
-It is a common misconception that counting cards is against the rules of the game. This is inaccurate. However, a casino is not required to let you play if they believe you are a winning player. A good bet sizing strategy can keep one from drawing too much unwanted attention to one's self while playing
+It is a common misconception that counting cards is against the rules of the game. This is simply not accurate. However, a casino is not required to let you play if they believe you are a winning player. A good bet sizing strategy can keep one from drawing too much unwanted attention while playing
 
 ## Shuffle algorithm implementation
 
