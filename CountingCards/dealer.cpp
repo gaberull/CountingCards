@@ -148,7 +148,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
         cout << "Dealer Has         :    " << dealerHand->getHand() << "\n";
         cout << "\n** Got us this time..  **\n\n";   //FIXME: too much displayed when dealer wins here heads up
         cout << "-----------------------------  \n";
-        cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
+        cout << "| BANKROLL     : $"<< addCommas(playerBank->getBalance()) <<" \n";
         cout << "----------------------------- \n \n";
         
         // skip continue sequence showing twice when only 1 player and dealer has bj
@@ -189,7 +189,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
             cout << "\n";
             cout << "Dealer Has         :    " << dealerHand->getHand() << "\n\n";
             cout << "-----------------------------  \n";
-            cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
+            cout << "| BANKROLL     : $"<< addCommas(playerBank->getBalance()) <<" \n";
             cout << "----------------------------- \n \n";
             
             if(_numPlayers == 1)
@@ -222,7 +222,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
             playerBank->addFunds(bet);
             playerBank->payBlackjack(bet);
             int win = bet * 3/2;
-            string win_str = std::to_string(win);
+            string win_str = addCommas(win);
             //cout << "****   You hit a BLACKJACK!!!  You Win $" << win_str << "  ****\n\n";
             cout << "*** You hit a BLACKJACK!!! ***\n";
             cout << "\n";
@@ -242,7 +242,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
             if(_numPlayers==1) cout << "Dealer Had         :    " << dealerHand->getHand() << endl; //TODO: check this on multiplayer
             cout << "\n";
             cout << "-----------------------------  \n";
-            cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
+            cout << "| BANKROLL     : $"<< addCommas(playerBank->getBalance()) <<" \n";
             cout << "----------------------------- \n \n";
             
             // skip double 'c' to continue sequence when 1 player (other in dealerAction() )
@@ -309,7 +309,7 @@ int Dealer::testDealHands(Bank* playerBank)
     cout << "Enter dealer second card " << endl;
     cin >> d_sec;
     d_sec = toupper(d_sec);
-    cout << "Enter bet. No more than $" << playerBank->getBalance() << endl;
+    cout << "Enter bet. No more than $" << addCommas(playerBank->getBalance()) << endl;
     int bet = -1;
     cin >>bet;
     
@@ -350,7 +350,7 @@ int Dealer::testDealHands(Bank* playerBank)
         cout << "Hand is a push. No win or loss of funds" << endl;
         cout << "\n";
         cout << "-----------------------------  \n";
-        cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
+        cout << "| BANKROLL     : $"<< addCommas(playerBank->getBalance()) <<" \n";
         cout << "----------------------------- \n \n";
         playerBank->addFunds(bet);   // put funds back in that we took out at start for bet
                                                                                         /*
@@ -377,7 +377,7 @@ int Dealer::testDealHands(Bank* playerBank)
         playerBank->addFunds(bet);
         playerBank->payBlackjack(bet);
         int win = bet * 3/2;
-        string win_str = std::to_string(win);
+        string win_str = addCommas(win);
         cout << "Player Has         :    " << player.getHand() << endl;
         cout << "Dealer Shows       :    " << dealerHand->displayOne() << endl;
         cout << "\n";
@@ -400,7 +400,7 @@ int Dealer::testDealHands(Bank* playerBank)
         
         cout << "\n";
         cout << "-----------------------------  \n";
-        cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
+        cout << "| BANKROLL     : $"<< addCommas(playerBank->getBalance()) <<" \n";
         cout << "----------------------------- \n \n";
                                                                         /*
         cout << "'c' to Continue  | 'q' to Quit " << endl;
@@ -433,10 +433,10 @@ int Dealer::testDealHands(Bank* playerBank)
         cout << "Dealer Has         :    " << dealerHand->getHand() << endl;
         cout << "For blackjack :( " << endl;
         cout << "\n";
-        cout << "You LOST your bet of $" << player.getBet() << "    >:-(" << endl;
+        cout << "You LOST your bet of $" << addCommas(player.getBet()) << "    >:-(" << endl;
         //cout << "\n";
         cout << "-----------------------------  \n";
-        cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
+        cout << "| BANKROLL     : $"<< addCommas(playerBank->getBalance()) <<" \n";
         cout << "----------------------------- \n \n";
                                                                                         
         return 0;
@@ -571,7 +571,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             if(player<0)   // player busts
             {
                 cout << "-----------------------------  \n";
-                cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
+                cout << "| BANKROLL     : $"<< addCommas(playerBank->getBalance()) <<" \n";
                 cout << "----------------------------- \n \n";
             }
             else
@@ -622,7 +622,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
                 std::this_thread::sleep_for(duration);
                 handArray.push_back(playerHand);
                 if(test) return Dealer::action(shoe, playerBank, 'a', true);
-                return Dealer::action(shoe, playerBank);  // ??
+                return Dealer::action(shoe, playerBank);  //
             }
             else    // split the hand
             {
@@ -661,7 +661,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
                 {
                     bjflag = true;
                     int bet = playerHand.getBet();
-                    string bet_str = to_string(bet * 3/2);
+                    string bet_str = addCommas(bet * 3/2);
                     cout << "\n***  Hand 1 is blackjack!!  ***\n";
                     cout << "\n";
 
@@ -684,7 +684,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
                 {
                     bjflag = true;
                     int bet = newHand.getBet();
-                    string bet_str = to_string(bet * 3/2);
+                    string bet_str = addCommas(bet * 3/2);
                     cout << "\n***  Hand 2 is blackjack!!  ***\n";
                     cout << "\n";
 
@@ -772,8 +772,8 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             int oldbet = playerHand.getBet();
             playerHand.setBet(oldbet + newBet);
             cout << "-----------------------------  \n";
-            cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
-            cout << "| CURRENT BET  : $"<< playerHand.getBet() << "  \n";
+            cout << "| BANKROLL     : $"<< addCommas(playerBank->getBalance()) <<" \n";
+            cout << "| CURRENT BET  : $"<< addCommas(playerHand.getBet()) << "  \n";
             cout << "----------------------------- \n \n";
             
             // add one and only one card to player's hand. Then it is pat. or bust.
@@ -787,7 +787,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             if(player<0)   // player busts
             {
                 cout << "-----------------------------  \n";
-                cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
+                cout << "| BANKROLL     : $"<< addCommas(playerBank->getBalance()) <<" \n";
                 cout << "----------------------------- \n \n";
                 
                 if(_numPlayers > 1) //FIXME: check this condition
@@ -969,6 +969,8 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
                 cout << "Wrong Input. Enter positive number" << endl;
                 cin >> temp;
             }
+            
+            //FIXME: make it MAX_RELOAD and not 3/4 of it
             
             // entered amount is too much
             if(temp+playerHand.getBet()+playerBank->getBalance()+playerBank->getAddNextHand() > (MAX_RELOAD*3/4))
@@ -1202,7 +1204,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
         
         if(playerHand.getValue() < dealerScore)  // player loses
         {
-            cout << "YOU LOST your bet of $" << playerHand.getBet() << "    >:-("<< endl;
+            cout << "YOU LOST your bet of $" << addCommas(playerHand.getBet()) << "    >:-("<< endl;
             if(_numPlayers  > 1) cout << "\n";
         }
         else if(playerHand.getValue() == dealerHand->getValue())    // player ties
@@ -1214,7 +1216,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
         else // player wins (not with blackjack)
         {
             cout << "\n";
-            cout << "You WIN $"<< playerHand.getBet() << "!!!! " << endl;
+            cout << "You WIN $"<< addCommas(playerHand.getBet()) << "!!!! " << endl;
             if(_numPlayers>1) cout << "\n";
             playerBank->addFunds(playerHand.getBet()*2);
         }
@@ -1239,7 +1241,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
         }
     }
     cout << "-----------------------------  \n";
-    cout << "| BANKROLL     : $"<< playerBank->getBalance() <<" \n";
+    cout << "| BANKROLL     : $"<< addCommas(playerBank->getBalance()) <<" \n";
     cout << "----------------------------- \n";
     std::this_thread::sleep_for(duration);  // pause for 3 sec
     
@@ -1276,7 +1278,7 @@ int Dealer::hitPlayer(Hand& player, Shoe* shoe)
     {
         cout << "Player has         :    " << player.getHand() << "      after hitting \n";
         std::this_thread::sleep_for(duration);
-        cout << "\nOh NO!! You busted.. You LOST your bet of $"<< player.getBet() <<"    >:-(\n";
+        cout << "\nOh NO!! You busted.. You LOST your bet of $"<< addCommas(player.getBet()) <<"    >:-(\n";
     }
     else
     {
@@ -1319,7 +1321,7 @@ int Dealer::testHitPlayer(Hand& player)
     {
         cout << "Player has         :    " << player.getHand() << "      after hitting \n";
         std::this_thread::sleep_for(duration);
-        cout << "\nOh NO!! You busted.. You LOST your bet of $"<< player.getBet() <<"    >:-(\n";
+        cout << "\nOh NO!! You busted.. You LOST your bet of $"<< addCommas(player.getBet()) <<"    >:-(\n";
     }
     else
     {
@@ -1602,6 +1604,27 @@ char Dealer::correctAction(Hand& player, Hand* dealer, int count, bool print)
         }
     }
     return 'h';
+}
+
+/**
+ @brief
+    Takes in an integer and returns a string with commas. Works for pos or neg numbers
+ @param
+    num - number to be converted to string
+ */
+string Dealer::addCommas(int num)
+{
+    string ret = to_string(num);
+    int ret_size = (int)ret.size();
+    
+    for(int i=ret_size-3; i>=0; i--)
+    {
+        if(i-1 >= 0 && (ret_size-i)%3==0)
+        {
+            ret.insert(i, 1, ',');
+        }
+    }
+    return ret;
 }
                                             /*
 string printCard(char first, char sec)
