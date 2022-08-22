@@ -59,8 +59,20 @@ For Unix architecture (Mac or Linux):
 | 'A' | No Action     | this is default value, if 'a' is called, action will be requested from player. This is used to stack calls to Dealer::action() |
 
 - split and double can be stacked multiple times just like they can in a real game of blackjack
-- *Soon*, the player will be able to get adjusted strategy hints based on count of the deck vs dealer's shown card
 - When adding funds to a player's bankroll, the game tracks add on amounts, and doesn't let the user add more than an amount that would bring player's bankroll back up to MAX_RELOAD during a single hand, even if the option to add on is selected multiple times.
+
+**Future Features:**
+
+- GUI
+  - Currently working on a GUI and full mobile game for iOS and Android using **React Native**, connecting it to the **C++** backend. Ideally, the use of React should make it very portable, and able to run on multiple platforms without much modification from one to the next
+  - Looking into working with open source graphics rendering software called Dear IMGUI
+- Ability for player to play multiple hands, with the additional hand acting as another player and reducing the number of players allowed at the table by one
+- Analysis of player's betting patterns, and advice on improvement
+- Player will be able to get adjusted strategy hints based on count of the deck vs dealer's shown card
+- Analysis and tabulation of times when player *did not* act correctly (according to basic strategy or count adjusted basic strategy)
+  - option to print these results to file
+
+**To view more implementation ideas (both complete and incomplete), see [TODO.md](https://github.com/gaberull/CountingCards/blob/master/TODO.md)**
 
 ## Blackjack Terminology
 
@@ -85,9 +97,11 @@ For Unix architecture (Mac or Linux):
 - For this particular implementation of Blackjack, the dealer will stand pat on both soft and hard 17s, and any hand with better than 17 points
 - For more information about blackjack rules see [Bicycle's Blackjack Rules](https://bicyclecards.com/how-to-play/blackjack/)
 
-## Some info on card counting in the game of Blackjack
+## Info on card counting in the game of Blackjack
 
 Generally speaking, the player does not have an edge long-term against the casino in the game of blackjack... However, this can change when the count of the deck becomes high enough, and a player adjusts his bet-sizing accordingly. This is for the simple reason that players get paid 3:2 when hitting blackjack. The more high cards in the deck, the more likely this is to happen. So, if a player can place smaller bets when there are few high cards in the shoe, and larger bets when there are more high cards in the shoe, the player can gain and edge against the casino. CountingCards is a game that aims to help the player learn to do just that.
+
+It is a common misconception that counting cards is against the rules of the game. This is inaccurate. However, a casino is not required to let you play if they believe you are a winning player. A good bet sizing strategy can keep one from drawing too much unwanted attention to one's self while playing
 
 ## Shuffle algorithm implementation
 
@@ -157,15 +171,7 @@ _cardsRemaining--
 **Exit game:**
 ![exit](/screenshots/8_12_22/exit.png)
 
-## Future Features
 
-- GUI
-  - Currently working on a GUI and full mobile game for iOS and Android using **React Native**, connecting it to the **C++** backend. Ideally, the use of React should make it very portable, and able to run on multiple platforms without much modification from one to the next
-- Add in ability for player to play multiple hands, with a second acting as another player and reducing the number of players allowed at the table by one
-- Analysis of player's betting patterns, and advice on improvement
-- Analysis and tabulation of times when player did not act correctly
-  - option to print to file
-- More implementation ideas and tasks to complete are in the file [TODO.md](https://github.com/gaberull/CountingCards/blob/master/TODO.md)
 
 ### References
 
