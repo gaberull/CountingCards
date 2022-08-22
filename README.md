@@ -43,7 +43,7 @@ For Unix architecture (Mac or Linux):
   - Since these cards are not dealt out of the shoe, they do not affect the count
   - The game prompts the user to enter one to four players, so one would have to know about this mode beforehand. There is no prompt on-screen that tells the player about this
 
-### In-game Action Menu
+**In-game Action Menu:**
 
 | Character | Action      |     Description  |
 |-----------|-------------|------------------|
@@ -58,8 +58,8 @@ For Unix architecture (Mac or Linux):
 | 'Q' | Quit Game     | Player chooses to quit, game is exited immediately, with profit/loss statement displayed|
 | 'A' | No Action     | this is default value, if 'a' is called, action will be requested from player. This is used to stack calls to Dealer::action() |
 
-- split and double can be stacked multiple times as in a real game of blackjack
-- Soon, the player will be able to get adjusted strategy hints based on count of the deck vs dealer's shown card
+- split and double can be stacked multiple times just like they can in a real game of blackjack
+- *Soon*, the player will be able to get adjusted strategy hints based on count of the deck vs dealer's shown card
 - When adding funds to a player's bankroll, the game tracks add on amounts, and doesn't let the user add more than an amount that would bring player's bankroll back up to MAX_RELOAD during a single hand, even if the option to add on is selected multiple times.
 
 ## Blackjack Terminology
