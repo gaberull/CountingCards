@@ -57,12 +57,20 @@ For Unix architecture (Mac or Linux):
   - Since these cards are not dealt out of the shoe, they do not affect the count
   - This is a hidden feature and there is no prompt on-screen that tells the player about this
 
-  ## In-game Action Menu
+## In-game Action Menu
 
 | Character | Action      |     Description  |
 |-----------|-------------|------------------|
-|'a' | no action | this is default value, if 'a' is called, action will be requested from player |
-| 'Q'| Quit | Player chooses to quit|
+| 'H' | Hit Hand      | Player gets one card added to their hand |
+| 'D' | Double Down   | Player opts to receive just one card for the rest of the hand, while doubling their current bet |
+| 'S' | Split Hand    | Player opts to split the hand, and get one more card for each new hand. Bet is doubled and split between the hands |
+| 'P' | Stand Pat     | Player opts to not take any more cards, and stand with the hand's current point value |
+| 'M' | Strategy Hint | Player requests the correct action to take based on their hand's value against dealer's currently shown card |
+| 'B' | Reload Bank   | Player requests to add funds to their bankroll for the next hand - Capped at MAX_RELOAD |
+| 'R' | List Rules    | Player gets a full list of blackjack rules and terminology |
+| 'C' | Get Count     | Player requests the current count of the deck - Receives both running count and true count |
+| 'Q' | Quit Game     | Player chooses to quit, game is exited immediately, with profit/loss statement displayed|
+| 'A' | No Action     | this is default value, if 'a' is called, action will be requested from player |
 
 
 
