@@ -360,7 +360,7 @@ int Dealer::testDealHands(Bank* playerBank)
     delete dealerHand;
     dealerHand = new Hand(revCardMap[d_first], revCardMap[d_sec], bet);
     
-    //    Conditions /////////////////////
+    //    Conditions 
     // player bj        dealer bj
     // player bj        dealer not bj
     // player not bj    dealer bj
@@ -589,7 +589,6 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             return Dealer::action(shoe, playerBank);
             break;
         }
-        
             // Stand Pat
         case 'P': {
             cout << "\n";
@@ -654,7 +653,6 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
                     if(test) return Dealer::action(shoe, playerBank, temp, true);
                     return Dealer::action(shoe, playerBank, temp);  // don't show menu again - should still be visible above
                     break;
-                    
                 }
                 // subtract bet again from bank. Betting 2x original bank now
                 playerBank->removeFunds(playerHand.getBet());
@@ -731,7 +729,6 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
                     temp = toupper(temp);
                 }
                 if(temp=='Q') return -1;
-                
                 if(test) return Dealer::action(shoe, playerBank, 'a', true);
                 return Dealer::action(shoe, playerBank);
             }
@@ -937,8 +934,8 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             return Dealer::action(shoe, playerBank);
             break;
         }
-            // Surrender
-        case 'X': {       //TODO: maybe just get rid of surrender altogether
+            // Surrender    ** Deprecated **
+        case 'X': {       
             cout << "\nPlayer Surrenders  :-(  \n";
             cout << "Surrendering has not yet been implemented as of 8/7/22. \n";
             cout << "I likely will just end up removing it from this game altogether - Gabe \n";
@@ -1026,7 +1023,7 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
             break;
         }
     }
-    return 1;   // should never be hit
+    return 1;   // will never be hit
 }
 
 /**
@@ -1094,8 +1091,9 @@ int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop log
             cout << "Comp Player has      :    " << curr.getHand() << "\n";
             cout << "Comp Player splits \n";
             
-            std::this_thread::sleep_for(duration);  // set pause duration
-            Hand newHand = curr.split(shoe);    // this will change playerHand and create newHand
+            std::this_thread::sleep_for(duration);    // set pause duration
+            Hand newHand = curr.split(shoe);          // this will change playerHand and create newHand
+
             otherPlayers.push_back(curr);
             otherPlayers.push_back(newHand);
             cout << "\n";
@@ -1110,10 +1108,9 @@ int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop log
         {
             cout << "\n";
             cout << "Comp Player has      :    " << curr.getHand() << "\n";
-            cout << "Comp Player doubles \n";   // actually just hitting once
+            cout << "Comp Player doubles \n";   // truly just hitting one time
             std::this_thread::sleep_for(duration);
             curr.hit(shoe);
-            //cout << "\nAfter Double, computer player has " << curr.getHand() <<"\n";
             std::this_thread::sleep_for(duration);
             cout << "\n";
             cout << "Comp Player has      :    " << curr.getHand() << " after doubling\n";
@@ -1149,7 +1146,6 @@ int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop log
  */
 int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
 {
-
     //
     // if there are none of this player's hands to play, or AI hands to play
     //

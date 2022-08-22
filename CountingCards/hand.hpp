@@ -56,7 +56,6 @@ public:
     int getBet();                           // get bet on this hand
     void setBet(const int bet);             // set new bet on this hand
     bool isSoft();                          // returns whether or not the hand is soft
-    
     Hand& operator= (const Hand& diffHand); // overload = operator. returns *this for chaining purposes
     ~Hand();                                //Destructor
 };

@@ -11,9 +11,9 @@
 class Bank
 {
 private:
-    unsigned int _balance;
-    int _addNextHand = 0;
-    Bank();     // private default constructor - can't be called
+    unsigned int _balance;      // current balance
+    int _addNextHand = 0;       // amount to be added to bankroll for next hand
+    Bank();                     // private default constructor - can't be called
 public:
     Bank(int startBalance): _balance(startBalance) { }
     int getBalance() {return _balance; }
