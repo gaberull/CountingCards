@@ -1,6 +1,6 @@
 # Counting Cards - A blackjack game by Gabe Scott
 
-*Source code files are in ./CountingCards/*
+Source code files are in ./CountingCards/
 
 ## Summary
 
