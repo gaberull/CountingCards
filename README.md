@@ -14,9 +14,9 @@ For Unix architecture (Mac or Linux):
 
 - Download folder from this repository containing source files: ./CountingCards/
 - In a terminal, navigate to that source code folder
-- Run Makefile with command:  ```make``` OR  ```make all```
-- Run resultant executable file named "counting" with command: ```./counting```  
-- *optional*: After compilation, execute command ```make clean``` to remove object files and the compiled executable file called "counting"
+- Run Makefile with command:  ``make`` OR  ``make all``
+- Run resultant executable file named "counting" with command: ``./counting``  
+- *optional*: After compilation, execute command ``make clean`` to remove object files and the compiled executable file called "counting"
 
 **Note:**
 
@@ -107,25 +107,25 @@ It is a common misconception that counting cards is against the rules of the gam
 
 The CountinCards shuffle algorithm is based on the modern Fisher-Yates shuffle algorithm, in which each draw of a card from the dealer's shoe is pseudo-random. The algorithm works as follows:
 
-- Before each card draw, the random number generator is seeded with the system's current time:  
+Before each card draw, the random number generator is seeded with the system's current time:  
 
 ```C++  
 srand((unsigned int)std::time(0));
 ```
 
-- Next, a random number between 0 and _cardsRemaining-1 is selected:
+Next, a random number between 0 and _cardsRemaining-1 is selected:
 
 ```C++  
 int i = rand() % _cardsRemaining; 
 ```
 
-- Then, the card that was selected is swapped with the final card in the shoe that is still eligible to be drawn:
+Then, the card that was selected is swapped with the final card in the shoe that is still eligible to be drawn:
 
 ```C++
 swap(fullShoe[i], fullShoe[_cardsRemaining-1]);
 ```
 
-- After the card is dealt, _cardsRemaining is decremented. This makes the card that was just drawn ineligible to be drawn again:
+After the card is dealt, _cardsRemaining is decremented. This makes the card that was just drawn ineligible to be drawn again:
 
 ```C++  
 _cardsRemaining--
