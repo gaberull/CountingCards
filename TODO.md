@@ -45,6 +45,11 @@
 - [ ] Implement change in basic strategy and info for adjusting betting patterns based on true count (the ratio)
 - [ ] add ability for player to play multiple hands
 
+- [ ] Fix situation in multiway hand with dealer hitting blackack - Two continue prompts occur. See screenshot below:
+
+![Two Continue Statements showing](./misc_assets/fix_2continues.png)
+
+
 ## Ideas and Notes to self
 
 - dimensions of terminal for screenshot images: 91 x 28
