@@ -56,7 +56,7 @@ For Unix architecture (Mac or Linux):
 | 'R' | List Rules    | Player gets a full list of blackjack rules and terminology |
 | 'C' | Get Count     | Player requests the current count of the deck - Receives both running count and true count |
 | 'Q' | Quit Game     | Player chooses to quit, game is exited immediately, with profit/loss statement displayed|
-| 'A' | No Action     | this is default value, if 'a' is called, action will be requested from player. This is used to stack calls to Dealer::action() |
+| 'X' | Surrender     | (*Deprecated*) This feature is rare in real games, and would affect this game significantly. I decided against implementing it |
 
 - split and double can be stacked multiple times just like they can in a real game of blackjack
 - When adding funds to a player's bankroll, the game tracks add on amounts, and doesn't let the user add more than an amount that would bring player's bankroll back up to MAX_RELOAD during a single hand, even if the option to add on is selected multiple times.
@@ -171,8 +171,6 @@ _cardsRemaining--
 **Exit game:**
 ![exit](/screenshots/8_12_22/exit.png)
 
-
-
 ### References
 
 #### Blackjack
@@ -186,6 +184,5 @@ _cardsRemaining--
 - [Rounding Floating Point int C++ - G4G](https://www.geeksforgeeks.org/rounding-floating-point-number-two-decimal-places-c-c/) for using implicit int conversion to round a float to 2 digits
 - [Markdown Basic Syntax - markdownguide.org](https://www.markdownguide.org/basic-syntax/#link-best-practices)
 - [Fisher-Yates shuffle algorithm - Wikipedia](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle)
-
 
 Copyright (c) 2022 Gabe Scott
