@@ -48,7 +48,7 @@
 - [ ] Add link at top of README.md for releases page (once I put out release)
 - [ ] Fix situation in multiway hand with dealer hitting blackack - Two continue prompts occur. See screenshot below:
 
-![Two Continue Statements showing](./misc_assets/fix_2continues.png)
+![Two Continue Statements showing](./images/fix_2continues.png)
 
 
 ## Ideas and Notes to self
