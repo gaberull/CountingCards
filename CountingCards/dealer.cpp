@@ -64,8 +64,9 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
         cout << "\n";
         cout <<"Uh Oh... \n";
         char bet_str[11];
-        int max_bet = (MAX_RELOAD <= playerBank->getBalance())? MAX_RELOAD: playerBank->getBalance();
-        cout << "You bet too much. Enter bet from 1 to "<< max_bet << endl;
+        int max_bet = min(MAX_RELOAD, playerBank->getBalance());
+        //int max_bet = (MAX_RELOAD <= playerBank->getBalance())? MAX_RELOAD: playerBank->getBalance();
+        cout << "You bet too much. Enter bet from $1 to "<< addCommas(max_bet) << "   (only digits)" << endl;
         cin >> bet_str;
         bet_str[0] = toupper(bet_str[0]);
         if(bet_str[0] == 'Q') return -1;
@@ -148,7 +149,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
     if(!blackjack && dealerHand->isBlackjack())
     {
         handArray.pop_back();
-        cout << "Dealer Has           :    " << dealerHand->getHand() << "\n";
+        cout << "Dealer has           :    " << dealerHand->getHand() << "\n";
         cout << "\n** Got us this time..  **\n\n";   //FIXME: too much displayed when dealer wins here heads up
         cout << "-----------------------------  \n";
         cout << "| BANKROLL     : $"<< addCommas(playerBank->getBalance()) <<" \n";
@@ -189,7 +190,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
             playerBank->addFunds(bet);   // put funds back in that we took out at start for bet
             cout << "You have BLACKJACK, BUT so does the dealer! :( \nThis round is a push! \n";
             cout << "\n";
-            cout << "Dealer Has           :    " << dealerHand->getHand() << "\n\n";
+            cout << "Dealer has           :    " << dealerHand->getHand() << "\n\n";
             cout << "-----------------------------  \n";
             cout << "| BANKROLL     : $"<< addCommas(playerBank->getBalance()) <<" \n";
             cout << "----------------------------- \n \n";
@@ -376,7 +377,7 @@ int Dealer::testDealHands(Bank* playerBank)
         cout << "Uh Ohhh..." << endl;
         std::chrono::seconds duration(2);
         std::this_thread::sleep_for(duration);
-        cout << "Dealer Has           :    " << dealerHand->getHand() << endl;
+        cout << "Dealer has           :    " << dealerHand->getHand() << endl;
         cout << "\n";
         cout << "You have BLACKJACK, BUT so does the dealer! :( \n";
         cout << "Hand is a push. No win or loss of funds" << endl;
@@ -433,7 +434,7 @@ int Dealer::testDealHands(Bank* playerBank)
         cout << "\n";
         cout << "Uh Ohhh..." << endl;
         std::this_thread::sleep_for(duration);
-        cout << "Dealer Has           :    " << dealerHand->getHand() << endl;
+        cout << "Dealer has           :    " << dealerHand->getHand() << endl;
         cout << "For blackjack :( " << endl;
         cout << "\n";
         cout << "You LOST your bet of $" << addCommas(player.getBet()) << "    >:-(" << endl;
@@ -1175,7 +1176,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
     
     int dealerScore = dealerHand->getValue();
     cout << "\n";
-    cout << "Dealer Has           :    " << dealerHand->getHand() << "      initially \n";
+    cout << "Dealer has           :    " << dealerHand->getHand() << "      initially \n";
     std::chrono::seconds duration(2);
     std::this_thread::sleep_for(duration);        // Pause so player can count cards
     
@@ -1184,7 +1185,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
     {
         dealerScore = dealerHand->hit(shoe);
         numHits++;
-        cout << "Dealer Has           :    " << dealerHand->getHand() << "     after hitting "<< numHits <<" time(s) \n";
+        cout << "Dealer has           :    " << dealerHand->getHand() << "     after hitting "<< numHits <<" time(s) \n";
         std::this_thread::sleep_for(duration);
     }
     if(dealerScore > 0)    // dealer not bust
@@ -1199,7 +1200,7 @@ int Dealer::dealerAction(Shoe* shoe, Bank* playerBank)
     cout << "\n";
     cout << "    <<<   Hand Showdown   >>>" << endl;
     (dealerHand->getValue() > 0) ?
-    cout << "\nDEALER Has           :    " << dealerHand->getHand() << "\n\n":
+    cout << "\nDEALER has           :    " << dealerHand->getHand() << "\n\n":
     cout <<"\nDealer is BUST \n";
     
     int numYourHands = (int)patHands.size();
