@@ -44,8 +44,9 @@
 - [ ] Handle computer player getting blackjack on a split hand - currently standing pat
 - [ ] Implement change in basic strategy and info for adjusting betting patterns based on true count (the ratio)
 - [ ] add ability for player to play multiple hands
-- [ ] Put release out on Github - v1.0.0
+- [ ] Put release out on Github - v0.1.0   (maybe -alpha)
 - [ ] Add link at top of README.md for releases page (once I put out release)
+- [ ] Move screenshots/ to images/screenshots/
 - [ ] Fix situation in multiway hand with dealer hitting blackack - Two continue prompts occur. See screenshot below:
 
 ![Two Continue Statements showing](./images/fix_2continues.png)
