@@ -336,14 +336,10 @@ int main(int argc, const char * argv[])
         winLoss = addCommas_main(net * -1);
         cout << "| NET WIN/LOSS         : -$"<< winLoss <<" \n\n";
     }
-                                                                        /*
-    (net>=0)?
-    winLoss = addCommas(net):
-    winLoss = addCommas(net * -1);
-    (net >= 0) ?
-    cout << "| NET WIN/LOSS         : $"<< winLoss <<" \n\n":
-    cout << "| NET WIN/LOSS         : -$"<< winLoss <<" \n\n";
-                                                                         */
+    
+    // Pause for Windows systems. Otherwise players won't see results
+    std::chrono::seconds duration(3);
+    std::this_thread::sleep_for(duration);
     
     // De-allocate heap memory
     delete shoe;
