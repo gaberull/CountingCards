@@ -27,6 +27,7 @@
 - [x] Add table limits (max bet size of MAX_RELOAD)
 - [x] complete info on counting cards in general on README.md
 - [x] in 1 player: user splits hand, the "You win $X" statement needs a newline after it if there is more than 1 hand left. Maybe add new line in either case
+- [x] Move print stmt of "Computer Action to computerAction() from main()  
 
 ## Incomplete
 
@@ -48,6 +49,7 @@
 - [ ] Add link at top of README.md for releases page (once I put out release)
 - [ ] Move screenshots/ to images/screenshots/
 - [ ] Fix situation in multiway hand with dealer hitting blackack - Two continue prompts occur. See screenshot below:
+- [ ] Maybe reverse order of which hand is played first after splitting
 
 ![Two Continue Statements showing](./images/fix_2continues.png)
 
