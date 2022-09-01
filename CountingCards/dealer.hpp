@@ -30,7 +30,7 @@ public:
     int dealHands(Shoe* shoe, Bank* playerBank, int bet);       // Initial hand dealing to user and AI players, dealer
     int testDealHands(Bank* playerBank);                    // for testing purposes - choose hand & dealer hand
     int action(Shoe* shoe, Bank* playerBank, char action ='a', bool test=false); 
-    int computerAction(Shoe* shoe);                     // Perform action on computer players' hands
+    int computerAction(Shoe* shoe, bool printAction=false);   // Perform action on computer players' hands, print action first time only
     int dealerAction(Shoe* shoe, Bank* playerBank);     // Perform dealer actions after all players' hand actions done
     int hitPlayer(Hand& player, Shoe* shoe);            // calls hit() and adds text output
     int testHitPlayer(Hand& player);                    // for testing. choose hit card

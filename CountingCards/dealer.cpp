@@ -1038,12 +1038,18 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
     0   -   Hand is finished. otherPlayers vector is empty. No more hands to play
     1   -  (Won't ever be returned) Hand isn't finished
  */
-int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop logic
+int Dealer::computerAction(Shoe* shoe, bool printAction)    //TODO: Double check this for loop logic
 {
     if(otherPlayers.empty())
     {
         return 0;
     }
+    if(printAction)
+    {
+        cout << "\n";
+        cout << "    <<<<     Computer Action     >>>>" << endl;
+    }
+    
     Hand curr = otherPlayers.back();
     otherPlayers.pop_back();
     char action = this->correctAction(curr, dealerHand, 0, false);
@@ -1070,7 +1076,7 @@ int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop log
             {
                 otherPlayers.push_back(curr);
             }
-            return computerAction(shoe);
+            return computerAction(shoe, false);
             break;
         }
             // Stand pat
@@ -1082,7 +1088,7 @@ int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop log
             otherPats.push_back(curr);
             std::this_thread::sleep_for(duration);
             // computerPat()
-            return computerAction(shoe);
+            return computerAction(shoe, false);
             break;
         }
             // Split
@@ -1101,7 +1107,7 @@ int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop log
             cout << "Hand 1               :    "<< otherPlayers[otherPlayers.size()-1].getHand() <<"\n";
             cout << "\n";
             cout << "Hand 2               :    "<< otherPlayers[otherPlayers.size()-2].getHand() <<"\n";
-            return computerAction(shoe);
+            return computerAction(shoe, false);
             break;
         }
             // Double
@@ -1124,7 +1130,7 @@ int Dealer::computerAction(Shoe* shoe)    //TODO: Double check this for loop log
             {
                 otherPats.push_back(curr);
             }
-            return computerAction(shoe);
+            return computerAction(shoe, false);
             break;
         }
             //default will never execute

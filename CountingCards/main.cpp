@@ -198,11 +198,9 @@ int main(int argc, const char * argv[])
         }
         else   //handContinues==0, Do computerAction, then Do dealer action, then start new hand
         {
-            if(numPlayers > 1 && !dealer->hasBlackjack())
+            if(numPlayers > 1 && !dealer->hasBlackjack())   // TODO: make this text output show only when players left w cards
             {
-                cout << "\n";
-                cout << "    <<<<     Computer Action     >>>>" << endl;
-                dealer->computerAction(shoe);
+                dealer->computerAction(shoe, true);
             }
             handContinues = dealer->dealerAction(shoe, bank);
             
