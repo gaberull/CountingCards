@@ -7,7 +7,6 @@
 
 #include <thread>   // for sleep_for(duration)
 #include <chrono>   // for sleep_for(duration)
-#include <iostream>
 #include "dealer.hpp"
 #include "shoe.hpp"
 #include "hand.hpp"
@@ -976,8 +975,6 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
                 cout << "Wrong Input. Enter positive number" << endl;
                 cin >> temp;
             }
-            
-            //FIXME: make it MAX_RELOAD and not 3/4 of it
             
             // entered amount is too much
             if(temp+playerHand.getBet()+playerBank->getBalance()+playerBank->getAddNextHand() > MAX_RELOAD)
