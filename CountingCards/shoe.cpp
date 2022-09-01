@@ -24,15 +24,6 @@ Shoe::Shoe()
 
 /**
  @brief
-    returns number of cards remaining in shoe
- */
-int Shoe::getCardsRemaining()
-{
-    return _cardsRemaining;
-}
-
-/**
- @brief
     Shoe Constructor
  @param numDecks
     number of decks in the shoe
@@ -297,6 +288,10 @@ int Shoe::getAceCount()
     return _aceCount;
 }
 
+/**
+ @brief
+    returns number of cards remaining in shoe
+ */
 int Shoe::getCardsLeft()
 {
     return _cardsRemaining;
