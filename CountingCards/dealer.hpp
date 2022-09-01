@@ -19,7 +19,6 @@ private:
     std::vector<Hand> otherPlayers;             // Computer players' array of hands
     std::vector<Hand> otherPats;                // Computer players' array of hands already standing pat
     Hand* dealerHand;                           // Dealer's hand (pointer)
-    //bool dealerBlackjack = false;
     Dealer();                                   // Default constructor - private so it can't be called
     
     //friend std::ostream& operator<<(std::ostream& s, const Dealer& dealer);

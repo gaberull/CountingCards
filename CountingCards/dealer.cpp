@@ -345,7 +345,7 @@ int Dealer::testDealHands(Bank* playerBank)
     int bet = -1;
     cin >>bet;
     
-    while(!cin || bet < 0 || bet > playerBank->getBalance())    //TODO: check this < 0 should be <= 0
+    while(!cin || bet < 0 || bet > playerBank->getBalance())    //FIXME: check this < 0 should be <= 0
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');

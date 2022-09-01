@@ -25,7 +25,7 @@ string addCommas_main(int num)
 {
     string ret = to_string(num);
     int ret_size = (int)ret.size();
-    for(int i=ret_size-3; i>=0; i--)    //TODO: test this adding commas
+    for(int i=ret_size-3; i>=0; i--)    //TODO: find way to use one addCommas for both files?
     {
         if(i-1 >= 0 && (ret_size-i)%3==0)
         {
@@ -198,7 +198,7 @@ int main(int argc, const char * argv[])
         }
         else   //handContinues==0, Do computerAction, then Do dealer action, then start new hand
         {
-            if(numPlayers > 1 && !dealer->hasBlackjack())   // TODO: make this text output show only when players left w cards
+            if(numPlayers > 1 && !dealer->hasBlackjack())
             {
                 dealer->computerAction(shoe, true);
             }
