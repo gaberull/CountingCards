@@ -1031,6 +1031,9 @@ int Dealer::action(Shoe* shoe, Bank* playerBank, char action, bool test)
     bust or in the vector of hands standing pat called otherPats.
  @param shoe
     the Shoe object that holds the decks
+ @param printAction - bool
+    0   -   Do not print "Computer Action" to stdout
+    1   -   Print it. This is only the case on the first call for computerAction()
  @return int
     0   -   Hand is finished. otherPlayers vector is empty. No more hands to play
     1   -  (Won't ever be returned) Hand isn't finished
