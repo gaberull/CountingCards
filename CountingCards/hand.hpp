@@ -18,11 +18,9 @@ class Hand
 {
     std::vector<char> cardArray;
     std::vector<char> suitArray;
-    
     static std::unordered_map<uint8_t, char> cardMap;
     static std::unordered_map<char, int> valueMap;
     static std::unordered_map<uint8_t, char> suitMap;
-    
     uint8_t _card1;
     uint8_t _card2;
     int numCards = 0;
@@ -32,7 +30,6 @@ class Hand
     int _value = 0;
     int handBet = 0;
     bool soft = false;
-    
     friend std::ostream& operator<<(std::ostream& s, const Hand& hand);   // overload << operator
     
 public:
@@ -52,7 +49,6 @@ public:
     int getNumCards();                      // get number of cards
     void setPat(const bool pat);            // set whether or not hand can receive more cards
     bool getPat();                          // get whether or not hand can receive more cards
-    //int doubleHand(Shoe* shoe, int bet=0);
     int getBet();                           // get bet on this hand
     void setBet(const int bet);             // set new bet on this hand
     bool isSoft();                          // returns whether or not the hand is soft
