@@ -50,6 +50,8 @@
 - [ ] Move screenshots/ to images/screenshots/
 - [ ] Fix situation in multiway hand with dealer hitting blackack - Two continue prompts occur. See screenshot below:
 - [ ] Maybe reverse order of which hand is played first after splitting
+- [ ] Ask player if he wants to continue game from start  
+- [ ] read in csv file to restart game  
 
 ![Two Continue Statements showing](./images/fix_2continues.png)
 
