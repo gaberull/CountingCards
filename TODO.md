@@ -30,16 +30,16 @@
 
 ## Incomplete
 
+- [ ] **report of precisely when (and the count) the player did not do the right action**  
+  - [ ] ***Option to print to file***
 - [ ] Create new Utility class with static functions for things like converting int to string with commas, etc
-  - [ ] Remove the current duplicate of addComma() and addComma_main() 
+  - [ ] Remove the current duplicate of addComma() and addComma_main()  
 - [ ] Update demo screen recordings, screenshots (wrote this 8/21/22)
 - [ ] Add some place to request a printout of the exact situations in which player made mistake on Basic Strategy actions
 - [ ] Add way to tell which hand you are on when playing hands you have split - i.e. hand 3 / X
 - [ ] Look at IMGui and openGL for graphics rendering. View github repo
 - [ ] High score component to game.. ?  
 - [ ] Add testing mode capabilities to splitting and dealer received cards
-- [ ] report of precisely when (and the count) the player did not do the right action  
-  - [ ] ***Option to print to file***
 - [ ] Add count notices like "Count is high, maybe you should consider raising your bet"
 - [ ] Handle computer player getting blackjack on a split hand - currently standing pat
 - [ ] Implement change in basic strategy and info for adjusting betting patterns based on true count (the ratio)
@@ -50,7 +50,6 @@
 - [ ] Fix situation in multiway hand with dealer hitting blackack - Two continue prompts occur. See screenshot below:
 
 ![Two Continue Statements showing](./images/fix_2continues.png)
-
 
 ## Ideas and Notes to self
 
