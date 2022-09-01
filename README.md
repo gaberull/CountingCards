@@ -1,6 +1,6 @@
 # Counting Cards - A blackjack game by Gabe Scott
 
-Source code files are in ./CountingCards/
+View source code files in directory ```./CountingCards/``` or click [here](https://github.com/gaberull/CountingCards/tree/master/CountingCards)
 
 ## Summary
 
@@ -46,7 +46,7 @@ For Unix architecture (Mac or Linux):
 **In-game Action Menu:**
 
 | Character | Action      |     Description  |
-|-----------|-------------|------------------|
+|   :---:   | :-----------|------------------|
 | 'H' | Hit Hand      | Player gets one card added to their hand |
 | 'D' | Double Down   | Player opts to receive just one card for the rest of the hand, while doubling their current bet |
 | 'S' | Split Hand    | Player opts to split the hand into two hands and get two more card - one for each hand. Bet is doubled and split between the hands |
