@@ -28,6 +28,7 @@
 - [x] complete info on counting cards in general on README.md
 - [x] in 1 player: user splits hand, the "You win $X" statement needs a newline after it if there is more than 1 hand left. Maybe add new line in either case
 - [x] Move print stmt of "Computer Action to computerAction() from main()  
+- [x] where it says "You bet too much. Enter bet from $1 to 100" add the missing a dollar sign on second number
 
 ## Incomplete
 
@@ -52,6 +53,7 @@
 - [ ] Maybe reverse order of which hand is played first after splitting
 - [ ] Ask player if he wants to continue game from start  
 - [ ] read in csv file to restart game  
+
 
 ![Two Continue Statements showing](./images/fix_2continues.png)
 

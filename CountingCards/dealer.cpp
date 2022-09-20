@@ -65,7 +65,7 @@ int Dealer::dealHands(Shoe* shoe, Bank* playerBank, int bet)    //FIXME: 8/8/22 
         char bet_str[11];
         int max_bet = min(MAX_RELOAD, playerBank->getBalance());
         //int max_bet = (MAX_RELOAD <= playerBank->getBalance())? MAX_RELOAD: playerBank->getBalance();
-        cout << "You bet too much. Enter bet from $1 to "<< addCommas(max_bet) << "   (only digits)" << endl;
+        cout << "You bet too much. Enter bet from $1 to $"<< addCommas(max_bet) << "   (only digits)" << endl;
         cin >> bet_str;
         bet_str[0] = toupper(bet_str[0]);
         if(bet_str[0] == 'Q') return -1;
