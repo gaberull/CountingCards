@@ -135,7 +135,7 @@ _cardsRemaining--
 
 ## Demo
 
-***Note: As of 8/21/22, these demo images are a bit outdated***
+***Note: As of 9/20/22, these gifs are in need of updating***
 
 **One Player Gameplay:**
 
