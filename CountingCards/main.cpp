@@ -226,7 +226,7 @@ int main(int argc, const char * argv[])
             if(bank->getBalance() == 0)
             {
                 cout << "\nYOU ARE OUT OF FUNDS! \n";
-                cout << "\nEnter amount to reload (up to $" << MAX_RELOAD << ") | 'q' to quit! \n";
+                cout << "\nEnter amount to reload (up to $" << addCommas_main(MAX_RELOAD) << ") | 'q' to quit! \n";
                 char reload_str[10];
                 cin >> reload_str;
                 reload_str[0] = toupper(reload_str[0]);
