@@ -18,7 +18,7 @@ class Hand {
     #soft;
     #value;
 
-    constructor (card1, card2, bet=0) {
+    constructor (card1, card2, bet = 0) {
         if(card1 === undefined || card2 === undefined || bet === undefined)
         {
             this.VALUE_MAP = new Map(
@@ -111,6 +111,7 @@ class Hand {
             default:
                 break;
         }
+        this.#cardArray = new Array();
         this.#cardArray[0] = card1;
         this.#cardArray[1] = card2;
         switch (card2[0]) {
@@ -204,8 +205,8 @@ class Hand {
         const card = shoe.dealCard();
         var cardValue = 0;  // value of card received while hitting
         
-        if(this.#VALUE_MAP.has(card[0])) {
-            cardValue = this.#VALUE_MAP[card[0]];
+        if(this.VALUE_MAP.has(card[0])) {
+            cardValue = this.VALUE_MAP[card[0]];
         }
         else {
             if(this.#value <= 10) {
@@ -237,7 +238,7 @@ class Hand {
         this.#cardArray.push(card);
         var cardValue = 0;  // value of card received while hitting
         
-        if(this.#VALUE_MAP.has(card[0])) {
+        if(this.VALUE_MAP.has(card[0])) {
             cardValue = valueMap[card[0]];
         }
         else {
@@ -252,7 +253,7 @@ class Hand {
         this.#value += cardValue;
         if(this.#value > 21)
         {
-            if(soft)    // handle if hand is soft
+            if(this.#soft)    // handle if hand is soft
             {
                 this.#value -= 10;
                 this.#soft = false;
@@ -268,9 +269,9 @@ class Hand {
         this.#handBet = bet;
     }         
     split(shoe) {
-        var bet = this.getBet();
-        var newHand1 = new Hand(this.#card1, shoe.dealCard(), bet);
-        var newHand2 = new Hand(this.#card2, shoe.dealCard(), bet);
+        let bet = this.getBet();
+        let newHand1 = new Hand(this.#card1, shoe.dealCard(), bet);
+        let newHand2 = new Hand(this.#card2, shoe.dealCard(), bet);
         this.#card1 = newHand1.#card1;
         this.#card2 = newHand2.#card2;
         this.#soft = newHand1.#soft;
@@ -321,34 +322,3 @@ class Hand {
         return this.#soft;
     }
 }
-
-
-
-
-
-// Hand::Hand(const Hand& diffHand)
-// {
-
-//     this->_card1 = diffHand._card1;
-//     this->_card2 = diffHand._card2;
-//     this->numCards = diffHand.numCards;
-//     this->cardArray = vector<char>(numCards);
-    
-//     for(int i=0; i<numCards; i++)
-//     {
-//         this->cardArray[i] = diffHand.cardArray[i];
-//     }
-//     this->suitArray = std::vector<char>(numCards);
-//     for(int i=0; i<numCards; i++)
-//     {
-//         this->suitArray[i] = diffHand.suitArray[i];
-//     }
-    
-//     this->blackjack = diffHand.blackjack;
-//     this->splittable = diffHand.splittable;
-//     this->_value = diffHand._value;
-//     this->isPat = diffHand.isPat;
-//     this->handBet = diffHand.handBet;
-//     this->soft = diffHand.soft;
-// }           
-

@@ -7,15 +7,24 @@
 
 class Shoe {
 
+    #cardsRemaining
+    #count
+    #aceCount
+    #endOfShoe
+    #fullShoe
+    #cutPoint
+    #chars
+    #suits
+
     constructor (numDecks, cutPoint) {
         if(typeof numDecks !== 'number' || typeof cutPoint !== 'number') {
             throw new Error('expected types number, got ' + typeof startBalance + ', ' + typeof cutPoint);
         }
-        this.cardsRemaining = numDecks * 52;
-        this.count = 0;
-        this.aceCount = 0;  //TODO: check if I need this at all
-        this.endOfShoe = false;
-        this.fullShoe = Array(cardsRemaining).fill('0z');
+        this.#cardsRemaining = numDecks * 52;
+        this.#count = 0;
+        this.#aceCount = 0;  //TODO: check if I need this at all
+        this.#endOfShoe = false;
+        this.#fullShoe = Array(cardsRemaining).fill('0z');
 
         switch (cutPoint) {
             case 0:
@@ -38,24 +47,24 @@ class Shoe {
         const suits = 'sdch';
         for(var i=0; i<cardsRemaining; i++) {
             //this.fullShoe[i].replace('0', chars[(i%13)]);
-            var character = chars[(i%13)];
-            var suit = suis[(i%4)];
-            var newStr = character + suit;
-            this.fullShoe[i] = newStr;
+            let character = chars[(i%13)];
+            let suit = suits[(i%4)];
+            let newStr = character + suit;
+            this.#fullShoe[i] = newStr;
         }
     }
 
     dealCard() {
         if(this.cardsRemaining <= 0) {
-            var i = Math.floor(Math.random() * (this.numDecks * 52));
-            this.count = 0;
-            this.aceCount = 0;
+            let i = Math.floor(Math.random() * (this.numDecks * 52));
+            this.#count = 0;
+            this.#aceCount = 0;
         }
         else {
-            var i = Math.floor(Math.random() * (this.cardsRemaining));
+            let i = Math.floor(Math.random() * (this.cardsRemaining));
         }
-        var card = this.fullShoe[i];
-        var firstChar = card[0];
+        let card = this.fullShoe[i];
+        let firstChar = card[0];
         
         switch (firstChar) {
             case 'A':
@@ -114,48 +123,48 @@ class Shoe {
         }
 
         if (this.cardsRemaining > 0) {
-            var temp = fullShoe[i];
-            this.fullShoe[i] = fullShoe[this.cardsRemaining-1];
-            this.fullShoe[this.cardsRemaining-1] = temp;
+            let temp = fullShoe[i];
+            this.#fullShoe[i] = fullShoe[this.cardsRemaining-1];
+            this.#fullShoe[this.#cardsRemaining-1] = temp;
             //swap(fullShoe[i], fullShoe[_cardsRemaining-1]);
         }
         else {
-            this.count = 0;
-            this.aceCount = 0;
+            this.#count = 0;
+            this.#aceCount = 0;
         }
-        this.cardsRemaining--;
-        if(this.cardsRemaining <= this.cutPoint) this.endOfShoe = true;
+        this.#cardsRemaining--;
+        if(this.#cardsRemaining <= this.#cutPoint) this.#endOfShoe = true;
 
         return card;
     }
 
     endOfShoe() {
-        return this.endOfShoe;
+        return this.#endOfShoe;
     }
 
     getCount() {
-        if(this.cardsRemaining <= 0)
+        if(this.#cardsRemaining <= 0)
         {
             return 0;
         }
-        return this.count;
+        return this.#count;
     }
 
-    getTrueCount() {    //TODO: implement
-        if(this.cardsRemaining <= 0) return 0;
+    getTrueCount() {
+        if(this.#cardsRemaining <= 0) return 0;
         
-        var ret = 0.00;
-        var decksLeft = this.cardsRemaining / 52.0;
+        let ret = 0.00;
+        let decksLeft = this.#cardsRemaining / 52.0;
         ret = ret * 100 + 0.5;
         ret /= 100;
         return ret;
     }
 
     getAceCount() {
-        return this.aceCount;
+        return this.#aceCount;
     }
 
     getCardsLeft() {
-        return this.cardsRemaining;
+        return this.#cardsRemaining;
     }
 };
