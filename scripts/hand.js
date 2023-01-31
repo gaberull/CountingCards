@@ -180,12 +180,12 @@ class Hand {
     }
 
     getHand() {
-        var ret = "";
+        let ret = "";
         for(let i=0; i<this.#numCards; i++) {
             ret += this.#cardArray[i];
             if(i != numCards-1) ret += (' ');
         }
-        ret.push_back('|');
+        // ret.push_back('|');
         return ret;
     }   
     getFirstCard() {
@@ -203,7 +203,7 @@ class Hand {
         this.#numCards++;
         
         const card = shoe.dealCard();
-        var cardValue = 0;  // value of card received while hitting
+        let cardValue = 0;  // value of card received while hitting
         
         if(this.VALUE_MAP.has(card[0])) {
             cardValue = this.VALUE_MAP[card[0]];
@@ -234,9 +234,9 @@ class Hand {
         this.#splittable = false;
         this.#numCards++;
         
-        // var cardSymbol = card[0];
+        // let cardSymbol = card[0];
         this.#cardArray.push(card);
-        var cardValue = 0;  // value of card received while hitting
+        let cardValue = 0;  // value of card received while hitting
         
         if(this.VALUE_MAP.has(card[0])) {
             cardValue = valueMap[card[0]];
