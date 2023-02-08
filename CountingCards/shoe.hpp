@@ -2,7 +2,7 @@
 //  shoe.hpp
 //  CountingCards
 //
-//  Copyright (c) 2022 Gabe Scott
+//  Copyright (c) 2023 Gabe Scott
 //
 
 #pragma once

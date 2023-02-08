@@ -2,7 +2,7 @@
 //  shoe.cpp
 //  CountingCards
 //
-//  Copyright (c) 2022 Gabe Scott
+//  Copyright (c) 2023 Gabe Scott
 //
 
 #include "shoe.hpp"
